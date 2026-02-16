@@ -1,1 +1,54 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #1e293b;
+    color: #f8fafc;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.main-content {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+section {
+    margin-bottom: 2rem;
+}
+
+section h3 {
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+}
+
+section p,
+section ul {
+    color: #334155;
+    line-height: 1.5;
+}
+
+ul li {
+    margin-bottom: 0.5rem;
+}
+
+a {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #1e293b;
+    color: #f8fafc;
+}
