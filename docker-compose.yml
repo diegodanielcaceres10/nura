@@ -1,0 +1,13 @@
+services:
+  frontend:
+    build: .
+    container_name: nura-frontend
+    env_file:
+      - .env
+    ports:
+      - "${PORT}:4200"   # host_port:container_port
+    volumes:
+      - ./frontend:/app          # monta tu código en tiempo real
+      - /app/node_modules        # mantiene node_modules dentro del contenedor
+    stdin_open: true
+    tty: true
