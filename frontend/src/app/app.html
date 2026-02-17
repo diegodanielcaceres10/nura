@@ -1,12 +1,79 @@
-<app-header></app-header>
-
+<header [class.sticky]="isSticky" class="header">
+    <nav>
+        <a href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
+        <a href="#experience">{{ 'MENU_EXPERIENCE' | translate }}</a>
+        <a href="#skills">{{ 'MENU_SKILLS' | translate }}</a>
+        <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
+    </nav>
+</header>
 <main>
-    <app-about></app-about>
-    <app-experience></app-experience>
-    <app-skills></app-skills>
-    <app-projects></app-projects>
-    <app-testimonials></app-testimonials>
-    <app-contact></app-contact>
-</main>
+    <section id="about" class="about">
+        <h1>Diego Daniel Caceres</h1>
+        <h3>{{ 'DEVELOPER' | translate }}</h3>
+    </section>
 
-<app-footer></app-footer>
+    <section id="experience" class="experience">
+        <h3>{{ 'EXPERIENCE' | translate }}</h3>
+        <div class="cards-grid">
+            <app-card>
+                <h4>{{ 'CESLA_TECH_LEAD' | translate }}</h4>
+                <span>{{ 'DATE_NOV_2024_FEB_2026' | translate }}</span>
+                <p>{{ 'CESLA_TECH_LEAD_DESC' | translate }}</p>
+            </app-card>
+            <app-card>
+                <h4>{{ 'CESLA_FULLSTACK' | translate }}</h4>
+                <span>{{ 'DATE_NOV_2024_FEB_2026' | translate }}</span>
+                <p>{{ 'CESLA_FULLSTACK_DESC' | translate }}</p>
+            </app-card>
+            <app-card>
+                <h4>{{ 'APEX_FRONTEND' | translate }}</h4>
+                <span>{{ 'DATE_JAN_2020_MAR_2021' | translate }}</span>
+                <p>{{ 'APEX_FRONTEND_DESC' | translate }}</p>
+            </app-card>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <h3>{{ 'SKILLS' | translate }}</h3>
+        <ul>
+            <li><strong>{{ 'FRONTEND' | translate }}</strong></li>
+            <li><strong>{{ 'BACKEND' | translate }}</strong></li>
+            <li><strong>{{ 'MOBILE' | translate }}</strong></li>
+            <li><strong>{{ 'CLOUD' | translate }}</strong></li>
+            <li><strong>{{ 'TOOLS' | translate }}</strong></li>
+            <li><strong>{{ 'DEPLOY_MOBILE' | translate }}</strong></li>
+            <li><strong>{{ 'METHODOLOGIES' | translate }}</strong></li>
+            <li><strong>{{ 'LANGUAGES' | translate }}</strong></li>
+        </ul>
+    </section>
+
+    <section id="projects" class="experience">
+        <h3>{{ 'PROJECTS' | translate }}</h3>
+        <div class="cards-grid">
+            <app-card>
+                <h4>{{ 'PROJECT_1' | translate }}</h4>
+                <p>{{ 'PROJECT_1_DESC' | translate }}</p>
+                <a href="#" target="_blank">{{ 'PROJECT_1_LINK' | translate }}</a>
+            </app-card>
+            <app-card>
+                <h4>{{ 'PROJECT_2' | translate }}</h4>
+                <p>{{ 'PROJECT_2_DESC' | translate }}</p>
+                <a href="#" target="_blank">{{ 'PROJECT_2_LINK' | translate }}</a>
+            </app-card>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h3>{{ 'CONTACT' | translate }}</h3>
+        <ul>
+            <li><i class="fa-brands fa-linkedin"></i>LinkedIn</li>
+            <li><i class="fa-brands fa-square-github"></i>GitHub</li>
+            <li><i class="fa-brands fa-npm"></i>NPM</li>
+            <li><i class="fa-solid fa-phone"></i>+34 62431-2028</li>
+            <li><i class="fa-solid fa-envelope"></i>diegodanielcaceres10@gmail.com</li>
+        </ul>
+    </section>
+</main>
+<footer>
+    <p>&copy; 2026 Diego Daniel Cáceres</p>
+</footer>

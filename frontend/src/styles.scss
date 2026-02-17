@@ -1,13 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'styles/_colors.scss';
 
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    font-family: "Google Sans", sans-serif;
     margin: 0;
     padding: 0;
+}
+
+.header {
+    background-color: transparent;
+    display: flex;
+    justify-content: end;
+    padding: .5rem 0;
+    position: sticky;
+    top: 0;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    z-index: 1000;
+
+    & nav {
+        display: flex;
+        font-size: .9rem;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    &.sticky {
+        background-color: white;
+        box-shadow: 0 2px 4px #0000001a;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0;
 }
 
 main {
@@ -15,17 +45,19 @@ main {
 }
 
 section {
-    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding: 1rem;
 }
 
 section h3 {
-    color: #0f172a;
     margin-bottom: 0.5rem;
 }
 
 section p,
 section ul {
-    color: #334155;
     line-height: 1.5;
 }
 
@@ -34,10 +66,25 @@ ul li {
 }
 
 a {
-    color: #3b82f6;
+    color: inherit;
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: underline;
+.cards-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-top: 1rem;
+}
+
+#about {
+    height: 85vh;
+}
+
+#contact {
+    height: auto;
+
+    & i {
+        padding-right: .5rem;
+    }
 }

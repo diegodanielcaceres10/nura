@@ -1,20 +1,28 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, HostListener } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Card } from './shared/card/card';
-import { Header } from './shared/header/header';
-import { Footer } from './shared/footer/footer';
-import { About } from './sections/about/about';
-import { Experience } from './sections/experience/experience';
-import { Skills } from './sections/skills/skills';
-import { Projects } from './sections/projects/projects';
-import { Testimonials } from './sections/testimonials/testimonials';
-import { Contact } from './sections/contact/contact';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-root',
-  imports: [Header, Footer, Card, About, Experience, Skills, Projects, Testimonials, Contact],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+    selector: 'app-root',
+    imports: [
+        TranslatePipe,
+        Card
+    ],
+    templateUrl: './app.html',
+    styleUrl: './app.scss'
 })
+
 export class App {
-  protected readonly title = signal('frontend');
+    protected readonly title = signal('frontend');
+    isSticky = false;
+
+    @HostListener('window:scroll', [])
+    onWindowScroll() {
+        this.isSticky = window.scrollY > 10;
+    }
+    constructor(private translate: TranslateService) {
+        this.translate.setDefaultLang('en');
+        this.translate.use('en');
+    }
 }
