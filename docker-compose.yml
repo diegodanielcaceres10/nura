@@ -1,6 +1,7 @@
 services:
   frontend:
-    build: .
+    build:
+      context: ./frontend
     container_name: nura-frontend
     env_file:
       - .env

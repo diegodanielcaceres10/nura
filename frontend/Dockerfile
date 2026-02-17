@@ -22,7 +22,7 @@ RUN npm install -g @angular/cli
 # This leverages Docker layer caching to avoid reinstalling
 # dependencies on every code change.
 # ------------------------------------------------------------
-COPY frontend/package*.json ./
+COPY package*.json ./
 
 # ------------------------------------------------------------
 # Install project dependencies
@@ -32,7 +32,7 @@ RUN npm install
 # ------------------------------------------------------------
 # Copy the rest of the frontend source code
 # ------------------------------------------------------------
-COPY frontend/ ./
+COPY . .
 
 # ------------------------------------------------------------
 # Disable Angular CLI analytics to prevent interactive prompts
