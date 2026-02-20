@@ -1,0 +1,87 @@
+.footer {
+    background: colors.$bluebackground;
+    color: colors.$whiteText;
+    padding: 2rem;
+
+    &_section {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        justify-content: space-around;
+    }
+
+    &_list {
+        width: 40vw;
+
+        & i {
+            padding-right: .5rem;
+        }
+    }
+
+    &_icons {
+        display: flex;
+        justify-content: center;
+    }
+
+    &_icon {
+        align-items: center;
+        display: flex;
+        border-radius: 50%;
+        height: 4rem;
+        justify-content: center;
+        margin: 0 1rem;
+        position: relative;
+        width: 4rem;
+
+        & span {
+            background: colors.$whiteText;
+            border-radius: 2px;
+            bottom: 0;
+            color: colors.$offWhiteText;
+            opacity: 0;
+            padding: .2rem 1rem;
+            position: absolute;
+            visibility: hidden;
+
+            -o-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            -webkit-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            -moz-transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all .5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            &:before {
+                border-left: .4rem solid transparent;
+                border-right: .4rem solid transparent;
+                border-top: .4rem solid #fff;
+                bottom: -.3rem;
+                content: '';
+                height: 0;
+                left: 50%;
+                position: absolute;
+                transform: translateX(-50%);
+                width: 0;
+            }
+        }
+
+        & i {
+            color: colors.$offWhiteText;
+            font-size: 2rem;
+
+            &:hover {
+                color: colors.$whiteText;
+            }
+        }
+
+        &:hover span {
+            bottom: 4rem;
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+    &_copyright {
+        color: colors.$offWhiteText;
+        margin-top: 3rem;
+        text-align: center;
+    }
+}
