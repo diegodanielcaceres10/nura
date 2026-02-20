@@ -1,0 +1,21 @@
+.skills {
+    padding: 5rem;
+
+    &_cards {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        font-size: .9rem;
+        padding: 0 1rem;
+    }
+
+    &_card {
+        background: colors.$whiteText;
+        border: 1px solid #959da533;
+        border-radius: .5rem;
+        box-shadow: #959da533 0 0 1rem;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+}

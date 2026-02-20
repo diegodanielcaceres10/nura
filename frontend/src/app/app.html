@@ -7,38 +7,95 @@
     </nav>
 </header>
 <main>
-    <section id="about" class="about">
+    <!-- <section id="about" class="about">
         <h1>Diego Daniel Caceres</h1>
         <h3>{{ 'DEVELOPER' | translate }}</h3>
+    </section> -->
+
+    <section id="profile" class="profile">
+        <h3>{{ 'PROFILE' | translate }}</h3>
+        <div class="profile_text">
+            <p>{{ 'PROFILE_TEXT_1' | translate }}</p>
+            <p>{{ 'PROFILE_TEXT_2' | translate }}</p>
+            <p>{{ 'PROFILE_TEXT_3' | translate }}</p>
+            <p>{{ 'PROFILE_TEXT_4' | translate }}</p>
+        </div>
     </section>
 
     <section id="skills" class="skills">
         <h3>{{ 'SKILLS' | translate }}</h3>
-        <ul>
-            <li><strong>{{ 'FRONTEND' | translate }}</strong></li>
-            <li><strong>{{ 'BACKEND' | translate }}</strong></li>
-            <li><strong>{{ 'MOBILE' | translate }}</strong></li>
-            <li><strong>{{ 'CLOUD' | translate }}</strong></li>
-            <li><strong>{{ 'TOOLS' | translate }}</strong></li>
-            <li><strong>{{ 'DEPLOY_MOBILE' | translate }}</strong></li>
-            <li><strong>{{ 'METHODOLOGIES' | translate }}</strong></li>
-            <li><strong>{{ 'LANGUAGES' | translate }}</strong></li>
-        </ul>
-    </section>
-
-    <section id="projects" class="projects">
-        <h3>{{ 'PROJECTS' | translate }}</h3>
-        <div class="cards-grid">
-            <app-card>
-                <h4>{{ 'PROJECT_1' | translate }}</h4>
-                <p>{{ 'PROJECT_1_DESC' | translate }}</p>
-                <a href="#" target="_blank">{{ 'PROJECT_1_LINK' | translate }}</a>
-            </app-card>
-            <app-card>
-                <h4>{{ 'PROJECT_2' | translate }}</h4>
-                <p>{{ 'PROJECT_2_DESC' | translate }}</p>
-                <a href="#" target="_blank">{{ 'PROJECT_2_LINK' | translate }}</a>
-            </app-card>
+        <div class="skills_cards">
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_FRONTEND' | translate }}</b></span>
+                <ul>
+                    <li>Angular (AngularJS, Angular 2+ - v20)</li>
+                    <li>TypeScript</li>
+                    <li>JavaScript</li>
+                    <li>React</li>
+                    <li>HTML5</li>
+                    <li>CSS3</li>
+                    <li>Responsive Design</li>
+                    <li>Performance Optimization</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_BACKEND' | translate }}</b></span>
+                <ul>
+                    <li>Node.js</li>
+                    <li>PHP</li>
+                    <li>REST APIs</li>
+                    <li>API Integration & Design</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_MOBILE' | translate }}</b></span>
+                <ul>
+                    <li>Ionic (v3–v8)</li>
+                    <li>Hybrid Mobile Development</li>
+                    <li>Android & iOS Deployment</li>
+                    <li>Offline-First Architectures</li>
+                    <li>Native Plugins Integration</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_DATABASE' | translate }}</b></span>
+                <ul>
+                    <li>MySQL</li>
+                    <li>SQL Server</li>
+                    <li>Mongo</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_CLOUD' | translate }}</b></span>
+                <ul>
+                    <li>Azure (App Services, Pipelines, Blob Storage)</li>
+                    <li>Cloudflare (R2, CDN)</li>
+                    <li>CI/CD Pipelines</li>
+                    <li>Firebase (App Distribution)</li>
+                    <li>Nginx</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_TOOLS' | translate }}</b></span>
+                <ul>
+                    <li>Git</li>
+                    <li>GitHub</li>
+                    <li>Postman</li>
+                    <li>Portainer</li>
+                    <li>SendGrid</li>
+                </ul>
+            </div>
+            <div class="skills_card">
+                <span><b>{{ 'SKILLS_METHODOLOGIES' | translate }}</b></span>
+                <ul>
+                    <li>Agile (Scrum, Kanban)</li>
+                    <li>Code Review</li>
+                    <li>Secure Development Practices</li>
+                    <li>DevOps Collaboration</li>
+                    <li>Software Architecture</li>
+                    <li>Legacy Modernization</li>
+                </ul>
+            </div>
         </div>
     </section>
 
