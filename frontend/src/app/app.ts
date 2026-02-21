@@ -1,13 +1,11 @@
 import { Component, signal, HostListener } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Card } from './shared/card/card';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-root',
     imports: [
         TranslatePipe,
-        Card
     ],
     templateUrl: './app.html',
     styleUrl: './app.scss'

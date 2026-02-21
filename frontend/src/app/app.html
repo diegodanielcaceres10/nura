@@ -12,89 +12,59 @@
         <h3>{{ 'DEVELOPER' | translate }}</h3>
     </section> -->
 
-    <section id="profile" class="profile">
-        <h3>{{ 'PROFILE' | translate }}</h3>
-        <div class="profile_text">
-            <p>{{ 'PROFILE_TEXT_1' | translate }}</p>
-            <p>{{ 'PROFILE_TEXT_2' | translate }}</p>
-            <p>{{ 'PROFILE_TEXT_3' | translate }}</p>
-            <p>{{ 'PROFILE_TEXT_4' | translate }}</p>
-        </div>
-    </section>
-
-    <section id="skills" class="skills">
-        <h3>{{ 'SKILLS' | translate }}</h3>
-        <div class="skills_cards">
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_FRONTEND' | translate }}</b></span>
-                <ul>
-                    <li>Angular (AngularJS, Angular 2+ - v20)</li>
-                    <li>TypeScript</li>
-                    <li>JavaScript</li>
-                    <li>React</li>
-                    <li>HTML5</li>
-                    <li>CSS3</li>
-                    <li>Responsive Design</li>
-                    <li>Performance Optimization</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_BACKEND' | translate }}</b></span>
-                <ul>
-                    <li>Node.js</li>
-                    <li>PHP</li>
-                    <li>REST APIs</li>
-                    <li>API Integration & Design</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_MOBILE' | translate }}</b></span>
-                <ul>
-                    <li>Ionic (v3–v8)</li>
-                    <li>Hybrid Mobile Development</li>
-                    <li>Android & iOS Deployment</li>
-                    <li>Offline-First Architectures</li>
-                    <li>Native Plugins Integration</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_DATABASE' | translate }}</b></span>
-                <ul>
-                    <li>MySQL</li>
-                    <li>SQL Server</li>
-                    <li>Mongo</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_CLOUD' | translate }}</b></span>
-                <ul>
-                    <li>Azure (App Services, Pipelines, Blob Storage)</li>
-                    <li>Cloudflare (R2, CDN)</li>
-                    <li>CI/CD Pipelines</li>
-                    <li>Firebase (App Distribution)</li>
-                    <li>Nginx</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_TOOLS' | translate }}</b></span>
-                <ul>
-                    <li>Git</li>
-                    <li>GitHub</li>
-                    <li>Postman</li>
-                    <li>Portainer</li>
-                    <li>SendGrid</li>
-                </ul>
-            </div>
-            <div class="skills_card">
-                <span><b>{{ 'SKILLS_METHODOLOGIES' | translate }}</b></span>
-                <ul>
-                    <li>Agile (Scrum, Kanban)</li>
-                    <li>Code Review</li>
-                    <li>Secure Development Practices</li>
-                    <li>DevOps Collaboration</li>
-                    <li>Software Architecture</li>
-                    <li>Legacy Modernization</li>
-                </ul>
+    <section id="about" class="about">
+        <h3>{{ 'ABOUT' | translate }}</h3>
+        <div class="about_text">
+            <p>{{ 'ABOUT_DESC' | translate }}</p>
+            <p>{{ 'ABOUT_EDUCATION' | translate }}</p>
+            <div class="about_carousel">
+                <div class="about_track">
+                    <div class="about_slide">
+                        <img src="assets/logos/angular.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/react.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/ionic.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/node.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/docker.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/angular.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/react.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/ionic.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/node.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/docker.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/angular.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/react.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/ionic.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/node.png" alt="" />
+                    </div>
+                    <div class="about_slide">
+                        <img src="assets/logos/docker.png" alt="" />
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -106,7 +76,6 @@
                 <h4 class="experience_title">Cesla - WS Solutions</h4>
                 <span>{{ 'CESLA_TECH_LEAD' | translate }}</span>
                 <span class="experience_period">{{ 'CESLA_TECH_LEAD_PERIOD' | translate }}</span>
-                <p>{{ 'CESLA_TECH_LEAD_DESC' | translate }}</p>
                 <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
                 <ul>
                     <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_1' | translate }}</li>
@@ -116,16 +85,6 @@
                     <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_5' | translate }}</li>
                     <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_6' | translate }}</li>
                     <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_7' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_8' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_9' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_10' | translate }}</li>
-                </ul>
-                <span><b>{{ 'RESULTS' | translate }}</b></span>
-                <ul>
-                    <li>{{ 'CESLA_TECH_LEAD_RESULT_1' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESULT_2' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESULT_3' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESULT_4' | translate }}</li>
                 </ul>
                 <div class="experience_skills">
                     <i class="fa-brands fa-cloudflare" style="color: #F38020"></i>
@@ -146,7 +105,6 @@
                 <h4 class="experience_title">Cesla - WS Solutions</h4>
                 <span>{{ 'CESLA_FULLSTACK' | translate }}</span>
                 <span class="experience_period">{{ 'CESLA_FULLSTACK_PERIOD' | translate }}</span>
-                <p>{{ 'CESLA_FULLSTACK_DESC' | translate }}</p>
                 <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
                 <ul>
                     <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_1' | translate }}</li>
@@ -155,11 +113,6 @@
                     <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_4' | translate }}</li>
                     <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_5' | translate }}</li>
                     <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_6' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_7' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_8' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_9' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_10' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_11' | translate }}</li>
                 </ul>
                 <div class="experience_skills">
                     <i class="fa-brands fa-react" style="color: #61DAFB"></i>
@@ -177,17 +130,12 @@
                 <h4 class="experience_title">Apex America</h4>
                 <span>{{ 'APEX_FRONTEND' | translate }}</span>
                 <span class="experience_period">{{ 'APEX_FRONTEND_PERIOD' | translate }}</span>
-                <p>{{ 'APEX_FRONTEND_DESC' | translate }}</p>
                 <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
                 <ul>
                     <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_1' | translate }}</li>
                     <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_2' | translate }}</li>
                     <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_3' | translate }}</li>
                     <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_4' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_5' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_6' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_7' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_8' | translate }}</li>
                 </ul>
                 <div class="experience_skills">
                     <i class="fa-brands fa-aws" style="color: #FF9900"></i>
@@ -196,6 +144,21 @@
                     <i class="fa-brands fa-html5" style="color: #E34F26"></i>
                     <i class="fa-brands fa-css" style="color: #1572B6"></i>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h3>{{ 'PROJECTS' | translate }}</h3>
+        <div class="projects_cards">
+            <div class="projects_card">
+                <h4 class="projects_title">Oil Group - CRM Platform</h4>
+            </div>
+            <div class="projects_card">
+                <h4 class="projects_title">Ale Autos</h4>
+            </div>
+            <div class="projects_card">
+                <h4 class="projects_title">Angular JSON Form</h4>
             </div>
         </div>
     </section>

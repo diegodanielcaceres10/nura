@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'styles/colors';
-@import 'styles/profile';
+@import 'styles/about';
 @import 'styles/experience';
-@import 'styles/skills';
+@import 'styles/projects';
 @import 'styles/footer';
 
 html {
@@ -46,8 +46,4 @@ main {
 a {
     color: inherit;
     text-decoration: none;
-}
-
-#about {
-    height: 85vh;
 }
