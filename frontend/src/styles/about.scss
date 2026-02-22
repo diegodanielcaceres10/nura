@@ -1,59 +1,59 @@
 @keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
+  0% {
+    transform: translateX(0);
+  }
 
-    100% {
-        transform: translateX(calc(-15rem * 7))
-    }
+  100% {
+    transform: translateX(calc(-15rem * 7));
+  }
 }
 
 .about {
-    padding: 0 5rem;
+  padding: 0 5rem;
 
-    &_carousel {
-        background: white;
-        overflow: hidden;
-        padding: 1rem 0;
-        position: relative;
+  &_carousel {
+    background: white;
+    overflow: hidden;
+    padding: 1rem 0;
+    position: relative;
 
-        &::before,
-        &::after {
-            background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
-            content: "";
-            height: 100%;
-            position: absolute;
-            width: 5rem;
-            z-index: 2;
-        }
-
-        &::after {
-            right: 0;
-            top: 0;
-            transform: rotateZ(180deg);
-        }
-
-        &::before {
-            left: 0;
-            top: 0;
-        }
+    &::before,
+    &::after {
+      background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+      content: '';
+      height: 100%;
+      position: absolute;
+      width: 5rem;
+      z-index: 2;
     }
 
-    &_track {
-        animation: scroll 30s linear infinite;
-        display: flex;
-        width: calc(15rem * 14);
+    &::after {
+      right: 0;
+      top: 0;
+      transform: rotateZ(180deg);
     }
 
-    &_slide {
-        height: 4rem;
-        width: 15rem;
-
-        & img {
-            filter: grayscale(40%);
-            height: 100%;
-            object-fit: contain;
-            width: 100%;
-        }
+    &::before {
+      left: 0;
+      top: 0;
     }
+  }
+
+  &_track {
+    animation: scroll 30s linear infinite;
+    display: flex;
+    width: calc(15rem * 14);
+  }
+
+  &_slide {
+    height: 4rem;
+    width: 15rem;
+
+    & img {
+      filter: grayscale(40%);
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+  }
 }

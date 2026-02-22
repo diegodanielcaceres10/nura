@@ -1,181 +1,195 @@
 <header [class.sticky]="isSticky" class="header">
-    <nav>
-        <a href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
-        <a href="#experience">{{ 'MENU_EXPERIENCE' | translate }}</a>
-        <a href="#skills">{{ 'MENU_SKILLS' | translate }}</a>
-        <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
-    </nav>
+  <nav>
+    <a href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
+    <a href="#experience">{{ 'MENU_EXPERIENCE' | translate }}</a>
+    <a href="#skills">{{ 'MENU_SKILLS' | translate }}</a>
+    <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
+  </nav>
 </header>
 <main>
-    <!-- <section id="about" class="about">
+  <!-- <section id="about" class="about">
         <h1>Diego Daniel Caceres</h1>
         <h3>{{ 'DEVELOPER' | translate }}</h3>
     </section> -->
 
-    <section id="about" class="about">
-        <h3>{{ 'ABOUT' | translate }}</h3>
-        <div class="about_text">
-            <p>{{ 'ABOUT_DESC' | translate }}</p>
-            <p>{{ 'ABOUT_EDUCATION' | translate }}</p>
-            <div class="about_carousel">
-                <div class="about_track">
-                    <div class="about_slide">
-                        <img src="assets/logos/angular.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/react.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/ionic.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/node.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/docker.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/angular.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/react.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/ionic.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/node.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/docker.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/angular.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/react.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/ionic.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/node.png" alt="" />
-                    </div>
-                    <div class="about_slide">
-                        <img src="assets/logos/docker.png" alt="" />
-                    </div>
-                </div>
-            </div>
+  <section id="about" class="about">
+    <h3>{{ 'ABOUT' | translate }}</h3>
+    <div class="about_text">
+      <p>{{ 'ABOUT_DESC' | translate }}</p>
+      <p>{{ 'ABOUT_EDUCATION' | translate }}</p>
+      <div class="about_carousel">
+        <div class="about_track">
+          <div class="about_slide">
+            <img src="assets/logos/angular.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/react.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/ionic.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/node.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/docker.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/angular.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/react.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/ionic.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/node.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/docker.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/angular.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/react.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/ionic.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/node.png" alt="" />
+          </div>
+          <div class="about_slide">
+            <img src="assets/logos/docker.png" alt="" />
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <section id="experience" class="experience">
-        <h3>{{ 'EXPERIENCE' | translate }}</h3>
-        <div class="experience_cards">
-            <div class="experience_card">
-                <h4 class="experience_title">Cesla - WS Solutions</h4>
-                <span>{{ 'CESLA_TECH_LEAD' | translate }}</span>
-                <span class="experience_period">{{ 'CESLA_TECH_LEAD_PERIOD' | translate }}</span>
-                <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
-                <ul>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_1' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_2' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_3' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_4' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_5' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_6' | translate }}</li>
-                    <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_7' | translate }}</li>
-                </ul>
-                <div class="experience_skills">
-                    <i class="fa-brands fa-cloudflare" style="color: #F38020"></i>
-                    <i class="fa-brands fa-google-play" style="color: #3DDC84"></i>
-                    <i class="fa-brands fa-app-store" style="color: #000000"></i>
-                    <i class="fa-brands fa-react" style="color: #61DAFB"></i>
-                    <i class="fa-brands fa-php" style="color: #777BB4"></i>
-                    <i class="fa-brands fa-microsoft" style="color: #0078D4"></i>
-                    <i class="fa-brands fa-android" style="color: #3DDC84"></i>
-                    <i class="fa-brands fa-apple" style="color: #000000"></i>
-                    <i class="fa-brands fa-angular" style="color: #DD0031"></i>
-                    <i class="fa-brands fa-js" style="color: #F7DF1E"></i>
-                    <i class="fa-brands fa-html5" style="color: #E34F26"></i>
-                    <i class="fa-brands fa-css" style="color: #1572B6"></i>
-                </div>
-            </div>
-            <div class="experience_card">
-                <h4 class="experience_title">Cesla - WS Solutions</h4>
-                <span>{{ 'CESLA_FULLSTACK' | translate }}</span>
-                <span class="experience_period">{{ 'CESLA_FULLSTACK_PERIOD' | translate }}</span>
-                <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
-                <ul>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_1' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_2' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_3' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_4' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_5' | translate }}</li>
-                    <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_6' | translate }}</li>
-                </ul>
-                <div class="experience_skills">
-                    <i class="fa-brands fa-react" style="color: #61DAFB"></i>
-                    <i class="fa-brands fa-php" style="color: #777BB4"></i>
-                    <i class="fa-brands fa-microsoft" style="color: #0078D4"></i>
-                    <i class="fa-brands fa-android" style="color: #3DDC84"></i>
-                    <i class="fa-brands fa-apple" style="color: #000000"></i>
-                    <i class="fa-brands fa-angular" style="color: #DD0031"></i>
-                    <i class="fa-brands fa-js" style="color: #F7DF1E"></i>
-                    <i class="fa-brands fa-html5" style="color: #E34F26"></i>
-                    <i class="fa-brands fa-css" style="color: #1572B6"></i>
-                </div>
-            </div>
-            <div class="experience_card">
-                <h4 class="experience_title">Apex America</h4>
-                <span>{{ 'APEX_FRONTEND' | translate }}</span>
-                <span class="experience_period">{{ 'APEX_FRONTEND_PERIOD' | translate }}</span>
-                <span><b>{{ 'RESPONSIBILITIES' | translate }}</b></span>
-                <ul>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_1' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_2' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_3' | translate }}</li>
-                    <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_4' | translate }}</li>
-                </ul>
-                <div class="experience_skills">
-                    <i class="fa-brands fa-aws" style="color: #FF9900"></i>
-                    <i class="fa-brands fa-angular" style="color: #DD0031"></i>
-                    <i class="fa-brands fa-js" style="color: #F7DF1E"></i>
-                    <i class="fa-brands fa-html5" style="color: #E34F26"></i>
-                    <i class="fa-brands fa-css" style="color: #1572B6"></i>
-                </div>
-            </div>
+  <section id="experience" class="experience">
+    <h3>{{ 'EXPERIENCE' | translate }}</h3>
+    <div class="experience_cards">
+      <div class="experience_card">
+        <h4 class="experience_title">Cesla - WS Solutions</h4>
+        <span>{{ 'CESLA_TECH_LEAD' | translate }}</span>
+        <span class="experience_period">{{ 'CESLA_TECH_LEAD_PERIOD' | translate }}</span>
+        <span
+          ><b>{{ 'RESPONSIBILITIES' | translate }}</b></span
+        >
+        <ul>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_1' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_2' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_3' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_4' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_5' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_6' | translate }}</li>
+          <li>{{ 'CESLA_TECH_LEAD_RESPONSIBILITY_7' | translate }}</li>
+        </ul>
+        <div class="experience_skills">
+          <i class="fa-brands fa-cloudflare" style="color: #f38020"></i>
+          <i class="fa-brands fa-google-play" style="color: #3ddc84"></i>
+          <i class="fa-brands fa-app-store" style="color: #000000"></i>
+          <i class="fa-brands fa-react" style="color: #61dafb"></i>
+          <i class="fa-brands fa-php" style="color: #777bb4"></i>
+          <i class="fa-brands fa-microsoft" style="color: #0078d4"></i>
+          <i class="fa-brands fa-android" style="color: #3ddc84"></i>
+          <i class="fa-brands fa-apple" style="color: #000000"></i>
+          <i class="fa-brands fa-angular" style="color: #dd0031"></i>
+          <i class="fa-brands fa-js" style="color: #f7df1e"></i>
+          <i class="fa-brands fa-html5" style="color: #e34f26"></i>
+          <i class="fa-brands fa-css" style="color: #1572b6"></i>
         </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <h3>{{ 'PROJECTS' | translate }}</h3>
-        <div class="projects_cards">
-            <div class="projects_card">
-                <h4 class="projects_title">Oil Group - CRM Platform</h4>
-            </div>
-            <div class="projects_card">
-                <h4 class="projects_title">Ale Autos</h4>
-            </div>
-            <div class="projects_card">
-                <h4 class="projects_title">Angular JSON Form</h4>
-            </div>
+      </div>
+      <div class="experience_card">
+        <h4 class="experience_title">Cesla - WS Solutions</h4>
+        <span>{{ 'CESLA_FULLSTACK' | translate }}</span>
+        <span class="experience_period">{{ 'CESLA_FULLSTACK_PERIOD' | translate }}</span>
+        <span
+          ><b>{{ 'RESPONSIBILITIES' | translate }}</b></span
+        >
+        <ul>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_1' | translate }}</li>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_2' | translate }}</li>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_3' | translate }}</li>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_4' | translate }}</li>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_5' | translate }}</li>
+          <li>{{ 'CESLA_FULLSTACK_RESPONSIBILITY_6' | translate }}</li>
+        </ul>
+        <div class="experience_skills">
+          <i class="fa-brands fa-react" style="color: #61dafb"></i>
+          <i class="fa-brands fa-php" style="color: #777bb4"></i>
+          <i class="fa-brands fa-microsoft" style="color: #0078d4"></i>
+          <i class="fa-brands fa-android" style="color: #3ddc84"></i>
+          <i class="fa-brands fa-apple" style="color: #000000"></i>
+          <i class="fa-brands fa-angular" style="color: #dd0031"></i>
+          <i class="fa-brands fa-js" style="color: #f7df1e"></i>
+          <i class="fa-brands fa-html5" style="color: #e34f26"></i>
+          <i class="fa-brands fa-css" style="color: #1572b6"></i>
         </div>
-    </section>
+      </div>
+      <div class="experience_card">
+        <h4 class="experience_title">Apex America</h4>
+        <span>{{ 'APEX_FRONTEND' | translate }}</span>
+        <span class="experience_period">{{ 'APEX_FRONTEND_PERIOD' | translate }}</span>
+        <span
+          ><b>{{ 'RESPONSIBILITIES' | translate }}</b></span
+        >
+        <ul>
+          <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_1' | translate }}</li>
+          <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_2' | translate }}</li>
+          <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_3' | translate }}</li>
+          <li>{{ 'APEX_FRONTEND_RESPONSIBILITY_4' | translate }}</li>
+        </ul>
+        <div class="experience_skills">
+          <i class="fa-brands fa-aws" style="color: #ff9900"></i>
+          <i class="fa-brands fa-angular" style="color: #dd0031"></i>
+          <i class="fa-brands fa-js" style="color: #f7df1e"></i>
+          <i class="fa-brands fa-html5" style="color: #e34f26"></i>
+          <i class="fa-brands fa-css" style="color: #1572b6"></i>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <section id="projects" class="projects">
+    <h3>{{ 'PROJECTS' | translate }}</h3>
+    <div class="projects_cards">
+      <div class="projects_card">
+        <h4 class="projects_title">Oil Group - CRM Platform</h4>
+      </div>
+      <div class="projects_card">
+        <h4 class="projects_title">Ale Autos</h4>
+      </div>
+      <div class="projects_card">
+        <h4 class="projects_title">Angular JSON Form</h4>
+      </div>
+    </div>
+  </section>
 </main>
 <footer class="footer">
-    <h3>{{ 'CONTACT' | translate }}</h3>
-    <section id="contact" class="footer_section">
-        <ul class="footer_list">
-            <li><i class="fa-solid fa-phone"></i>+34 62431-2028</li>
-            <li><i class="fa-solid fa-envelope"></i>diegodanielcaceres10@gmail.com</li>
-        </ul>
-        <div class="footer_icons">
-            <a target="_blank" href="https://www.linkedin.com/in/diego-daniel-caceres-1328991aa/" class="footer_icon"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a>
-            <a target="_blank" href="https://github.com/diegodanielcaceres10" class="footer_icon"><i class="fa-brands fa-square-github"></i><span>GitHub</span></a>
-            <a target="_blank" href="https://www.npmjs.com/~diegodanielcaceres10" class="footer_icon"><i class="fa-brands fa-npm"></i><span>Npm</span></a>
-        </div>
-    </section>
-    <p class="footer_copyright"><i class="fa-regular fa-copyright"></i> 2026 Diego Daniel Cáceres</p>
+  <h3>{{ 'CONTACT' | translate }}</h3>
+  <section id="contact" class="footer_section">
+    <ul class="footer_list">
+      <li><i class="fa-solid fa-phone"></i>+34 62431-2028</li>
+      <li><i class="fa-solid fa-envelope"></i>diegodanielcaceres10@gmail.com</li>
+    </ul>
+    <div class="footer_icons">
+      <a
+        target="_blank"
+        href="https://www.linkedin.com/in/diego-daniel-caceres-1328991aa/"
+        class="footer_icon"
+        ><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a
+      >
+      <a target="_blank" href="https://github.com/diegodanielcaceres10" class="footer_icon"
+        ><i class="fa-brands fa-square-github"></i><span>GitHub</span></a
+      >
+      <a target="_blank" href="https://www.npmjs.com/~diegodanielcaceres10" class="footer_icon"
+        ><i class="fa-brands fa-npm"></i><span>Npm</span></a
+      >
+    </div>
+  </section>
+  <p class="footer_copyright"><i class="fa-regular fa-copyright"></i> 2026 Diego Daniel Cáceres</p>
 </footer>

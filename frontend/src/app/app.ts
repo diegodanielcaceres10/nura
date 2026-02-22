@@ -3,24 +3,21 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-root',
-    imports: [
-        TranslatePipe,
-    ],
-    templateUrl: './app.html',
-    styleUrl: './app.scss'
+  selector: 'app-root',
+  imports: [TranslatePipe],
+  templateUrl: './app.html',
+  styleUrl: './app.scss',
 })
-
 export class App {
-    protected readonly title = signal('frontend');
-    isSticky = false;
+  protected readonly title = signal('frontend');
+  isSticky = false;
 
-    @HostListener('window:scroll', [])
-    onWindowScroll() {
-        this.isSticky = window.scrollY > 10;
-    }
-    constructor(private translate: TranslateService) {
-        this.translate.setDefaultLang('es');
-        this.translate.use('es');
-    }
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isSticky = window.scrollY > 10;
+  }
+  constructor(private translate: TranslateService) {
+    this.translate.setDefaultLang('es');
+    this.translate.use('es');
+  }
 }
