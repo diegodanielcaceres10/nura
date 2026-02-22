@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'styles/colors';
-@import 'styles/footer';
 
 html {
   scroll-behavior: smooth;
@@ -11,31 +10,6 @@ body {
   font-family: 'Google Sans', sans-serif;
   margin: 0;
   padding: 0;
-}
-
-.header {
-  background-color: transparent;
-  display: flex;
-  justify-content: end;
-  padding: 0.5rem 0;
-  position: sticky;
-  top: 0;
-  transition:
-    background-color 0.4s ease,
-    box-shadow 0.4s ease;
-  z-index: 1000;
-
-  & nav {
-    display: flex;
-    font-size: 0.9rem;
-    gap: 2rem;
-    padding: 1rem;
-  }
-
-  &.sticky {
-    background-color: white;
-    box-shadow: 0 2px 4px #0000001a;
-  }
 }
 
 main {

@@ -1,11 +1,4 @@
-<header [class.sticky]="isSticky()" class="header">
-  <nav>
-    <a href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
-    <a href="#experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
-    <a href="#skills">{{ 'MENU_SKILLS' | translate }}</a>
-    <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
-  </nav>
-</header>
+<app-header-component />
 <main>
   <!-- <section id="about" class="about">
         <h1>Diego Daniel Caceres</h1>
@@ -16,28 +9,4 @@
   <app-experiences-component />
   <app-projects-component />
 </main>
-
-<footer class="footer">
-  <h3>{{ 'CONTACT' | translate }}</h3>
-  <section id="contact" class="footer_section">
-    <ul class="footer_list">
-      <li><i class="fa-solid fa-phone"></i>+34 62431-2028</li>
-      <li><i class="fa-solid fa-envelope"></i>diegodanielcaceres10@gmail.com</li>
-    </ul>
-    <div class="footer_icons">
-      <a
-        target="_blank"
-        href="https://www.linkedin.com/in/diego-daniel-caceres-1328991aa/"
-        class="footer_icon"
-        ><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a
-      >
-      <a target="_blank" href="https://github.com/diegodanielcaceres10" class="footer_icon"
-        ><i class="fa-brands fa-square-github"></i><span>GitHub</span></a
-      >
-      <a target="_blank" href="https://www.npmjs.com/~diegodanielcaceres10" class="footer_icon"
-        ><i class="fa-brands fa-npm"></i><span>Npm</span></a
-      >
-    </div>
-  </section>
-  <p class="footer_copyright"><i class="fa-regular fa-copyright"></i> 2026 Diego Daniel Cáceres</p>
-</footer>
+<app-footer-component />
