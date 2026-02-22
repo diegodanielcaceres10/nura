@@ -17,7 +17,6 @@ export class App {
     this.isSticky = window.scrollY > 10;
   }
   constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('es');
     this.translate.use('es');
   }
 }
