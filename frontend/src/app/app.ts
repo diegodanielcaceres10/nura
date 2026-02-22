@@ -9,12 +9,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('frontend');
-  isSticky = false;
+  isSticky = signal(false);
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    this.isSticky = window.scrollY > 10;
+    this.isSticky.set(window.scrollY > 10);
   }
   constructor(private translate: TranslateService) {
     this.translate.use('es');
