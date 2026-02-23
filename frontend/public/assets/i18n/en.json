@@ -33,12 +33,7 @@
   "APEX_FRONTEND_RESPONSIBILITY_3": "I collaborated in debugging and resolving critical incidents, contributing to the product’s stability and operational continuity.",
   "APEX_FRONTEND_RESPONSIBILITY_4": "I participated in code reviews and promoted front-end development best practices, improving code quality and facilitating product evolution.",
   "RESPONSIBILITIES": "Responsibilities and achievements",
-  "PROJECTS": "Projects",
-  "PROJECT_1": "Project 1",
-  "PROJECT_1_DESC": "Brief project description.",
-  "PROJECT_1_LINK": "View repository",
-  "PROJECT_2": "Project 2",
-  "PROJECT_2_DESC": "Brief project description.",
-  "PROJECT_2_LINK": "View repository",
+  "PROJECTS": "Own Projects",
+  "PROJECT_REPOSITORY": "Repository",
   "CONTACT": "Links & Contact"
 }
