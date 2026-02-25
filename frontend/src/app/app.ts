@@ -22,10 +22,8 @@ import { HomeComponent } from './sections/home-component/home-component';
 export class App {
   constructor(private translate: TranslateService) {
     const supportedLangs = ['es', 'en', 'pt'];
-    const browserLang =
-      navigator.languages.map((l) => l.split('-')[0]).find((l) => supportedLangs.includes(l)) ??
-      'en';
-
-    this.translate.use(browserLang);
+    const browserLang = TranslateService.getBrowserLang() ?? 'en';
+    const lang = supportedLangs.includes(browserLang) ? browserLang : 'en';
+    this.translate.use(lang);
   }
 }

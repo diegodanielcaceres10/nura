@@ -5,4 +5,15 @@
     <a href="#projects">{{ 'MENU_PROJECTS' | translate }}</a>
     <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
   </nav>
+  <div class="header_langs">
+    @for (lang of langs; track lang.code) {
+      <button
+        class="header_lang"
+        [class.active]="currentLang() === lang.code"
+        (click)="changeLang(lang.code)"
+      >
+        {{ lang.flag }}
+      </button>
+    }
+  </div>
 </header>

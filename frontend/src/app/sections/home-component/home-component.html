@@ -8,16 +8,26 @@
     </div>
     <span class="home_subtitle">{{ 'HOME_SUBTITLE' | translate }}</span>
     <div class="home_buttons">
+      <button
+        (click)="downloadCV()"
+        class="home_button home_button-alt"
+        [disabled]="isDownloading()"
+      >
+        {{ 'HOME_DOWNLOAD_CV' | translate }}
+        <div class="home_icon">
+          @if (isDownloading()) {
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          } @else {
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          }
+        </div>
+      </button>
       <a href="#contact">
         <button class="home_button">
           {{ 'HOME_CONTACT' | translate }}
-          <i class="fa-solid fa-arrow-right"></i>
-        </button>
-      </a>
-      <a href="#contact">
-        <button class="home_button home_button-alt">
-          {{ 'HOME_DOWNLOAD_CV' | translate }}
-          <i class="fa-solid fa-cloud-arrow-down"></i>
+          <div class="home_icon">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
         </button>
       </a>
     </div>

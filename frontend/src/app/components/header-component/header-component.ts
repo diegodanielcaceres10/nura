@@ -1,5 +1,5 @@
-import { Component, signal, HostListener } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
+import { Component, HostListener, signal } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header-component',
@@ -9,9 +9,25 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class HeaderComponent {
   isSticky = signal(false);
+  currentLang = signal<string>('en');
 
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.isSticky.set(window.scrollY > 10);
+  langs = [
+    { code: 'es', flag: 'ES' },
+    { code: 'en', flag: 'US' },
+    { code: 'pt', flag: 'PT' },
+  ];
+
+  constructor(private translate: TranslateService) {
+    this.currentLang.set(this.translate.getCurrentLang() ?? 'en');
+  }
+
+  changeLang(lang: string): void {
+    this.translate.use(lang);
+    this.currentLang.set(lang);
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.isSticky.set(window.scrollY > 50);
   }
 }
