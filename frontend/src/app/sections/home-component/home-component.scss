@@ -19,7 +19,7 @@
   width: 100%;
 
   &_wave {
-    background: rgb(255 255 255 / 25%);
+    background: $transparent;
     border-radius: 0 0 1000% 1000%;
     position: absolute;
     width: 200%;
