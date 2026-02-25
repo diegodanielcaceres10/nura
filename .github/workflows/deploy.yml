@@ -36,12 +36,12 @@ jobs:
         run: npm run build:prod
 
       - name: test
-        run: ls -la dist/
+        run: ls -la dist/frontend/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist/browser
+          path: dist/frontend/
 
   deploy:
     needs: build
