@@ -6,7 +6,7 @@
   &_cards {
     display: grid;
     gap: 5rem;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
   }
@@ -18,8 +18,22 @@
       rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
       rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     display: flex;
+    padding: 1rem;
+  }
+
+  &_container {
+    display: flex;
     flex-direction: column;
     padding: 1rem;
+    width: 100%;
+
+    &-first {
+      width: 30rem;
+    }
+
+    & h4 {
+      margin-top: 0;
+    }
   }
 
   &_title {

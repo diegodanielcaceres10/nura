@@ -39,7 +39,7 @@
       background: $color-white;
       border-radius: 2px;
       bottom: 0;
-      color: $color-text-muted;
+      color: $color-secondary;
       opacity: 0;
       padding: 0.2rem 1rem;
       position: absolute;
@@ -65,7 +65,7 @@
     }
 
     & i {
-      color: $color-text-muted;
+      color: $color-alternative-1;
       font-size: 2rem;
 
       &:hover {

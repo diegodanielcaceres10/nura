@@ -33,6 +33,13 @@ h2 {
   font-style: italic;
 }
 
+hr {
+  background: $color-alternative-1;
+  border: 0;
+  height: 1px;
+  margin: 5rem 0;
+}
+
 img {
   display: block;
 }
