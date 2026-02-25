@@ -1,21 +1,22 @@
-@use './../../../styles/colors.scss';
+@import 'variables';
 
 .experiences {
   padding: 5rem;
 
   &_cards {
     display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 5rem;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
   }
 
   &_card {
-    background: colors.$whiteText;
-    border: 1px solid #959da533;
+    background: $color-primary;
     border-radius: 0.5rem;
-    box-shadow: #959da533 0 0 1rem;
+    box-shadow:
+      rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+      rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
     display: flex;
     flex-direction: column;
     padding: 1rem;
@@ -28,7 +29,7 @@
   }
 
   &_period {
-    color: colors.$offWhiteText;
+    color: $color-text-muted;
     font-size: 0.8rem;
     font-style: italic;
     margin-bottom: 1rem;
@@ -43,10 +44,9 @@
 
     & i {
       align-items: center;
-      background: #f3f3f3;
+      border: 0.1rem solid $color-white;
       border-radius: 3rem;
       display: flex;
-      filter: grayscale(40%);
       font-size: 1.5rem;
       height: 3rem;
       justify-content: center;
@@ -55,8 +55,8 @@
       transition: font-size 0.1s ease;
 
       &:hover {
-        filter: none;
-        font-size: 2rem;
+        background: $color-white;
+        color: $color-primary;
       }
     }
   }

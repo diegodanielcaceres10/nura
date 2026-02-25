@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     ports:
-      - "${PORT}:4200"   # host_port:container_port
+      - "${PORT}:4200"
     volumes:
-      - ./frontend:/app          # monta tu código en tiempo real
-      - /app/node_modules        # mantiene node_modules dentro del contenedor
+      - ./frontend:/app
+      - /app/node_modules
     stdin_open: true
     tty: true

@@ -1,4 +1,4 @@
-@use './../../../styles/colors.scss';
+@import 'variables';
 
 .projects {
   padding: 5rem;
@@ -19,17 +19,16 @@
     &_container {
       height: 100%;
       position: relative;
-      width: 100%;
       text-align: center;
       transition: transform 1s;
       transform-style: preserve-3d;
+      width: 100%;
     }
 
     &_front,
     &_back {
       backface-visibility: hidden;
-      border-radius: 0.5rem;
-      box-shadow: #959da533 0 0 1rem;
+      border-radius: 1rem;
       display: flex;
       height: 100%;
       justify-content: center;
@@ -40,14 +39,17 @@
 
     &_front {
       align-items: center;
-      background: colors.$whiteText;
-      color: colors.$bluebackground;
+      background: $color-white;
+      border: 0.5rem solid $color-primary;
+      box-shadow:
+        rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+      color: $color-primary;
     }
 
     &_back {
       align-items: center;
-      background: colors.$bluebackground;
-      color: colors.$whiteText;
+      background: $color-primary;
       flex-direction: column;
       justify-content: space-between;
       transform: rotateY(180deg);

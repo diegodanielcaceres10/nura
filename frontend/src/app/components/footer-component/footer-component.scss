@@ -1,9 +1,8 @@
-@use './../../../styles/colors.scss';
+@import 'variables';
 
 .footer {
-  background: colors.$bluebackground;
-  color: colors.$whiteText;
-  padding: 2rem;
+  background: $color-primary;
+  padding: 5rem 2rem;
 
   &_section {
     align-items: center;
@@ -37,10 +36,10 @@
     width: 4rem;
 
     & span {
-      background: colors.$whiteText;
+      background: $color-white;
       border-radius: 2px;
       bottom: 0;
-      color: colors.$offWhiteText;
+      color: $color-text-muted;
       opacity: 0;
       padding: 0.2rem 1rem;
       position: absolute;
@@ -54,7 +53,7 @@
       &:before {
         border-left: 0.4rem solid transparent;
         border-right: 0.4rem solid transparent;
-        border-top: 0.4rem solid #fff;
+        border-top: 0.4rem solid $color-white;
         bottom: -0.3rem;
         content: '';
         height: 0;
@@ -66,11 +65,11 @@
     }
 
     & i {
-      color: colors.$offWhiteText;
+      color: $color-text-muted;
       font-size: 2rem;
 
       &:hover {
-        color: colors.$whiteText;
+        color: $color-white;
       }
     }
 
@@ -82,8 +81,13 @@
   }
 
   &_copyright {
-    color: colors.$offWhiteText;
+    color: $color-text-muted;
+    display: flex;
+    justify-content: center;
     margin-top: 3rem;
-    text-align: center;
+
+    & i {
+      padding: 0 0.2rem;
+    }
   }
 }

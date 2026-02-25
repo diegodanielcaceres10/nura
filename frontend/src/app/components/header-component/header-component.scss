@@ -1,24 +1,37 @@
+@import 'variables';
+
 .header {
+  align-items: center;
   background-color: transparent;
+  color: $color-white;
   display: flex;
+  height: 5rem;
   justify-content: end;
   padding: 0.5rem 0;
-  position: sticky;
+  position: fixed;
   top: 0;
   transition:
     background-color 0.4s ease,
     box-shadow 0.4s ease;
+  width: 100%;
   z-index: 1000;
 
   & nav {
     display: flex;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     gap: 2rem;
     padding: 1rem;
   }
 
   &.sticky {
-    background-color: white;
-    box-shadow: 0 2px 4px #0000001a;
+    background-color: $color-primary;
+    box-shadow:
+      rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+      rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    color: $color-white;
+
+    & nav {
+      font-size: 0.9rem;
+    }
   }
 }
