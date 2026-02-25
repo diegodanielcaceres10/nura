@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
-    "test": "ng test"
+    "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
+    "test": "npm run clean:reports && ng test --watch=false --coverage",
+    "build": "npm run test && ng build",
+    "build:prod": "npm run test && ng build --configuration=production"
   },
   "prettier": {
     "printWidth": 500,
@@ -35,9 +38,11 @@
     "@angular/build": "^21.1.4",
     "@angular/cli": "^21.1.4",
     "@angular/compiler-cli": "^21.1.0",
+    "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.39.3",
     "jsdom": "^27.1.0",
     "prettier": "^3.8.1",
+    "rimraf": "^6.1.3",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
   }

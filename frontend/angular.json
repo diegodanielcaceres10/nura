@@ -72,7 +72,16 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest",
+            "runnerConfig": "vitest.config.ts",
+            "reporters": ["default", "junit"],
+            "outputFile": "./vitest/junit-report.xml",
+            "coverage": false,
+            "coverageReporters": ["html", "lcov", "text-summary"]
+          }
         }
       }
     }
