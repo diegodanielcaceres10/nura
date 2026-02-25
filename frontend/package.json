@@ -2,14 +2,12 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "vitest run --reporter=verbose",
+    "test:ci": "vitest run --reporter=junit --outputFile=vitest-report.xml"
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 500,
     "singleQuote": true,
     "overrides": [
       {
