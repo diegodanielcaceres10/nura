@@ -1,6 +1,8 @@
+@import 'colors';
 @import 'variables';
 
 .projects {
+  background: linear-gradient(45deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
   padding: 5rem;
 
   &_cards {
@@ -41,10 +43,7 @@
       align-items: center;
       background: $color-white;
       border: 0.5rem solid $color-primary;
-      box-shadow:
-        rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-      color: $color-primary;
+      box-shadow: $box-shadow;
     }
 
     &_back {

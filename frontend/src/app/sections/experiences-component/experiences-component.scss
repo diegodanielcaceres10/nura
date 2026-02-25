@@ -1,6 +1,8 @@
+@import 'colors';
 @import 'variables';
 
 .experiences {
+  background: linear-gradient(315deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
   padding: 5rem;
 
   &_cards {
@@ -12,11 +14,12 @@
   }
 
   &_card {
-    background: $color-primary;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+    border: 0.2rem solid $color-secondary;
     border-radius: 0.5rem;
-    box-shadow:
-      rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-      rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    box-shadow: $box-shadow;
     display: flex;
     padding: 1rem;
   }
@@ -28,6 +31,7 @@
     width: 100%;
 
     &-first {
+      border-right: 0.2rem solid $color-secondary;
       width: 30rem;
     }
 
@@ -43,7 +47,6 @@
   }
 
   &_period {
-    color: $color-text-muted;
     font-size: 0.8rem;
     font-style: italic;
     margin-bottom: 1rem;
@@ -53,8 +56,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    justify-content: center;
-    padding: 1rem;
 
     & i {
       align-items: center;

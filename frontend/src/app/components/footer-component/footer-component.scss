@@ -1,8 +1,13 @@
-@import 'variables';
+@import 'colors';
 
 .footer {
   background: $color-primary;
   padding: 5rem 2rem;
+
+  & hr {
+    background: $color-secondary;
+    margin: 5rem 0;
+  }
 
   &_section {
     align-items: center;
@@ -67,21 +72,23 @@
     & i {
       color: $color-alternative-1;
       font-size: 2rem;
-
-      &:hover {
-        color: $color-white;
-      }
     }
 
-    &:hover span {
-      bottom: 4rem;
-      visibility: visible;
-      opacity: 1;
+    &:hover {
+      & i {
+        color: $color-white;
+      }
+
+      & span {
+        bottom: 4rem;
+        visibility: visible;
+        opacity: 1;
+      }
     }
   }
 
   &_copyright {
-    color: $color-text-muted;
+    color: $color-alternative-2;
     display: flex;
     justify-content: center;
     margin-top: 3rem;

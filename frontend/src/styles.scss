@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'styles/typography';
-@import 'styles/variables';
+@import 'styles/colors';
 
 * {
   box-sizing: border-box;
@@ -34,10 +34,8 @@ h2 {
 }
 
 hr {
-  background: $color-alternative-1;
   border: 0;
   height: 1px;
-  margin: 5rem 0;
 }
 
 img {

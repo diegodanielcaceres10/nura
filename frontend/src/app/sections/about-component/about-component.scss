@@ -1,6 +1,8 @@
+@import 'colors';
 @import 'variables';
 
 .about {
+  background: linear-gradient(45deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
   padding: 5rem;
 
   &_container {
@@ -13,6 +15,11 @@
     flex: 1;
     flex-direction: column;
     font-style: italic;
+
+    & hr {
+      background: $color-primary;
+      margin: 0.5rem 0;
+    }
   }
 
   &_tags {
@@ -48,9 +55,7 @@
     & img {
       border: 0.5rem solid $color-primary;
       border-radius: 2rem;
-      box-shadow:
-        rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-        rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+      box-shadow: $box-shadow;
       object-fit: contain;
       width: 100%;
     }
