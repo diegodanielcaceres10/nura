@@ -1,24 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-export interface ProjectTech {
-  left: string;
-  width: string;
-  color: string;
-}
-export interface ProjectCard {
-  title: string;
-  subtitle: string;
-  stackKey: string;
-  descKey: string;
-  resultKey?: string;
-  logo: string;
-  card: string;
-  repo: string;
-  repoLabelKey: string;
-  techsKey: string;
-  techs: ProjectTech[]; // 👈 reemplaza el tipo inline
-  legend: string;
-}
+import { ProjectCard } from '../../interfaces/project';
 @Component({
   selector: 'app-projects-component',
   imports: [TranslatePipe],
@@ -38,12 +20,11 @@ export class ProjectsComponent {
       repoLabelKey: 'PROJECT_REPOSITORY',
       techsKey: 'PROJECT_TECHNOLOGIES',
       techs: [
-        { left: '0', width: '54%', color: '#3178c6' },
-        { left: '54%', width: '32.1%', color: '#e34c26' },
-        { left: '32.1%', width: '7.4%', color: '#f1e05a' },
-        { left: '7.4%', width: '6.5%', color: '#c6538c' },
+        { legend: 'TypeScript', left: '0', percent: '54%', color: '#3178c6' },
+        { legend: 'HTML', left: '54%', percent: '32.1%', color: '#e34c26' },
+        { legend: 'JavaScript', left: '32.1%', percent: '7.4%', color: '#f1e05a' },
+        { legend: 'SCSS', left: '7.4%', percent: '6.5%', color: '#c6538c' },
       ],
-      legend: 'TypeScript 54,0% • HTML 32,1% • JavaScript 7,4% • SCSS 6,5%',
     },
     {
       title: 'OilGroup - CRM Platform',
@@ -57,12 +38,11 @@ export class ProjectsComponent {
       repoLabelKey: 'PROJECT_REPOSITORY',
       techsKey: 'PROJECT_TECHNOLOGIES',
       techs: [
-        { left: '0', width: '49.4%', color: '#3178c6' },
-        { left: '49.4%', width: '25.9%', color: '#e34c26' },
-        { left: '25.9%', width: '19.6%', color: '#f1e05a' },
-        { left: '19.6%', width: '5.1%', color: '#c6538c' },
+        { legend: 'TypeScript', left: '0', percent: '49.4%', color: '#3178c6' },
+        { legend: 'HTML', left: '49.4%', percent: '25.9%', color: '#e34c26' },
+        { legend: 'JavaScript', left: '25.9%', percent: '19.6%', color: '#f1e05a' },
+        { legend: 'SCSS', left: '19.6%', percent: '5.1%', color: '#c6538c' },
       ],
-      legend: 'TypeScript 49,4% • HTML 25,9% • JavaScript 19,6% • SCSS 5,1%',
     },
     {
       title: 'Angular JSON Form - NPM Package',
@@ -76,12 +56,11 @@ export class ProjectsComponent {
       repoLabelKey: 'PROJECT_REPOSITORY',
       techsKey: 'PROJECT_TECHNOLOGIES',
       techs: [
-        { left: '0', width: '43.2%', color: '#3178c6' },
-        { left: '43.2%', width: '36.6%', color: '#e34c26' },
-        { left: '36.6%', width: '18.2%', color: '#c6538c' },
-        { left: '18.2%', width: '1.8%', color: '#f1e05a' },
+        { legend: 'TypeScript', left: '0', percent: '43.2%', color: '#3178c6' },
+        { legend: 'HTML', left: '43.2%', percent: '36.6%', color: '#e34c26' },
+        { legend: 'SCSS', left: '36.6%', percent: '18.2%', color: '#c6538c' },
+        { legend: 'JavaScript', left: '18.2%', percent: '1.8%', color: '#f1e05a' },
       ],
-      legend: 'TypeScript 43,2% • HTML 36,6% • SCSS 18,2% • JavaScript 1,8% • Other 0,2%',
     },
   ]);
 }

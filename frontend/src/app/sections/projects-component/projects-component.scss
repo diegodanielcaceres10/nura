@@ -115,10 +115,15 @@
 
     &_legends {
       display: flex;
-      font-size: 0.7rem;
+      font-size: 0.9rem;
       justify-content: center;
       margin-top: 0.5rem;
       width: 100%;
+    }
+
+    &_separator {
+      margin: 0 0.3rem;
+      opacity: 0.5;
     }
 
     &:hover &_container {
