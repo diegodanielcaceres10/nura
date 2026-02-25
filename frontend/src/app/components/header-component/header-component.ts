@@ -1,6 +1,5 @@
 import { Component, signal, HostListener } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-header-component',
@@ -14,8 +13,5 @@ export class HeaderComponent {
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isSticky.set(window.scrollY > 10);
-  }
-  constructor(private translate: TranslateService) {
-    this.translate.use('es');
   }
 }

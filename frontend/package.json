@@ -3,8 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
-    "test": "vitest run --reporter=verbose",
-    "test:ci": "vitest run --reporter=junit --outputFile=vitest-report.xml"
+    "test": "ng test"
   },
   "prettier": {
     "printWidth": 500,

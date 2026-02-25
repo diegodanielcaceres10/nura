@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './components/header-component/header-component';
 import { FooterComponent } from './components/footer-component/footer-component';
 import { AboutComponent } from './sections/about-component/about-component';
@@ -18,4 +19,13 @@ import { HomeComponent } from './sections/home-component/home-component';
   ],
   templateUrl: './app.html',
 })
-export class App {}
+export class App {
+  constructor(private translate: TranslateService) {
+    const supportedLangs = ['es', 'en', 'pt'];
+    const browserLang =
+      navigator.languages.map((l) => l.split('-')[0]).find((l) => supportedLangs.includes(l)) ??
+      'en';
+
+    this.translate.use(browserLang);
+  }
+}
