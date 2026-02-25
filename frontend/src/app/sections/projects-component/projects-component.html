@@ -1,127 +1,49 @@
 <section class="projects">
   <h2>{{ 'PROJECTS' | translate }}</h2>
   <div class="projects_cards">
-    <div class="projects_card">
-      <div class="projects_card_container">
-        <div class="projects_card_front">
-          <img
-            class="projects_card_background"
-            src="assets/projects/autodrive/card.jpg"
-            alt="AutoDrive Project Card"
-          />
-          <div class="projects_card_logo">
-            <img src="assets/projects/autodrive/logo.png" alt="AutoDrive Logo" />
-          </div>
-        </div>
-        <div class="projects_card_back">
-          <h4>AutoDrive - Saas Platform</h4>
-          <div class="projects_card_info">
-            <p><strong>Stack</strong>: {{ 'PROJECT_AUTODRIVE_STACK' | translate }}</p>
-            <p>{{ 'PROJECT_AUTODRIVE_DESC' | translate }}</p>
-          </div>
-          <div class="projects_card_techs">
-            <strong>{{ 'PROJECT_TECHNOLOGIES' | translate }}</strong>
-            <div class="projects_card_bar">
-              <div style="left: 0; width: 54%; background: #3178c6"></div>
-              <div style="left: 54%; width: 32.1%; background: #e34c26"></div>
-              <div style="left: 32.1%; width: 7.4%; background: #f1e05a"></div>
-              <div style="left: 7.4%; width: 6.5%; background: #c6538c"></div>
+    @for (project of projects(); track project.title) {
+      <div class="projects_card">
+        <div class="projects_card_container">
+          <div class="projects_card_front">
+            <img
+              class="projects_card_background"
+              [src]="project.card"
+              [alt]="project.title + ' Project Card'"
+            />
+            <div class="projects_card_logo">
+              <img [src]="project.logo" [alt]="project.title + ' Logo'" />
             </div>
-            <span class="projects_card_legends"
-              >TypeScript 54,0% • HTML 32,1% • JavaScript 7,4% • SCSS 6,5%</span
-            >
-            <a
-              href="https://github.com/diegodanielcaceres10/octoautodrive"
-              target="_blank"
-              rel="noopener noreferrer"
-              >{{ 'PROJECT_REPOSITORY' | translate }}
-              <i class="fa-solid fa-up-right-from-square"></i>
-            </a>
+          </div>
+
+          <div class="projects_card_back">
+            <h4>{{ project.title }}</h4>
+            <div class="projects_card_info">
+              <p><strong>Stack</strong>: {{ project.stackKey | translate }}</p>
+              <p>{{ project.descKey | translate }}</p>
+              @if (project.resultKey) {
+                <p>{{ project.resultKey | translate }}</p>
+              }
+            </div>
+            <div class="projects_card_techs">
+              <strong>{{ project.techsKey | translate }}</strong>
+              <div class="projects_card_bar">
+                @for (segment of project.techs; track $index) {
+                  <div
+                    [style.left]="segment.left"
+                    [style.width]="segment.width"
+                    [style.background]="segment.color"
+                  ></div>
+                }
+              </div>
+              <span class="projects_card_legends">{{ project.legend }}</span>
+              <a [href]="project.repo" target="_blank" rel="noopener noreferrer">
+                {{ project.repoLabelKey | translate }}
+                <i class="fa-solid fa-up-right-from-square"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="projects_card">
-      <div class="projects_card_container">
-        <div class="projects_card_front">
-          <img
-            class="projects_card_background"
-            src="assets/projects/oilgroup/card.jpg"
-            alt="OilGroup Project Card"
-          />
-          <div class="projects_card_logo">
-            <img src="assets/projects/oilgroup/logo.png" alt="OilGroup Logo" />
-          </div>
-        </div>
-        <div class="projects_card_back">
-          <h4>OilGroup - CRM Platform</h4>
-          <div class="projects_card_info">
-            <p><strong>Stack</strong>: {{ 'PROJECT_OILGROUP_STACK' | translate }}</p>
-            <p>{{ 'PROJECT_OILGROUP_DESC' | translate }}</p>
-            <p>{{ 'PROJECT_OILGROUP_RESULT' | translate }}</p>
-          </div>
-          <div class="projects_card_techs">
-            <strong>{{ 'PROJECT_TECHNOLOGIES' | translate }}</strong>
-            <div class="projects_card_bar">
-              <div style="left: 0; width: 49.4%; background: #3178c6"></div>
-              <div style="left: 49.4%; width: 25.9%; background: #e34c26"></div>
-              <div style="left: 25.9%; width: 19.6%; background: #f1e05a"></div>
-              <div style="left: 19.6%; width: 5.1%; background: #c6538c"></div>
-            </div>
-            <span class="projects_card_legends"
-              >TypeScript 49,4% • HTML 25,9% • JavaScript 19,6% • SCSS 5,1%</span
-            >
-            <a
-              href="https://github.com/diegodanielcaceres10/oilgroup"
-              target="_blank"
-              rel="noopener noreferrer"
-              >{{ 'PROJECT_REPOSITORY' | translate }}
-              <i class="fa-solid fa-up-right-from-square"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="projects_card">
-      <div class="projects_card_container">
-        <div class="projects_card_front">
-          <img
-            class="projects_card_background"
-            src="assets/projects/angularjsonform/card.jpg"
-            alt="Angular JSON Form Project Card"
-          />
-          <div class="projects_card_logo">
-            <img src="assets/projects/angularjsonform/logo.png" alt="Angular JSON Form Logo" />
-          </div>
-        </div>
-        <div class="projects_card_back">
-          <h4>Angular JSON Form - NPM Package</h4>
-          <div class="projects_card_info">
-            <p><strong>Stack</strong>: {{ 'PROJECT_ANGULARJSONFORM_STACK' | translate }}</p>
-            <p>{{ 'PROJECT_ANGULARJSONFORM_DESC' | translate }}</p>
-            <p>{{ 'PROJECT_ANGULARJSONFORM_RESULT' | translate }}</p>
-          </div>
-          <div class="projects_card_techs">
-            <strong>{{ 'PROJECT_TECHNOLOGIES' | translate }}</strong>
-            <div class="projects_card_bar">
-              <div style="left: 0; width: 43.2%; background: #3178c6"></div>
-              <div style="left: 43.2%; width: 36.6%; background: #e34c26"></div>
-              <div style="left: 36.6%; width: 18.2%; background: #c6538c"></div>
-              <div style="left: 18.2%; width: 1.8%; background: #f1e05a"></div>
-            </div>
-            <span class="projects_card_legends"
-              >TypeScript 43,2% • HTML 36,6% • SCSS 18,2% • JavaScript 1,8% • Other 0,2%</span
-            >
-            <a
-              href="https://github.com/diegodanielcaceres10/angular-json-form"
-              target="_blank"
-              rel="noopener noreferrer"
-              >{{ 'PROJECT_REPOSITORY' | translate }}
-              <i class="fa-solid fa-up-right-from-square"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+    }
   </div>
 </section>

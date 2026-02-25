@@ -80,6 +80,11 @@
     white-space: nowrap;
   }
 
+  &_buttons {
+    display: flex;
+    gap: 2rem;
+  }
+
   &_button {
     border: 0.2rem solid $color-white;
     border-radius: 2rem;
@@ -90,6 +95,11 @@
     font-size: 1.5rem;
     margin: 3rem 0;
     padding: 1rem 2rem;
+
+    &-alt {
+      background: $color-white;
+      color: $color-secondary;
+    }
 
     & i {
       padding-left: 0.5rem;
