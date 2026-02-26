@@ -9,32 +9,9 @@
       <p>{{ 'ABOUT_DESC_4' | translate }}</p>
       <hr />
       <div class="about_tags">
-        <span class="about_tag">Angular</span>
-        <span class="about_tag">React</span>
-        <span class="about_tag">TypeScript</span>
-        <span class="about_tag">JavaScript</span>
-        <span class="about_tag">HTML5</span>
-        <span class="about_tag">CSS3</span>
-        <span class="about_tag">Node.js</span>
-        <span class="about_tag">PHP</span>
-        <span class="about_tag">Ionic</span>
-        <span class="about_tag">MySQL</span>
-        <span class="about_tag">MongoDB</span>
-        <span class="about_tag">REST APIs</span>
-        <span class="about_tag">Docker</span>
-        <span class="about_tag">Azure</span>
-        <span class="about_tag">Cloudflare R2</span>
-        <span class="about_tag">Firebase</span>
-        <span class="about_tag">AWS</span>
-        <span class="about_tag">CI/CD</span>
-        <span class="about_tag">Git</span>
-        <span class="about_tag">Android</span>
-        <span class="about_tag">iOS</span>
-        <span class="about_tag">Mobile Development</span>
-        <span class="about_tag">Software Architecture</span>
-        <span class="about_tag">Tech Leadership</span>
-        <span class="about_tag">Legacy Modernization</span>
-        <span class="about_tag">Agile/Scrum</span>
+        @for (tag of skills(); track tag) {
+          <span class="about_tag">{{ tag }}</span>
+        }
       </div>
     </div>
     <div class="about_photo">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -7,4 +7,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   templateUrl: './about-component.html',
   styleUrl: './about-component.scss',
 })
-export class AboutComponent {}
+export class AboutComponent {
+  skills = signal(['Angular', 'React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Node.js', 'PHP', 'Ionic', 'MySQL', 'MongoDB', 'REST APIs', 'Docker', 'Azure', 'Cloudflare R2', 'Firebase', 'AWS', 'CI/CD', 'Git', 'Android', 'iOS', 'Mobile Development', 'Software Architecture', 'Tech Leadership', 'Legacy Modernization', 'Agile/Scrum']);
+}

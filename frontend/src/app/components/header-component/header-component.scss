@@ -26,6 +26,12 @@
     border-color: $color-secondary;
     box-shadow: $box-shadow;
     color: $color-white;
+
+    @include md {
+      background: transparent;
+      backdrop-filter: none;
+      border-color: transparent;
+    }
   }
 
   &_button {

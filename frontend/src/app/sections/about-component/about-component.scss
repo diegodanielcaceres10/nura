@@ -1,3 +1,4 @@
+@import 'breakpoints';
 @import 'colors';
 @import 'variables';
 
@@ -8,6 +9,12 @@
   &_container {
     display: flex;
     gap: 5rem;
+
+    @include md {
+      align-items: center;
+      flex-direction: column;
+      gap: 2rem;
+    }
   }
 
   &_text {
@@ -47,6 +54,10 @@
     overflow: hidden;
     transition: filter 0.3s ease;
     width: 25rem;
+
+    @include lg {
+      width: 20rem;
+    }
 
     &:hover {
       filter: grayscale(0%);
