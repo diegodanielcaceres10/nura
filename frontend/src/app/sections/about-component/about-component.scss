@@ -6,6 +6,10 @@
   background: linear-gradient(45deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
   padding: 5rem;
 
+  @include md {
+    padding: 5rem 2rem;
+  }
+
   &_container {
     display: flex;
     gap: 5rem;

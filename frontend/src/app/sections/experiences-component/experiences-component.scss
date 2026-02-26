@@ -1,9 +1,14 @@
+@import 'breakpoints';
 @import 'colors';
 @import 'variables';
 
 .experiences {
   background: linear-gradient(315deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
   padding: 5rem;
+
+  @include md {
+    padding: 5rem 2rem;
+  }
 
   &_cards {
     display: grid;
@@ -22,6 +27,10 @@
     box-shadow: $box-shadow;
     display: flex;
     padding: 1rem;
+
+    @include md {
+      flex-direction: column;
+    }
   }
 
   &_container {
@@ -33,6 +42,11 @@
     &-first {
       border-right: 0.2rem solid $color-secondary;
       width: 30rem;
+
+      @include md {
+        border: none;
+        width: 100%;
+      }
     }
 
     & h4 {
@@ -57,6 +71,10 @@
     flex-wrap: wrap;
     gap: 10px;
 
+    @include md {
+      justify-content: center;
+    }
+
     & i {
       align-items: center;
       border: 0.1rem solid $color-white;
@@ -68,6 +86,12 @@
       width: 3rem;
 
       transition: font-size 0.1s ease;
+
+      @include md {
+        font-size: 1rem;
+        height: 2rem;
+        width: 2rem;
+      }
 
       &:hover {
         background: $color-white;
