@@ -21,6 +21,10 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "outputPath": {
+              "base": "dist/frontend",
+              "browser": "browser"
+            },
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -37,6 +41,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/nura/",
               "budgets": [
                 {
                   "type": "initial",

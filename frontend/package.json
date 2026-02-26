@@ -6,7 +6,7 @@
     "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
     "test": "npm run clean:reports && ng test --watch=false --coverage",
     "build": "npm run test && ng build",
-    "build:prod": "npm run test && ng build --configuration=production"
+    "build:prod": "ng build --configuration production"
   },
   "prettier": {
     "printWidth": 500,
