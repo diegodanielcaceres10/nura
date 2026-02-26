@@ -10,6 +10,8 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 export class HomeComponent {
   constructor(private translate: TranslateService) {}
 
+  asd;
+
   openCV(): void {
     const lang = this.translate.getCurrentLang() ?? 'en';
     const url = `assets/cvs/cv-${lang}.pdf`;
