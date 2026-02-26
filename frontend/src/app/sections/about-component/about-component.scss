@@ -5,7 +5,7 @@
   padding: 5rem;
 
   @include ds.md {
-    padding: 3rem 2rem;
+    padding: 5rem 2rem;
   }
 
   &_container {
@@ -27,7 +27,7 @@
 
     & hr {
       border: none;
-      border-top: 1px solid var(--border-default);
+      border-top: var(--border-width-default) solid var(--border-default);
       margin: 0.5rem 0;
     }
   }
@@ -40,12 +40,14 @@
   }
 
   &_tag {
-    border: 1px solid var(--border-strong);
-    border-radius: 2rem;
+    border: var(--border-width-default) solid var(--border-strong);
+    border-radius: var(--radius-full);
     color: var(--text-secondary);
+    cursor: default;
     display: flex;
     font-weight: bold;
     padding: 0.5rem 1rem;
+    transition: all var(--duration-base) var(--easing-default);
 
     @include ds.md {
       font-size: 0.8rem;
@@ -61,7 +63,7 @@
   &_photo {
     filter: grayscale(50%);
     overflow: hidden;
-    transition: filter 0.3s ease;
+    transition: filter var(--duration-slow) var(--easing-default);
     width: 25rem;
 
     @include ds.lg {
@@ -73,7 +75,7 @@
     }
 
     & img {
-      border: none;
+      border: var(--border-width-default) solid var(--border-default);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-lg);
       object-fit: contain;

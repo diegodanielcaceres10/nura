@@ -1,6 +1,10 @@
 @use 'index' as ds;
 
 :root {
+  // ─────────────────────────────────────────
+  // PALETTE — RAW TOKENS
+  // ─────────────────────────────────────────
+
   // Backgrounds
   --palette-bg-deepest: #{ds.$bg-deepest};
   --palette-bg-primary: #{ds.$bg-primary};
@@ -26,20 +30,29 @@
   --color-error: #{ds.$error};
   --color-error-light: #{ds.$error-light};
 
-  // Semantic backgrounds
+  // ─────────────────────────────────────────
+  // SEMANTIC — BACKGROUND
+  // ─────────────────────────────────────────
+
   --bg-app: var(--palette-bg-deepest);
   --bg-card: var(--palette-bg-primary);
   --bg-card-alt: var(--palette-bg-mid);
   --bg-overlay: rgba(7, 21, 42, 0.85);
 
-  // Brand & Action
+  // ─────────────────────────────────────────
+  // SEMANTIC — BRAND & ACTION
+  // ─────────────────────────────────────────
+
   --color-brand: var(--palette-accent-blue);
   --color-brand-light: var(--palette-accent-light);
   --color-brand-dark: var(--palette-accent-purple);
   --color-action: var(--palette-accent-blue);
   --color-action-hover: var(--palette-accent-light);
 
-  // Text
+  // ─────────────────────────────────────────
+  // SEMANTIC — TEXT
+  // ─────────────────────────────────────────
+
   --text-primary: var(--palette-accent-light);
   --text-secondary: var(--palette-text-muted);
   --text-disabled: var(--palette-text-muted);
@@ -49,20 +62,29 @@
   --text-brand: var(--palette-accent-light);
   --text-subtle: var(--palette-lavender);
 
-  // Borders
+  // ─────────────────────────────────────────
+  // SEMANTIC — BORDERS
+  // ─────────────────────────────────────────
+
   --border-default: rgba(176, 196, 222, 0.15);
   --border-strong: rgba(176, 196, 222, 0.35);
   --border-brand: var(--palette-accent-blue);
   --border-action: var(--palette-accent-light);
 
-  // States
+  // ─────────────────────────────────────────
+  // SEMANTIC — STATES
+  // ─────────────────────────────────────────
+
   --state-focus-ring: var(--palette-accent-light);
   --state-hover-overlay: rgba(60, 90, 145, 0.15);
   --state-active-overlay: rgba(60, 90, 145, 0.3);
   --state-disabled-bg: var(--palette-bg-mid);
   --state-disabled-text: var(--palette-text-muted);
 
-  // Typography
+  // ─────────────────────────────────────────
+  // TYPOGRAPHY
+  // ─────────────────────────────────────────
+
   --font-family-base: #{ds.$font-family-base};
   --font-size-xs: #{ds.$font-size-xs};
   --font-size-sm: #{ds.$font-size-sm};
@@ -80,18 +102,59 @@
   --line-height-base: #{ds.$line-height-base};
   --line-height-relaxed: #{ds.$line-height-relaxed};
 
-  // Radius
+  // ─────────────────────────────────────────
+  // SPACING
+  // ─────────────────────────────────────────
+
+  --space-1: #{ds.$space-1};
+  --space-2: #{ds.$space-2};
+  --space-3: #{ds.$space-3};
+  --space-4: #{ds.$space-4};
+  --space-5: #{ds.$space-5};
+  --space-6: #{ds.$space-6};
+  --space-8: #{ds.$space-8};
+  --space-10: #{ds.$space-10};
+  --space-12: #{ds.$space-12};
+  --space-16: #{ds.$space-16};
+
+  // ─────────────────────────────────────────
+  // BORDERS & RADIUS
+  // ─────────────────────────────────────────
+
   --radius-sm: #{ds.$radius-sm};
   --radius-md: #{ds.$radius-md};
   --radius-lg: #{ds.$radius-lg};
   --radius-xl: #{ds.$radius-xl};
   --radius-full: #{ds.$radius-full};
 
-  // Borders
   --border-width-default: #{ds.$border-width-default};
   --border-width-thick: #{ds.$border-width-thick};
 
-  // Z-index
+  // ─────────────────────────────────────────
+  // SHADOWS
+  // ─────────────────────────────────────────
+
+  --shadow-sm: #{ds.$shadow-sm};
+  --shadow-md: #{ds.$shadow-md};
+  --shadow-lg: #{ds.$shadow-lg};
+  --shadow-xl: #{ds.$shadow-xl};
+  --shadow-brand: #{ds.$shadow-brand};
+
+  // ─────────────────────────────────────────
+  // TRANSITIONS
+  // ─────────────────────────────────────────
+
+  --duration-fast: #{ds.$duration-fast};
+  --duration-base: #{ds.$duration-base};
+  --duration-slow: #{ds.$duration-slow};
+  --easing-default: #{ds.$easing-default};
+  --easing-in: #{ds.$easing-in};
+  --easing-out: #{ds.$easing-out};
+
+  // ─────────────────────────────────────────
+  // Z-INDEX
+  // ─────────────────────────────────────────
+
   --z-base: #{ds.$z-base};
   --z-dropdown: #{ds.$z-dropdown};
   --z-sticky: #{ds.$z-sticky};
@@ -99,19 +162,4 @@
   --z-modal: #{ds.$z-modal};
   --z-toast: #{ds.$z-toast};
   --z-tooltip: #{ds.$z-tooltip};
-
-  // Shadows
-  --shadow-sm: #{ds.$shadow-sm};
-  --shadow-md: #{ds.$shadow-md};
-  --shadow-lg: #{ds.$shadow-lg};
-  --shadow-xl: #{ds.$shadow-xl};
-  --shadow-brand: #{ds.$shadow-brand};
-
-  // Transitions
-  --duration-fast: #{ds.$duration-fast};
-  --duration-base: #{ds.$duration-base};
-  --duration-slow: #{ds.$duration-slow};
-  --easing-default: #{ds.$easing-default};
-  --easing-in: #{ds.$easing-in};
-  --easing-out: #{ds.$easing-out};
 }

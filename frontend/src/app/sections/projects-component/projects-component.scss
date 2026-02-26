@@ -11,14 +11,13 @@
   &_cards {
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
 
     @include ds.md {
       gap: 1rem;
-      grid-template-columns: none;
-      grid-template-rows: repeat(auto-fit, minmax(20rem, 1fr));
+      grid-template-columns: 1fr;
       font-size: 0.8rem;
     }
   }
@@ -36,7 +35,7 @@
       height: 100%;
       position: relative;
       text-align: center;
-      transition: transform 1s;
+      transition: transform var(--duration-slow) var(--easing-default);
       transform-style: preserve-3d;
       width: 100%;
     }
@@ -56,14 +55,14 @@
     &_front {
       align-items: center;
       background: var(--palette-bg-primary);
-      border: 1px solid var(--border-default);
+      border: var(--border-width-default) solid var(--border-default);
       box-shadow: var(--shadow-md);
     }
 
     &_back {
       align-items: center;
       background: var(--palette-bg-mid);
-      border: 1px solid var(--border-default);
+      border: var(--border-width-default) solid var(--border-default);
       box-shadow: var(--shadow-lg);
       flex-direction: column;
       justify-content: space-between;

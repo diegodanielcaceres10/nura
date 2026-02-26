@@ -2,6 +2,7 @@
 
 .home {
   background: radial-gradient(at 20% 30%, rgba(60, 90, 145, 0.2) 0px, transparent 50%), radial-gradient(at 80% 70%, rgba(59, 26, 64, 0.15) 0px, transparent 50%), var(--palette-bg-deepest);
+  background-attachment: fixed;
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -15,20 +16,20 @@
     height: 10rem;
     animation: wave 10s -3s linear infinite;
     transform: translate3d(0, 0, 0);
-    opacity: 0.6;
+    opacity: 0.5;
     top: 0;
     left: 0;
 
     &:nth-of-type(2) {
       bottom: -1.25em;
       animation: wave 18s linear reverse infinite;
-      opacity: 0.4;
+      opacity: 0.2;
     }
 
     &:nth-of-type(3) {
       bottom: -2.5em;
       animation: wave 20s -1s reverse infinite;
-      opacity: 0.5;
+      opacity: 0.3;
     }
   }
 
@@ -108,8 +109,8 @@
 
   &_button {
     background: transparent;
-    border: 1px solid var(--border-strong);
-    border-radius: 2rem;
+    border: var(--border-width-default) solid var(--border-strong);
+    border-radius: var(--radius-full);
     box-shadow: var(--shadow-md);
     color: var(--text-primary);
     cursor: pointer;
@@ -119,17 +120,28 @@
     justify-content: center;
     margin: 0;
     padding: 1rem 2rem;
+    transition: all var(--duration-base) var(--easing-default);
     width: 17rem;
+
+    &:hover {
+      background: var(--state-hover-overlay);
+      border-color: var(--palette-accent-light);
+    }
 
     &-alt {
       background: var(--palette-accent-blue);
       border-color: var(--palette-accent-blue);
       color: var(--palette-white);
+
+      &:hover {
+        background: var(--color-action-hover);
+        border-color: var(--color-action-hover);
+        color: var(--palette-bg-deepest);
+      }
     }
 
     @include ds.md {
       font-size: 1.2rem;
-      margin: 0;
     }
   }
 
@@ -146,18 +158,6 @@
       font-size: 3rem;
       animation: bounce 1.4s ease-in-out infinite;
     }
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
   }
 }
 

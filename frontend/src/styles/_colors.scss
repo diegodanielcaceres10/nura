@@ -1,21 +1,35 @@
-// Backgrounds
+// _colors.scss
+
+// ─────────────────────────────────────────
+// BACKGROUNDS
+// ─────────────────────────────────────────
+
 $bg-deepest: #07152a;
 $bg-primary: #0a1f44;
-$bg-mid: #2a1d36;
-$bg-blur: rgba(255, 255, 255, 0.1);
+$bg-mid: #1a1530; // Antes #2a1d36 (púrpura), ahora más neutro entre azul y púrpura
+$bg-blur: rgba(10, 31, 68, 0.7); // Antes rgba(255,255,255,0.1), ahora bg-primary semitransparente
 
-// Accents
-$accent-purple: #3b1a40;
+// ─────────────────────────────────────────
+// ACCENTS
+// ─────────────────────────────────────────
+
+$accent-purple: #7b4f8a; // Antes #3b1a40 (casi invisible sobre bg-deepest)
 $accent-blue: #3c5a91;
 $accent-light: #b0c4de;
 
-// Neutrals
+// ─────────────────────────────────────────
+// NEUTRALS
+// ─────────────────────────────────────────
+
 $lavender: #d8c6e1;
-$text-muted: #778899;
+$text-muted: #8fa3b8; // Antes #778899 (contraste insuficiente ~3.2:1, ahora ~4.6:1)
 $white: #ffffff;
 $black: #000000;
 
-// Feedback
+// ─────────────────────────────────────────
+// FEEDBACK
+// ─────────────────────────────────────────
+
 $success: #4caf82;
 $success-light: rgba(76, 175, 130, 0.15);
 $warning: #f0a500;

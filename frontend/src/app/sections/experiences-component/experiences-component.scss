@@ -5,13 +5,13 @@
   padding: 5rem;
 
   @include ds.md {
-    padding: 3rem 2rem;
+    padding: 5rem 2rem;
   }
 
   &_cards {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 2rem;
-    grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
 
@@ -24,7 +24,7 @@
     background: var(--palette-bg-blur);
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
-    border: 1px solid var(--border-default);
+    border: var(--border-width-default) solid var(--border-default);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     display: flex;
@@ -42,12 +42,16 @@
     width: 100%;
 
     &-first {
-      border-right: 1px solid var(--border-default);
+      border-right: var(--border-width-default) solid var(--border-default);
       flex: 0 0 280px;
 
       @include ds.md {
-        border: none;
+        border-right: none;
+        border-bottom: var(--border-width-default) solid var(--border-default);
+        flex: none;
         width: 100%;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
       }
     }
 
@@ -83,16 +87,18 @@
 
     & i {
       align-items: center;
-      border: 1px solid var(--border-strong);
-      border-radius: 3rem;
+      border: var(--border-width-default) solid var(--border-strong);
+      border-radius: var(--radius-full);
       color: var(--text-secondary);
       display: flex;
       font-size: 1.5rem;
       height: 3rem;
       justify-content: center;
       width: 3rem;
-
-      transition: font-size 0.1s ease;
+      transition:
+        background var(--duration-fast) var(--easing-default),
+        color var(--duration-fast) var(--easing-default),
+        border-color var(--duration-fast) var(--easing-default);
 
       @include ds.md {
         font-size: 1rem;

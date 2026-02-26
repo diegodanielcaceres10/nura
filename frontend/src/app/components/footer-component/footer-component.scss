@@ -2,15 +2,16 @@
 
 .footer {
   background: var(--palette-bg-primary);
+  border-top: var(--border-width-default) solid var(--border-default);
   padding: 5rem;
 
   @include ds.md {
-    padding: 3rem 2rem;
+    padding: 5rem 2rem;
   }
 
   & hr {
     border: none;
-    border-top: 1px solid var(--border-default);
+    border-top: var(--border-width-default) solid var(--border-default);
     margin: 2rem 0;
   }
 
@@ -27,8 +28,8 @@
 
   &_list {
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
 
     @include ds.md {
       align-items: center;
@@ -54,23 +55,28 @@
   &_icon {
     align-items: center;
     display: flex;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     height: 4rem;
     justify-content: center;
     margin: 0 1rem;
     position: relative;
     width: 4rem;
+    transition: background var(--duration-fast) var(--easing-default);
+
+    &:hover {
+      background: var(--state-hover-overlay);
+    }
 
     & span {
       background: var(--palette-bg-mid);
-      border: 1px solid var(--border-default);
+      border: var(--border-width-default) solid var(--border-default);
+      border-radius: var(--radius-sm);
       bottom: 0;
       color: var(--text-primary);
       opacity: 0;
       padding: 0.2rem 1rem;
       position: absolute;
       visibility: hidden;
-
       transition: all var(--duration-slow) cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
       &:before {
@@ -110,7 +116,7 @@
     color: var(--text-secondary);
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 1rem;
 
     & i {
       padding: 0 0.2rem;
