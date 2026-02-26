@@ -32,11 +32,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Angular
-        run: npm run build:prod
+      - name: Run tests
+        run: npm run test
 
-      - name: test
-        run: ls -la dist/frontend/browser
+      - name: Build Angular
+        run: npm run build
+
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Vitest Results
+          path: vitest/junit-report.xml
+          reporter: java-junit
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -5,8 +5,7 @@
     "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
     "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
     "test": "npm run clean:reports && ng test --watch=false --coverage",
-    "build": "npm run test && ng build",
-    "build:prod": "ng build --configuration production"
+    "build": "ng build"
   },
   "prettier": {
     "printWidth": 500,
