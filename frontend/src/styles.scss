@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'styles/typography';
-@import 'styles/colors';
+@use 'styles/root';
 
 * {
   box-sizing: border-box;
@@ -12,9 +11,9 @@ html {
 }
 
 body {
-  background-color: $color-secondary;
-  color: $color-white;
-  font-family: $font-primary;
+  background-color: var(--palette-bg-primary);
+  color: var(--palette-white);
+  font-family: var(--font-family-base);
   margin: 0;
   padding: 0;
 }
@@ -34,7 +33,7 @@ h2 {
   font-style: italic;
 
   &:after {
-    background-color: $color-white;
+    background-color: var(--palette-white);
     border-radius: 0.25rem;
     content: '';
     display: block;

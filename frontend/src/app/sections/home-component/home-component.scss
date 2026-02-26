@@ -1,27 +1,21 @@
-@import 'breakpoints';
-@import 'colors';
-@import 'typography';
-@import 'variables';
+@use 'index' as ds;
 
 .home {
-  background: linear-gradient(315deg, $color-primary 3%, $color-secondary 38%, $color-alternative-1 68%, $color-primary 98%);
-  animation: gradient 15s ease infinite;
-  background-size: 400% 400%;
-  background-attachment: fixed;
+  background: radial-gradient(at 20% 30%, rgba(60, 90, 145, 0.2) 0px, transparent 50%), radial-gradient(at 80% 70%, rgba(59, 26, 64, 0.15) 0px, transparent 50%), var(--palette-bg-deepest);
   height: 100vh;
   overflow: hidden;
   position: relative;
   width: 100%;
 
   &_wave {
-    background: $transparent;
+    background: rgba(60, 90, 145, 0.08);
     border-radius: 0 0 1000% 1000%;
     position: absolute;
     width: 200%;
     height: 10rem;
     animation: wave 10s -3s linear infinite;
     transform: translate3d(0, 0, 0);
-    opacity: 0.8;
+    opacity: 0.6;
     top: 0;
     left: 0;
 
@@ -34,7 +28,7 @@
     &:nth-of-type(3) {
       bottom: -2.5em;
       animation: wave 20s -1s reverse infinite;
-      opacity: 0.6;
+      opacity: 0.5;
     }
   }
 
@@ -46,7 +40,7 @@
     padding: 2rem 0;
     margin: 0 5rem;
 
-    @include md {
+    @include ds.md {
       margin: 0 3rem;
     }
   }
@@ -62,7 +56,7 @@
     max-width: min-content;
 
     & h1 {
-      background: $color-white;
+      background: linear-gradient(135deg, var(--palette-white), var(--palette-accent-light));
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -76,13 +70,13 @@
         typing 10s steps(30, end),
         changeFonts 10s steps(30, end);
 
-      @include lg {
+      @include ds.lg {
         animation: none;
         height: auto;
         white-space: initial;
       }
 
-      @include md {
+      @include ds.md {
         font-size: 3rem;
       }
     }
@@ -94,7 +88,7 @@
     letter-spacing: 0.05rem;
     white-space: nowrap;
 
-    @include md {
+    @include ds.md {
       font-size: 0.9rem;
       white-space: initial;
     }
@@ -105,7 +99,7 @@
     gap: 2rem;
     margin-top: 2rem;
 
-    @include md {
+    @include ds.md {
       align-items: center;
       flex-direction: column;
       margin-top: 3rem;
@@ -113,24 +107,27 @@
   }
 
   &_button {
-    border: 0.2rem solid $color-white;
+    background: transparent;
+    border: 1px solid var(--border-strong);
     border-radius: 2rem;
-    box-shadow: $box-shadow;
+    box-shadow: var(--shadow-md);
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     justify-content: center;
-    margin: 3rem 0;
+    margin: 0;
     padding: 1rem 2rem;
     width: 17rem;
 
     &-alt {
-      background: $color-white;
-      color: $color-secondary;
+      background: var(--palette-accent-blue);
+      border-color: var(--palette-accent-blue);
+      color: var(--palette-white);
     }
 
-    @include md {
+    @include ds.md {
       font-size: 1.2rem;
       margin: 0;
     }
@@ -228,7 +225,7 @@
   }
   80%,
   100% {
-    font-family: $font-primary;
+    font-family: var(--font-family-base);
   }
 }
 

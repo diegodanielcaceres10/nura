@@ -1,20 +1,18 @@
-@import 'breakpoints';
-@import 'colors';
-@import 'variables';
+@use 'index' as ds;
 
 .about {
-  background: linear-gradient(45deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
+  background: linear-gradient(180deg, var(--palette-bg-primary) 0%, var(--palette-bg-deepest) 100%);
   padding: 5rem;
 
-  @include md {
-    padding: 5rem 2rem;
+  @include ds.md {
+    padding: 3rem 2rem;
   }
 
   &_container {
     display: flex;
     gap: 5rem;
 
-    @include md {
+    @include ds.md {
       align-items: center;
       flex-direction: column;
       gap: 2rem;
@@ -28,7 +26,8 @@
     font-style: italic;
 
     & hr {
-      background: $color-primary;
+      border: none;
+      border-top: 1px solid var(--border-default);
       margin: 0.5rem 0;
     }
   }
@@ -41,19 +40,21 @@
   }
 
   &_tag {
-    border: 0.1rem solid $color-white;
+    border: 1px solid var(--border-strong);
     border-radius: 2rem;
+    color: var(--text-secondary);
     display: flex;
     font-weight: bold;
     padding: 0.5rem 1rem;
 
-    @include md {
+    @include ds.md {
       font-size: 0.8rem;
     }
 
     &:hover {
-      background: $color-white;
-      color: $color-secondary;
+      background: var(--palette-accent-blue);
+      border-color: var(--palette-accent-blue);
+      color: var(--palette-white);
     }
   }
 
@@ -63,7 +64,7 @@
     transition: filter 0.3s ease;
     width: 25rem;
 
-    @include lg {
+    @include ds.lg {
       width: 20rem;
     }
 
@@ -72,9 +73,9 @@
     }
 
     & img {
-      border: 0.5rem solid $color-primary;
-      border-radius: 2rem;
-      box-shadow: $box-shadow;
+      border: none;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
       object-fit: contain;
       width: 100%;
     }

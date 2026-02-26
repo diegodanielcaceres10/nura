@@ -1,8 +1,24 @@
-$color-primary: #0a1123;
-$color-secondary: #4c4d59;
+// Backgrounds
+$bg-deepest: #07152a;
+$bg-primary: #0a1f44;
+$bg-mid: #2a1d36;
+$bg-blur: rgba(255, 255, 255, 0.1);
 
-$color-alternative-1: #8387c4;
-$color-alternative-2: #898cab;
+// Accents
+$accent-purple: #3b1a40;
+$accent-blue: #3c5a91;
+$accent-light: #b0c4de;
 
-$color-white: #ffffff;
-$color-shadow: #959da533;
+// Neutrals
+$lavender: #d8c6e1;
+$text-muted: #778899;
+$white: #ffffff;
+$black: #000000;
+
+// Feedback
+$success: #4caf82;
+$success-light: rgba(76, 175, 130, 0.15);
+$warning: #f0a500;
+$warning-light: rgba(240, 165, 0, 0.15);
+$error: #e05c5c;
+$error-light: rgba(224, 92, 92, 0.15);

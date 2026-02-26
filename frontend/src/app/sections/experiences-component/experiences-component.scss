@@ -1,38 +1,36 @@
-@import 'breakpoints';
-@import 'colors';
-@import 'variables';
+@use 'index' as ds;
 
 .experiences {
-  background: linear-gradient(315deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
+  background: var(--palette-bg-primary);
   padding: 5rem;
 
-  @include md {
-    padding: 5rem 2rem;
+  @include ds.md {
+    padding: 3rem 2rem;
   }
 
   &_cards {
     display: grid;
-    gap: 5rem;
+    gap: 2rem;
     grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
 
-    @include md {
+    @include ds.md {
       gap: 1rem;
     }
   }
 
   &_card {
-    background: $transparent;
+    background: var(--palette-bg-blur);
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
-    border: 0.2rem solid $color-secondary;
-    border-radius: 0.5rem;
-    box-shadow: $box-shadow;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     display: flex;
     padding: 1rem;
 
-    @include md {
+    @include ds.md {
       flex-direction: column;
     }
   }
@@ -44,13 +42,17 @@
     width: 100%;
 
     &-first {
-      border-right: 0.2rem solid $color-secondary;
-      width: 30rem;
+      border-right: 1px solid var(--border-default);
+      flex: 0 0 280px;
 
-      @include md {
+      @include ds.md {
         border: none;
         width: 100%;
       }
+    }
+
+    & + & {
+      flex: 1;
     }
 
     & h4 {
@@ -75,14 +77,15 @@
     flex-wrap: wrap;
     gap: 10px;
 
-    @include md {
+    @include ds.md {
       justify-content: center;
     }
 
     & i {
       align-items: center;
-      border: 0.1rem solid $color-white;
+      border: 1px solid var(--border-strong);
       border-radius: 3rem;
+      color: var(--text-secondary);
       display: flex;
       font-size: 1.5rem;
       height: 3rem;
@@ -91,15 +94,16 @@
 
       transition: font-size 0.1s ease;
 
-      @include md {
+      @include ds.md {
         font-size: 1rem;
         height: 2rem;
         width: 2rem;
       }
 
       &:hover {
-        background: $color-white;
-        color: $color-primary;
+        background: var(--palette-accent-blue);
+        border-color: var(--palette-accent-blue);
+        color: var(--palette-white);
       }
     }
   }

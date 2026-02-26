@@ -28,8 +28,6 @@ export class HeaderComponent {
   }
 
   toogleMenu(): void {
-    console.log('ASD');
-
     this.isMenuOpen.update((v) => !v);
   }
 

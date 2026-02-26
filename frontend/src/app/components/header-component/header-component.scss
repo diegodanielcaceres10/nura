@@ -1,12 +1,10 @@
-@import 'breakpoints';
-@import 'colors';
-@import 'variables';
+@use 'index' as ds;
 
 .header {
   align-items: center;
   background-color: transparent;
   border-bottom: 0.2rem solid transparent;
-  color: $color-white;
+  color: var(--palette-white);
   display: flex;
   height: 5rem;
   justify-content: end;
@@ -14,20 +12,18 @@
   position: fixed;
   top: 0;
   transition:
-    background-color 0.4s ease,
-    box-shadow 0.4s ease;
+    background-color var(--duration-base) var(--easing-default),
+    box-shadow var(--duration-base) var(--easing-default);
   width: 100%;
-  z-index: 1000;
+  z-index: var(--z-sticky);
 
   &.sticky {
-    background: $transparent;
     backdrop-filter: blur(1rem);
-    -webkit-backdrop-filter: blur(1rem);
-    border-color: $color-secondary;
-    box-shadow: $box-shadow;
-    color: $color-white;
+    background: var(--palette-bg-blur);
+    border-color: var(--border-default);
+    box-shadow: var(--shadow-md);
 
-    @include md {
+    @include ds.md {
       background: transparent;
       backdrop-filter: none;
       border-color: transparent;
@@ -45,12 +41,14 @@
 
     & i {
       font-size: 2rem;
+      opacity: 1;
       position: absolute;
       right: 1rem;
       top: 0.5rem;
       transition:
         transform 0.1s ease,
         opacity 0.5s ease;
+      transform: rotate(0deg) scale(1);
 
       &.hide {
         transform: rotate(360deg) scale(0);
@@ -63,7 +61,7 @@
       }
     }
 
-    @include md {
+    @include ds.md {
       display: flex;
     }
   }
@@ -72,22 +70,23 @@
     display: flex;
     transition: bottom 0.5s ease;
 
-    @include md {
+    @include ds.md {
       align-items: center;
-      background: $color-secondary;
-      bottom: 100vh;
+      background: var(--palette-bg-primary);
       display: flex;
       flex-direction: column;
       height: 100vh;
       justify-content: center;
       left: 0;
       position: fixed;
+      transform: translateY(-100%);
+      top: 0;
       width: 100vw;
     }
 
     &-open {
-      @include md {
-        bottom: 0;
+      @include ds.md {
+        transform: translateY(0);
       }
     }
   }
@@ -98,7 +97,7 @@
     gap: 2rem;
     padding: 1rem;
 
-    @include md {
+    @include ds.md {
       align-items: center;
       flex-direction: column;
       margin: 5rem 0;
@@ -118,7 +117,7 @@
     cursor: pointer;
     font-size: 1.1rem;
     opacity: 0.5;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--duration-base) var(--easing-default);
 
     &:hover,
     &.active {

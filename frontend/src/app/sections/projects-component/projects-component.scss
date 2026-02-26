@@ -1,23 +1,21 @@
-@import 'breakpoints';
-@import 'colors';
-@import 'variables';
+@use 'index' as ds;
 
 .projects {
-  background: linear-gradient(45deg, $color-primary 3%, $color-secondary 38%, $color-primary 98%);
+  background: var(--palette-bg-deepest);
   padding: 5rem;
 
-  @include md {
+  @include ds.md {
     padding: 5rem 2rem;
   }
 
   &_cards {
     display: grid;
-    gap: 5rem;
+    gap: 2rem;
     grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
 
-    @include md {
+    @include ds.md {
       gap: 1rem;
       grid-template-columns: none;
       grid-template-rows: repeat(auto-fit, minmax(20rem, 1fr));
@@ -30,7 +28,7 @@
     perspective: 1000px;
     width: 100%;
 
-    @include md {
+    @include ds.md {
       height: 40rem;
     }
 
@@ -46,7 +44,7 @@
     &_front,
     &_back {
       backface-visibility: hidden;
-      border-radius: 1rem;
+      border-radius: var(--radius-lg);
       display: flex;
       height: 100%;
       justify-content: center;
@@ -57,14 +55,16 @@
 
     &_front {
       align-items: center;
-      background: $color-white;
-      border: 0.2rem solid $color-primary;
-      box-shadow: $box-shadow;
+      background: var(--palette-bg-primary);
+      border: 1px solid var(--border-default);
+      box-shadow: var(--shadow-md);
     }
 
     &_back {
       align-items: center;
-      background: $color-primary;
+      background: var(--palette-bg-mid);
+      border: 1px solid var(--border-default);
+      box-shadow: var(--shadow-lg);
       flex-direction: column;
       justify-content: space-between;
       transform: rotateY(180deg);
@@ -110,9 +110,15 @@
 
       & a {
         align-items: baseline;
+        color: var(--color-action);
         display: flex;
         margin: 1rem 0;
         justify-content: center;
+        transition: color var(--duration-fast) var(--easing-default);
+
+        &:hover {
+          color: var(--color-action-hover);
+        }
 
         & i {
           padding-left: 0.5rem;
@@ -121,8 +127,8 @@
     }
 
     &_bar {
-      background: white;
-      border-radius: 1rem;
+      background: var(--border-default);
+      border-radius: var(--radius-full);
       display: flex;
       height: 0.5rem;
       overflow: hidden;
@@ -136,7 +142,7 @@
       margin-top: 0.5rem;
       width: 100%;
 
-      @include md {
+      @include ds.md {
         font-size: 0.8rem;
       }
     }

@@ -1,0 +1,117 @@
+@use 'index' as ds;
+
+:root {
+  // Backgrounds
+  --palette-bg-deepest: #{ds.$bg-deepest};
+  --palette-bg-primary: #{ds.$bg-primary};
+  --palette-bg-mid: #{ds.$bg-mid};
+  --palette-bg-blur: #{ds.$bg-blur};
+
+  // Accents
+  --palette-accent-purple: #{ds.$accent-purple};
+  --palette-accent-blue: #{ds.$accent-blue};
+  --palette-accent-light: #{ds.$accent-light};
+
+  // Neutrals
+  --palette-lavender: #{ds.$lavender};
+  --palette-text-muted: #{ds.$text-muted};
+  --palette-white: #{ds.$white};
+  --palette-black: #{ds.$black};
+
+  // Feedback
+  --color-success: #{ds.$success};
+  --color-success-light: #{ds.$success-light};
+  --color-warning: #{ds.$warning};
+  --color-warning-light: #{ds.$warning-light};
+  --color-error: #{ds.$error};
+  --color-error-light: #{ds.$error-light};
+
+  // Semantic backgrounds
+  --bg-app: var(--palette-bg-deepest);
+  --bg-card: var(--palette-bg-primary);
+  --bg-card-alt: var(--palette-bg-mid);
+  --bg-overlay: rgba(7, 21, 42, 0.85);
+
+  // Brand & Action
+  --color-brand: var(--palette-accent-blue);
+  --color-brand-light: var(--palette-accent-light);
+  --color-brand-dark: var(--palette-accent-purple);
+  --color-action: var(--palette-accent-blue);
+  --color-action-hover: var(--palette-accent-light);
+
+  // Text
+  --text-primary: var(--palette-accent-light);
+  --text-secondary: var(--palette-text-muted);
+  --text-disabled: var(--palette-text-muted);
+  --text-heading: var(--palette-accent-light);
+  --text-on-brand: var(--palette-white);
+  --text-on-action: var(--palette-white);
+  --text-brand: var(--palette-accent-light);
+  --text-subtle: var(--palette-lavender);
+
+  // Borders
+  --border-default: rgba(176, 196, 222, 0.15);
+  --border-strong: rgba(176, 196, 222, 0.35);
+  --border-brand: var(--palette-accent-blue);
+  --border-action: var(--palette-accent-light);
+
+  // States
+  --state-focus-ring: var(--palette-accent-light);
+  --state-hover-overlay: rgba(60, 90, 145, 0.15);
+  --state-active-overlay: rgba(60, 90, 145, 0.3);
+  --state-disabled-bg: var(--palette-bg-mid);
+  --state-disabled-text: var(--palette-text-muted);
+
+  // Typography
+  --font-family-base: #{ds.$font-family-base};
+  --font-size-xs: #{ds.$font-size-xs};
+  --font-size-sm: #{ds.$font-size-sm};
+  --font-size-md: #{ds.$font-size-md};
+  --font-size-lg: #{ds.$font-size-lg};
+  --font-size-xl: #{ds.$font-size-xl};
+  --font-size-2xl: #{ds.$font-size-2xl};
+  --font-size-3xl: #{ds.$font-size-3xl};
+  --font-size-4xl: #{ds.$font-size-4xl};
+  --font-weight-regular: #{ds.$font-weight-regular};
+  --font-weight-medium: #{ds.$font-weight-medium};
+  --font-weight-semibold: #{ds.$font-weight-semibold};
+  --font-weight-bold: #{ds.$font-weight-bold};
+  --line-height-tight: #{ds.$line-height-tight};
+  --line-height-base: #{ds.$line-height-base};
+  --line-height-relaxed: #{ds.$line-height-relaxed};
+
+  // Radius
+  --radius-sm: #{ds.$radius-sm};
+  --radius-md: #{ds.$radius-md};
+  --radius-lg: #{ds.$radius-lg};
+  --radius-xl: #{ds.$radius-xl};
+  --radius-full: #{ds.$radius-full};
+
+  // Borders
+  --border-width-default: #{ds.$border-width-default};
+  --border-width-thick: #{ds.$border-width-thick};
+
+  // Z-index
+  --z-base: #{ds.$z-base};
+  --z-dropdown: #{ds.$z-dropdown};
+  --z-sticky: #{ds.$z-sticky};
+  --z-overlay: #{ds.$z-overlay};
+  --z-modal: #{ds.$z-modal};
+  --z-toast: #{ds.$z-toast};
+  --z-tooltip: #{ds.$z-tooltip};
+
+  // Shadows
+  --shadow-sm: #{ds.$shadow-sm};
+  --shadow-md: #{ds.$shadow-md};
+  --shadow-lg: #{ds.$shadow-lg};
+  --shadow-xl: #{ds.$shadow-xl};
+  --shadow-brand: #{ds.$shadow-brand};
+
+  // Transitions
+  --duration-fast: #{ds.$duration-fast};
+  --duration-base: #{ds.$duration-base};
+  --duration-slow: #{ds.$duration-slow};
+  --easing-default: #{ds.$easing-default};
+  --easing-in: #{ds.$easing-in};
+  --easing-out: #{ds.$easing-out};
+}

@@ -1,17 +1,17 @@
-@import 'breakpoints';
-@import 'colors';
+@use 'index' as ds;
 
 .footer {
-  background: $color-primary;
+  background: var(--palette-bg-primary);
   padding: 5rem;
 
-  @include md {
-    padding: 5rem 2rem;
+  @include ds.md {
+    padding: 3rem 2rem;
   }
 
   & hr {
-    background: $color-secondary;
-    margin: 5rem 0;
+    border: none;
+    border-top: 1px solid var(--border-default);
+    margin: 2rem 0;
   }
 
   &_section {
@@ -20,7 +20,7 @@
     flex-direction: row;
     justify-content: space-around;
 
-    @include md {
+    @include ds.md {
       flex-direction: column;
     }
   }
@@ -28,9 +28,9 @@
   &_list {
     display: flex;
     flex-direction: column;
-    width: 40vw;
+    flex: 1;
 
-    @include md {
+    @include ds.md {
       align-items: center;
       margin: 5rem 0;
       width: 100%;
@@ -62,24 +62,21 @@
     width: 4rem;
 
     & span {
-      background: $color-white;
-      border-radius: 2px;
+      background: var(--palette-bg-mid);
+      border: 1px solid var(--border-default);
       bottom: 0;
-      color: $color-secondary;
+      color: var(--text-primary);
       opacity: 0;
       padding: 0.2rem 1rem;
       position: absolute;
       visibility: hidden;
 
-      -o-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      -webkit-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      -moz-transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      transition: all var(--duration-slow) cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
       &:before {
         border-left: 0.4rem solid transparent;
         border-right: 0.4rem solid transparent;
-        border-top: 0.4rem solid $color-white;
+        border-top: 0.4rem solid var(--palette-bg-mid);
         bottom: -0.3rem;
         content: '';
         height: 0;
@@ -91,13 +88,14 @@
     }
 
     & i {
-      color: $color-alternative-1;
+      color: var(--text-secondary);
       font-size: 2rem;
+      transition: color var(--duration-base) var(--easing-default);
     }
 
     &:hover {
       & i {
-        color: $color-white;
+        color: var(--palette-accent-light);
       }
 
       & span {
@@ -109,7 +107,7 @@
   }
 
   &_copyright {
-    color: $color-alternative-2;
+    color: var(--text-secondary);
     display: flex;
     justify-content: center;
     margin-top: 3rem;

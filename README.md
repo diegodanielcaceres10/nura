@@ -35,21 +35,69 @@ I chose Angular as my primary frontend framework because it provides:
 
 ---
 
-## Technical Skills
+## Stack
 
-### Frontend
-
-- Angular
-- TypeScript
-- HTML
-- CSS / SCSS
-
-### Tools & Services
-
-- Git
-- Docker
+| Layer     | Technology                  |
+| --------- | --------------------------- |
+| Framework | Angular 21                  |
+| Language  | TypeScript                  |
+| Styling   | SCSS                        |
+| Rendering | CSR (Client Side Rendering) |
+| i18n      | @ngx-translate (EN, ES, PT) |
+| Testing   | Vitest                      |
+| CI/CD     | GitHub Actions              |
+| Hosting   | GitHub Pages                |
 
 ---
+
+## CI/CD
+
+![Deploy](https://github.com/diegodanielcaceres10/nura/actions/workflows/deploy.yml/badge.svg)
+
+This project uses **GitHub Actions** for continuous integration and deployment:
+
+- **On every push to `main`**: dependencies are installed, tests run with Vitest, and the app is built with SSG
+- **Test results** are published directly in the GitHub Actions summary via `dorny/test-reporter`
+- **Automatic deployment** to GitHub Pages using `actions/deploy-pages`
+- **Concurrency control** cancels previous runs when a new push is detected
+
+---
+
+## 🎨 Design System: Color Palette
+
+This project uses a custom color scale based on **Deep Purple** and **Turquoise** to ensure visual hierarchy and accessibility.
+
+### Primary Palette (Purple Base: `#521F57`)
+
+| Shade      | Token                    | Hex       | Preview                                           | Use Case             |
+| :--------- | :----------------------- | :-------- | :------------------------------------------------ | :------------------- |
+| **Light**  | `--color-primary-light`  | `#F3EBF4` | ![](https://via.placeholder.com/15/F3EBF4?text=+) | Backgrounds / Alerts |
+| **Medium** | `--color-primary-medium` | `#9B86BD` | ![](https://via.placeholder.com/15/9B86BD?text=+) | Borders / Icons      |
+| **Main**   | `--color-primary-main`   | `#521F57` | ![](https://via.placeholder.com/15/521F57?text=+) | **Brand Identity**   |
+| **Dark**   | `--color-primary-dark`   | `#3A163E` | ![](https://via.placeholder.com/15/3A163E?text=+) | High-contrast Text   |
+
+### Secondary Palette (Accent: `#2CABB3`)
+
+| Shade     | Token                     | Hex       | Preview                                           | Use Case                   |
+| :-------- | :------------------------ | :-------- | :------------------------------------------------ | :------------------------- |
+| **Main**  | `--color-secondary-main`  | `#2CABB3` | ![](https://via.placeholder.com/15/2CABB3?text=+) | **Primary CTAs / Buttons** |
+| **Hover** | `--color-secondary-hover` | `#248C92` | ![](https://via.placeholder.com/15/248C92?text=+) | Interaction States         |
+
+---
+
+### 🚀 Implementation (SCSS)
+
+Colors are managed via CSS Custom Properties for runtime flexibility and SCSS variables for compilation logic.
+
+```scss
+// Main Action Color usage
+.button--primary {
+  background-color: var(--color-secondary-main);
+  &:hover {
+    background-color: var(--color-secondary-hover);
+  }
+}
+```
 
 ## How to Run
 
