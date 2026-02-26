@@ -43,7 +43,7 @@ jobs:
         if: always()
         with:
           name: Vitest Results
-          path: vitest/junit-report.xml
+          path: frontend/vitest/junit-report.xml
           reporter: java-junit
 
       - name: Upload artifact
