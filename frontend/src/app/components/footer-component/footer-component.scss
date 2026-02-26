@@ -1,8 +1,13 @@
+@import 'breakpoints';
 @import 'colors';
 
 .footer {
   background: $color-primary;
-  padding: 5rem 2rem;
+  padding: 5rem;
+
+  @include md {
+    padding: 5rem 2rem;
+  }
 
   & hr {
     background: $color-secondary;
@@ -13,15 +18,31 @@
     align-items: center;
     display: flex;
     flex-direction: row;
-    justify-content: center;
     justify-content: space-around;
+
+    @include md {
+      flex-direction: column;
+    }
   }
 
   &_list {
+    display: flex;
+    flex-direction: column;
     width: 40vw;
 
-    & i {
-      padding-right: 0.5rem;
+    @include md {
+      align-items: center;
+      margin: 5rem 0;
+      width: 100%;
+    }
+
+    & span {
+      display: flex;
+      margin: 0.2rem 0;
+
+      & i {
+        padding-right: 0.5rem;
+      }
     }
   }
 
