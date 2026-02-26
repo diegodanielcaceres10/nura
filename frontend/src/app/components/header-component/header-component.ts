@@ -9,6 +9,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 })
 export class HeaderComponent {
   isSticky = signal(false);
+  isMenuOpen = signal(false);
   currentLang = signal<string>('en');
 
   langs = [
@@ -24,6 +25,12 @@ export class HeaderComponent {
   changeLang(lang: string): void {
     this.translate.use(lang);
     this.currentLang.set(lang);
+  }
+
+  toogleMenu(): void {
+    console.log('ASD');
+
+    this.isMenuOpen.update((v) => !v);
   }
 
   @HostListener('window:scroll')

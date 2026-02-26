@@ -1,9 +1,11 @@
+@import 'breakpoints';
 @import 'colors';
 @import 'variables';
 
 .header {
   align-items: center;
   background-color: transparent;
+  border-bottom: 0.2rem solid transparent;
   color: $color-white;
   display: flex;
   height: 5rem;
@@ -17,23 +19,82 @@
   width: 100%;
   z-index: 1000;
 
-  & nav {
-    display: flex;
-    font-size: 1.2rem;
-    gap: 2rem;
-    padding: 1rem;
-  }
-
   &.sticky {
     background: $transparent;
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
-    border-bottom: 0.2rem solid $color-secondary;
+    border-color: $color-secondary;
     box-shadow: $box-shadow;
     color: $color-white;
+  }
 
-    & nav {
-      font-size: 0.9rem;
+  &_button {
+    cursor: pointer;
+    display: none;
+    height: 3rem;
+    position: relative;
+    width: 3rem;
+    z-index: 1;
+
+    & i {
+      font-size: 2rem;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+      transition:
+        transform 0.1s ease,
+        opacity 0.5s ease;
+
+      &.hide {
+        transform: rotate(360deg) scale(0);
+        opacity: 0;
+      }
+
+      &.show {
+        transform: rotate(360deg) scale(0);
+        opacity: 1;
+      }
+    }
+
+    @include md {
+      display: flex;
+    }
+  }
+
+  &_container {
+    display: flex;
+    transition: bottom 0.5s ease;
+
+    @include md {
+      align-items: center;
+      background: $color-secondary;
+      bottom: 100vh;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      justify-content: center;
+      left: 0;
+      position: fixed;
+      width: 100vw;
+    }
+
+    &-open {
+      @include md {
+        bottom: 0;
+      }
+    }
+  }
+
+  &_nav {
+    display: flex;
+    font-size: 1.2rem;
+    gap: 2rem;
+    padding: 1rem;
+
+    @include md {
+      align-items: center;
+      flex-direction: column;
+      margin: 5rem 0;
     }
   }
 

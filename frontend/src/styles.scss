@@ -4,6 +4,7 @@
 
 * {
   box-sizing: border-box;
+  outline: none;
 }
 
 html {
@@ -57,6 +58,7 @@ button {
   border: none;
   cursor: pointer;
   color: inherit;
+  font: inherit;
 }
 
 button:active,

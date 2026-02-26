@@ -1,19 +1,21 @@
 <header [class.sticky]="isSticky()" class="header">
-  <nav>
-    <a href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
-    <a href="#experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
-    <a href="#projects">{{ 'MENU_PROJECTS' | translate }}</a>
-    <a href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
-  </nav>
-  <div class="header_langs">
-    @for (lang of langs; track lang.code) {
-      <button
-        class="header_lang"
-        [class.active]="currentLang() === lang.code"
-        (click)="changeLang(lang.code)"
-      >
-        {{ lang.flag }}
-      </button>
-    }
+  <div (click)="toogleMenu()" class="header_button">
+    <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars"></i>
+    <i [class.show]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
+  </div>
+  <div [class.header_container-open]="isMenuOpen()" class="header_container">
+    <nav class="header_nav">
+      <a (click)="toogleMenu()" href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
+      <a (click)="toogleMenu()" href="#experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
+      <a (click)="toogleMenu()" href="#projects">{{ 'MENU_PROJECTS' | translate }}</a>
+      <a (click)="toogleMenu()" href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
+    </nav>
+    <div class="header_langs">
+      @for (lang of langs; track lang.code) {
+        <button class="header_lang" [class.active]="currentLang() === lang.code" (click)="changeLang(lang.code)">
+          {{ lang.flag }}
+        </button>
+      }
+    </div>
   </div>
 </header>
