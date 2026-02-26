@@ -16,6 +16,10 @@
     grid-template-rows: repeat(auto-fill, minmax(10rem, 1fr));
     font-size: 0.9rem;
     padding: 0 1rem;
+
+    @include md {
+      gap: 1rem;
+    }
   }
 
   &_card {
