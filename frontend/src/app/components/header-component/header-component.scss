@@ -43,10 +43,6 @@
     border-radius: var(--radius-md);
     transition: background var(--duration-fast) var(--easing-default);
 
-    &:hover {
-      background: var(--state-hover-overlay);
-    }
-
     & i {
       font-size: 2rem;
       opacity: 1;
