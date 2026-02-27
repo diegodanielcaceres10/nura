@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nura — Design System</title>
+  <style>
+    :root {
+      /* Backgrounds */
+      --palette-bg-deepest: #07152a;
+      --palette-bg-primary: #0a1f44;
+      --palette-bg-mid: #1a1530;
+      --palette-bg-blur: rgba(10, 31, 68, 0.7);
+
+      /* Accents */
+      --palette-accent-purple: #521f57;
+      --palette-accent-blue: #2cabb3;
+      --palette-accent-light: #7dd4d8;
+
+      /* Neutrals */
+      --palette-lavender: #d8c6e1;
+      --palette-text-muted: #8fa3b8;
+      --palette-white: #ffffff;
+      --palette-black: #000000;
+
+      /* Overlays & Borders */
+      --border-color-default: rgba(125, 212, 216, 0.15);
+      --border-color-strong: rgba(125, 212, 216, 0.35);
+      --bg-overlay: rgba(7, 21, 42, 0.85);
+
+      /* Feedback */
+      --color-success: #4caf82;
+      --color-warning: #f0a500;
+      --color-error: #e05c5c;
+
+      /* Radius */
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.4);
+      --shadow-xl: 0 20px 25px rgba(0,0,0,0.5);
+
+      /* Typography */
+      --font-size-xs: 0.75rem;
+      --font-size-sm: 0.875rem;
+      --font-size-md: 1rem;
+      --font-size-lg: 1.125rem;
+      --font-size-xl: 1.25rem;
+      --font-size-2xl: 1.5rem;
+      --font-size-3xl: 1.875rem;
+      --font-size-4xl: 2.25rem;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--palette-bg-deepest);
+      color: var(--palette-accent-light);
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 3rem;
+    }
+
+    /* ── Layout ── */
+    .page-header {
+      border-bottom: 1px solid var(--border-color-default);
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .logo-mark {
+      width: 48px;
+      height: 48px;
+    }
+
+    .page-header h1 {
+      font-size: var(--font-size-3xl);
+      color: var(--palette-white);
+      letter-spacing: 0.1em;
+    }
+
+    .page-header span {
+      color: var(--palette-text-muted);
+      font-size: var(--font-size-sm);
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+
+    .section-title {
+      color: var(--palette-text-muted);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-color-default);
+    }
+
+    /* ── Color Grid ── */
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .color-card {
+      border: 1px solid var(--border-color-default);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .color-swatch {
+      height: 80px;
+      width: 100%;
+    }
+
+    .color-info {
+      background: var(--palette-bg-primary);
+      padding: 0.75rem;
+    }
+
+    .color-name {
+      color: var(--palette-accent-light);
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .color-hex {
+      color: var(--palette-text-muted);
+      font-size: var(--font-size-xs);
+      font-family: monospace;
+      display: block;
+    }
+
+    .color-var {
+      color: var(--palette-accent-blue);
+      font-size: 10px;
+      font-family: monospace;
+      display: block;
+      margin-top: 0.25rem;
+      opacity: 0.8;
+    }
+
+    /* ── Radius ── */
+    .radius-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-end;
+    }
+
+    .radius-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .radius-box {
+      background: var(--palette-bg-primary);
+      border: 1px solid var(--border-color-strong);
+      width: 64px;
+      height: 64px;
+    }
+
+    .radius-label {
+      color: var(--palette-text-muted);
+      font-size: var(--font-size-xs);
+      font-family: monospace;
+      text-align: center;
+    }
+
+    .radius-value {
+      color: var(--palette-accent-light);
+      font-size: 10px;
+      font-family: monospace;
+    }
+
+    /* ── Shadows ── */
+    .shadow-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .shadow-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .shadow-box {
+      background: var(--palette-bg-primary);
+      border-radius: var(--radius-md);
+      width: 80px;
+      height: 80px;
+    }
+
+    .shadow-label {
+      color: var(--palette-text-muted);
+      font-size: var(--font-size-xs);
+      font-family: monospace;
+    }
+
+    /* ── Typography ── */
+    .type-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .type-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2rem;
+      padding: 0.75rem;
+      border-bottom: 1px solid var(--border-color-default);
+    }
+
+    .type-meta {
+      min-width: 140px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .type-token {
+      color: var(--palette-accent-blue);
+      font-size: 10px;
+      font-family: monospace;
+    }
+
+    .type-size {
+      color: var(--palette-text-muted);
+      font-size: 10px;
+    }
+
+    .type-sample {
+      color: var(--palette-white);
+    }
+
+    /* ── Feedback ── */
+    .feedback-grid {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .feedback-card {
+      border-radius: var(--radius-md);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 160px;
+    }
+
+    .feedback-label {
+      font-size: var(--font-size-xs);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .feedback-hex {
+      font-size: 10px;
+      font-family: monospace;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <svg class="logo-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="48" height="48" rx="8" fill="#521f57"/>
+      <path d="M10 36V12l10 14V12h8v24l-10-14v14H10z" fill="#2cabb3"/>
+    </svg>
+    <div>
+      <h1>NURA</h1>
+      <span>Design System — Color & Token Reference</span>
+    </div>
+  </header>
+
+  <!-- BACKGROUNDS -->
+  <section>
+    <p class="section-title">Backgrounds</p>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#07152a"></div>
+        <div class="color-info">
+          <span class="color-name">bg-deepest</span>
+          <span class="color-hex">#07152a</span>
+          <span class="color-var">$bg-deepest</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0a1f44"></div>
+        <div class="color-info">
+          <span class="color-name">bg-primary</span>
+          <span class="color-hex">#0a1f44</span>
+          <span class="color-var">$bg-primary</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#1a1530"></div>
+        <div class="color-info">
+          <span class="color-name">bg-mid</span>
+          <span class="color-hex">#1a1530</span>
+          <span class="color-var">$bg-mid</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:rgba(10,31,68,0.7); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px)"></div>
+        <div class="color-info">
+          <span class="color-name">bg-blur</span>
+          <span class="color-hex">rgba(10, 31, 68, 0.7)</span>
+          <span class="color-var">$bg-blur</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:rgba(7,21,42,0.85); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px)"></div>
+        <div class="color-info">
+          <span class="color-name">bg-overlay</span>
+          <span class="color-hex">rgba(7, 21, 42, 0.85)</span>
+          <span class="color-var">$bg-overlay</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCENTS -->
+  <section>
+    <p class="section-title">Accents — Nura Brand</p>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#521f57"></div>
+        <div class="color-info">
+          <span class="color-name">accent-purple</span>
+          <span class="color-hex">#521f57</span>
+          <span class="color-var">$accent-purple</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#2cabb3"></div>
+        <div class="color-info">
+          <span class="color-name">accent-blue</span>
+          <span class="color-hex">#2cabb3</span>
+          <span class="color-var">$accent-blue</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#7dd4d8"></div>
+        <div class="color-info">
+          <span class="color-name">accent-light</span>
+          <span class="color-hex">#7dd4d8</span>
+          <span class="color-var">$accent-light</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEUTRALS -->
+  <section>
+    <p class="section-title">Neutrals</p>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#d8c6e1"></div>
+        <div class="color-info">
+          <span class="color-name">lavender</span>
+          <span class="color-hex">#d8c6e1</span>
+          <span class="color-var">$lavender</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#8fa3b8"></div>
+        <div class="color-info">
+          <span class="color-name">text-muted</span>
+          <span class="color-hex">#8fa3b8</span>
+          <span class="color-var">$text-muted</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#ffffff; border-bottom: 1px solid rgba(125,212,216,0.2)"></div>
+        <div class="color-info">
+          <span class="color-name">white</span>
+          <span class="color-hex">#ffffff</span>
+          <span class="color-var">$white</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#000000"></div>
+        <div class="color-info">
+          <span class="color-name">black</span>
+          <span class="color-hex">#000000</span>
+          <span class="color-var">$black</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BORDERS -->
+  <section>
+    <p class="section-title">Overlays & Borders</p>
+    <div class="color-grid">
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0a1f44; outline: 2px solid rgba(125,212,216,0.15); outline-offset:-2px"></div>
+        <div class="color-info">
+          <span class="color-name">border-default</span>
+          <span class="color-hex">rgba(125, 212, 216, 0.15)</span>
+          <span class="color-var">$border-color-default</span>
+        </div>
+      </div>
+      <div class="color-card">
+        <div class="color-swatch" style="background:#0a1f44; outline: 2px solid rgba(125,212,216,0.35); outline-offset:-2px"></div>
+        <div class="color-info">
+          <span class="color-name">border-strong</span>
+          <span class="color-hex">rgba(125, 212, 216, 0.35)</span>
+          <span class="color-var">$border-color-strong</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section>
+    <p class="section-title">Feedback</p>
+    <div class="feedback-grid">
+      <div class="feedback-card" style="background: rgba(76,175,130,0.15); border: 1px solid #4caf82">
+        <span class="feedback-label" style="color:#4caf82">Success</span>
+        <span class="feedback-hex" style="color:#4caf82">#4caf82 — $success</span>
+      </div>
+      <div class="feedback-card" style="background: rgba(240,165,0,0.15); border: 1px solid #f0a500">
+        <span class="feedback-label" style="color:#f0a500">Warning</span>
+        <span class="feedback-hex" style="color:#f0a500">#f0a500 — $warning</span>
+      </div>
+      <div class="feedback-card" style="background: rgba(224,92,92,0.15); border: 1px solid #e05c5c">
+        <span class="feedback-label" style="color:#e05c5c">Error</span>
+        <span class="feedback-hex" style="color:#e05c5c">#e05c5c — $error</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RADIUS -->
+  <section>
+    <p class="section-title">Border Radius</p>
+    <div class="radius-grid">
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 4px"></div>
+        <span class="radius-label">--radius-sm</span>
+        <span class="radius-value">4px</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 8px"></div>
+        <span class="radius-label">--radius-md</span>
+        <span class="radius-value">8px</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 12px"></div>
+        <span class="radius-label">--radius-lg</span>
+        <span class="radius-value">12px</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 16px"></div>
+        <span class="radius-label">--radius-xl</span>
+        <span class="radius-value">16px</span>
+      </div>
+      <div class="radius-item">
+        <div class="radius-box" style="border-radius: 9999px"></div>
+        <span class="radius-label">--radius-full</span>
+        <span class="radius-value">9999px</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHADOWS -->
+  <section>
+    <p class="section-title">Shadows</p>
+    <div class="shadow-grid">
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 1px 2px rgba(0,0,0,0.2)"></div>
+        <span class="shadow-label">--shadow-sm</span>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 4px 6px rgba(0,0,0,0.3)"></div>
+        <span class="shadow-label">--shadow-md</span>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 10px 15px rgba(0,0,0,0.4)"></div>
+        <span class="shadow-label">--shadow-lg</span>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 20px 25px rgba(0,0,0,0.5)"></div>
+        <span class="shadow-label">--shadow-xl</span>
+      </div>
+      <div class="shadow-item">
+        <div class="shadow-box" style="box-shadow: 0 4px 14px rgba(44,171,179,0.4)"></div>
+        <span class="shadow-label">--shadow-brand</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section>
+    <p class="section-title">Typography Scale</p>
+    <div class="type-grid">
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-xs</span>
+          <span class="type-size">0.75rem / 12px</span>
+        </div>
+        <span class="type-sample" style="font-size:0.75rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-sm</span>
+          <span class="type-size">0.875rem / 14px</span>
+        </div>
+        <span class="type-sample" style="font-size:0.875rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-md</span>
+          <span class="type-size">1rem / 16px</span>
+        </div>
+        <span class="type-sample" style="font-size:1rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-lg</span>
+          <span class="type-size">1.125rem / 18px</span>
+        </div>
+        <span class="type-sample" style="font-size:1.125rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-xl</span>
+          <span class="type-size">1.25rem / 20px</span>
+        </div>
+        <span class="type-sample" style="font-size:1.25rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-2xl</span>
+          <span class="type-size">1.5rem / 24px</span>
+        </div>
+        <span class="type-sample" style="font-size:1.5rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-3xl</span>
+          <span class="type-size">1.875rem / 30px</span>
+        </div>
+        <span class="type-sample" style="font-size:1.875rem">The quick brown fox</span>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <span class="type-token">--font-size-4xl</span>
+          <span class="type-size">2.25rem / 36px</span>
+        </div>
+        <span class="type-sample" style="font-size:2.25rem">The quick brown fox</span>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

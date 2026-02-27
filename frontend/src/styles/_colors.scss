@@ -13,9 +13,9 @@ $bg-blur: rgba(10, 31, 68, 0.7);
 // ACCENTS
 // ─────────────────────────────────────────
 
-$accent-purple: #7b4f8a;
-$accent-blue: #3c5a91;
-$accent-light: #b0c4de;
+$accent-purple: #521f57;
+$accent-blue: #2cabb3;
+$accent-light: #7dd4d8;
 
 // ─────────────────────────────────────────
 // NEUTRALS
@@ -27,6 +27,14 @@ $white: #ffffff;
 $black: #000000;
 
 // ─────────────────────────────────────────
+// OVERLAYS & BORDERS
+// ─────────────────────────────────────────
+
+$border-color-default: rgba(125, 212, 216, 0.15);
+$border-color-strong: rgba(125, 212, 216, 0.35);
+$bg-overlay: rgba(7, 21, 42, 0.85);
+
+// ─────────────────────────────────────────
 // FEEDBACK
 // ─────────────────────────────────────────
 
@@ -36,11 +44,3 @@ $warning: #f0a500;
 $warning-light: rgba(240, 165, 0, 0.15);
 $error: #e05c5c;
 $error-light: rgba(224, 92, 92, 0.15);
-
-// ─────────────────────────────────────────
-// OVERLAYS & BORDERS
-// ─────────────────────────────────────────
-
-$border-color-default: rgba(176, 196, 222, 0.15);
-$border-color-strong: rgba(176, 196, 222, 0.35);
-$bg-overlay: rgba(7, 21, 42, 0.85);
