@@ -40,7 +40,6 @@
     position: relative;
     width: 3rem;
     z-index: 1;
-    border: var(--border-width-default) solid var(--border-default);
     border-radius: var(--radius-md);
     transition: background var(--duration-fast) var(--easing-default);
 
@@ -50,11 +49,10 @@
 
     & i {
       font-size: 2rem;
+      opacity: 1;
       position: absolute;
       right: 1rem;
       top: 0.5rem;
-      transform: rotate(0deg) scale(1);
-      opacity: 1;
       transition:
         transform var(--duration-base) var(--easing-default),
         opacity var(--duration-slow) var(--easing-default);

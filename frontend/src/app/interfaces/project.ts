@@ -1,20 +1,17 @@
-export interface ProjectBar {
-  left: string;
-  percent: string;
-  color: string;
+export interface ProjectKpi {
   legend: string;
+  value: string;
 }
 
 export interface ProjectCard {
+  name: string;
+  new: boolean;
+  logo: string;
   title: string;
   subtitle: string;
-  stackKey: string;
-  descKey: string;
-  resultKey?: string;
-  logo: string;
-  card: string;
+  skills: string[];
+  description: string;
+  kpis: ProjectKpi[];
   repo: string;
-  repoLabelKey: string;
-  techsKey: string;
-  techs: ProjectBar[];
+  colors: string[];
 }

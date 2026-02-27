@@ -4,48 +4,38 @@
     @for (project of projects(); track project.title) {
       <div class="projects_card">
         <div class="projects_card_container">
-          <div class="projects_card_front">
-            <img
-              class="projects_card_background"
-              [src]="project.card"
-              [alt]="project.title + ' Project Card'"
-            />
-            <div class="projects_card_logo">
+          <div class="projects_card_front" [style.background]="getGradient(project.colors)()">
+            @if (project.new) {
+              <div class="projects_card_front_tag">Nuevo</div>
+            }
+            <div class="projects_card_front_logo">
               <img [src]="project.logo" [alt]="project.title + ' Logo'" />
             </div>
-          </div>
-
-          <div class="projects_card_back">
-            <h4>{{ project.title }}</h4>
-            <div class="projects_card_info">
-              <p><strong>Stack</strong>: {{ project.stackKey | translate }}</p>
-              <p>{{ project.descKey | translate }}</p>
-              @if (project.resultKey) {
-                <p>{{ project.resultKey | translate }}</p>
+            <span class="projects_card_front_title">{{ project.title | translate }}</span>
+            <p class="projects_card_front_subtitle">{{ project.subtitle | translate }}</p>
+            <div class="projects_card_front_skills">
+              @for (skill of project.skills; track $index) {
+                <span>{{ skill }}</span>
               }
             </div>
-            <div class="projects_card_techs">
-              <strong>{{ project.techsKey | translate }}</strong>
-              <div class="projects_card_bar">
-                @for (tech of project.techs; track $index) {
-                  <div
-                    [style.left]="tech.left"
-                    [style.width]="tech.percent"
-                    [style.background]="tech.color"
-                  ></div>
-                }
-              </div>
-              <div class="projects_card_legends">
-                @for (tech of project.techs; track $index) {
-                  <span>{{ tech.legend }} {{ tech.percent }}</span>
-                  @if (!$last) {
-                    <span class="projects_card_separator"> • </span>
-                  }
-                }
-              </div>
+          </div>
+          <div class="projects_card_back">
+            <h4>{{ project.name }}</h4>
+            <div class="projects_card_back_info">
+              <p>{{ project.description | translate }}</p>
+            </div>
+            <div class="projects_card_back_kpis">
+              @for (kpi of project.kpis; track $index) {
+                <div class="projects_card_back_kpi">
+                  <strong>{{ kpi.value }}</strong>
+                  <span>{{ kpi.legend | translate }}</span>
+                </div>
+              }
+            </div>
+            <div class="projects_card_back_links">
               <a [href]="project.repo" target="_blank" rel="noopener noreferrer">
-                {{ project.repoLabelKey | translate }}
                 <i class="fa-solid fa-up-right-from-square"></i>
+                {{ 'PROJECT_REPOSITORY' | translate }}
               </a>
             </div>
           </div>

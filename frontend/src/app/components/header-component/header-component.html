@@ -1,7 +1,7 @@
 <header [class.sticky]="isSticky()" class="header">
   <div (click)="toogleMenu()" class="header_button">
     <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars"></i>
-    <i [class.show]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
+    <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
   </div>
   <div [class.header_container-open]="isMenuOpen()" class="header_container">
     <nav class="header_nav">
