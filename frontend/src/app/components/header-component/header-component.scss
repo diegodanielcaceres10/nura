@@ -70,7 +70,9 @@
 
   &_container {
     display: flex;
+    justify-content: end;
     transition: transform var(--duration-slow) var(--easing-default);
+    width: 100%;
 
     @include ds.md {
       align-items: center;
@@ -92,6 +94,22 @@
       @include ds.md {
         transform: translateY(0);
       }
+    }
+  }
+
+  &_icon {
+    align-items: center;
+    display: flex;
+    flex: 1;
+    gap: 1rem;
+    margin: 0 1rem;
+
+    @include ds.md {
+      flex: initial;
+    }
+
+    & span {
+      font-size: var(--font-size-xl);
     }
   }
 

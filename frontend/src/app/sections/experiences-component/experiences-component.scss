@@ -21,7 +21,7 @@
   }
 
   &_card {
-    background: var(--palette-bg-blur);
+    background: linear-gradient(235deg, var(--palette-bg-mid) 0%, var(--palette-bg-primary) 50%, var(--palette-bg-mid) 100%);
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
     border: var(--border-width-default) solid var(--border-default);
@@ -41,9 +41,9 @@
     padding: 1rem;
     width: 100%;
 
-    &-first {
+    &:first-child {
       border-right: var(--border-width-default) solid var(--border-default);
-      flex: 0 0 280px;
+      flex: 0 0 40%;
 
       @include ds.md {
         border-right: none;
@@ -55,12 +55,12 @@
       }
     }
 
-    & + & {
-      flex: 1;
-    }
-
     & h4 {
       margin-top: 0;
+    }
+
+    & p {
+      margin: 0.3rem 0;
     }
   }
 
@@ -71,6 +71,7 @@
   }
 
   &_period {
+    color: var(--text-secondary);
     font-size: 0.8rem;
     font-style: italic;
     margin-bottom: 1rem;

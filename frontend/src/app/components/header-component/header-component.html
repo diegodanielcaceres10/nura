@@ -4,6 +4,7 @@
     <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
   </div>
   <div [class.header_container-open]="isMenuOpen()" class="header_container">
+    <div class="header_icon"><img src="favicon-32x32.png" alt="Nura Logo" /><span>Nura</span></div>
     <nav class="header_nav">
       <a (click)="toogleMenu()" href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
       <a (click)="toogleMenu()" href="#experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
