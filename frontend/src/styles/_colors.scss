@@ -6,14 +6,14 @@
 
 $bg-deepest: #07152a;
 $bg-primary: #0a1f44;
-$bg-mid: #1a1530; // Antes #2a1d36 (púrpura), ahora más neutro entre azul y púrpura
-$bg-blur: rgba(10, 31, 68, 0.7); // Antes rgba(255,255,255,0.1), ahora bg-primary semitransparente
+$bg-mid: #1a1530;
+$bg-blur: rgba(10, 31, 68, 0.7);
 
 // ─────────────────────────────────────────
 // ACCENTS
 // ─────────────────────────────────────────
 
-$accent-purple: #7b4f8a; // Antes #3b1a40 (casi invisible sobre bg-deepest)
+$accent-purple: #7b4f8a;
 $accent-blue: #3c5a91;
 $accent-light: #b0c4de;
 
@@ -22,7 +22,7 @@ $accent-light: #b0c4de;
 // ─────────────────────────────────────────
 
 $lavender: #d8c6e1;
-$text-muted: #8fa3b8; // Antes #778899 (contraste insuficiente ~3.2:1, ahora ~4.6:1)
+$text-muted: #8fa3b8;
 $white: #ffffff;
 $black: #000000;
 
@@ -36,3 +36,11 @@ $warning: #f0a500;
 $warning-light: rgba(240, 165, 0, 0.15);
 $error: #e05c5c;
 $error-light: rgba(224, 92, 92, 0.15);
+
+// ─────────────────────────────────────────
+// OVERLAYS & BORDERS
+// ─────────────────────────────────────────
+
+$border-color-default: rgba(176, 196, 222, 0.15);
+$border-color-strong: rgba(176, 196, 222, 0.35);
+$bg-overlay: rgba(7, 21, 42, 0.85);

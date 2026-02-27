@@ -37,7 +37,7 @@
   --bg-app: var(--palette-bg-deepest);
   --bg-card: var(--palette-bg-primary);
   --bg-card-alt: var(--palette-bg-mid);
-  --bg-overlay: rgba(7, 21, 42, 0.85);
+  --bg-overlay: #{ds.$bg-overlay};
 
   // ─────────────────────────────────────────
   // SEMANTIC — BRAND & ACTION
@@ -66,8 +66,8 @@
   // SEMANTIC — BORDERS
   // ─────────────────────────────────────────
 
-  --border-default: rgba(176, 196, 222, 0.15);
-  --border-strong: rgba(176, 196, 222, 0.35);
+  --border-default: #{ds.$border-color-default};
+  --border-strong: #{ds.$border-color-strong};
   --border-brand: var(--palette-accent-blue);
   --border-action: var(--palette-accent-light);
 
