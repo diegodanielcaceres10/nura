@@ -12,7 +12,7 @@ export class HomeComponent {
 
   openCV(): void {
     const lang = this.translate.getCurrentLang() ?? 'en';
-    const url = `assets/cvs/cv-${lang}.pdf`;
+    const url = `assets/cvs/diego-daniel-caceres-cv-${lang}.pdf`;
     window.open(url, '_blank');
   }
 }

@@ -51,6 +51,7 @@
     flex-direction: column;
     flex: 1;
     justify-content: center;
+    width: 100%;
   }
 
   &_title {
@@ -100,7 +101,7 @@
     gap: 2rem;
     margin-top: 2rem;
 
-    @include ds.md {
+    @include ds.lg {
       align-items: center;
       flex-direction: column;
       margin-top: 3rem;
@@ -119,9 +120,10 @@
     font-size: 1.5rem;
     justify-content: center;
     margin: 0;
+    max-width: 100%;
     padding: 1rem 2rem;
     transition: all var(--duration-base) var(--easing-default);
-    width: 17rem;
+    width: 20rem;
 
     &:hover {
       background: var(--state-hover-overlay);

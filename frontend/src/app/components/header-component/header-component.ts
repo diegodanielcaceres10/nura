@@ -14,7 +14,7 @@ export class HeaderComponent {
 
   langs = [
     { code: 'es', flag: 'ES' },
-    { code: 'en', flag: 'US' },
+    { code: 'en', flag: 'EN' },
     { code: 'pt', flag: 'PT' },
   ];
 
