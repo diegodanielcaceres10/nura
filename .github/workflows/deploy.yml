@@ -146,6 +146,16 @@ jobs:
     name: Lighthouse
     needs: deploy
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - profile: desktop
+            config_path: ./frontend/lighthouserc.desktop.json
+            check_name: Lighthouse Desktop
+          - profile: mobile
+            config_path: ./frontend/lighthouserc.mobile.json
+            check_name: Lighthouse Mobile
 
     steps:
       - name: Checkout
@@ -167,7 +177,7 @@ jobs:
         continue-on-error: true
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: ./frontend/lighthouserc.json
+          configPath: ${{ matrix.config_path }}
           uploadArtifacts: true
           temporaryPublicStorage: true
 
@@ -199,12 +209,12 @@ jobs:
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: 'Lighthouse Results',
+              name: '${{ matrix.check_name }}',
               head_sha: context.sha,
               status: 'completed',
               conclusion: 'success',
               output: {
-                title: 'Google Lighthouse',
+                title: '${{ matrix.check_name }}',
                 summary
               }
             });

@@ -1,8 +1,18 @@
-{
+﻿{
   "ci": {
     "collect": {
       "url": ["https://diegodanielcaceres10.github.io/nura/"],
-      "numberOfRuns": 3
+      "numberOfRuns": 3,
+      "settings": {
+        "formFactor": "mobile",
+        "screenEmulation": {
+          "mobile": true,
+          "width": 390,
+          "height": 844,
+          "deviceScaleFactor": 2,
+          "disabled": false
+        }
+      }
     },
     "assert": {
       "assertions": {
