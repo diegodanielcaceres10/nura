@@ -58,11 +58,24 @@ jobs:
           name: vitest-coverage
           path: frontend/vitest/coverage
 
+      - name: Normalize coverage report path
+        if: always()
+        run: |
+          if [ -f frontend/vitest/coverage/cobertura-coverage.xml ]; then
+            cp frontend/vitest/coverage/cobertura-coverage.xml frontend/vitest/coverage/coverage.xml
+          elif [ -f frontend/vitest/coverage/cobertura.xml ]; then
+            cp frontend/vitest/coverage/cobertura.xml frontend/vitest/coverage/coverage.xml
+          else
+            echo "Cobertura XML report not found."
+            ls -la frontend/vitest/coverage || true
+            exit 1
+          fi
+
       - name: Generate coverage summary
         uses: irongut/CodeCoverageSummary@v1.3.0
         if: always()
         with:
-          filename: frontend/vitest/coverage/lcov.info
+          filename: frontend/vitest/coverage/coverage.xml
           badge: true
           format: markdown
           output: both
