@@ -188,21 +188,104 @@ jobs:
           LHCI_MANIFEST: ${{ steps.lhci-d.outputs.manifest }}
         with:
           script: |
-            const links = JSON.parse(process.env.LHCI_LINKS || '{}');
-            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const fs = require('fs');
 
-            let summary = 'Lighthouse Desktop audit completed.\n\n';
-            if (manifest.length && manifest[0].summary) {
-              const s = manifest[0].summary;
-              summary += `Performance: ${Math.round((s.performance ?? 0) * 100)}%\n`;
-              summary += `Accessibility: ${Math.round((s.accessibility ?? 0) * 100)}%\n`;
-              summary += `Best Practices: ${Math.round((s['best-practices'] ?? 0) * 100)}%\n`;
-              summary += `SEO: ${Math.round((s.seo ?? 0) * 100)}%\n\n`;
+            const parseJsonOrPath = (raw, fallback) => {
+              if (!raw || !raw.trim()) return fallback;
+              const value = raw.trim();
+              try {
+                return JSON.parse(value);
+              } catch {
+                const maybePath = value.replace(/^['"]|['"]$/g, '');
+                if (fs.existsSync(maybePath)) {
+                  try {
+                    return JSON.parse(fs.readFileSync(maybePath, 'utf8'));
+                  } catch {
+                    return fallback;
+                  }
+                }
+                return fallback;
+              }
+            };
+
+            const extractFirstUrl = (value) => {
+              if (!value) return null;
+              if (typeof value === 'string') {
+                const match = value.match(/https?:\/\/[^\s'",]+/);
+                return match ? match[0] : null;
+              }
+              if (Array.isArray(value)) {
+                for (const item of value) {
+                  const found = extractFirstUrl(item);
+                  if (found) return found;
+                }
+                return null;
+              }
+              if (typeof value === 'object') {
+                for (const item of Object.values(value)) {
+                  const found = extractFirstUrl(item);
+                  if (found) return found;
+                }
+              }
+              return null;
+            };
+
+            let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
+            let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
+            if (!Array.isArray(manifest)) manifest = [];
+
+            if (!manifest.length) {
+              const candidates = [
+                '.lighthouseci/manifest.json',
+                'frontend/.lighthouseci/manifest.json',
+                'lhci_reports/manifest.json'
+              ];
+              for (const file of candidates) {
+                if (!fs.existsSync(file)) continue;
+                const parsed = parseJsonOrPath(file, []);
+                if (Array.isArray(parsed) && parsed.length) {
+                  manifest = parsed;
+                  break;
+                }
+              }
             }
 
-            const firstReport = Object.values(links)[0];
+            const firstEntry = manifest.length ? manifest[0] : null;
+            let scores = firstEntry?.summary ?? null;
+            if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
+              try {
+                const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
+                const categories = lhr?.categories ?? {};
+                scores = {
+                  performance: categories.performance?.score,
+                  accessibility: categories.accessibility?.score,
+                  'best-practices': categories['best-practices']?.score,
+                  seo: categories.seo?.score
+                };
+              } catch {
+                scores = null;
+              }
+            }
+
+            let summary = 'Lighthouse Desktop audit completed.\n\n';
+            if (scores) {
+              summary += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
+              summary += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
+              summary += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
+              summary += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n\n`;
+            } else {
+              summary += 'Scores were not available in action outputs.\n\n';
+            }
+
+            const firstReport =
+              extractFirstUrl(links) ||
+              extractFirstUrl(firstEntry) ||
+              extractFirstUrl(process.env.LHCI_LINKS) ||
+              extractFirstUrl(process.env.LHCI_MANIFEST);
             if (firstReport) {
               summary += `Report: ${firstReport}`;
+            } else {
+              summary += 'Report link not available in action outputs.';
             }
 
             await github.rest.checks.create({
@@ -226,21 +309,104 @@ jobs:
           LHCI_MANIFEST: ${{ steps.lhci-m.outputs.manifest }}
         with:
           script: |
-            const links = JSON.parse(process.env.LHCI_LINKS || '{}');
-            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const fs = require('fs');
 
-            let summary = 'Lighthouse Mobile audit completed.\n\n';
-            if (manifest.length && manifest[0].summary) {
-              const s = manifest[0].summary;
-              summary += `Performance: ${Math.round((s.performance ?? 0) * 100)}%\n`;
-              summary += `Accessibility: ${Math.round((s.accessibility ?? 0) * 100)}%\n`;
-              summary += `Best Practices: ${Math.round((s['best-practices'] ?? 0) * 100)}%\n`;
-              summary += `SEO: ${Math.round((s.seo ?? 0) * 100)}%\n\n`;
+            const parseJsonOrPath = (raw, fallback) => {
+              if (!raw || !raw.trim()) return fallback;
+              const value = raw.trim();
+              try {
+                return JSON.parse(value);
+              } catch {
+                const maybePath = value.replace(/^['"]|['"]$/g, '');
+                if (fs.existsSync(maybePath)) {
+                  try {
+                    return JSON.parse(fs.readFileSync(maybePath, 'utf8'));
+                  } catch {
+                    return fallback;
+                  }
+                }
+                return fallback;
+              }
+            };
+
+            const extractFirstUrl = (value) => {
+              if (!value) return null;
+              if (typeof value === 'string') {
+                const match = value.match(/https?:\/\/[^\s'",]+/);
+                return match ? match[0] : null;
+              }
+              if (Array.isArray(value)) {
+                for (const item of value) {
+                  const found = extractFirstUrl(item);
+                  if (found) return found;
+                }
+                return null;
+              }
+              if (typeof value === 'object') {
+                for (const item of Object.values(value)) {
+                  const found = extractFirstUrl(item);
+                  if (found) return found;
+                }
+              }
+              return null;
+            };
+
+            let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
+            let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
+            if (!Array.isArray(manifest)) manifest = [];
+
+            if (!manifest.length) {
+              const candidates = [
+                '.lighthouseci/manifest.json',
+                'frontend/.lighthouseci/manifest.json',
+                'lhci_reports/manifest.json'
+              ];
+              for (const file of candidates) {
+                if (!fs.existsSync(file)) continue;
+                const parsed = parseJsonOrPath(file, []);
+                if (Array.isArray(parsed) && parsed.length) {
+                  manifest = parsed;
+                  break;
+                }
+              }
             }
 
-            const firstReport = Object.values(links)[0];
+            const firstEntry = manifest.length ? manifest[0] : null;
+            let scores = firstEntry?.summary ?? null;
+            if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
+              try {
+                const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
+                const categories = lhr?.categories ?? {};
+                scores = {
+                  performance: categories.performance?.score,
+                  accessibility: categories.accessibility?.score,
+                  'best-practices': categories['best-practices']?.score,
+                  seo: categories.seo?.score
+                };
+              } catch {
+                scores = null;
+              }
+            }
+
+            let summary = 'Lighthouse Mobile audit completed.\n\n';
+            if (scores) {
+              summary += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
+              summary += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
+              summary += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
+              summary += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n\n`;
+            } else {
+              summary += 'Scores were not available in action outputs.\n\n';
+            }
+
+            const firstReport =
+              extractFirstUrl(links) ||
+              extractFirstUrl(firstEntry) ||
+              extractFirstUrl(process.env.LHCI_LINKS) ||
+              extractFirstUrl(process.env.LHCI_MANIFEST);
             if (firstReport) {
               summary += `Report: ${firstReport}`;
+            } else {
+              summary += 'Report link not available in action outputs.';
             }
 
             await github.rest.checks.create({
