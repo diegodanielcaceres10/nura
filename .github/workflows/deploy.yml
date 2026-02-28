@@ -61,13 +61,13 @@ jobs:
       - name: Normalize coverage report path
         if: always()
         run: |
-          if [ -f frontend/vitest/coverage/cobertura-coverage.xml ]; then
-            cp frontend/vitest/coverage/cobertura-coverage.xml frontend/vitest/coverage/coverage.xml
-          elif [ -f frontend/vitest/coverage/cobertura.xml ]; then
-            cp frontend/vitest/coverage/cobertura.xml frontend/vitest/coverage/coverage.xml
+          if [ -f vitest/coverage/cobertura-coverage.xml ]; then
+            cp vitest/coverage/cobertura-coverage.xml vitest/coverage/coverage.xml
+          elif [ -f vitest/coverage/cobertura.xml ]; then
+            cp vitest/coverage/cobertura.xml vitest/coverage/coverage.xml
           else
             echo "Cobertura XML report not found."
-            ls -la frontend/vitest/coverage || true
+            ls -la vitest/coverage || true
             exit 1
           fi
 
