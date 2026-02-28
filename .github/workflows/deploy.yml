@@ -186,6 +186,8 @@ jobs:
         env:
           LHCI_LINKS: ${{ steps.lhci-d.outputs.links }}
           LHCI_MANIFEST: ${{ steps.lhci-d.outputs.manifest }}
+          LHCI_ASSERTION_RESULTS: ${{ steps.lhci-d.outputs.assertionResults }}
+          LHCI_RESULTS_PATH: ${{ steps.lhci-d.outputs.resultsPath }}
         with:
           script: |
             const fs = require('fs');
@@ -232,6 +234,8 @@ jobs:
 
             let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
             let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
+            const assertionResults = parseJsonOrPath(process.env.LHCI_ASSERTION_RESULTS, []);
+            const resultsPath = (process.env.LHCI_RESULTS_PATH || '').trim();
             if (!Array.isArray(manifest)) manifest = [];
 
             if (!manifest.length) {
@@ -252,6 +256,19 @@ jobs:
 
             const firstEntry = manifest.length ? manifest[0] : null;
             let scores = firstEntry?.summary ?? null;
+            if (!scores && Array.isArray(assertionResults) && assertionResults.length) {
+              const map = {};
+              for (const row of assertionResults) {
+                if (!row || typeof row !== 'object' || typeof row.id !== 'string') continue;
+                const score = typeof row.score === 'number' ? row.score : null;
+                if (score == null) continue;
+                if (row.id === 'categories:performance') map.performance = score;
+                if (row.id === 'categories:accessibility') map.accessibility = score;
+                if (row.id === 'categories:best-practices') map['best-practices'] = score;
+                if (row.id === 'categories:seo') map.seo = score;
+              }
+              if (Object.keys(map).length) scores = map;
+            }
             if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
               try {
                 const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
@@ -280,12 +297,17 @@ jobs:
             const firstReport =
               extractFirstUrl(links) ||
               extractFirstUrl(firstEntry) ||
+              extractFirstUrl(assertionResults) ||
+              extractFirstUrl(resultsPath) ||
               extractFirstUrl(process.env.LHCI_LINKS) ||
               extractFirstUrl(process.env.LHCI_MANIFEST);
             if (firstReport) {
               summary += `Report: ${firstReport}`;
             } else {
               summary += 'Report link not available in action outputs.';
+              if (resultsPath) {
+                summary += `\nResults path: ${resultsPath}`;
+              }
             }
 
             await github.rest.checks.create({
@@ -307,6 +329,8 @@ jobs:
         env:
           LHCI_LINKS: ${{ steps.lhci-m.outputs.links }}
           LHCI_MANIFEST: ${{ steps.lhci-m.outputs.manifest }}
+          LHCI_ASSERTION_RESULTS: ${{ steps.lhci-m.outputs.assertionResults }}
+          LHCI_RESULTS_PATH: ${{ steps.lhci-m.outputs.resultsPath }}
         with:
           script: |
             const fs = require('fs');
@@ -353,6 +377,8 @@ jobs:
 
             let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
             let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
+            const assertionResults = parseJsonOrPath(process.env.LHCI_ASSERTION_RESULTS, []);
+            const resultsPath = (process.env.LHCI_RESULTS_PATH || '').trim();
             if (!Array.isArray(manifest)) manifest = [];
 
             if (!manifest.length) {
@@ -373,6 +399,19 @@ jobs:
 
             const firstEntry = manifest.length ? manifest[0] : null;
             let scores = firstEntry?.summary ?? null;
+            if (!scores && Array.isArray(assertionResults) && assertionResults.length) {
+              const map = {};
+              for (const row of assertionResults) {
+                if (!row || typeof row !== 'object' || typeof row.id !== 'string') continue;
+                const score = typeof row.score === 'number' ? row.score : null;
+                if (score == null) continue;
+                if (row.id === 'categories:performance') map.performance = score;
+                if (row.id === 'categories:accessibility') map.accessibility = score;
+                if (row.id === 'categories:best-practices') map['best-practices'] = score;
+                if (row.id === 'categories:seo') map.seo = score;
+              }
+              if (Object.keys(map).length) scores = map;
+            }
             if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
               try {
                 const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
@@ -401,12 +440,17 @@ jobs:
             const firstReport =
               extractFirstUrl(links) ||
               extractFirstUrl(firstEntry) ||
+              extractFirstUrl(assertionResults) ||
+              extractFirstUrl(resultsPath) ||
               extractFirstUrl(process.env.LHCI_LINKS) ||
               extractFirstUrl(process.env.LHCI_MANIFEST);
             if (firstReport) {
               summary += `Report: ${firstReport}`;
             } else {
               summary += 'Report link not available in action outputs.';
+              if (resultsPath) {
+                summary += `\nResults path: ${resultsPath}`;
+              }
             }
 
             await github.rest.checks.create({
