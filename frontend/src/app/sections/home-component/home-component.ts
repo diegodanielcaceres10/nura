@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './home-component.scss',
 })
 export class HomeComponent {
-  constructor(private translate: TranslateService) {}
+  private readonly translate = inject(TranslateService);
 
   openCV(): void {
     const lang = this.translate.getCurrentLang() ?? 'en';

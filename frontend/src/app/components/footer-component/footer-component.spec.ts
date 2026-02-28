@@ -34,17 +34,17 @@ describe('FooterComponent', () => {
   });
 
   it('should render 3 social links with target blank', () => {
-    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon');
+    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon') as NodeListOf<HTMLAnchorElement>;
     expect(links.length).toBe(3);
 
-    Array.from(links).forEach((link: any) => {
+    Array.from(links).forEach((link) => {
       expect(link.getAttribute('target')).toBe('_blank');
     });
   });
 
   it('should contain expected social urls', () => {
-    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon');
-    const hrefs = Array.from(links).map((link: any) => link.getAttribute('href'));
+    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon') as NodeListOf<HTMLAnchorElement>;
+    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
 
     expect(hrefs).toContain('https://www.linkedin.com/in/diego-daniel-caceres-1328991aa/');
     expect(hrefs).toContain('https://github.com/diegodanielcaceres10');

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './components/header-component/header-component';
 import { FooterComponent } from './components/footer-component/footer-component';
@@ -20,7 +20,9 @@ import { HomeComponent } from './sections/home-component/home-component';
   templateUrl: './app.html',
 })
 export class App {
-  constructor(private translate: TranslateService) {
+  private readonly translate = inject(TranslateService);
+
+  constructor() {
     const supportedLangs = ['es', 'en', 'pt'];
     const browserLang = TranslateService.getBrowserLang() ?? 'en';
     const lang = supportedLangs.includes(browserLang) ? browserLang : 'en';

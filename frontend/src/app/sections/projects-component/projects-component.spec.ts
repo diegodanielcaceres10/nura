@@ -44,10 +44,10 @@ describe('ProjectsComponent', () => {
   });
 
   it('should render one repository link per project with safe attributes', () => {
-    const links = fixture.nativeElement.querySelectorAll('.projects_card_back_links a');
+    const links = fixture.nativeElement.querySelectorAll('.projects_card_back_links a') as NodeListOf<HTMLAnchorElement>;
     expect(links.length).toBe(component.projects().length);
 
-    Array.from(links).forEach((link: any) => {
+    Array.from(links).forEach((link) => {
       expect(link.getAttribute('target')).toBe('_blank');
       expect(link.getAttribute('rel')).toContain('noopener');
       expect(link.getAttribute('href')).toMatch(/^https:\/\/github\.com\//);
@@ -55,10 +55,10 @@ describe('ProjectsComponent', () => {
   });
 
   it('should render front logos with expected alt suffix', () => {
-    const images = fixture.nativeElement.querySelectorAll('.projects_card_front_logo img');
+    const images = fixture.nativeElement.querySelectorAll('.projects_card_front_logo img') as NodeListOf<HTMLImageElement>;
     expect(images.length).toBe(component.projects().length);
 
-    Array.from(images).forEach((img: any) => {
+    Array.from(images).forEach((img) => {
       expect(img.getAttribute('alt')).toContain('Logo');
     });
   });

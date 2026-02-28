@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -8,6 +8,8 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
+  private readonly translate = inject(TranslateService);
+
   isSticky = signal(false);
   isMenuOpen = signal(false);
   currentLang = signal<string>('en');
@@ -18,7 +20,7 @@ export class HeaderComponent {
     { code: 'pt', flag: 'PT' },
   ];
 
-  constructor(private translate: TranslateService) {
+  constructor() {
     this.currentLang.set(this.translate.getCurrentLang() ?? 'en');
   }
 

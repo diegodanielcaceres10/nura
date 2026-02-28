@@ -1,8 +1,8 @@
 <header [class.sticky]="isSticky()" class="header">
-  <div (click)="toogleMenu()" class="header_button">
+  <button type="button" (click)="toogleMenu()" class="header_button" aria-label="Toggle menu">
     <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars"></i>
     <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
-  </div>
+  </button>
   <div [class.header_container-open]="isMenuOpen()" class="header_container">
     <div class="header_icon"><img src="favicon-32x32.png" alt="Nura Logo" /><span>Nura</span></div>
     <nav class="header_nav">

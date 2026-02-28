@@ -38,7 +38,9 @@ describe('HeaderComponent', () => {
   });
 
   it('should fallback to en when current language is undefined on init', async () => {
-    const langSpy = vi.spyOn(translateService, 'getCurrentLang').mockReturnValue(undefined as any);
+    const langSpy = vi
+      .spyOn(translateService, 'getCurrentLang')
+      .mockImplementation(() => undefined as unknown as string);
 
     const localFixture = TestBed.createComponent(HeaderComponent);
     const localComponent = localFixture.componentInstance;
@@ -131,18 +133,18 @@ describe('HeaderComponent', () => {
   });
 
   it('should render 4 navigation anchors with section hashes', () => {
-    const links = fixture.nativeElement.querySelectorAll('.header_nav a');
-    const hrefs = Array.from(links).map((link: any) => link.getAttribute('href'));
+    const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
+    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
 
     expect(links.length).toBe(4);
     expect(hrefs).toEqual(['#about', '#experiences', '#projects', '#contact']);
   });
 
   it('should trigger toggle handler when each nav link is clicked', () => {
-    const links = fixture.nativeElement.querySelectorAll('.header_nav a');
+    const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
     const toggleSpy = vi.spyOn(component, 'toogleMenu');
 
-    Array.from(links).forEach((link: any) => {
+    Array.from(links).forEach((link) => {
       link.click();
     });
 

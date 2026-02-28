@@ -47,7 +47,9 @@ describe('HomeComponent', () => {
   });
 
   it('should fallback to english CV when current language is undefined', () => {
-    const langSpy = vi.spyOn(translateService, 'getCurrentLang').mockReturnValue(undefined as any);
+    const langSpy = vi
+      .spyOn(translateService, 'getCurrentLang')
+      .mockImplementation(() => undefined as unknown as string);
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
 
     component.openCV();

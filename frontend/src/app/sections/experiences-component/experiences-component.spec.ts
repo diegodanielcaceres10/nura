@@ -31,8 +31,8 @@ describe('ExperiencesComponent', () => {
   });
 
   it('should render all company names', () => {
-    const titles = fixture.nativeElement.querySelectorAll('.experiences_title');
-    const rendered = Array.from(titles).map((item: any) => item.textContent.trim());
+    const titles = fixture.nativeElement.querySelectorAll('.experiences_title') as NodeListOf<HTMLElement>;
+    const rendered = Array.from(titles).map((item) => item.textContent?.trim() ?? '');
 
     expect(rendered).toContain('Cesla - WS Solutions');
     expect(rendered).toContain('Apex America');
@@ -45,8 +45,8 @@ describe('ExperiencesComponent', () => {
   });
 
   it('should render at least one known skill class', () => {
-    const icons = fixture.nativeElement.querySelectorAll('.experiences_skills i');
-    const classes = Array.from(icons).map((item: any) => item.getAttribute('class'));
+    const icons = fixture.nativeElement.querySelectorAll('.experiences_skills i') as NodeListOf<HTMLElement>;
+    const classes = Array.from(icons).map((item) => item.getAttribute('class'));
 
     expect(classes.some((value) => value?.includes('fa-angular'))).toBe(true);
     expect(classes.some((value) => value?.includes('fa-react'))).toBe(true);
