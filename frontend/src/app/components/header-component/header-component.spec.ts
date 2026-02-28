@@ -37,6 +37,17 @@ describe('HeaderComponent', () => {
     expect(component.currentLang()).toBe('en');
   });
 
+  it('should fallback to en when current language is undefined on init', async () => {
+    const langSpy = vi.spyOn(translateService, 'getCurrentLang').mockReturnValue(undefined as any);
+
+    const localFixture = TestBed.createComponent(HeaderComponent);
+    const localComponent = localFixture.componentInstance;
+    localFixture.detectChanges();
+
+    expect(langSpy).toHaveBeenCalled();
+    expect(localComponent.currentLang()).toBe('en');
+  });
+
   it('should have 3 languages available', () => {
     expect(component.langs).toHaveLength(3);
     expect(component.langs.map((l) => l.code)).toEqual(['es', 'en', 'pt']);
@@ -60,6 +71,14 @@ describe('HeaderComponent', () => {
   it('should set isSticky true when scrollY > 50', () => {
     Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
     component.onScroll();
+    expect(component.isSticky()).toBe(true);
+  });
+
+  it('should react to real window scroll host event', () => {
+    Object.defineProperty(window, 'scrollY', { value: 120, writable: true });
+    window.dispatchEvent(new Event('scroll'));
+    fixture.detectChanges();
+
     expect(component.isSticky()).toBe(true);
   });
 
@@ -117,5 +136,16 @@ describe('HeaderComponent', () => {
 
     expect(links.length).toBe(4);
     expect(hrefs).toEqual(['#about', '#experiences', '#projects', '#contact']);
+  });
+
+  it('should trigger toggle handler when each nav link is clicked', () => {
+    const links = fixture.nativeElement.querySelectorAll('.header_nav a');
+    const toggleSpy = vi.spyOn(component, 'toogleMenu');
+
+    Array.from(links).forEach((link: any) => {
+      link.click();
+    });
+
+    expect(toggleSpy).toHaveBeenCalledTimes(4);
   });
 });
