@@ -19,7 +19,7 @@ export class ProjectsComponent {
       description: 'PROJECT_NURA_DESC',
       kpis: [
         { value: '3', legend: 'PROJECT_NURA_KPI_1' },
-        { value: '6', legend: 'PROJECT_NURA_KPI_2' },
+        { value: '7', legend: 'PROJECT_NURA_KPI_2' },
         { value: '100%', legend: 'PROJECT_NURA_KPI_3' },
       ],
       repo: 'https://github.com/diegodanielcaceres10/nura',
