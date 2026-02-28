@@ -8,8 +8,14 @@ export default defineConfig({
     },
     coverage: {
       provider: 'v8',
-      reporter: ['html', 'lcov', 'text-summary'],
+      reporter: ['html', 'lcov', 'text-summary', 'json-summary'],
       reportsDirectory: './vitest/coverage',
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        branches: 70,
+        statements: 80,
+      },
     },
   },
 });
