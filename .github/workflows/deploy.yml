@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   build:
+    name: 🏗 Build
     runs-on: ubuntu-latest
 
     defaults:
@@ -91,12 +92,42 @@ jobs:
             echo "Coverage summary file not found." >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Publish coverage check
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const candidates = ['code-coverage-results.md', 'frontend/code-coverage-results.md'];
+            let summary = 'Coverage summary not found.';
+
+            for (const path of candidates) {
+              if (fs.existsSync(path)) {
+                summary = fs.readFileSync(path, 'utf8');
+                break;
+              }
+            }
+
+            await github.rest.checks.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'Coverage Results',
+              head_sha: context.sha,
+              status: 'completed',
+              conclusion: '${{ job.status }}' === 'success' ? 'success' : 'failure',
+              output: {
+                title: 'Vitest Coverage',
+                summary
+              }
+            });
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist/frontend/browser
 
   deploy:
+    name: 🚀 Deploy
     needs: build
     runs-on: ubuntu-latest
     environment:
