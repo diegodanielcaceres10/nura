@@ -143,7 +143,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
   lighthouse:
-    name: Lighthouse
+    name: ${{ matrix.job_name }}
     needs: deploy
     runs-on: ubuntu-latest
     strategy:
@@ -151,11 +151,13 @@ jobs:
       matrix:
         include:
           - profile: desktop
+            job_name: Lighthouse Desktop
             config_path: ./frontend/lighthouserc.desktop.json
-            check_name: Lighthouse Desktop
+            check_name: Lighthouse Desktop Result
           - profile: mobile
+            job_name: Lighthouse Mobile
             config_path: ./frontend/lighthouserc.mobile.json
-            check_name: Lighthouse Mobile
+            check_name: Lighthouse Mobile Result
 
     steps:
       - name: Checkout
@@ -189,21 +191,89 @@ jobs:
           LHCI_MANIFEST: ${{ steps.lhci.outputs.manifest }}
         with:
           script: |
-            const links = JSON.parse(process.env.LHCI_LINKS || '{}');
-            const manifest = JSON.parse(process.env.LHCI_MANIFEST || '[]');
+            const fs = require('fs');
 
-            let summary = 'Lighthouse audit completed.\n\n';
-            if (manifest.length && manifest[0].summary) {
-              const s = manifest[0].summary;
-              summary += `Performance: ${Math.round((s.performance ?? 0) * 100)}%\n`;
-              summary += `Accessibility: ${Math.round((s.accessibility ?? 0) * 100)}%\n`;
-              summary += `Best Practices: ${Math.round((s['best-practices'] ?? 0) * 100)}%\n`;
-              summary += `SEO: ${Math.round((s.seo ?? 0) * 100)}%\n\n`;
+            const parseJsonOrPath = (raw, fallback) => {
+              if (!raw || !raw.trim()) return fallback;
+              const value = raw.trim();
+              try {
+                return JSON.parse(value);
+              } catch {
+                const normalized = value.replace(/^['"]|['"]$/g, '');
+                if (fs.existsSync(normalized)) {
+                  try {
+                    return JSON.parse(fs.readFileSync(normalized, 'utf8'));
+                  } catch {
+                    return fallback;
+                  }
+                }
+                return fallback;
+              }
+            };
+
+            let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
+            let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
+
+            if (!Array.isArray(manifest) || manifest.length === 0) {
+              const candidates = [
+                '.lighthouseci/manifest.json',
+                'frontend/.lighthouseci/manifest.json',
+                'lhci_reports/manifest.json'
+              ];
+              for (const file of candidates) {
+                if (fs.existsSync(file)) {
+                  try {
+                    manifest = JSON.parse(fs.readFileSync(file, 'utf8'));
+                    break;
+                  } catch {
+                    // keep trying
+                  }
+                }
+              }
             }
 
-            const firstReport = Object.values(links)[0];
+            if (!links || typeof links !== 'object') {
+              links = {};
+            }
+
+            const firstEntry = Array.isArray(manifest) && manifest.length ? manifest[0] : null;
+            let scores = null;
+
+            if (firstEntry?.summary && typeof firstEntry.summary === 'object') {
+              scores = firstEntry.summary;
+            } else if (firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
+              try {
+                const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
+                const categories = lhr?.categories ?? {};
+                scores = {
+                  performance: categories.performance?.score,
+                  accessibility: categories.accessibility?.score,
+                  'best-practices': categories['best-practices']?.score,
+                  seo: categories.seo?.score
+                };
+              } catch {
+                // no-op
+              }
+            }
+
+            let summary = 'Lighthouse audit completed.\n\n';
+            if (scores) {
+              summary += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
+              summary += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
+              summary += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
+              summary += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n\n`;
+            } else {
+              summary += 'Scores were not available in action outputs.\n\n';
+            }
+
+            const reportCandidates = Array.isArray(links)
+              ? links
+              : Object.values(links);
+            const firstReport = reportCandidates.find((value) => typeof value === 'string' && value.startsWith('http'));
             if (firstReport) {
               summary += `Report: ${firstReport}`;
+            } else {
+              summary += 'Report link not available in action outputs.';
             }
 
             await github.rest.checks.create({
