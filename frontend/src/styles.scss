@@ -115,3 +115,11 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+app-about-component,
+app-experiences-component,
+app-projects-component,
+app-footer-component {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}

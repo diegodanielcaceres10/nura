@@ -2,7 +2,7 @@
 
 .home {
   background: radial-gradient(at 20% 30%, rgba(60, 90, 145, 0.2) 0px, transparent 50%), radial-gradient(at 80% 70%, rgba(59, 26, 64, 0.15) 0px, transparent 50%), var(--palette-bg-deepest);
-  background-attachment: fixed;
+  background-attachment: scroll;
   height: 100vh;
   overflow: hidden;
   position: relative;
@@ -30,6 +30,10 @@
       bottom: -2.5em;
       animation: wave 20s -1s reverse infinite;
       opacity: 0.3;
+    }
+
+    @include ds.md {
+      display: none;
     }
   }
 
@@ -69,8 +73,7 @@
       white-space: nowrap;
 
       animation:
-        typing 10s steps(30, end),
-        changeFonts 10s steps(30, end);
+        typing 10s steps(30, end);
 
       @include ds.lg {
         animation: none;
@@ -211,29 +214,6 @@
   }
   100% {
     width: 100%;
-  }
-}
-
-@keyframes changeFonts {
-  0%,
-  19.99% {
-    font-family: 'Sour Gummy', sans-serif;
-  }
-  20%,
-  39.99% {
-    font-family: 'Almendra SC', serif;
-  }
-  40%,
-  59.99% {
-    font-family: 'Asimovian', sans-serif;
-  }
-  60%,
-  79.99% {
-    font-family: 'Climate Crisis', sans-serif;
-  }
-  80%,
-  100% {
-    font-family: var(--font-family-base);
   }
 }
 
