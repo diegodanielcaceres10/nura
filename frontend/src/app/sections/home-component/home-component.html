@@ -1,4 +1,4 @@
-<section class="home">
+﻿<section class="home">
   <div class="home_wave"></div>
   <div class="home_wave"></div>
   <div class="home_wave"></div>
@@ -9,19 +9,17 @@
       </div>
       <span class="home_subtitle">{{ 'HOME_SUBTITLE' | translate }}</span>
       <div class="home_buttons">
-        <button (click)="openCV()" class="home_button home_button-alt">
+        <button (click)="openCV()" class="home_button home_button-alt" type="button">
           {{ 'HOME_DOWNLOAD_CV' | translate }}
           <div class="home_icon">
             <i class="fa-solid fa-cloud-arrow-down"></i>
           </div>
         </button>
-        <a href="#contact">
-          <button class="home_button">
-            {{ 'HOME_CONTACT' | translate }}
-            <div class="home_icon">
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </button>
+        <a href="#contact" class="home_button" role="button">
+          {{ 'HOME_CONTACT' | translate }}
+          <div class="home_icon">
+            <i class="fa-solid fa-arrow-right"></i>
+          </div>
         </a>
       </div>
     </div>
