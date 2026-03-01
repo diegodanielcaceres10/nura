@@ -6,10 +6,10 @@
   <div [class.header_container-open]="isMenuOpen()" class="header_container">
     <div class="header_icon"><img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" /><span>Nura</span></div>
     <nav class="header_nav">
-      <a (click)="toogleMenu()" href="#about">{{ 'MENU_ABOUT_ME' | translate }}</a>
-      <a (click)="toogleMenu()" href="#experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
-      <a (click)="toogleMenu()" href="#projects">{{ 'MENU_PROJECTS' | translate }}</a>
-      <a (click)="toogleMenu()" href="#contact">{{ 'MENU_CONTACT' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="[]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="[]" fragment="experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="[]" fragment="projects">{{ 'MENU_PROJECTS' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="[]" fragment="contact">{{ 'MENU_CONTACT' | translate }}</a>
     </nav>
     <div class="header_langs">
       @for (lang of langs; track lang.code) {

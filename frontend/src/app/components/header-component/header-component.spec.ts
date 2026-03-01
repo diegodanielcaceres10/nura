@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from '../../i18n/locale.service';
 import { HeaderComponent } from './header-component';
@@ -22,7 +23,7 @@ describe('HeaderComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
-      providers: [{ provide: LocaleService, useValue: localeService }],
+      providers: [provideRouter([]), { provide: LocaleService, useValue: localeService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
@@ -175,7 +176,10 @@ describe('HeaderComponent', () => {
     const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
 
     expect(links.length).toBe(4);
-    expect(hrefs).toEqual(['#about', '#experiences', '#projects', '#contact']);
+    expect(hrefs[0]).toContain('#about');
+    expect(hrefs[1]).toContain('#experiences');
+    expect(hrefs[2]).toContain('#projects');
+    expect(hrefs[3]).toContain('#contact');
   });
 
   it('should trigger toggle handler when each nav link is clicked', () => {

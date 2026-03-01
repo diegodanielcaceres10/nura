@@ -1,10 +1,11 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../i18n/locale.service';
 import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
 
 @Component({
   selector: 'app-header-component',
-  imports: [TranslateKeyPipe],
+  imports: [TranslateKeyPipe, RouterLink],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
