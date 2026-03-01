@@ -112,6 +112,20 @@ describe('HeaderComponent', () => {
     expect(changeLangSpy).toHaveBeenCalledWith('es');
   });
 
+  it('should call changeLang for each language button', () => {
+    const changeLangSpy = vi.spyOn(component, 'changeLang');
+    const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+
+    (buttons[0] as HTMLButtonElement).click();
+    (buttons[1] as HTMLButtonElement).click();
+    (buttons[2] as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(changeLangSpy).toHaveBeenNthCalledWith(1, 'es');
+    expect(changeLangSpy).toHaveBeenNthCalledWith(2, 'en');
+    expect(changeLangSpy).toHaveBeenNthCalledWith(3, 'pt');
+  });
+
   it('should add sticky class when isSticky is true', () => {
     mockScrollY(100);
     component.onScroll();
