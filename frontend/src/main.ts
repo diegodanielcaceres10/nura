@@ -36,7 +36,7 @@ const restoreSpaPathFromRedirect = (): void => {
 
 const bootstrap = async (): Promise<void> => {
   restoreSpaPathFromRedirect();
-  const locale = LocaleService.resolveStartupLocale(navigator.language);
+  const locale = LocaleService.resolveStartupLocale();
   LocaleService.syncLocalePath(locale);
   document.documentElement.lang = locale;
   (globalThis as { $localize?: { locale?: string } }).$localize = (globalThis as { $localize?: { locale?: string } }).$localize ?? {};

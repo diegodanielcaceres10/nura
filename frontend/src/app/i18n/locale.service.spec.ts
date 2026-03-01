@@ -15,19 +15,18 @@ describe('LocaleService', () => {
     window.localStorage.setItem('app_locale', 'en');
     window.history.replaceState({}, '', '/?lang=pt');
 
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('pt');
+    expect(LocaleService.resolveStartupLocale()).toBe('pt');
   });
 
   it('resolveStartupLocale should prioritize path locale over query and storage', () => {
     window.localStorage.setItem('app_locale', 'en');
     window.history.replaceState({}, '', '/pt?lang=es');
 
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('pt');
+    expect(LocaleService.resolveStartupLocale()).toBe('pt');
   });
 
   it('resolveStartupLocale should fallback to default locale when no source is available', () => {
-    expect(LocaleService.resolveStartupLocale('pt-BR')).toBe('es');
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('es');
+    expect(LocaleService.resolveStartupLocale()).toBe('es');
   });
 
   it('resolveStartupLocale should fallback to default when browserLang is not provided', () => {
@@ -36,11 +35,11 @@ describe('LocaleService', () => {
 
   it('resolveStartupLocale should ignore persisted locale and use default', () => {
     window.localStorage.setItem('app_locale', 'en');
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('es');
+    expect(LocaleService.resolveStartupLocale()).toBe('es');
   });
 
   it('resolveStartupLocale should fallback to default locale for unsupported values', () => {
-    expect(LocaleService.resolveStartupLocale('fr-FR')).toBe('es');
+    expect(LocaleService.resolveStartupLocale()).toBe('es');
   });
 
   it('getCurrentLocale should read locale from html lang', () => {

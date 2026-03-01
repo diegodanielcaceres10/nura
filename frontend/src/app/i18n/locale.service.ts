@@ -16,7 +16,7 @@ export class LocaleService {
     return this.normalizeLocale(fromHtml);
   }
 
-  static resolveStartupLocale(browserLang?: string): AppLocale {
+  static resolveStartupLocale(): AppLocale {
     const pathLocale = this.readPathLocale();
     if (pathLocale) {
       return pathLocale;
