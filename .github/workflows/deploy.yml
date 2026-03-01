@@ -326,6 +326,11 @@ jobs:
               buildSection('Mobile', 'LHCI_M')
             ].join('\n');
 
+            if (process.env.GITHUB_STEP_SUMMARY) {
+              const markdown = `\n## Lighthouse Results\n\n${summary}\n`;
+              fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, markdown);
+            }
+
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
