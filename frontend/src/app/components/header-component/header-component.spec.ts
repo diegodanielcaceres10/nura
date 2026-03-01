@@ -1,12 +1,18 @@
-﻿import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HeaderComponent } from './header-component';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from '../../i18n/locale.service';
+import { HeaderComponent } from './header-component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let localeService: { getCurrentLocale: ReturnType<typeof vi.fn>; changeLocale: ReturnType<typeof vi.fn> };
+  let scrollYSpy: ReturnType<typeof vi.spyOn> | undefined;
+
+  const mockScrollY = (value: number): void => {
+    scrollYSpy?.mockRestore();
+    scrollYSpy = vi.spyOn(window, 'scrollY', 'get').mockReturnValue(value);
+  };
 
   beforeEach(async () => {
     localeService = {
@@ -22,6 +28,11 @@ describe('HeaderComponent', () => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    scrollYSpy?.mockRestore();
+    scrollYSpy = undefined;
   });
 
   it('should be defined', () => {
@@ -60,13 +71,13 @@ describe('HeaderComponent', () => {
   });
 
   it('should set isSticky true when scrollY > 50', () => {
-    Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
+    mockScrollY(100);
     component.onScroll();
     expect(component.isSticky()).toBe(true);
   });
 
   it('should react to real window scroll host event', () => {
-    Object.defineProperty(window, 'scrollY', { value: 120, writable: true });
+    mockScrollY(120);
     window.dispatchEvent(new Event('scroll'));
     fixture.detectChanges();
 
@@ -74,7 +85,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should set isSticky false when scrollY <= 50', () => {
-    Object.defineProperty(window, 'scrollY', { value: 30, writable: true });
+    mockScrollY(30);
     component.onScroll();
     expect(component.isSticky()).toBe(false);
   });
@@ -88,6 +99,7 @@ describe('HeaderComponent', () => {
     const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
     expect(buttons[1].classList.contains('active')).toBe(true);
     expect(buttons[0].classList.contains('active')).toBe(false);
+    expect(buttons[2].classList.contains('active')).toBe(false);
   });
 
   it('should call changeLang with selected locale after clicking language button', () => {
@@ -101,11 +113,19 @@ describe('HeaderComponent', () => {
   });
 
   it('should add sticky class when isSticky is true', () => {
-    Object.defineProperty(window, 'scrollY', { value: 100, writable: true });
+    mockScrollY(100);
     component.onScroll();
     fixture.detectChanges();
     const header = fixture.nativeElement.querySelector('.header');
     expect(header.classList.contains('sticky')).toBe(true);
+  });
+
+  it('should not add sticky class when isSticky is false', () => {
+    mockScrollY(0);
+    component.onScroll();
+    fixture.detectChanges();
+    const header = fixture.nativeElement.querySelector('.header');
+    expect(header.classList.contains('sticky')).toBe(false);
   });
 
   it('should render menu open class when menu is toggled from UI button', () => {
@@ -119,6 +139,21 @@ describe('HeaderComponent', () => {
 
     expect(component.isMenuOpen()).toBe(true);
     expect(container.classList.contains('header_container-open')).toBe(true);
+  });
+
+  it('should switch icon visibility classes based on menu state', () => {
+    const icons = fixture.nativeElement.querySelectorAll('.header_button i');
+    const bars = icons[0] as HTMLElement;
+    const close = icons[1] as HTMLElement;
+
+    expect(bars.classList.contains('hide')).toBe(false);
+    expect(close.classList.contains('hide')).toBe(true);
+
+    component.toogleMenu();
+    fixture.detectChanges();
+
+    expect(bars.classList.contains('hide')).toBe(true);
+    expect(close.classList.contains('hide')).toBe(false);
   });
 
   it('should render 4 navigation anchors with section hashes', () => {
