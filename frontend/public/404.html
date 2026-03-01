@@ -58,11 +58,21 @@
         function setManualLink() {
           var basePath = '/nura/';
           var path = window.location.pathname;
+          var search = window.location.search || '';
+          var hasPParam = search.indexOf('p=') !== -1;
           var relative = path.indexOf(basePath) === 0 ? path.slice(basePath.length) : path.slice(1);
-          var target = window.location.origin + basePath + '?p=/' + encodeURIComponent(relative);
+          var target = window.location.origin + basePath;
 
-          if (window.location.search) {
-            target += '&' + window.location.search.slice(1);
+          // If the URL already has a ?p= param, keep it as-is to avoid
+          // generating things like ?p=/&p=/ and re-redirect loops.
+          if (hasPParam) {
+            target += search;
+          } else {
+            target += '?p=/' + encodeURIComponent(relative);
+
+            if (search) {
+              target += '&' + search.slice(1);
+            }
           }
 
           if (window.location.hash) {
@@ -74,10 +84,13 @@
             manualLink.setAttribute('href', target);
           }
 
-          // Automatic redirect after 5 seconds, preserving the requested path
-          window.setTimeout(function () {
-            window.location.href = target;
-          }, 5000);
+          // Automatic redirect after 5 seconds, but only for the first hop
+          // (when there is not already a ?p= param in the URL).
+          if (!hasPParam) {
+            window.setTimeout(function () {
+              window.location.href = target;
+            }, 5000);
+          }
         }
 
         if (document.readyState === 'loading') {
