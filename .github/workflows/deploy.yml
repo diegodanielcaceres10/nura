@@ -180,14 +180,18 @@ jobs:
           uploadArtifacts: false
           temporaryPublicStorage: true
 
-      - name: Publish Lighthouse Desktop check
+      - name: Publish Lighthouse check
         if: always()
         uses: actions/github-script@v7
         env:
-          LHCI_LINKS: ${{ steps.lhci-d.outputs.links }}
-          LHCI_MANIFEST: ${{ steps.lhci-d.outputs.manifest }}
-          LHCI_ASSERTION_RESULTS: ${{ steps.lhci-d.outputs.assertionResults }}
-          LHCI_RESULTS_PATH: ${{ steps.lhci-d.outputs.resultsPath }}
+          LHCI_D_LINKS: ${{ steps.lhci-d.outputs.links }}
+          LHCI_D_MANIFEST: ${{ steps.lhci-d.outputs.manifest }}
+          LHCI_D_ASSERTION_RESULTS: ${{ steps.lhci-d.outputs.assertionResults }}
+          LHCI_D_RESULTS_PATH: ${{ steps.lhci-d.outputs.resultsPath }}
+          LHCI_M_LINKS: ${{ steps.lhci-m.outputs.links }}
+          LHCI_M_MANIFEST: ${{ steps.lhci-m.outputs.manifest }}
+          LHCI_M_ASSERTION_RESULTS: ${{ steps.lhci-m.outputs.assertionResults }}
+          LHCI_M_RESULTS_PATH: ${{ steps.lhci-m.outputs.resultsPath }}
         with:
           script: |
             const fs = require('fs');
@@ -232,236 +236,105 @@ jobs:
               return null;
             };
 
-            let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
-            let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
-            const assertionResults = parseJsonOrPath(process.env.LHCI_ASSERTION_RESULTS, []);
-            const resultsPath = (process.env.LHCI_RESULTS_PATH || '').trim();
-            if (!Array.isArray(manifest)) manifest = [];
+            const buildSection = (label, prefix) => {
+              let links = parseJsonOrPath(process.env[`${prefix}_LINKS`], {});
+              let manifest = parseJsonOrPath(process.env[`${prefix}_MANIFEST`], []);
+              const assertionResults = parseJsonOrPath(process.env[`${prefix}_ASSERTION_RESULTS`], []);
+              const resultsPath = (process.env[`${prefix}_RESULTS_PATH`] || '').trim();
+              if (!Array.isArray(manifest)) manifest = [];
 
-            if (!manifest.length) {
-              const candidates = [
-                '.lighthouseci/manifest.json',
-                'frontend/.lighthouseci/manifest.json',
-                'lhci_reports/manifest.json'
-              ];
-              for (const file of candidates) {
-                if (!fs.existsSync(file)) continue;
-                const parsed = parseJsonOrPath(file, []);
-                if (Array.isArray(parsed) && parsed.length) {
-                  manifest = parsed;
-                  break;
-                }
-              }
-            }
-
-            const firstEntry = manifest.length ? manifest[0] : null;
-            let scores = firstEntry?.summary ?? null;
-            if (!scores && Array.isArray(assertionResults) && assertionResults.length) {
-              const map = {};
-              for (const row of assertionResults) {
-                if (!row || typeof row !== 'object' || typeof row.id !== 'string') continue;
-                const score = typeof row.score === 'number' ? row.score : null;
-                if (score == null) continue;
-                if (row.id === 'categories:performance') map.performance = score;
-                if (row.id === 'categories:accessibility') map.accessibility = score;
-                if (row.id === 'categories:best-practices') map['best-practices'] = score;
-                if (row.id === 'categories:seo') map.seo = score;
-              }
-              if (Object.keys(map).length) scores = map;
-            }
-            if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
-              try {
-                const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
-                const categories = lhr?.categories ?? {};
-                scores = {
-                  performance: categories.performance?.score,
-                  accessibility: categories.accessibility?.score,
-                  'best-practices': categories['best-practices']?.score,
-                  seo: categories.seo?.score
-                };
-              } catch {
-                scores = null;
-              }
-            }
-
-            let summary = 'Lighthouse Desktop audit completed.\n\n';
-            if (scores) {
-              summary += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
-              summary += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
-              summary += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
-              summary += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n\n`;
-            } else {
-              summary += 'Scores were not available in action outputs.\n\n';
-            }
-
-            const firstReport =
-              extractFirstUrl(links) ||
-              extractFirstUrl(firstEntry) ||
-              extractFirstUrl(assertionResults) ||
-              extractFirstUrl(resultsPath) ||
-              extractFirstUrl(process.env.LHCI_LINKS) ||
-              extractFirstUrl(process.env.LHCI_MANIFEST);
-            if (firstReport) {
-              summary += `Report: ${firstReport}`;
-            } else {
-              summary += 'Report link not available in action outputs.';
-              if (resultsPath) {
-                summary += `\nResults path: ${resultsPath}`;
-              }
-            }
-
-            await github.rest.checks.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              name: 'Lighthouse Desktop Results',
-              head_sha: context.sha,
-              status: 'completed',
-              conclusion: 'success',
-              output: {
-                title: 'Google Lighthouse Desktop',
-                summary
-              }
-            });
-
-      - name: Publish Lighthouse Mobile check
-        if: always()
-        uses: actions/github-script@v7
-        env:
-          LHCI_LINKS: ${{ steps.lhci-m.outputs.links }}
-          LHCI_MANIFEST: ${{ steps.lhci-m.outputs.manifest }}
-          LHCI_ASSERTION_RESULTS: ${{ steps.lhci-m.outputs.assertionResults }}
-          LHCI_RESULTS_PATH: ${{ steps.lhci-m.outputs.resultsPath }}
-        with:
-          script: |
-            const fs = require('fs');
-
-            const parseJsonOrPath = (raw, fallback) => {
-              if (!raw || !raw.trim()) return fallback;
-              const value = raw.trim();
-              try {
-                return JSON.parse(value);
-              } catch {
-                const maybePath = value.replace(/^['"]|['"]$/g, '');
-                if (fs.existsSync(maybePath)) {
-                  try {
-                    return JSON.parse(fs.readFileSync(maybePath, 'utf8'));
-                  } catch {
-                    return fallback;
+              if (!manifest.length) {
+                const candidates = [
+                  '.lighthouseci/manifest.json',
+                  'frontend/.lighthouseci/manifest.json',
+                  'lhci_reports/manifest.json'
+                ];
+                for (const file of candidates) {
+                  if (!fs.existsSync(file)) continue;
+                  const parsed = parseJsonOrPath(file, []);
+                  if (Array.isArray(parsed) && parsed.length) {
+                    manifest = parsed;
+                    break;
                   }
                 }
-                return fallback;
               }
+
+              const firstEntry = manifest.length ? manifest[0] : null;
+              let scores = firstEntry?.summary ?? null;
+              if (!scores && Array.isArray(assertionResults) && assertionResults.length) {
+                const map = {};
+                for (const row of assertionResults) {
+                  if (!row || typeof row !== 'object' || typeof row.id !== 'string') continue;
+                  const score = typeof row.score === 'number' ? row.score : null;
+                  if (score == null) continue;
+                  if (row.id === 'categories:performance') map.performance = score;
+                  if (row.id === 'categories:accessibility') map.accessibility = score;
+                  if (row.id === 'categories:best-practices') map['best-practices'] = score;
+                  if (row.id === 'categories:seo') map.seo = score;
+                }
+                if (Object.keys(map).length) scores = map;
+              }
+              if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
+                try {
+                  const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
+                  const categories = lhr?.categories ?? {};
+                  scores = {
+                    performance: categories.performance?.score,
+                    accessibility: categories.accessibility?.score,
+                    'best-practices': categories['best-practices']?.score,
+                    seo: categories.seo?.score
+                  };
+                } catch {
+                  scores = null;
+                }
+              }
+
+              let section = `### ${label}\n`;
+              if (scores) {
+                section += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
+                section += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
+                section += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
+                section += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n`;
+              } else {
+                section += 'Scores were not available in action outputs.\n';
+              }
+
+              const firstReport =
+                extractFirstUrl(links) ||
+                extractFirstUrl(firstEntry) ||
+                extractFirstUrl(assertionResults) ||
+                extractFirstUrl(resultsPath) ||
+                extractFirstUrl(process.env[`${prefix}_LINKS`]) ||
+                extractFirstUrl(process.env[`${prefix}_MANIFEST`]);
+
+              if (firstReport) {
+                section += `Report: ${firstReport}\n`;
+              } else {
+                section += 'Report link not available in action outputs.\n';
+                if (resultsPath) {
+                  section += `Results path: ${resultsPath}\n`;
+                }
+              }
+
+              return section;
             };
 
-            const extractFirstUrl = (value) => {
-              if (!value) return null;
-              if (typeof value === 'string') {
-                const match = value.match(/https?:\/\/[^\s'",]+/);
-                return match ? match[0] : null;
-              }
-              if (Array.isArray(value)) {
-                for (const item of value) {
-                  const found = extractFirstUrl(item);
-                  if (found) return found;
-                }
-                return null;
-              }
-              if (typeof value === 'object') {
-                for (const item of Object.values(value)) {
-                  const found = extractFirstUrl(item);
-                  if (found) return found;
-                }
-              }
-              return null;
-            };
-
-            let links = parseJsonOrPath(process.env.LHCI_LINKS, {});
-            let manifest = parseJsonOrPath(process.env.LHCI_MANIFEST, []);
-            const assertionResults = parseJsonOrPath(process.env.LHCI_ASSERTION_RESULTS, []);
-            const resultsPath = (process.env.LHCI_RESULTS_PATH || '').trim();
-            if (!Array.isArray(manifest)) manifest = [];
-
-            if (!manifest.length) {
-              const candidates = [
-                '.lighthouseci/manifest.json',
-                'frontend/.lighthouseci/manifest.json',
-                'lhci_reports/manifest.json'
-              ];
-              for (const file of candidates) {
-                if (!fs.existsSync(file)) continue;
-                const parsed = parseJsonOrPath(file, []);
-                if (Array.isArray(parsed) && parsed.length) {
-                  manifest = parsed;
-                  break;
-                }
-              }
-            }
-
-            const firstEntry = manifest.length ? manifest[0] : null;
-            let scores = firstEntry?.summary ?? null;
-            if (!scores && Array.isArray(assertionResults) && assertionResults.length) {
-              const map = {};
-              for (const row of assertionResults) {
-                if (!row || typeof row !== 'object' || typeof row.id !== 'string') continue;
-                const score = typeof row.score === 'number' ? row.score : null;
-                if (score == null) continue;
-                if (row.id === 'categories:performance') map.performance = score;
-                if (row.id === 'categories:accessibility') map.accessibility = score;
-                if (row.id === 'categories:best-practices') map['best-practices'] = score;
-                if (row.id === 'categories:seo') map.seo = score;
-              }
-              if (Object.keys(map).length) scores = map;
-            }
-            if (!scores && firstEntry?.jsonPath && fs.existsSync(firstEntry.jsonPath)) {
-              try {
-                const lhr = JSON.parse(fs.readFileSync(firstEntry.jsonPath, 'utf8'));
-                const categories = lhr?.categories ?? {};
-                scores = {
-                  performance: categories.performance?.score,
-                  accessibility: categories.accessibility?.score,
-                  'best-practices': categories['best-practices']?.score,
-                  seo: categories.seo?.score
-                };
-              } catch {
-                scores = null;
-              }
-            }
-
-            let summary = 'Lighthouse Mobile audit completed.\n\n';
-            if (scores) {
-              summary += `Performance: ${Math.round((scores.performance ?? 0) * 100)}%\n`;
-              summary += `Accessibility: ${Math.round((scores.accessibility ?? 0) * 100)}%\n`;
-              summary += `Best Practices: ${Math.round((scores['best-practices'] ?? 0) * 100)}%\n`;
-              summary += `SEO: ${Math.round((scores.seo ?? 0) * 100)}%\n\n`;
-            } else {
-              summary += 'Scores were not available in action outputs.\n\n';
-            }
-
-            const firstReport =
-              extractFirstUrl(links) ||
-              extractFirstUrl(firstEntry) ||
-              extractFirstUrl(assertionResults) ||
-              extractFirstUrl(resultsPath) ||
-              extractFirstUrl(process.env.LHCI_LINKS) ||
-              extractFirstUrl(process.env.LHCI_MANIFEST);
-            if (firstReport) {
-              summary += `Report: ${firstReport}`;
-            } else {
-              summary += 'Report link not available in action outputs.';
-              if (resultsPath) {
-                summary += `\nResults path: ${resultsPath}`;
-              }
-            }
+            const summary = [
+              'Lighthouse combined audit completed.\n',
+              buildSection('Desktop', 'LHCI_D'),
+              '',
+              buildSection('Mobile', 'LHCI_M')
+            ].join('\n');
 
             await github.rest.checks.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              name: 'Lighthouse Mobile Results',
+              name: 'Lighthouse Results',
               head_sha: context.sha,
               status: 'completed',
               conclusion: 'success',
               output: {
-                title: 'Google Lighthouse Mobile',
+                title: 'Google Lighthouse',
                 summary
               }
             });
