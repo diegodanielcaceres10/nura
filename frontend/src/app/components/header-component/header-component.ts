@@ -30,11 +30,12 @@ export class HeaderComponent {
   }
 
   toogleMenu(): void {
-    this.isMenuOpen.update((v) => !v);
+    this.isMenuOpen.set(!this.isMenuOpen());
   }
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.isSticky.set(window.scrollY > 50);
+    const shouldStick = window.scrollY > 50;
+    this.isSticky.set(shouldStick);
   }
 }
