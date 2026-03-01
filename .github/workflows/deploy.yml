@@ -75,6 +75,18 @@ jobs:
             exit 1
           fi
 
+      - name: Debug header branch-rate from Cobertura XML
+        if: always()
+        run: |
+          if [ -f vitest/coverage/cobertura-coverage.xml ]; then
+            echo "Header package coverage line:"
+            grep -n 'package name="app.components.header-component"' vitest/coverage/cobertura-coverage.xml || true
+            echo "Header class coverage line:"
+            grep -n 'class name="header-component.ts"' vitest/coverage/cobertura-coverage.xml || true
+          else
+            echo "cobertura-coverage.xml not found."
+          fi
+
       - name: Generate coverage summary
         uses: irongut/CodeCoverageSummary@v1.3.0
         if: always()
@@ -101,13 +113,61 @@ jobs:
         with:
           script: |
             const fs = require('fs');
-            const candidates = ['code-coverage-results.md', 'frontend/code-coverage-results.md'];
-            let summary = 'Coverage summary not found.';
+            const xmlCandidates = [
+              'frontend/vitest/coverage/cobertura-coverage.xml',
+              'frontend/vitest/coverage/coverage.xml'
+            ];
+            const summaryCandidates = ['code-coverage-results.md', 'frontend/code-coverage-results.md'];
 
-            for (const path of candidates) {
-              if (fs.existsSync(path)) {
-                summary = fs.readFileSync(path, 'utf8');
-                break;
+            const percent = (rate) => `${Math.round(Number(rate || 0) * 100)}%`;
+            let summary = `Coverage summary not found.\n\nCommit: ${context.sha}`;
+
+            const xmlPath = xmlCandidates.find((path) => fs.existsSync(path));
+            if (xmlPath) {
+              const xml = fs.readFileSync(xmlPath, 'utf8');
+              const root = xml.match(
+                /<coverage[^>]*lines-covered="(\d+)"[^>]*lines-valid="(\d+)"[^>]*branches-covered="(\d+)"[^>]*branches-valid="(\d+)"[^>]*line-rate="([^"]+)"[^>]*branch-rate="([^"]+)"/
+              );
+              const packageMatches = [...xml.matchAll(/<package name="([^"]+)" line-rate="([^"]+)" branch-rate="([^"]+)"/g)];
+              const packages = packageMatches
+                .map((match) => ({
+                  name: match[1],
+                  lineRate: percent(match[2]),
+                  branchRate: percent(match[3]),
+                }))
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+              const headerPkg = packages.find((pkg) => pkg.name === 'app.components.header-component');
+
+              let table = '| Package | Line Rate | Branch Rate |\n| --- | --- | --- |\n';
+              for (const pkg of packages) {
+                table += `| ${pkg.name} | ${pkg.lineRate} | ${pkg.branchRate} |\n`;
+              }
+
+              const summaryLine = root
+                ? `Summary: ${percent(root[5])} (${root[1]} / ${root[2]}) lines, ${percent(root[6])} (${root[3]} / ${root[4]}) branches`
+                : 'Summary not available from Cobertura XML.';
+              const headerLine = headerPkg
+                ? `Header branch-rate: ${headerPkg.branchRate}`
+                : 'Header branch-rate not found in Cobertura XML.';
+
+              summary = [
+                'Code Coverage (from Cobertura XML)',
+                '',
+                `Commit: ${context.sha}`,
+                `Source: ${xmlPath}`,
+                headerLine,
+                '',
+                table.trimEnd(),
+                '',
+                summaryLine
+              ].join('\n');
+            } else {
+              for (const path of summaryCandidates) {
+                if (fs.existsSync(path)) {
+                  summary = `${fs.readFileSync(path, 'utf8')}\n\nCommit: ${context.sha}\nSource: ${path}`;
+                  break;
+                }
               }
             }
 
