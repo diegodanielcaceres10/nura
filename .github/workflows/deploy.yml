@@ -168,7 +168,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./frontend/lighthouserc.desktop.json
-          uploadArtifacts: true
+          uploadArtifacts: false
           temporaryPublicStorage: true
 
       - name: Run Lighthouse CI Mobile
@@ -177,7 +177,7 @@ jobs:
         uses: treosh/lighthouse-ci-action@v12
         with:
           configPath: ./frontend/lighthouserc.mobile.json
-          uploadArtifacts: true
+          uploadArtifacts: false
           temporaryPublicStorage: true
 
       - name: Publish Lighthouse Desktop check
