@@ -68,10 +68,16 @@
           if (hasPParam) {
             target += search;
           } else {
-            target += '?p=/' + encodeURIComponent(relative);
+            // If the original path is just the app root, send users
+            // directly to the default language (/es) instead of "?p=/".
+            if (!relative) {
+              target += 'es';
+            } else {
+              target += '?p=/' + encodeURIComponent(relative);
 
-            if (search) {
-              target += '&' + search.slice(1);
+              if (search) {
+                target += '&' + search.slice(1);
+              }
             }
           }
 
