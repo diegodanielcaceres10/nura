@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { LocaleService } from './locale.service';
 
 describe('LocaleService', () => {
@@ -18,28 +18,25 @@ describe('LocaleService', () => {
     expect(LocaleService.resolveStartupLocale('en-US')).toBe('pt');
   });
 
-  it('resolveStartupLocale should use persisted locale when query is absent', () => {
+  it('resolveStartupLocale should prioritize path locale over query and storage', () => {
     window.localStorage.setItem('app_locale', 'en');
+    window.history.replaceState({}, '', '/pt?lang=es');
 
-    expect(LocaleService.resolveStartupLocale('pt-BR')).toBe('en');
+    expect(LocaleService.resolveStartupLocale('en-US')).toBe('pt');
   });
 
-  it('resolveStartupLocale should fallback to browser locale', () => {
-    expect(LocaleService.resolveStartupLocale('pt-BR')).toBe('pt');
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('en');
+  it('resolveStartupLocale should fallback to default locale when no source is available', () => {
+    expect(LocaleService.resolveStartupLocale('pt-BR')).toBe('es');
+    expect(LocaleService.resolveStartupLocale('en-US')).toBe('es');
   });
 
   it('resolveStartupLocale should fallback to default when browserLang is not provided', () => {
     expect(LocaleService.resolveStartupLocale()).toBe('es');
   });
 
-  it('resolveStartupLocale should ignore persisted locale if storage access fails', () => {
-    const getItemSpy = vi.spyOn(Storage.prototype, 'getItem').mockImplementation(() => {
-      throw new Error('Storage unavailable');
-    });
-
-    expect(LocaleService.resolveStartupLocale('en-US')).toBe('en');
-    getItemSpy.mockRestore();
+  it('resolveStartupLocale should ignore persisted locale and use default', () => {
+    window.localStorage.setItem('app_locale', 'en');
+    expect(LocaleService.resolveStartupLocale('en-US')).toBe('es');
   });
 
   it('resolveStartupLocale should fallback to default locale for unsupported values', () => {
@@ -92,5 +89,15 @@ describe('LocaleService', () => {
     }
 
     expect(window.localStorage.getItem('app_locale')).toBe('es');
+  });
+
+  it('syncLocalePath should rewrite the current URL with locale segment', () => {
+    window.history.replaceState({}, '', '/about?lang=pt#section');
+
+    LocaleService.syncLocalePath('pt');
+
+    expect(window.location.pathname).toBe('/pt/about');
+    expect(window.location.search).toBe('');
+    expect(window.location.hash).toBe('#section');
   });
 });

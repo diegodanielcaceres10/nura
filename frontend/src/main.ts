@@ -1,7 +1,6 @@
 import { LOCALE_ID } from '@angular/core';
 import { loadTranslations } from '@angular/localize';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/app.config';
 import { LocaleService } from './app/i18n/locale.service';
 
 const loadLocaleTranslations = async (locale: string): Promise<void> => {
@@ -18,8 +17,27 @@ const loadLocaleTranslations = async (locale: string): Promise<void> => {
   loadTranslations(translations);
 };
 
+const restoreSpaPathFromRedirect = (): void => {
+  const url = new URL(window.location.href);
+  const redirectedPath = url.searchParams.get('p');
+  if (!redirectedPath) {
+    return;
+  }
+
+  const basePath = new URL(document.baseURI).pathname.replace(/\/$/, '');
+  const normalizedRedirect = redirectedPath.startsWith('/') ? redirectedPath : `/${redirectedPath}`;
+  const nextPath = `${basePath}${normalizedRedirect}`.replace(/\/{2,}/g, '/');
+
+  url.searchParams.delete('p');
+  const nextSearch = url.searchParams.toString();
+  const finalUrl = `${nextPath}${nextSearch ? `?${nextSearch}` : ''}${url.hash}`;
+  window.history.replaceState({}, '', finalUrl);
+};
+
 const bootstrap = async (): Promise<void> => {
+  restoreSpaPathFromRedirect();
   const locale = LocaleService.resolveStartupLocale(navigator.language);
+  LocaleService.syncLocalePath(locale);
   document.documentElement.lang = locale;
   (globalThis as { $localize?: { locale?: string } }).$localize = (globalThis as { $localize?: { locale?: string } }).$localize ?? {};
   if ((globalThis as { $localize?: { locale?: string } }).$localize) {
@@ -27,6 +45,7 @@ const bootstrap = async (): Promise<void> => {
   }
 
   await loadLocaleTranslations(locale);
+  const { appConfig } = await import('./app/app.config');
   const { App } = await import('./app/app');
   const providers = [...(appConfig.providers ?? []), { provide: LOCALE_ID, useValue: locale }];
   await bootstrapApplication(App, { ...appConfig, providers });

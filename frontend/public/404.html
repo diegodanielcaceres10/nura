@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      (function () {
+        var basePath = '/nura/';
+        var path = window.location.pathname;
+        var relative = path.indexOf(basePath) === 0 ? path.slice(basePath.length) : path.slice(1);
+        var target = window.location.origin + basePath + '?p=/' + encodeURIComponent(relative);
+
+        if (window.location.search) {
+          target += '&' + window.location.search.slice(1);
+        }
+
+        if (window.location.hash) {
+          target += window.location.hash;
+        }
+
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

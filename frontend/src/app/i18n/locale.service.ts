@@ -17,27 +17,24 @@ export class LocaleService {
   }
 
   static resolveStartupLocale(browserLang?: string): AppLocale {
+    const pathLocale = this.readPathLocale();
+    if (pathLocale) {
+      return pathLocale;
+    }
+
     const queryLocale = this.readQueryLocale();
     if (queryLocale) {
       return queryLocale;
     }
 
-    const persisted = this.readPersistedLocale();
-    if (persisted) {
-      return persisted;
-    }
-
-    const browser = (browserLang ?? '').trim().toLowerCase();
-    return this.normalizeStatic(browser);
+    return DEFAULT_LOCALE;
   }
 
   changeLocale(locale: string): void {
     const normalized = this.normalizeLocale(locale);
     window.localStorage.setItem(LOCALE_STORAGE_KEY, normalized);
-
-    const url = new URL(window.location.href);
-    url.searchParams.set(LOCALE_PARAM, normalized);
-    window.location.assign(url.toString());
+    const targetUrl = LocaleService.buildLocaleUrl(normalized);
+    window.location.assign(targetUrl.toString());
   }
 
   private normalizeLocale(locale: string | null | undefined): AppLocale {
@@ -59,12 +56,48 @@ export class LocaleService {
     return this.normalizeStatic(fromQuery);
   }
 
-  private static readPersistedLocale(): AppLocale | null {
-    try {
-      const value = window.localStorage.getItem(LOCALE_STORAGE_KEY);
-      return value ? this.normalizeStatic(value) : null;
-    } catch {
+  static syncLocalePath(locale: AppLocale): void {
+    const normalized = this.normalizeStatic(locale);
+    const current = new URL(window.location.href);
+    const target = this.buildLocaleUrl(normalized);
+    if (target.pathname !== current.pathname || target.search !== current.search) {
+      window.history.replaceState({}, '', `${target.pathname}${target.search}${target.hash}`);
+    }
+  }
+
+  private static readPathLocale(): AppLocale | null {
+    const segments = this.getRelativePathSegments();
+    const first = segments[0];
+    if (!first) {
       return null;
     }
+
+    return SUPPORTED_LOCALES.includes(first as AppLocale) ? (first as AppLocale) : null;
+  }
+
+  private static buildLocaleUrl(locale: AppLocale): URL {
+    const current = new URL(window.location.href);
+    const baseSegments = this.getBasePathSegments();
+    const relativeSegments = this.getRelativePathSegments();
+    const remaining = relativeSegments[0] && SUPPORTED_LOCALES.includes(relativeSegments[0] as AppLocale) ? relativeSegments.slice(1) : relativeSegments;
+    const nextPath = [''].concat(baseSegments, [locale], remaining).join('/');
+
+    current.pathname = nextPath;
+    current.searchParams.delete(LOCALE_PARAM);
+    return current;
+  }
+
+  private static getRelativePathSegments(): string[] {
+    const baseSegments = this.getBasePathSegments();
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const sameBase = baseSegments.every((segment, index) => pathSegments[index] === segment);
+    return sameBase ? pathSegments.slice(baseSegments.length) : pathSegments;
+  }
+
+  private static getBasePathSegments(): string[] {
+    const baseEl = document.querySelector('base');
+    const baseHref = baseEl?.getAttribute('href') ?? '/';
+    const baseUrl = new URL(baseHref, window.location.origin);
+    return baseUrl.pathname.split('/').filter(Boolean);
   }
 }
