@@ -1,26 +1,117 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pagina no encontrada</title>
+    <style>
+      :root {
+        --bg: #f4f7fb;
+        --card: #ffffff;
+        --text: #12263a;
+        --muted: #4b5d70;
+        --accent: #1778f2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top, #e8f1ff 0%, var(--bg) 45%, #eef2f7 100%);
+      }
+
+      .card {
+        width: min(520px, 100%);
+        padding: 28px 24px;
+        border-radius: 16px;
+        background: var(--card);
+        border: 1px solid #d9e2ef;
+        box-shadow: 0 16px 40px rgba(11, 33, 57, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 12px;
+        font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .status {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .status a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 40px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        border: 1px solid #bdd3f4;
+        background: #edf4ff;
+        color: #0f4ea7;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .status a:hover {
+        background: #e0ecff;
+      }
+    </style>
     <script>
       (function () {
-        var basePath = '/nura/';
-        var path = window.location.pathname;
-        var relative = path.indexOf(basePath) === 0 ? path.slice(basePath.length) : path.slice(1);
-        var target = window.location.origin + basePath + '?p=/' + encodeURIComponent(relative);
+        function setManualLink() {
+          var basePath = '/nura/';
+          var path = window.location.pathname;
+          var relative = path.indexOf(basePath) === 0 ? path.slice(basePath.length) : path.slice(1);
+          var target = window.location.origin + basePath + '?p=/' + encodeURIComponent(relative);
 
-        if (window.location.search) {
-          target += '&' + window.location.search.slice(1);
+          if (window.location.search) {
+            target += '&' + window.location.search.slice(1);
+          }
+
+          if (window.location.hash) {
+            target += window.location.hash;
+          }
+
+          var manualLink = document.getElementById('manual-continue');
+          if (manualLink) {
+            manualLink.setAttribute('href', target);
+          }
         }
 
-        if (window.location.hash) {
-          target += window.location.hash;
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', setManualLink);
+        } else {
+          setManualLink();
         }
-
-        window.location.replace(target);
       })();
     </script>
   </head>
-  <body></body>
+  <body>
+    <main class="card" role="status" aria-live="polite">
+      <h1>Pagina no encontrada</h1>
+      <p>No pudimos encontrar esta ruta. Puedes volver manualmente a la app.</p>
+      <div class="status">
+        <a id="manual-continue" href="/nura/">Ir a la aplicacion</a>
+      </div>
+    </main>
+  </body>
 </html>
