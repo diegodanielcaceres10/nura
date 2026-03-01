@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TranslatePipe } from '@ngx-translate/core';
 import { Experience } from '../../interfaces/experience';
+import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
 
 @Component({
   selector: 'app-experiences-component',
-  imports: [TranslatePipe],
+  imports: [TranslateKeyPipe],
   templateUrl: './experiences-component.html',
   styleUrl: './experiences-component.scss',
 })

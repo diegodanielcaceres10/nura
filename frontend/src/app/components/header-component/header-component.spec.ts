@@ -1,20 +1,23 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+﻿import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { HeaderComponent } from './header-component';
+import { LocaleService } from '../../i18n/locale.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let translateService: TranslateService;
+  let localeService: { getCurrentLocale: ReturnType<typeof vi.fn>; changeLocale: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HeaderComponent, TranslateModule.forRoot()],
-    }).compileComponents();
+    localeService = {
+      getCurrentLocale: vi.fn(() => 'en'),
+      changeLocale: vi.fn(),
+    };
 
-    translateService = TestBed.inject(TranslateService);
-    translateService.use('en');
+    await TestBed.configureTestingModule({
+      imports: [HeaderComponent],
+      providers: [{ provide: LocaleService, useValue: localeService }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
@@ -33,21 +36,9 @@ describe('HeaderComponent', () => {
     expect(component.isMenuOpen()).toBe(false);
   });
 
-  it('should start with currentLang en', () => {
+  it('should read current locale on init', () => {
+    expect(localeService.getCurrentLocale).toHaveBeenCalled();
     expect(component.currentLang()).toBe('en');
-  });
-
-  it('should fallback to en when current language is undefined on init', async () => {
-    const langSpy = vi
-      .spyOn(translateService, 'getCurrentLang')
-      .mockImplementation(() => undefined as unknown as string);
-
-    const localFixture = TestBed.createComponent(HeaderComponent);
-    const localComponent = localFixture.componentInstance;
-    localFixture.detectChanges();
-
-    expect(langSpy).toHaveBeenCalled();
-    expect(localComponent.currentLang()).toBe('en');
   });
 
   it('should have 3 languages available', () => {
@@ -55,11 +46,9 @@ describe('HeaderComponent', () => {
     expect(component.langs.map((l) => l.code)).toEqual(['es', 'en', 'pt']);
   });
 
-  it('should change language when changeLang is called', () => {
-    const spy = vi.spyOn(translateService, 'use');
+  it('should delegate locale change to LocaleService', () => {
     component.changeLang('pt');
-    expect(spy).toHaveBeenCalledWith('pt');
-    expect(component.currentLang()).toBe('pt');
+    expect(localeService.changeLocale).toHaveBeenCalledWith('pt');
   });
 
   it('should toggle menu state when toogleMenu is called twice', () => {
@@ -101,14 +90,14 @@ describe('HeaderComponent', () => {
     expect(buttons[0].classList.contains('active')).toBe(false);
   });
 
-  it('should update active language button after clicking another language', () => {
+  it('should call changeLang with selected locale after clicking language button', () => {
+    const changeLangSpy = vi.spyOn(component, 'changeLang');
     const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+
     buttons[0].click();
     fixture.detectChanges();
 
-    expect(component.currentLang()).toBe('es');
-    expect(buttons[0].classList.contains('active')).toBe(true);
-    expect(buttons[1].classList.contains('active')).toBe(false);
+    expect(changeLangSpy).toHaveBeenCalledWith('es');
   });
 
   it('should add sticky class when isSticky is true', () => {

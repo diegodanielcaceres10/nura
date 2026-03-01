@@ -1,5 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ProjectsComponent } from './projects-component';
 
@@ -9,7 +8,7 @@ describe('ProjectsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectsComponent, TranslateModule.forRoot()],
+      imports: [ProjectsComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectsComponent);
@@ -73,3 +72,4 @@ describe('ProjectsComponent', () => {
     expect(gradient).toContain(colors[2]);
   });
 });
+

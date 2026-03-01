@@ -1,14 +1,15 @@
 import { Component, HostListener, inject, signal } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../i18n/locale.service';
+import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
 
 @Component({
   selector: 'app-header-component',
-  imports: [TranslatePipe],
+  imports: [TranslateKeyPipe],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss',
 })
 export class HeaderComponent {
-  private readonly translate = inject(TranslateService);
+  private readonly localeService = inject(LocaleService);
 
   isSticky = signal(false);
   isMenuOpen = signal(false);
@@ -21,12 +22,11 @@ export class HeaderComponent {
   ];
 
   constructor() {
-    this.currentLang.set(this.translate.getCurrentLang() ?? 'en');
+    this.currentLang.set(this.localeService.getCurrentLocale());
   }
 
   changeLang(lang: string): void {
-    this.translate.use(lang);
-    this.currentLang.set(lang);
+    this.localeService.changeLocale(lang);
   }
 
   toogleMenu(): void {

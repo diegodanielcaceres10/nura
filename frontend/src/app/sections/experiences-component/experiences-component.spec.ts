@@ -1,5 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ExperiencesComponent } from './experiences-component';
 
@@ -9,7 +8,7 @@ describe('ExperiencesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ExperiencesComponent, TranslateModule.forRoot()],
+      imports: [ExperiencesComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExperiencesComponent);
@@ -75,3 +74,4 @@ describe('ExperiencesComponent', () => {
     expect(wrapper).toBeTruthy();
   });
 });
+

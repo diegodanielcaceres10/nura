@@ -1,20 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { HomeComponent } from './home-component';
+import { LocaleService } from '../../i18n/locale.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let translateService: TranslateService;
+  let localeService: { getCurrentLocale: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HomeComponent, TranslateModule.forRoot()],
-    }).compileComponents();
+    localeService = {
+      getCurrentLocale: vi.fn(() => 'en'),
+    };
 
-    translateService = TestBed.inject(TranslateService);
-    translateService.use('en');
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent],
+      providers: [{ provide: LocaleService, useValue: localeService }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
@@ -37,7 +39,7 @@ describe('HomeComponent', () => {
   });
 
   it('should open english CV when current language is en', () => {
-    translateService.use('en');
+    localeService.getCurrentLocale.mockReturnValue('en');
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
 
     component.openCV();
@@ -46,25 +48,13 @@ describe('HomeComponent', () => {
     openSpy.mockRestore();
   });
 
-  it('should fallback to english CV when current language is undefined', () => {
-    const langSpy = vi
-      .spyOn(translateService, 'getCurrentLang')
-      .mockImplementation(() => undefined as unknown as string);
+  it('should use locale service to decide CV language', () => {
+    localeService.getCurrentLocale.mockReturnValue('pt');
     const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
 
     component.openCV();
 
-    expect(langSpy).toHaveBeenCalled();
-    expect(openSpy).toHaveBeenCalledWith('assets/cvs/diego-daniel-caceres-cv-en.pdf', '_blank');
-    openSpy.mockRestore();
-  });
-
-  it('should open portuguese CV when current language is pt', () => {
-    translateService.use('pt');
-    const openSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
-
-    component.openCV();
-
+    expect(localeService.getCurrentLocale).toHaveBeenCalled();
     expect(openSpy).toHaveBeenCalledWith('assets/cvs/diego-daniel-caceres-cv-pt.pdf', '_blank');
     openSpy.mockRestore();
   });

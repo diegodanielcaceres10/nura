@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './app';
 
 describe('App', () => {
@@ -8,39 +7,8 @@ describe('App', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App, TranslateModule.forRoot()],
+      imports: [App],
     }).compileComponents();
-  });
-
-  afterEach(() => {
-    vi.restoreAllMocks();
-  });
-
-  it('should use browser language when it is supported', () => {
-    const useSpy = vi.spyOn(TestBed.inject(TranslateService), 'use');
-    vi.spyOn(TranslateService, 'getBrowserLang').mockReturnValue('pt');
-
-    TestBed.createComponent(App);
-
-    expect(useSpy).toHaveBeenCalledWith('pt');
-  });
-
-  it('should fallback to english when browser language is not supported', () => {
-    const useSpy = vi.spyOn(TestBed.inject(TranslateService), 'use');
-    vi.spyOn(TranslateService, 'getBrowserLang').mockReturnValue('fr');
-
-    TestBed.createComponent(App);
-
-    expect(useSpy).toHaveBeenCalledWith('en');
-  });
-
-  it('should fallback to english when browser language is undefined', () => {
-    const useSpy = vi.spyOn(TestBed.inject(TranslateService), 'use');
-    vi.spyOn(TranslateService, 'getBrowserLang').mockReturnValue(undefined);
-
-    TestBed.createComponent(App);
-
-    expect(useSpy).toHaveBeenCalledWith('en');
   });
 
   it('should render app shell sections from template', () => {

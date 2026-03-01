@@ -1,17 +1,18 @@
 import { Component, inject } from '@angular/core';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { LocaleService } from '../../i18n/locale.service';
+import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
 
 @Component({
   selector: 'app-home-component',
-  imports: [TranslatePipe],
+  imports: [TranslateKeyPipe],
   templateUrl: './home-component.html',
   styleUrl: './home-component.scss',
 })
 export class HomeComponent {
-  private readonly translate = inject(TranslateService);
+  private readonly localeService = inject(LocaleService);
 
   openCV(): void {
-    const lang = this.translate.getCurrentLang() ?? 'en';
+    const lang = this.localeService.getCurrentLocale();
     const url = `assets/cvs/diego-daniel-caceres-cv-${lang}.pdf`;
     window.open(url, '_blank');
   }
