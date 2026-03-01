@@ -9,7 +9,7 @@ const supportedLangRoute: CanMatchFn = (_, segments) => {
 };
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'es' },
+  { path: '', pathMatch: 'full', component: PortfolioPage },
   { path: ':lang', component: PortfolioPage, canMatch: [supportedLangRoute] },
   { path: '**', redirectTo: 'es' },
 ];
