@@ -2,6 +2,7 @@ import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../i18n/locale.service';
 import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
+import { ScrollService } from '../../services/scroll';
 
 @Component({
   selector: 'app-header-component',
@@ -11,8 +12,9 @@ import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
 })
 export class HeaderComponent {
   private readonly localeService = inject(LocaleService);
+  private readonly scrollService = inject(ScrollService);
+  isSticky = this.scrollService.isSticky;
 
-  isSticky = signal(false);
   isMenuOpen = signal(false);
   currentLang = signal<string>('en');
 

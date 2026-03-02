@@ -1,0 +1,11 @@
+<app-header-component />
+<main>
+  <app-home-component id="home" />
+  <app-about-component id="about" />
+  <app-experiences-component id="experiences" />
+  <app-projects-component id="projects" />
+</main>
+<div [class.show]="isSticky()" class="scroll_to_top">
+  <a [routerLink]="[]" fragment="home"><i class="fa-solid fa-circle-up"></i></a>
+</div>
+<app-footer-component id="contact" />

@@ -1,5 +1,5 @@
 import { CanMatchFn, Routes } from '@angular/router';
-import { PortfolioPage } from './portfolio-page';
+import { PortfolioPage } from './portfolio/portfolio-page';
 
 const supportedLangs = new Set(['es', 'en', 'pt']);
 
