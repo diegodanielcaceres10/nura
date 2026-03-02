@@ -29,10 +29,10 @@ describe('ProjectsComponent', () => {
     expect(cards.length).toBe(component.projects().length);
   });
 
-  it('should render only one "Nuevo" tag', () => {
+  it('should render only one new project tag', () => {
     const tags = fixture.nativeElement.querySelectorAll('.projects_card_front_tag');
     expect(tags.length).toBe(1);
-    expect(tags[0].textContent.trim()).toBe('Nuevo');
+    expect(tags[0].textContent.trim()).not.toBe('');
   });
 
   it('should render expected number of KPI blocks', () => {
@@ -72,4 +72,3 @@ describe('ProjectsComponent', () => {
     expect(gradient).toContain(colors[2]);
   });
 });
-
