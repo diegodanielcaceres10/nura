@@ -1,0 +1,16 @@
+.scroll_to_top {
+  bottom: 1rem;
+  opacity: 0;
+  position: fixed;
+  right: 1rem;
+  z-index: var(--z-sticky);
+
+  &.show {
+    opacity: 1;
+  }
+
+  & i {
+    font-size: 3rem;
+    color: var(--text-primary);
+  }
+}

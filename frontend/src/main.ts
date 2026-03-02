@@ -1,7 +1,7 @@
 import { LOCALE_ID } from '@angular/core';
 import { loadTranslations } from '@angular/localize';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { LocaleService } from './app/i18n/locale.service';
+import { LocaleService } from './app/services/locale/locale.service';
 
 const loadLocaleTranslations = async (locale: string): Promise<void> => {
   if (locale === 'en') {
