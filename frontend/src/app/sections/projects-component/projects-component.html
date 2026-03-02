@@ -9,7 +9,7 @@
               <div class="projects_card_front_tag">{{ 'PROJECT_NEW' | translate }}</div>
             }
             <div class="projects_card_front_logo">
-              <img [src]="project.logo" [alt]="project.title + ' Logo'" />
+              <img [src]="project.logo" [alt]="project.title + ' Logo'" decoding="async" />
             </div>
             <span class="projects_card_front_title">{{ project.title | translate }}</span>
             <p class="projects_card_front_subtitle">{{ project.subtitle | translate }}</p>
