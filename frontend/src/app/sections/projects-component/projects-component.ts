@@ -15,7 +15,7 @@ export class ProjectsComponent {
       logo: 'assets/projects/nura/logo.png',
       title: 'PROJECT_NURA_TITLE',
       subtitle: 'PROJECT_NURA_SUBTITLE',
-      skills: ['Angular 21', 'TypeScript', 'RxJS', 'SCSS', 'GitHub Actions', 'Vitest', 'Docker'],
+      skills: ['Angular 21', 'TypeScript', 'RxJS', 'SCSS', 'SSG', 'GitHub Actions', 'Vitest', 'Docker'],
       description: 'PROJECT_NURA_DESC',
       kpis: [
         { value: '3', legend: 'PROJECT_NURA_KPI_1' },

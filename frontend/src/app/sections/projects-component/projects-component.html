@@ -6,7 +6,7 @@
         <div class="projects_card_container">
           <div class="projects_card_front" [style.background]="getGradient(project.colors)()">
             @if (project.new) {
-              <div class="projects_card_front_tag">Nuevo</div>
+              <div class="projects_card_front_tag">{{ 'PROJECT_NEW' | translate }}</div>
             }
             <div class="projects_card_front_logo">
               <img [src]="project.logo" [alt]="project.title + ' Logo'" />
