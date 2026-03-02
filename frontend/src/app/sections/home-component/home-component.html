@@ -15,7 +15,7 @@
             <i class="fa-solid fa-cloud-arrow-down"></i>
           </div>
         </button>
-        <a href="#contact" class="home_button" role="button">
+        <a [routerLink]="[]" fragment="contact" class="home_button" role="button">
           {{ 'HOME_CONTACT' | translate }}
           <div class="home_icon">
             <i class="fa-solid fa-arrow-right"></i>
@@ -23,6 +23,8 @@
         </a>
       </div>
     </div>
-    <div class="home_scroll"><i class="fa-solid fa-circle-down"></i></div>
+    <div class="home_scroll">
+      <a [routerLink]="[]" fragment="about"><i class="fa-solid fa-circle-down"></i></a>
+    </div>
   </div>
 </section>
