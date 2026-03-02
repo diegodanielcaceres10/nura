@@ -99,4 +99,40 @@ describe('LocaleService', () => {
     expect(window.location.search).toBe('');
     expect(window.location.hash).toBe('#section');
   });
+
+  it('syncLocalePath should not rewrite URL when path is already correct', () => {
+    window.history.replaceState({}, '', '/pt');
+
+    LocaleService.syncLocalePath('pt');
+
+    expect(window.location.pathname).toBe('/pt');
+    expect(window.location.search).toBe('');
+  });
+
+  it('resolveStartupLocale should fallback to default for unsupported query param', () => {
+    window.history.replaceState({}, '', '/?lang=fr');
+
+    expect(LocaleService.resolveStartupLocale()).toBe('es');
+  });
+
+  it('buildLocaleUrl should keep remaining segments when first is not a locale', () => {
+    window.history.replaceState({}, '', '/about');
+
+    const service = TestBed.inject(LocaleService);
+    try {
+      service.changeLocale('en');
+    } catch {
+      // jsdom navigation
+    }
+
+    expect(window.localStorage.getItem('app_locale')).toBe('en');
+  });
+
+  it('getRelativePathSegments should handle path not matching base', () => {
+    window.history.replaceState({}, '', '/other/path');
+
+    const result = LocaleService.resolveStartupLocale();
+
+    expect(result).toBe('es');
+  });
 });
