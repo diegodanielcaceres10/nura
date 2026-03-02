@@ -8,18 +8,11 @@ import { HomeComponent } from './sections/home-component/home-component';
 
 @Component({
   selector: 'app-portfolio-page',
-  imports: [
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    AboutComponent,
-    ExperiencesComponent,
-    ProjectsComponent,
-  ],
+  imports: [HeaderComponent, FooterComponent, HomeComponent, AboutComponent, ExperiencesComponent, ProjectsComponent],
   template: `
     <app-header-component />
     <main>
-      <app-home-component />
+      <app-home-component id="home" />
       <app-about-component id="about" />
       <app-experiences-component id="experiences" />
       <app-projects-component id="projects" />

@@ -4,7 +4,12 @@
     <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
   </button>
   <div [class.header_container-open]="isMenuOpen()" class="header_container">
-    <div class="header_icon"><img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" /><span>Nura</span></div>
+    <div class="header_icon">
+      <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
+      <span>
+        <a (click)="toogleMenu()" [routerLink]="[]" fragment="home">Nura</a>
+      </span>
+    </div>
     <nav class="header_nav">
       <a (click)="toogleMenu()" [routerLink]="[]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
       <a (click)="toogleMenu()" [routerLink]="[]" fragment="experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
