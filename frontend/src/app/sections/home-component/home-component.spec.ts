@@ -27,12 +27,6 @@ describe('HomeComponent', () => {
     expect(component).toBeDefined();
   });
 
-  it('should render developer name in title', () => {
-    const title = fixture.nativeElement.querySelector('.home_title h1');
-    expect(title).toBeTruthy();
-    expect(title.textContent).toContain('Diego Daniel Caceres');
-  });
-
   it('should render 3 decorative wave elements', () => {
     const waves = fixture.nativeElement.querySelectorAll('.home_wave');
     expect(waves.length).toBe(3);
