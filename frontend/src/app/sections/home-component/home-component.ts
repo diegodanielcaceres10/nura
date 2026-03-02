@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocaleService } from '../../i18n/locale.service';
-import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
+import { LocaleService } from '../../services/locale/locale.service';
+import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 
 @Component({
   selector: 'app-home-component',

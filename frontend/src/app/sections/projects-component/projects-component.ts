@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { ProjectCard } from '../../interfaces/project';
-import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
+import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 @Component({
   selector: 'app-projects-component',
   imports: [TranslateKeyPipe],

@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 import { App } from './app';
 
 describe('App', () => {
+  let component: App;
   let fixture: ComponentFixture<App>;
 
   beforeEach(async () => {
@@ -11,13 +12,17 @@ describe('App', () => {
       imports: [App],
       providers: [provideRouter([])],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(App);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should be defined', () => {
+    expect(component).toBeDefined();
   });
 
   it('should render router outlet', () => {
-    fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-
-    const root = fixture.nativeElement;
-    expect(root.querySelector('router-outlet')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('router-outlet')).toBeTruthy();
   });
 });

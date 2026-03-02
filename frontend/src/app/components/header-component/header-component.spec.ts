@@ -1,21 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { signal } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { LocaleService } from '../../i18n/locale.service';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { LocaleService } from '../../services/locale/locale.service';
+import { ScrollService } from '../../services/scroll/scroll.service';
 import { HeaderComponent } from './header-component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let localeService: { getCurrentLocale: ReturnType<typeof vi.fn>; changeLocale: ReturnType<typeof vi.fn> };
-  let scrollYSpy: ReturnType<typeof vi.spyOn> | undefined;
-
-  const mockScrollY = (value: number): void => {
-    scrollYSpy?.mockRestore();
-    scrollYSpy = vi.spyOn(window, 'scrollY', 'get').mockReturnValue(value);
-  };
+  let isStickySignal: ReturnType<typeof signal<boolean>>;
 
   beforeEach(async () => {
+    isStickySignal = signal(false);
+
     localeService = {
       getCurrentLocale: vi.fn(() => 'en'),
       changeLocale: vi.fn(),
@@ -23,17 +22,12 @@ describe('HeaderComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [HeaderComponent],
-      providers: [provideRouter([]), { provide: LocaleService, useValue: localeService }],
+      providers: [provideRouter([]), { provide: LocaleService, useValue: localeService }, { provide: ScrollService, useValue: { isSticky: isStickySignal } }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  afterEach(() => {
-    scrollYSpy?.mockRestore();
-    scrollYSpy = undefined;
   });
 
   it('should be defined', () => {
@@ -69,26 +63,6 @@ describe('HeaderComponent', () => {
 
     component.toogleMenu();
     expect(component.isMenuOpen()).toBe(false);
-  });
-
-  it('should set isSticky true when scrollY > 50', () => {
-    mockScrollY(100);
-    component.onScroll();
-    expect(component.isSticky()).toBe(true);
-  });
-
-  it('should react to real window scroll host event', () => {
-    mockScrollY(120);
-    window.dispatchEvent(new Event('scroll'));
-    fixture.detectChanges();
-
-    expect(component.isSticky()).toBe(true);
-  });
-
-  it('should set isSticky false when scrollY <= 50', () => {
-    mockScrollY(30);
-    component.onScroll();
-    expect(component.isSticky()).toBe(false);
   });
 
   it('should render 3 language buttons', () => {
@@ -128,16 +102,14 @@ describe('HeaderComponent', () => {
   });
 
   it('should add sticky class when isSticky is true', () => {
-    mockScrollY(100);
-    component.onScroll();
+    isStickySignal.set(true);
     fixture.detectChanges();
     const header = fixture.nativeElement.querySelector('.header');
     expect(header.classList.contains('sticky')).toBe(true);
   });
 
   it('should not add sticky class when isSticky is false', () => {
-    mockScrollY(0);
-    component.onScroll();
+    isStickySignal.set(false);
     fixture.detectChanges();
     const header = fixture.nativeElement.querySelector('.header');
     expect(header.classList.contains('sticky')).toBe(false);
@@ -186,9 +158,7 @@ describe('HeaderComponent', () => {
     const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
     const toggleSpy = vi.spyOn(component, 'toogleMenu');
 
-    Array.from(links).forEach((link) => {
-      link.click();
-    });
+    Array.from(links).forEach((link) => link.click());
 
     expect(toggleSpy).toHaveBeenCalledTimes(4);
   });

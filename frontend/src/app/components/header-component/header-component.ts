@@ -1,8 +1,8 @@
-import { Component, HostListener, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocaleService } from '../../i18n/locale.service';
-import { TranslateKeyPipe } from '../../i18n/translate-key.pipe';
-import { ScrollService } from '../../services/scroll';
+import { LocaleService } from '../../services/locale/locale.service';
+import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { ScrollService } from '../../services/scroll/scroll.service';
 
 @Component({
   selector: 'app-header-component',
@@ -34,11 +34,5 @@ export class HeaderComponent {
 
   toogleMenu(): void {
     this.isMenuOpen.set(!this.isMenuOpen());
-  }
-
-  @HostListener('window:scroll')
-  onScroll(): void {
-    const shouldStick = window.scrollY > 50;
-    this.isSticky.set(shouldStick);
   }
 }

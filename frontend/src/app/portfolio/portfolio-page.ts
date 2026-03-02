@@ -6,7 +6,7 @@ import { AboutComponent } from '../sections/about-component/about-component';
 import { ExperiencesComponent } from '../sections/experiences-component/experiences-component';
 import { ProjectsComponent } from '../sections/projects-component/projects-component';
 import { HomeComponent } from '../sections/home-component/home-component';
-import { ScrollService } from '../services/scroll';
+import { ScrollService } from '../services/scroll/scroll.service';
 
 @Component({
   selector: 'app-portfolio-page',
