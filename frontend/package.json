@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
+    "lint": "ng lint",
     "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
     "test": "npm run clean:reports && ng test --watch=false --coverage",
-    "build": "ng build",
-    "lint": "ng lint"
+    "precommit": "npm run lint && npm run test",
+    "build": "ng build"
   },
   "prettier": {
     "printWidth": 500,
