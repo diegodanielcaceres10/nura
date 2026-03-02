@@ -32,7 +32,6 @@
     flex-direction: column;
 
     @include ds.md {
-      align-items: center;
       margin: 5rem 0;
       width: 100%;
     }
