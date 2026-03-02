@@ -37,7 +37,7 @@ h2 {
   font-style: italic;
 
   &:after {
-    background-color: var(--palette-accent-blue); // teal Nura
+    background-color: var(--palette-accent-blue);
     border-radius: var(--radius-full);
     content: '';
     display: block;
