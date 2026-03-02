@@ -150,8 +150,17 @@
   }
 
   &_scroll {
-    text-align: center;
+    display: flex;
+    justify-content: center;
     width: 100%;
+
+    @include ds.md {
+      margin-bottom: 2rem;
+    }
+
+    & a {
+      display: flex;
+    }
 
     & i {
       font-size: 3rem;
