@@ -6,7 +6,7 @@
     "lint": "ng lint",
     "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
     "test": "npm run clean:reports && ng test --watch=false --coverage",
-    "precommit": "npm run lint && npm run test",
+    "precommit": "npm run lint && npm run test && npm run build",
     "build": "ng build"
   },
   "prettier": {

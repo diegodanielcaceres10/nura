@@ -3,8 +3,10 @@ import { loadTranslations } from '@angular/localize';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { LocaleService } from './app/services/locale/locale.service';
 
+const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
+
 const loadLocaleTranslations = async (locale: string): Promise<void> => {
-  if (locale === 'en') {
+  if (!isBrowser || locale === 'en') {
     return;
   }
 
@@ -18,6 +20,10 @@ const loadLocaleTranslations = async (locale: string): Promise<void> => {
 };
 
 const restoreSpaPathFromRedirect = (): void => {
+  if (!isBrowser) {
+    return;
+  }
+
   const url = new URL(window.location.href);
   const redirectedPath = url.searchParams.get('p');
   if (!redirectedPath) {
@@ -35,13 +41,17 @@ const restoreSpaPathFromRedirect = (): void => {
 };
 
 const bootstrap = async (): Promise<void> => {
-  restoreSpaPathFromRedirect();
-  const locale = LocaleService.resolveStartupLocale();
-  LocaleService.syncLocalePath(locale);
-  document.documentElement.lang = locale;
-  (globalThis as { $localize?: { locale?: string } }).$localize = (globalThis as { $localize?: { locale?: string } }).$localize ?? {};
-  if ((globalThis as { $localize?: { locale?: string } }).$localize) {
-    (globalThis as { $localize?: { locale?: string } }).$localize!.locale = locale;
+  if (isBrowser) {
+    restoreSpaPathFromRedirect();
+  }
+  const locale = isBrowser ? LocaleService.resolveStartupLocale() : 'en';
+  if (isBrowser) {
+    LocaleService.syncLocalePath(locale);
+    document.documentElement.lang = locale;
+    (globalThis as { $localize?: { locale?: string } }).$localize = (globalThis as { $localize?: { locale?: string } }).$localize ?? {};
+    if ((globalThis as { $localize?: { locale?: string } }).$localize) {
+      (globalThis as { $localize?: { locale?: string } }).$localize!.locale = locale;
+    }
   }
 
   await loadLocaleTranslations(locale);
