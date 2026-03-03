@@ -30,16 +30,23 @@
         "url": "https://diegodanielcaceres10.github.io/nura/"
       }
     </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J84FF4THZQ"></script>
+    <!-- Google tag (gtag.js) deferred -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
+      window.addEventListener('load', () => {
+        const gtagScript = document.createElement('script');
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-J84FF4THZQ';
+        gtagScript.async = true;
+        document.head.appendChild(gtagScript);
 
-      gtag('config', 'G-J84FF4THZQ');
+        gtagScript.onload = () => {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-J84FF4THZQ');
+        };
+      });
     </script>
   </head>
 
