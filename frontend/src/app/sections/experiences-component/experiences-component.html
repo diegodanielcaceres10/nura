@@ -4,7 +4,7 @@
     @for (experience of experiences; track experience.roleKey) {
       <div class="experiences_card">
         <div class="experiences_container">
-          <h4 class="experiences_title">{{ experience.company }}</h4>
+          <h3 class="experiences_title">{{ experience.company }}</h3>
           <span>{{ experience.roleKey | translate }}</span>
           <span class="experiences_period">{{ experience.periodKey | translate }}</span>
           <div class="experiences_skills">
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="experiences_container">
-          <h4>{{ 'RESPONSIBILITIES' | translate }}</h4>
+          <h3>{{ 'RESPONSIBILITIES' | translate }}</h3>
           @for (responsibility of experience.responsibilityKeys; track $index) {
             <p>{{ responsibility | translate }}</p>
           }

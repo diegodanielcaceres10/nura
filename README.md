@@ -14,14 +14,6 @@ As a brand, Nura represents the idea of bringing projects into the light: showca
 
 Nura is conceived as a modern, minimalist, and technology-oriented identity, capable of evolving and scaling across multiple projects while maintaining a coherent conceptual foundation. The brand conveys innovation, professionalism, simplicity, and elegance, supported by clean and contemporary visual principles.
 
-Conceptually, Nura is associated with:
-
-- Illumination of knowledge
-- Creativity made visible
-- Technology as a tool for transformation
-- Connection between ideas and execution
-- Clarity in design and development
-
 This meaning serves as a strategic foundation for future projects under the same identity, enabling long-term narrative and visual consistency.
 
 ## Why Angular?
