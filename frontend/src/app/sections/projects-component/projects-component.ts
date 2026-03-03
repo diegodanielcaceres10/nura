@@ -12,6 +12,7 @@ export class ProjectsComponent {
     {
       name: 'Nura',
       new: true,
+      filename: 'nura',
       logo: 'assets/projects/nura/logo.png',
       title: 'PROJECT_NURA_TITLE',
       subtitle: 'PROJECT_NURA_SUBTITLE',
@@ -28,6 +29,7 @@ export class ProjectsComponent {
     {
       name: 'Auto Drive',
       new: false,
+      filename: 'octoautodrive',
       logo: 'assets/projects/octoautodrive/logo.png',
       title: 'PROJECT_OCTOAUTODRIVE_TITLE',
       subtitle: 'PROJECT_OCTOAUTODRIVE_SUBTITLE',
@@ -44,6 +46,7 @@ export class ProjectsComponent {
     {
       name: 'OilGroup',
       new: false,
+      filename: 'oilgroup',
       logo: 'assets/projects/oilgroup/logo.png',
       title: 'PROJECT_OILGROUP_TITLE',
       subtitle: 'PROJECT_OILGROUP_SUBTITLE',
@@ -59,6 +62,7 @@ export class ProjectsComponent {
     {
       name: 'Angular JSON Form',
       new: false,
+      filename: 'angularjsonform',
       logo: 'assets/projects/angularjsonform/logo.png',
       title: 'PROJECT_ANGULARJSONFORM_TITLE',
       subtitle: 'PROJECT_ANGULARJSONFORM_SUBTITLE',

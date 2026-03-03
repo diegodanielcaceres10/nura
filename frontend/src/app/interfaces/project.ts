@@ -6,6 +6,7 @@ export interface ProjectKpi {
 export interface ProjectCard {
   name: string;
   new: boolean;
+  filename: string;
   logo: string;
   title: string;
   subtitle: string;

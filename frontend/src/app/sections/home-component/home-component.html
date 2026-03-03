@@ -5,7 +5,11 @@
   <div class="home_container">
     <div class="home_info">
       <div class="home_logo">
-        <img src="assets/diegodanielcaceres.png" width="512" height="130" alt="Diego Daniel Caceres Logo" decoding="async" />
+        <picture>
+          <source srcset="assets/diegodanielcaceres/diegodanielcaceres.avif" type="image/avif" />
+          <source srcset="assets/diegodanielcaceres/diegodanielcaceres.webp" type="image/webp" />
+          <img src="assets/diegodanielcaceres/diegodanielcaceres.svg" width="512" height="130" alt="Diego Daniel Caceres Logo" decoding="async" fetchpriority="high" />
+        </picture>
       </div>
       <span class="home_subtitle">{{ 'HOME_SUBTITLE' | translate }}</span>
       <div class="home_buttons">
