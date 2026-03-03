@@ -44,7 +44,7 @@ describe('AboutComponent', () => {
   it('should render profile image with expected source and alt', () => {
     const image = fixture.nativeElement.querySelector('.about_photo img');
     expect(image).toBeTruthy();
-    expect(image.getAttribute('src')).toBe('assets/caricature/caricature.png');
+    expect(image.getAttribute('src')).toBe('assets/caricature/caricature.webp');
     expect(image.getAttribute('alt')).toBe('Caricature of Diego');
   });
 
