@@ -2,18 +2,12 @@
 
 .experiences {
   background: var(--palette-bg-primary);
-  padding: 5rem;
-
-  @include ds.md {
-    padding: 5rem 1rem;
-  }
 
   &_cards {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     font-size: 0.9rem;
-    padding: 0 1rem;
 
     @include ds.md {
       gap: 1rem;
@@ -43,7 +37,7 @@
 
     &:first-child {
       border-right: var(--border-width-default) solid var(--border-default);
-      flex: 0 0 40%;
+      flex: 0 0 45%;
 
       @include ds.md {
         border-right: none;

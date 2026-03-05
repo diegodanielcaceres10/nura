@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'styles/root';
+@use 'index' as ds;
 
 * {
   box-sizing: border-box;
@@ -114,6 +115,32 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+section {
+  border: 1px solid transparent;
+
+  & > h2,
+  & > h3 {
+    margin: auto;
+    margin-top: 3rem;
+    max-width: 1900px;
+    padding: 0 3rem;
+
+    @include ds.md {
+      margin: 3rem 0 0;
+    }
+  }
+
+  & .section-container {
+    margin: auto;
+    max-width: 1900px;
+    padding: 2rem 5rem;
+
+    @include ds.md {
+      padding: 1rem 3rem;
+    }
+  }
 }
 
 app-about-component,

@@ -42,12 +42,6 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    padding: 2rem 0;
-    margin: 0 5rem;
-
-    @include ds.md {
-      margin: 0 3rem;
-    }
   }
 
   &_info {

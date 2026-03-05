@@ -2,18 +2,12 @@
 
 .projects {
   background: var(--palette-bg-deepest);
-  padding: 5rem;
-
-  @include ds.md {
-    padding: 5rem 1rem;
-  }
 
   &_cards {
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
     font-size: 0.9rem;
-    padding: 0 1rem;
 
     @include ds.xl {
       grid-template-columns: repeat(2, 1fr);
