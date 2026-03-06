@@ -6,6 +6,11 @@
     "lint": "ng lint",
     "clean:reports": "rimraf ./vitest || rmdir /s /q vitest",
     "test": "npm run clean:reports && ng test --watch=false --coverage",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "cy:run:ci": "cypress run --reporter junit --reporter-options \"mochaFile=cypress/results/junit-[hash].xml,toConsole=true\"",
+    "e2e": "start-server-and-test start http://localhost:4201 cy:run",
+    "e2e:ci": "start-server-and-test start http://localhost:4201 cy:run:ci",
     "precommit": "npm run lint && npm run test && npm run build",
     "build": "ng build"
   },
@@ -47,8 +52,10 @@
     "jsdom": "^27.1.0",
     "prettier": "^3.8.1",
     "rimraf": "^6.1.3",
+    "start-server-and-test": "^2.1.2",
     "typescript": "~5.9.2",
     "typescript-eslint": "8.50.1",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.8",
+    "cypress": "^15.3.0"
   }
 }

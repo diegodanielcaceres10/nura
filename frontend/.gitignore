@@ -45,3 +45,9 @@ Thumbs.db
 
 # Test results
 vitest/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/downloads/
+cypress/results/

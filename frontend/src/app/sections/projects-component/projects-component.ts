@@ -41,7 +41,7 @@ export class ProjectsComponent {
         { value: '3', legend: 'PROJECT_OCTOAUTODRIVE_KPI_3' },
       ],
       repo: 'https://github.com/diegodanielcaceres10/octoautodrive',
-      colors: ['#001a2e', '#003057', '#003d40'],
+      colors: ['#17364a', '#2a5f7f', '#2a7d7f'],
     },
     {
       name: 'OilGroup',
@@ -57,7 +57,7 @@ export class ProjectsComponent {
         { value: '+8', legend: 'PROJECT_OILGROUP_KPI_2' },
       ],
       repo: 'https://github.com/diegodanielcaceres10/oilgroup',
-      colors: ['#2a1f1d', '#3a2520', '#2f1f15'],
+      colors: ['#46332e', '#5a4039', '#4a3129'],
     },
     {
       name: 'Angular JSON Form',
@@ -74,7 +74,7 @@ export class ProjectsComponent {
         { value: '3', legend: 'PROJECT_ANGULARJSONFORM_KPI_3' },
       ],
       repo: 'https://github.com/diegodanielcaceres10/angularjsonform',
-      colors: ['#080d0c', '#0d1614', '#160e0b'],
+      colors: ['#2E2F30', '#4A3E3A', '#6B463D'],
     },
   ]);
 
