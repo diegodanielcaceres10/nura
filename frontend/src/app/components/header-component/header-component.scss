@@ -6,7 +6,7 @@
   border-bottom: var(--border-width-default) solid transparent;
   color: var(--palette-white);
   display: flex;
-  height: 5rem;
+  height: var(--size-header-height);
   justify-content: end;
   padding: var(--space-2) 0;
   position: fixed;
@@ -36,9 +36,9 @@
   &_button {
     cursor: pointer;
     display: none;
-    height: 3rem;
+    height: var(--size-header-toggle);
     position: relative;
-    width: 3rem;
+    width: var(--size-header-toggle);
     z-index: 1;
     border-radius: var(--radius-md);
     transition: background var(--duration-fast) var(--easing-default);

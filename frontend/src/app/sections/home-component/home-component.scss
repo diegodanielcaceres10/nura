@@ -13,7 +13,7 @@
     border-radius: 0 0 1000% 1000%;
     position: absolute;
     width: 200%;
-    height: 10rem;
+    height: var(--size-home-wave-height);
     animation: wave 10s -3s linear infinite;
     transform: translate3d(0, 0, 0);
     opacity: 0.5;
@@ -54,7 +54,7 @@
 
   &_logo {
     margin: var(--space-12) 0 var(--space-8);
-    max-width: 500px;
+    max-width: var(--size-home-logo-max);
     width: 50%;
 
     @include ds.lg {
@@ -95,7 +95,7 @@
     & a {
       display: flex;
       justify-content: center;
-      width: 20rem;
+      width: var(--size-action-width);
     }
   }
 
@@ -114,7 +114,7 @@
     max-width: 100%;
     padding: var(--space-4) var(--space-8);
     transition: all var(--duration-base) var(--easing-default);
-    width: 20rem;
+    width: var(--size-action-width);
 
     &:hover {
       background: var(--state-hover-overlay);
@@ -140,7 +140,7 @@
 
   &_icon {
     text-align: center;
-    width: 3rem;
+    width: var(--size-icon-lg);
   }
 
   &_scroll {

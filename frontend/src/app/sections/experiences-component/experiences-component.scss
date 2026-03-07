@@ -87,9 +87,9 @@
       color: var(--text-secondary);
       display: flex;
       font-size: var(--font-size-2xl);
-      height: 3rem;
+      height: var(--size-icon-lg);
       justify-content: center;
-      width: 3rem;
+      width: var(--size-icon-lg);
       transition:
         background var(--duration-fast) var(--easing-default),
         color var(--duration-fast) var(--easing-default),
@@ -97,8 +97,8 @@
 
       @include ds.md {
         font-size: var(--font-size-md);
-        height: 2rem;
-        width: 2rem;
+        height: var(--size-icon-md);
+        width: var(--size-icon-md);
       }
 
       &:hover {

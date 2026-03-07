@@ -120,6 +120,23 @@
   --space-12: #{ds.$space-12};
   --space-16: #{ds.$space-16};
 
+  // Sizing
+  --size-content-max: 1900px;
+  --size-reading-max: 65ch;
+  --size-section-accent-width: calc(var(--space-10) * 4);
+  --size-header-height: calc(var(--space-10) * 2);
+  --size-header-toggle: var(--space-12);
+  --size-icon-button: var(--space-16);
+  --size-icon-lg: var(--space-12);
+  --size-icon-md: var(--space-8);
+  --size-home-wave-height: calc(var(--space-10) * 4);
+  --size-home-logo-max: 500px;
+  --size-action-width: calc(var(--space-10) * 8);
+  --size-about-photo-width: calc(var(--space-10) * 10);
+  --size-about-photo-width-md: calc(var(--space-10) * 8);
+  --size-project-card-height: calc(var(--space-10) * 12);
+  --size-project-card-height-md: calc(var(--space-10) * 16);
+
   // ─────────────────────────────────────────
   // BORDERS & RADIUS
   // ─────────────────────────────────────────

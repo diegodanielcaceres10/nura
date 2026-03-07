@@ -59,10 +59,10 @@
     filter: grayscale(50%);
     overflow: hidden;
     transition: filter var(--duration-slow) var(--easing-default);
-    width: 25rem;
+    width: var(--size-about-photo-width);
 
     @include ds.lg {
-      width: 20rem;
+      width: var(--size-about-photo-width-md);
     }
 
     &:hover {

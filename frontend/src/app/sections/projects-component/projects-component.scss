@@ -21,12 +21,12 @@
   }
 
   &_card {
-    height: 30rem;
+    height: var(--size-project-card-height);
     perspective: 1000px;
     width: 100%;
 
     @include ds.md {
-      height: 40rem;
+      height: var(--size-project-card-height-md);
     }
 
     &_container {

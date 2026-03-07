@@ -23,7 +23,7 @@
       border: none;
       border-top: var(--border-width-default) solid var(--border-default);
       margin: var(--space-8) 0;
-      max-width: 1900px;
+      max-width: var(--size-content-max);
       width: 100%;
     }
   }
@@ -69,11 +69,11 @@
     align-items: center;
     display: flex;
     border-radius: var(--radius-full);
-    height: 4rem;
+    height: var(--size-icon-button);
     justify-content: center;
     margin: 0 var(--space-4);
     position: relative;
-    width: 4rem;
+    width: var(--size-icon-button);
     transition: background var(--duration-fast) var(--easing-default);
 
     &:hover {
@@ -118,7 +118,7 @@
       }
 
       & span {
-        bottom: 4rem;
+        bottom: var(--size-icon-button);
         visibility: visible;
         opacity: 1;
       }
