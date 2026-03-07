@@ -71,7 +71,7 @@ p {
 
 hr {
   border: none;
-  border-top: 1px solid var(--border-default);
+  border-top: var(--border-width-default) solid var(--border-default);
   height: 0;
 }
 
@@ -118,7 +118,7 @@ ul {
 }
 
 section {
-  border: 1px solid transparent;
+  border: var(--border-width-default) solid transparent;
 
   & > h2,
   & > h3 {

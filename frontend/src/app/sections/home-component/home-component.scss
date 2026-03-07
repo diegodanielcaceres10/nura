@@ -14,7 +14,7 @@
     position: absolute;
     width: 200%;
     height: var(--size-home-wave-height);
-    animation: wave 10s -3s linear infinite;
+    animation: wave var(--duration-wave-short) var(--delay-wave-short) linear infinite;
     transform: translate3d(0, 0, 0);
     opacity: 0.5;
     top: 0;
@@ -22,13 +22,13 @@
 
     &:nth-of-type(2) {
       bottom: -1.25em;
-      animation: wave 18s linear reverse infinite;
+      animation: wave var(--duration-wave-medium) linear reverse infinite;
       opacity: 0.2;
     }
 
     &:nth-of-type(3) {
       bottom: -2.5em;
-      animation: wave 20s -1s reverse infinite;
+      animation: wave var(--duration-wave-long) var(--delay-wave-long) reverse infinite;
       opacity: 0.3;
     }
 
@@ -158,7 +158,7 @@
 
     & i {
       font-size: var(--font-size-4xl);
-      animation: bounce 1.4s ease-in-out infinite;
+      animation: bounce var(--duration-bounce) var(--easing-bounce) infinite;
     }
   }
 }

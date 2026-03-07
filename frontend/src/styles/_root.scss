@@ -136,6 +136,8 @@
   --size-about-photo-width-md: calc(var(--space-10) * 8);
   --size-project-card-height: calc(var(--space-10) * 12);
   --size-project-card-height-md: calc(var(--space-10) * 16);
+  --size-tooltip-arrow: 0.4rem;
+  --size-tooltip-arrow-offset: -0.3rem;
 
   // ─────────────────────────────────────────
   // BORDERS & RADIUS
@@ -167,9 +169,17 @@
   --duration-fast: #{ds.$duration-fast};
   --duration-base: #{ds.$duration-base};
   --duration-slow: #{ds.$duration-slow};
+  --duration-wave-short: 10s;
+  --duration-wave-medium: 18s;
+  --duration-wave-long: 20s;
+  --duration-bounce: 1.4s;
+  --delay-wave-short: -3s;
+  --delay-wave-long: -1s;
   --easing-default: #{ds.$easing-default};
   --easing-in: #{ds.$easing-in};
   --easing-out: #{ds.$easing-out};
+  --easing-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --easing-bounce: ease-in-out;
 
   // ─────────────────────────────────────────
   // Z-INDEX

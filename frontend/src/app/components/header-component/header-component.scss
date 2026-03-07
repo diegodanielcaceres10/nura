@@ -39,7 +39,7 @@
     height: var(--size-header-toggle);
     position: relative;
     width: var(--size-header-toggle);
-    z-index: 1;
+    z-index: var(--z-base);
     border-radius: var(--radius-md);
     transition: background var(--duration-fast) var(--easing-default);
 
