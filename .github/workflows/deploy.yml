@@ -44,6 +44,9 @@ jobs:
       - name: Run tests
         run: npm run test
 
+      - name: Run Cypress E2E
+        run: npm run e2e:ci
+
       - name: Build Angular
         run: npm run build
 
@@ -55,12 +58,31 @@ jobs:
           path: frontend/vitest/junit-report.xml
           reporter: java-junit
 
+      - name: Publish Cypress test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Cypress E2E Results
+          path: frontend/cypress/results/*.xml
+          reporter: java-junit
+
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: vitest-coverage
           path: frontend/vitest/coverage
+
+      - name: Upload Cypress artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cypress-artifacts
+          path: |
+            frontend/cypress/results/*.xml
+            frontend/cypress/screenshots/**
+            frontend/cypress/videos/**
+          if-no-files-found: warn
 
       - name: Normalize coverage report path
         if: always()
