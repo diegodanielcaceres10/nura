@@ -70,12 +70,12 @@
   }
 
   &_subtitle {
-    font-size: 1.1rem;
+    font-size: var(--font-size-lg);
     font-style: italic;
     letter-spacing: 0.05rem;
 
     @include ds.md {
-      font-size: 0.9rem;
+      font-size: var(--font-size-sm);
       white-space: initial;
     }
   }
@@ -108,7 +108,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: var(--font-size-2xl);
     justify-content: center;
     margin: 0;
     max-width: 100%;
@@ -134,7 +134,7 @@
     }
 
     @include ds.md {
-      font-size: 1.2rem;
+      font-size: var(--font-size-xl);
     }
   }
 
@@ -157,7 +157,7 @@
     }
 
     & i {
-      font-size: 3rem;
+      font-size: var(--font-size-4xl);
       animation: bounce 1.4s ease-in-out infinite;
     }
   }

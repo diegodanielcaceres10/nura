@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
 
     @include ds.md {
       gap: 1rem;
@@ -59,14 +59,14 @@
   }
 
   &_title {
-    font-size: 1.2rem;
+    font-size: var(--font-size-xl);
     letter-spacing: 0.1rem;
     text-transform: uppercase;
   }
 
   &_period {
     color: var(--text-secondary);
-    font-size: 0.8rem;
+    font-size: var(--font-size-xs);
     font-style: italic;
     margin-bottom: 1rem;
   }
@@ -86,7 +86,7 @@
       border-radius: var(--radius-full);
       color: var(--text-secondary);
       display: flex;
-      font-size: 1.5rem;
+      font-size: var(--font-size-2xl);
       height: 3rem;
       justify-content: center;
       width: 3rem;
@@ -96,7 +96,7 @@
         border-color var(--duration-fast) var(--easing-default);
 
       @include ds.md {
-        font-size: 1rem;
+        font-size: var(--font-size-md);
         height: 2rem;
         width: 2rem;
       }

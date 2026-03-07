@@ -108,7 +108,7 @@
 
     & i {
       color: var(--text-secondary);
-      font-size: 2rem;
+      font-size: var(--font-size-3xl);
       transition: color var(--duration-base) var(--easing-default);
     }
 

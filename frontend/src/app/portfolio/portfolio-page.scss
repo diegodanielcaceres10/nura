@@ -10,7 +10,7 @@
   }
 
   & i {
-    font-size: 3rem;
+    font-size: var(--font-size-4xl);
     color: var(--text-primary);
   }
 }

@@ -7,7 +7,7 @@
     display: grid;
     gap: 2rem;
     grid-template-columns: repeat(3, 1fr);
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
 
     @include ds.xl {
       grid-template-columns: repeat(2, 1fr);
@@ -16,7 +16,7 @@
     @include ds.md {
       gap: 1rem;
       grid-template-columns: 1fr;
-      font-size: 0.8rem;
+      font-size: var(--font-size-xs);
     }
   }
 
@@ -89,7 +89,7 @@
         border-top: var(--border-width-default) solid var(--border-strong);
         color: var(--text-primary);
         display: flex;
-        font-size: 1.2rem;
+        font-size: var(--font-size-xl);
         margin: 1rem 0;
         padding-top: 1rem;
       }
@@ -123,7 +123,7 @@
       transform: rotateY(180deg);
 
       & h3 {
-        font-size: 1.1rem;
+        font-size: var(--font-size-lg);
         margin: 0;
       }
 
@@ -132,7 +132,7 @@
 
         & p {
           border-left: var(--border-width-default) solid var(--border-strong);
-          font-size: 0.9rem;
+          font-size: var(--font-size-sm);
           padding-left: 1rem;
         }
       }

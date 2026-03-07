@@ -45,7 +45,7 @@
     transition: all var(--duration-base) var(--easing-default);
 
     @include ds.md {
-      font-size: 0.8rem;
+      font-size: var(--font-size-xs);
     }
 
     &:hover {
