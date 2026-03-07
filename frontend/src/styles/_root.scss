@@ -38,6 +38,9 @@
   --bg-card: var(--palette-bg-primary);
   --bg-card-alt: var(--palette-bg-mid);
   --bg-overlay: #{ds.$bg-overlay};
+  --bg-home-glow-primary: #{ds.$home-glow-primary};
+  --bg-home-glow-secondary: #{ds.$home-glow-secondary};
+  --bg-home-wave-overlay: #{ds.$home-wave-overlay};
 
   // ─────────────────────────────────────────
   // SEMANTIC — BRAND & ACTION
@@ -76,8 +79,8 @@
   // ─────────────────────────────────────────
 
   --state-focus-ring: var(--palette-accent-light);
-  --state-hover-overlay: rgba(60, 90, 145, 0.15);
-  --state-active-overlay: rgba(60, 90, 145, 0.3);
+  --state-hover-overlay: #{ds.$state-hover-overlay};
+  --state-active-overlay: #{ds.$state-active-overlay};
   --state-disabled-bg: var(--palette-bg-mid);
   --state-disabled-text: var(--palette-text-muted);
 

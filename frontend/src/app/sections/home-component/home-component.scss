@@ -1,7 +1,7 @@
 @use 'index' as ds;
 
 .home {
-  background: radial-gradient(at 20% 30%, rgba(60, 90, 145, 0.2) 0px, transparent 50%), radial-gradient(at 80% 70%, rgba(59, 26, 64, 0.15) 0px, transparent 50%), var(--palette-bg-deepest);
+  background: radial-gradient(at 20% 30%, var(--bg-home-glow-primary) 0px, transparent 50%), radial-gradient(at 80% 70%, var(--bg-home-glow-secondary) 0px, transparent 50%), var(--palette-bg-deepest);
   background-attachment: scroll;
   height: 100vh;
   overflow: hidden;
@@ -9,7 +9,7 @@
   width: 100%;
 
   &_wave {
-    background: rgba(60, 90, 145, 0.08);
+    background: var(--bg-home-wave-overlay);
     border-radius: 0 0 1000% 1000%;
     position: absolute;
     width: 200%;
