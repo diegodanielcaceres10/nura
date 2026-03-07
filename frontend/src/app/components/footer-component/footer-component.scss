@@ -3,10 +3,10 @@
 .footer {
   background: var(--palette-bg-primary);
   border-top: var(--border-width-default) solid var(--border-default);
-  padding: 5rem;
+  padding: calc(var(--space-10) * 2);
 
   @include ds.md {
-    padding: 5rem 2rem;
+    padding: calc(var(--space-10) * 2) var(--space-8);
   }
 
   &_section {
@@ -15,14 +15,14 @@
     flex-direction: column;
 
     & h3 {
-      margin: 2rem 0 1rem;
+      margin: var(--space-8) 0 var(--space-4);
       width: 100%;
     }
 
     & hr {
       border: none;
       border-top: var(--border-width-default) solid var(--border-default);
-      margin: 2rem 0;
+      margin: var(--space-8) 0;
       max-width: 1900px;
       width: 100%;
     }
@@ -46,13 +46,13 @@
     flex-direction: column;
 
     @include ds.md {
-      margin: 5rem 0;
+      margin: calc(var(--space-10) * 2) 0;
       width: 100%;
     }
 
     & span {
       display: flex;
-      margin: 0.2rem 0;
+      margin: var(--space-1) 0;
 
       & i {
         padding-right: 0.5rem;
@@ -71,7 +71,7 @@
     border-radius: var(--radius-full);
     height: 4rem;
     justify-content: center;
-    margin: 0 1rem;
+    margin: 0 var(--space-4);
     position: relative;
     width: 4rem;
     transition: background var(--duration-fast) var(--easing-default);
@@ -87,7 +87,7 @@
       bottom: 0;
       color: var(--text-primary);
       opacity: 0;
-      padding: 0.2rem 1rem;
+      padding: var(--space-1) var(--space-4);
       position: absolute;
       visibility: hidden;
       transition: all var(--duration-slow) cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -129,10 +129,10 @@
     color: var(--text-secondary);
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
+    margin-top: var(--space-4);
 
     & i {
-      padding: 0 0.2rem;
+      padding: 0 var(--space-1);
     }
   }
 }

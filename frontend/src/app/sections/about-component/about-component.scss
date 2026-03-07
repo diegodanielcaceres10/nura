@@ -5,12 +5,12 @@
 
   &_container {
     display: flex;
-    gap: 5rem;
+    gap: calc(var(--space-10) * 2);
 
     @include ds.md {
       align-items: center;
       flex-direction: column;
-      gap: 2rem;
+      gap: var(--space-8);
     }
   }
 
@@ -23,14 +23,14 @@
     & hr {
       border: none;
       border-top: var(--border-width-default) solid var(--border-default);
-      margin: 0.5rem 0;
+      margin: var(--space-2) 0;
     }
   }
 
   &_tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: var(--space-4);
     margin-top: 1rem;
   }
 
@@ -41,7 +41,7 @@
     cursor: default;
     display: flex;
     font-weight: bold;
-    padding: 0.5rem 1rem;
+    padding: var(--space-2) var(--space-4);
     transition: all var(--duration-base) var(--easing-default);
 
     @include ds.md {

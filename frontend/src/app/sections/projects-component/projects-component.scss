@@ -5,7 +5,7 @@
 
   &_cards {
     display: grid;
-    gap: 2rem;
+    gap: var(--space-8);
     grid-template-columns: repeat(3, 1fr);
     font-size: var(--font-size-sm);
 
@@ -14,7 +14,7 @@
     }
 
     @include ds.md {
-      gap: 1rem;
+      gap: var(--space-4);
       grid-template-columns: 1fr;
       font-size: var(--font-size-xs);
     }
@@ -45,7 +45,7 @@
       flex-direction: column;
       height: 100%;
       overflow: hidden;
-      padding: 2rem;
+      padding: var(--space-8);
       position: absolute;
       width: 100%;
     }
@@ -61,8 +61,8 @@
         box-shadow: var(--shadow-md);
         color: var(--palette-white);
         font-size: var(--font-size-lg);
-        margin: 0.5rem;
-        padding: 0.3rem 0.5rem;
+        margin: var(--space-2);
+        padding: var(--space-1) var(--space-2);
         position: absolute;
         right: 0;
         top: 0;
@@ -90,7 +90,7 @@
         color: var(--text-primary);
         display: flex;
         font-size: var(--font-size-xl);
-        margin: 1rem 0;
+        margin: var(--space-4) 0;
         padding-top: 1rem;
       }
 
@@ -102,7 +102,7 @@
 
       &_skills {
         display: flex;
-        gap: 0.3rem;
+        gap: var(--space-1);
         flex-wrap: wrap;
         margin-top: 0.5rem;
 
@@ -110,7 +110,7 @@
           border: var(--border-width-default) solid var(--border-strong);
           border-radius: var(--radius-md);
           font-size: var(--font-size-sm);
-          padding: 0.2rem 0.6rem;
+          padding: var(--space-1) var(--space-2);
         }
       }
     }
@@ -140,8 +140,8 @@
       &_kpis {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
-        margin: 1rem 0;
+        gap: var(--space-2);
+        margin: var(--space-4) 0;
       }
 
       &_kpi {
@@ -150,7 +150,7 @@
         display: flex;
         flex: 1;
         flex-direction: column;
-        padding: 1.3rem 0;
+        padding: var(--space-5) 0;
         text-align: center;
 
         & strong {
@@ -159,21 +159,21 @@
 
         & span {
           font-size: var(--font-size-xs);
-          padding: 0 0.2rem;
+          padding: 0 var(--space-1);
         }
       }
 
       &_links {
         display: flex;
         justify-content: center;
-        gap: 0.5rem;
+        gap: var(--space-2);
         padding-top: 0.5rem;
 
         & a {
           border: var(--border-width-default) solid var(--border-strong);
           border-radius: var(--radius-md);
           flex: 1;
-          padding: 0.5rem 0;
+          padding: var(--space-2) 0;
           text-align: center;
 
           &:hover {

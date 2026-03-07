@@ -44,7 +44,7 @@ h2 {
     display: block;
     height: 2px;
     width: 10rem;
-    margin: 1.25rem 0;
+    margin: var(--space-5) 0;
   }
 }
 
@@ -123,22 +123,22 @@ section {
   & > h2,
   & > h3 {
     margin: auto;
-    margin-top: 3rem;
+    margin-top: var(--space-12);
     max-width: 1900px;
-    padding: 0 3rem;
+    padding: 0 var(--space-12);
 
     @include ds.md {
-      margin: 3rem 0 0;
+      margin: var(--space-12) 0 0;
     }
   }
 
   & .section-container {
     margin: auto;
     max-width: 1900px;
-    padding: 2rem 5rem;
+    padding: var(--space-8) calc(var(--space-10) * 2);
 
     @include ds.md {
-      padding: 1rem 3rem;
+      padding: var(--space-4) var(--space-12);
     }
   }
 }
