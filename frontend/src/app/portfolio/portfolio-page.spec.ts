@@ -27,8 +27,10 @@ describe('PortfolioPage', () => {
     expect(component).toBeDefined();
   });
 
-  it('should render portfolio sections', () => {
+  it('should render portfolio sections', async () => {
     const root = fixture.nativeElement;
+    await fixture.whenStable();
+    fixture.detectChanges();
     expect(root.querySelector('app-header-component')).toBeTruthy();
     expect(root.querySelector('main')).toBeTruthy();
     expect(root.querySelector('app-home-component')).toBeTruthy();

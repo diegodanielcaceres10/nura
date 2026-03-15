@@ -16,6 +16,7 @@ if (typeof globalThis !== 'undefined' && globalScope.IntersectionObserver === un
     readonly root: Element | Document | null;
     readonly rootMargin: string;
     readonly thresholds: readonly number[];
+    private readonly observedTargets = new Set<Element>();
 
     constructor(private readonly callback: ObserverCallback = noopCallback, options?: IntersectionObserverInit) {
       this.root = options?.root ?? null;
@@ -25,27 +26,34 @@ if (typeof globalThis !== 'undefined' && globalScope.IntersectionObserver === un
     }
 
     observe(target: Element): void {
-      // Immediately report the target as visible so deferred views continue rendering during tests/SSR.
-      this.callback(
-        [
-          {
-            isIntersecting: true,
-            intersectionRatio: 1,
-            target,
-            time: Date.now(),
-          } as IntersectionObserverEntry,
-        ],
-        this,
-      );
+      this.observedTargets.add(target);
+
+      // Schedule a microtask so Angular can finish registering the viewport trigger before we emit.
+      queueMicrotask(() => {
+        if (!this.observedTargets.has(target)) {
+          return;
+        }
+
+        this.callback(
+          [
+            {
+              isIntersecting: true,
+              intersectionRatio: 1,
+              target,
+              time: Date.now(),
+            } as IntersectionObserverEntry,
+          ],
+          this,
+        );
+      });
     }
 
     unobserve(target: Element): void {
-      void target;
-      // No-op – API surface only.
+      this.observedTargets.delete(target);
     }
 
     disconnect(): void {
-      // No-op – nothing to clean up in the fallback.
+      this.observedTargets.clear();
     }
 
     takeRecords(): IntersectionObserverEntry[] {
