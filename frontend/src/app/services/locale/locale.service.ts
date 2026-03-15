@@ -93,7 +93,13 @@ export class LocaleService {
 
     const remaining = relativeSegments[0] && SUPPORTED_LOCALES.includes(relativeSegments[0] as AppLocale) ? relativeSegments.slice(1) : relativeSegments;
 
-    const nextPath = [''].concat(baseSegments, [locale], remaining).join('/');
+    const pathSegments = [''].concat(baseSegments, [locale], remaining);
+    let nextPath = pathSegments.join('/');
+
+    const needsTrailingSlash = remaining.length === 0;
+    if (needsTrailingSlash && !nextPath.endsWith('/')) {
+      nextPath += '/';
+    }
 
     current.pathname = nextPath;
     current.searchParams.delete(LOCALE_PARAM);

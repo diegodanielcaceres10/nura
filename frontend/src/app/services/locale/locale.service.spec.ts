@@ -101,12 +101,20 @@ describe('LocaleService', () => {
   });
 
   it('syncLocalePath should not rewrite URL when path is already correct', () => {
-    window.history.replaceState({}, '', '/pt');
+    window.history.replaceState({}, '', '/pt/');
 
     LocaleService.syncLocalePath('pt');
 
-    expect(window.location.pathname).toBe('/pt');
+    expect(window.location.pathname).toBe('/pt/');
     expect(window.location.search).toBe('');
+  });
+
+  it('syncLocalePath should ensure trailing slash for locale root paths', () => {
+    window.history.replaceState({}, '', '/');
+
+    LocaleService.syncLocalePath('es');
+
+    expect(window.location.pathname).toBe('/es/');
   });
 
   it('resolveStartupLocale should fallback to default for unsupported query param', () => {
