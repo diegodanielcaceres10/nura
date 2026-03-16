@@ -108,6 +108,7 @@
     <script>
       (function () {
         var REDIRECT_PARAM = 'p';
+        var DEFAULT_LOCALE_SEGMENT = 'es/';
 
         function getBasePath() {
           var baseEl = document.querySelector('base');
@@ -126,9 +127,7 @@
           return pathname || '/';
         }
 
-        function buildFallbackUrl() {
-          var basePath = getBasePath();
-          var relativePath = getRelativePath(basePath);
+        function buildSpaFallbackUrl(basePath, relativePath) {
           var suffix = relativePath + (window.location.search || '') + (window.location.hash || '');
           var encoded = encodeURIComponent(suffix);
           return window.location.origin + basePath + '?' + REDIRECT_PARAM + '=' + encoded;
@@ -141,16 +140,23 @@
           }
         }
 
-        function shouldRedirect() {
+        function hasRedirectParam() {
           var params = new URLSearchParams(window.location.search);
-          return !params.has(REDIRECT_PARAM);
+          return params.has(REDIRECT_PARAM);
         }
 
         function init() {
-          var targetHref = buildFallbackUrl();
+          var basePath = getBasePath();
+          var relativePath = getRelativePath(basePath);
+          var isBaseRequest = relativePath === '/' || relativePath === '';
+
+          var targetHref = isBaseRequest
+            ? window.location.origin + basePath + DEFAULT_LOCALE_SEGMENT
+            : buildSpaFallbackUrl(basePath, relativePath);
+
           setManualLink(targetHref);
 
-          if (!shouldRedirect()) {
+          if (!isBaseRequest && hasRedirectParam()) {
             return;
           }
 
