@@ -107,34 +107,60 @@
     </style>
     <script>
       (function () {
-        var basePath = '/nura/';
-        var localeSegment = 'es/';
-        var targetPath = basePath + localeSegment;
-        var targetHref = window.location.origin + targetPath;
+        var REDIRECT_PARAM = 'p';
 
-        function normalizePath(pathname) {
-          return pathname.endsWith('/') ? pathname : pathname + '/';
+        function getBasePath() {
+          var baseEl = document.querySelector('base');
+          var baseHref = (baseEl && baseEl.getAttribute('href')) || '/';
+          var baseUrl = new URL(baseHref, window.location.origin);
+          var basePath = baseUrl.pathname;
+          return basePath.endsWith('/') ? basePath : basePath + '/';
         }
 
-        function setManualLink() {
+        function getRelativePath(basePath) {
+          var pathname = window.location.pathname;
+          if (pathname.startsWith(basePath)) {
+            var remainder = pathname.slice(basePath.length);
+            return '/' + remainder.replace(/^\/+/, '');
+          }
+          return pathname || '/';
+        }
+
+        function buildFallbackUrl() {
+          var basePath = getBasePath();
+          var relativePath = getRelativePath(basePath);
+          var suffix = relativePath + (window.location.search || '') + (window.location.hash || '');
+          var encoded = encodeURIComponent(suffix);
+          return window.location.origin + basePath + '?' + REDIRECT_PARAM + '=' + encoded;
+        }
+
+        function setManualLink(targetHref) {
           var manualLink = document.getElementById('manual-continue');
           if (manualLink) {
             manualLink.setAttribute('href', targetHref);
           }
+        }
 
-          if (normalizePath(window.location.pathname) === targetPath) {
+        function shouldRedirect() {
+          var params = new URLSearchParams(window.location.search);
+          return !params.has(REDIRECT_PARAM);
+        }
+
+        function init() {
+          var targetHref = buildFallbackUrl();
+          setManualLink(targetHref);
+
+          if (!shouldRedirect()) {
             return;
           }
 
-          window.setTimeout(function () {
-            window.location.replace(targetHref);
-          }, 600);
+          window.location.replace(targetHref);
         }
 
         if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', setManualLink);
+          document.addEventListener('DOMContentLoaded', init);
         } else {
-          setManualLink();
+          init();
         }
       })();
     </script>
