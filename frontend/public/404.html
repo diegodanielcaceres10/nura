@@ -107,18 +107,28 @@
     </style>
     <script>
       (function () {
-        function setManualLink() {
-          var basePath = '/nura/';
-          var target = window.location.origin + basePath + 'es';
+        var basePath = '/nura/';
+        var localeSegment = 'es/';
+        var targetPath = basePath + localeSegment;
+        var targetHref = window.location.origin + targetPath;
 
+        function normalizePath(pathname) {
+          return pathname.endsWith('/') ? pathname : pathname + '/';
+        }
+
+        function setManualLink() {
           var manualLink = document.getElementById('manual-continue');
           if (manualLink) {
-            manualLink.setAttribute('href', target);
+            manualLink.setAttribute('href', targetHref);
+          }
+
+          if (normalizePath(window.location.pathname) === targetPath) {
+            return;
           }
 
           window.setTimeout(function () {
-            window.location.href = target;
-          }, 1000);
+            window.location.replace(targetHref);
+          }, 600);
         }
 
         if (document.readyState === 'loading') {
