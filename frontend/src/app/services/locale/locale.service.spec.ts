@@ -109,12 +109,12 @@ describe('LocaleService', () => {
     expect(window.location.search).toBe('');
   });
 
-  it('syncLocalePath should ensure trailing slash for locale root paths', () => {
+  it('syncLocalePath should leave landing page without locale untouched', () => {
     window.history.replaceState({}, '', '/');
 
     LocaleService.syncLocalePath('es');
 
-    expect(window.location.pathname).toBe('/es/');
+    expect(window.location.pathname).toBe('/');
   });
 
   it('resolveStartupLocale should fallback to default for unsupported query param', () => {

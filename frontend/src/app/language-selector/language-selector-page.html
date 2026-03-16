@@ -1,0 +1,23 @@
+<section class="lang-selector">
+  <div class="lang-selector_wrapper">
+    <div class="lang-selector_logo">
+      <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
+      <span>Nura</span>
+    </div>
+    <p class="lang-selector_eyebrow">Nura • Portfolio</p>
+    <h1 class="lang-selector_title">Selecciona tu idioma | Choose your language | Escolha seu idioma</h1>
+
+    <div class="lang-selector_grid">
+      @for (lang of languages; track lang.code) {
+        <a class="lang-card" [routerLink]="[lang.code]">
+          <span class="lang-card_badge">{{ lang.badge }}</span>
+          <div class="lang-card_body">
+            <span class="lang-card_code">{{ lang.code | uppercase }}</span>
+            <h2 class="lang-card_title">{{ lang.title }}</h2>
+          </div>
+          <span class="lang-card_cta">{{ lang.cta }}</span>
+        </a>
+      }
+    </div>
+  </div>
+</section>

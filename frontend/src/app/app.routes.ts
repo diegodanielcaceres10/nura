@@ -1,4 +1,5 @@
 import { CanMatchFn, Routes } from '@angular/router';
+import { LanguageSelectorPage } from './language-selector/language-selector-page';
 import { PortfolioPage } from './portfolio/portfolio-page';
 
 const supportedLangs = new Set(['es', 'en', 'pt']);
@@ -9,7 +10,7 @@ const supportedLangRoute: CanMatchFn = (_, segments) => {
 };
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'es' },
+  { path: '', component: LanguageSelectorPage, pathMatch: 'full' },
   { path: ':lang', component: PortfolioPage, canMatch: [supportedLangRoute] },
-  { path: '**', redirectTo: 'es' },
+  { path: '**', redirectTo: '' },
 ];

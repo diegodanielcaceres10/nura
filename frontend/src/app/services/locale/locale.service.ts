@@ -63,6 +63,11 @@ export class LocaleService {
   static syncLocalePath(locale: AppLocale): void {
     if (!isBrowser) return;
 
+    const relativeSegments = this.getRelativePathSegments();
+    if (relativeSegments.length === 0) {
+      return;
+    }
+
     const normalized = this.normalizeStatic(locale);
     const current = new URL(window.location.href);
     const target = this.buildLocaleUrl(normalized);
