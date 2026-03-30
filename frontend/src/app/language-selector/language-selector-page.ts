@@ -1,5 +1,5 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
 
 interface LanguageCard {
@@ -36,7 +36,7 @@ export class LanguageSelectorPage {
       cta: 'Acessar',
     },
   ];
-  constructor(private readonly localeService: LocaleService) {}
+  private readonly localeService = inject(LocaleService);
 
   selectLanguage(lang: string): void {
     this.localeService.changeLocale(lang);
