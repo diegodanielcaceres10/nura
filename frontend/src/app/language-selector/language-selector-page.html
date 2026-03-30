@@ -9,10 +9,7 @@
 
     <div class="lang-selector_grid">
       @for (lang of languages; track lang.code) {
-        <a class="lang-card" tabindex="0" role="button"
-           (click)="selectLanguage(lang.code)"
-           (keyup.enter)="selectLanguage(lang.code)"
-           style="cursor:pointer;">
+        <a class="lang-card" tabindex="0" role="button" (click)="selectLanguage(lang.code)" (keyup.enter)="selectLanguage(lang.code)" style="cursor: pointer">
           <span class="lang-card_badge">{{ lang.badge }}</span>
           <div class="lang-card_body">
             <span class="lang-card_code">{{ lang.code | uppercase }}</span>
