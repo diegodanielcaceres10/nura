@@ -1,6 +1,6 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { LocaleService } from '../services/locale/locale.service';
 
 interface LanguageCard {
   code: 'es' | 'en' | 'pt';
@@ -11,7 +11,7 @@ interface LanguageCard {
 
 @Component({
   selector: 'app-language-selector-page',
-  imports: [RouterLink, UpperCasePipe],
+  imports: [UpperCasePipe],
   templateUrl: './language-selector-page.html',
   styleUrl: './language-selector-page.scss',
 })
@@ -36,4 +36,9 @@ export class LanguageSelectorPage {
       cta: 'Acessar',
     },
   ];
+  constructor(private readonly localeService: LocaleService) {}
+
+  selectLanguage(lang: string): void {
+    this.localeService.changeLocale(lang);
+  }
 }

@@ -9,7 +9,7 @@
 
     <div class="lang-selector_grid">
       @for (lang of languages; track lang.code) {
-        <a class="lang-card" [routerLink]="[lang.code]">
+        <a class="lang-card" (click)="selectLanguage(lang.code)" style="cursor:pointer;">
           <span class="lang-card_badge">{{ lang.badge }}</span>
           <div class="lang-card_body">
             <span class="lang-card_code">{{ lang.code | uppercase }}</span>
