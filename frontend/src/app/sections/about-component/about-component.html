@@ -1,25 +1,59 @@
 ﻿<section class="about">
-  <h2>{{ 'ABOUT' | translate }}</h2>
   <div class="about_container section-container">
-    <div class="about_text">
-      <hr />
-      <p>{{ 'ABOUT_DESC_1' | translate }}</p>
-      <p>{{ 'ABOUT_DESC_2' | translate }}</p>
-      <p>{{ 'ABOUT_DESC_3' | translate }}</p>
-      <p>{{ 'ABOUT_DESC_4' | translate }}</p>
-      <hr />
+    <div class="about_panel">
+      <h2>{{ 'ABOUT' | translate }}</h2>
+      <div class="about_content">
+        <div class="about_text">
+          <p>{{ 'ABOUT_DESC_1' | translate }}</p>
+          <p>{{ 'ABOUT_DESC_2' | translate }}</p>
+          <p>{{ 'ABOUT_DESC_3' | translate }}</p>
+          <p>{{ 'ABOUT_DESC_4' | translate }}</p>
+        </div>
+        <div class="about_side">
+          <div class="about_photo">
+            <picture>
+              <source srcset="assets/caricature/caricature.avif" type="image/avif" />
+              <source srcset="assets/caricature/caricature.webp" type="image/webp" />
+              <img src="assets/caricature/caricature.webp" alt="Caricature of Diego" width="400" height="600" loading="lazy" decoding="async" />
+            </picture>
+          </div>
+          <div class="about_kpis">
+            <div class="about_kpi">
+              <div class="about_kpi_icon blue"><i class="fa-solid fa-trophy"></i></div>
+              <div class="about_kpi_texts">
+                <strong>+6</strong>
+                <span>{{ 'ABOUT_KPI_EXPERIENCE_TITLE' | translate }}</span>
+                <small>{{ 'ABOUT_KPI_EXPERIENCE_DESC' | translate }}</small>
+              </div>
+            </div>
+            <div class="about_kpi">
+              <div class="about_kpi_icon light"><i class="fa-solid fa-arrow-trend-up"></i></div>
+              <div class="about_kpi_texts">
+                <strong>50%</strong>
+                <span>{{ 'ABOUT_KPI_IMPACT_TITLE' | translate }}</span>
+                <small>{{ 'ABOUT_KPI_IMPACT_DESC' | translate }}</small>
+              </div>
+            </div>
+            <div class="about_kpi">
+              <div class="about_kpi_icon blue"><i class="fa-regular fa-clock"></i></div>
+              <div class="about_kpi_texts">
+                <strong>5 min</strong>
+                <span>{{ 'ABOUT_KPI_DEPLOY_TITLE' | translate }}</span>
+                <small>{{ 'ABOUT_KPI_DEPLOY_DESC' | translate }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about_title">
+        <div class="about_title_icon"><i class="fa-solid fa-code"></i></div>
+        <div class="about_title_text">{{ 'ABOUT_TECHS' | translate }}</div>
+      </div>
       <div class="about_tags">
         @for (tag of skills(); track tag) {
           <span class="about_tag">{{ tag }}</span>
         }
       </div>
-    </div>
-    <div class="about_photo">
-      <picture>
-        <source srcset="assets/caricature/caricature.avif" type="image/avif" />
-        <source srcset="assets/caricature/caricature.webp" type="image/webp" />
-        <img src="assets/caricature/caricature.webp" alt="Caricature of Diego" width="400" height="600" loading="lazy" decoding="async" />
-      </picture>
     </div>
   </div>
 </section>

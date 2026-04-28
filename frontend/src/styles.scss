@@ -38,7 +38,7 @@ h2 {
   font-style: italic;
 
   &:after {
-    background: linear-gradient(90deg, var(--palette-accent-light) 50%, var(--palette-accent-blue) 100%);
+    background: linear-gradient(90deg, var(--palette-accent-blue) 0%, var(--palette-accent-purple) 60%);
     border-radius: var(--radius-full);
     content: '';
     display: block;
