@@ -11,6 +11,7 @@ import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 })
 export class HomeComponent {
   private readonly localeService = inject(LocaleService);
+  currentLang = this.localeService.getCurrentLocale();
 
   openCV(): void {
     const lang = this.localeService.getCurrentLocale();
