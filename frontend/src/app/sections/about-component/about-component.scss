@@ -29,7 +29,6 @@
     flex: 1;
     flex-direction: column;
     font-style: italic;
-    padding-right: var(--space-4);
 
     & hr {
       border: none;
@@ -53,7 +52,10 @@
     overflow: hidden;
     transition: filter var(--duration-slow) var(--easing-default);
     width: calc(var(--space-10) * 10);
-    max-width: 100%;
+
+    @include ds.md {
+      width: 95%;
+    }
 
     &:hover {
       filter: grayscale(0%);
@@ -77,6 +79,10 @@
 
     @include ds.xl {
       padding: var(--space-8);
+    }
+
+    @include ds.md {
+      padding: var(--space-4) 0;
     }
   }
 

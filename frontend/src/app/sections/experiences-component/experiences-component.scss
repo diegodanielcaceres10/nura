@@ -6,12 +6,48 @@
   &_cards {
     display: flex;
     flex-direction: column;
-    gap: var(--space-8);
     font-size: var(--font-size-sm);
 
     @include ds.md {
       gap: var(--space-4);
     }
+  }
+
+  &_content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_row {
+    display: flex;
+  }
+
+  &_timeline {
+    border-right: 2px solid var(--palette-accent-blue);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4);
+    position: relative;
+    width: 8rem;
+
+    @include ds.md {
+      padding: var(--space-6) var(--space-2);
+    }
+  }
+
+  &_period {
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  &_dot {
+    background: var(--palette-accent-blue);
+    border-radius: var(--radius-full);
+    height: 1.5rem;
+    position: absolute;
+    right: -0.9em;
+    top: 1rem;
+    width: 1.5rem;
   }
 
   &_card {
@@ -22,59 +58,75 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     display: flex;
+    flex: 1;
+    margin: 0 var(--space-4) var(--space-4);
     padding: var(--space-4);
 
     @include ds.md {
       flex-direction: column;
+      margin: var(--space-2);
     }
   }
 
   &_container {
     display: flex;
     flex-direction: column;
-    padding: var(--space-4);
+    padding: var(--space-6);
+    position: relative;
     width: 100%;
 
     &:first-child {
       border-right: var(--border-width-default) solid var(--border-default);
-      flex: 0 0 45%;
+      flex: 0 0 30%;
 
       @include ds.md {
         border-right: none;
         border-bottom: var(--border-width-default) solid var(--border-default);
         flex: none;
         width: 100%;
-        padding-bottom: 1rem;
         margin-bottom: 1rem;
       }
     }
 
-    & h3 {
-      margin-top: 0;
+    @include ds.md {
+      padding: 0;
+      padding-bottom: var(--space-4);
     }
 
-    & p {
-      margin: var(--space-1) 0;
+    & h3 {
+      color: var(--palette-accent-blue);
+      margin: 0;
+    }
+
+    & strong {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-md);
+      color: var(--palette-accent-light);
+      position: absolute;
+      padding: var(--space-2) var(--space-4);
+      right: 0;
+      top: 0;
+
+      @include ds.md {
+        font-size: var(--font-size-xs);
+        top: -1.9rem;
+      }
     }
   }
 
   &_title {
     font-size: var(--font-size-xl);
-    letter-spacing: 0.1rem;
+    padding: var(--space-2) 0;
     text-transform: uppercase;
-  }
-
-  &_period {
-    color: var(--text-secondary);
-    font-size: var(--font-size-xs);
-    font-style: italic;
-    margin-bottom: 1rem;
   }
 
   &_skills {
     display: flex;
     flex-wrap: wrap;
     gap: calc(var(--space-5) / 2);
+    margin-top: var(--space-4);
 
     @include ds.md {
       justify-content: center;
@@ -106,6 +158,20 @@
         border-color: var(--palette-accent-blue);
         color: var(--palette-white);
       }
+    }
+  }
+
+  &_bullet {
+    display: flex;
+
+    & p {
+      font-size: var(--font-size-sm);
+      margin: var(--space-1) 0;
+    }
+
+    & i {
+      color: var(--palette-accent-blue);
+      padding: var(--space-2);
     }
   }
 }
