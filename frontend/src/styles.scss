@@ -38,11 +38,11 @@ h2 {
   font-style: italic;
 
   &:after {
-    background-color: var(--palette-accent-blue);
+    background: linear-gradient(90deg, var(--palette-accent-light) 50%, var(--palette-accent-blue) 100%);
     border-radius: var(--radius-full);
     content: '';
     display: block;
-    height: 2px;
+    height: 4px;
     width: var(--size-section-accent-width);
     margin: var(--space-5) 0;
   }
@@ -137,8 +137,12 @@ section {
     max-width: var(--size-content-max);
     padding: var(--space-8) calc(var(--space-10) * 2);
 
+    @include ds.lg {
+      padding: var(--space-8) calc(var(--space-4) * 2);
+    }
+
     @include ds.md {
-      padding: var(--space-4) var(--space-12);
+      padding: var(--space-4);
     }
   }
 }

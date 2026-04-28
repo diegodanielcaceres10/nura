@@ -8,6 +8,10 @@
   position: relative;
   width: 100%;
 
+  @include ds.md {
+    height: initial;
+  }
+
   &_wave {
     background: var(--bg-home-wave-overlay);
     border-radius: 0 0 1000% 1000%;
@@ -38,18 +42,49 @@
   }
 
   &_container {
-    align-items: start;
     display: flex;
     flex-direction: column;
     height: 100%;
   }
 
-  &_info {
+  &_content {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    width: 100%;
+
+    @include ds.md {
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+
+  &_panel {
     display: flex;
     flex-direction: column;
     flex: 1;
     justify-content: center;
+    padding: var(--space-4);
     width: 100%;
+
+    @include ds.md {
+      flex-direction: column;
+    }
+
+    &-visual {
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      &::before {
+        background: radial-gradient(ellipse 35% 50% at 30% 55%, rgba(0, 210, 200, 0.25), transparent 70%), radial-gradient(ellipse 30% 45% at 75% 65%, rgba(120, 40, 200, 0.3), transparent 70%);
+        content: '';
+        inset: 0;
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+      }
+    }
   }
 
   &_logo {
@@ -71,13 +106,7 @@
 
   &_subtitle {
     font-size: var(--font-size-lg);
-    font-style: italic;
     letter-spacing: 0.05rem;
-
-    @include ds.md {
-      font-size: var(--font-size-sm);
-      white-space: initial;
-    }
   }
 
   &_buttons {
@@ -85,11 +114,9 @@
     gap: var(--space-8);
     margin-top: 2rem;
 
-    @include ds.lg {
-      align-items: center;
-      flex-direction: column;
-      gap: var(--space-4);
-      margin-top: var(--space-12);
+    @include ds.md {
+      flex-direction: row;
+      justify-content: center;
     }
 
     & a {
@@ -108,11 +135,11 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-md);
     justify-content: center;
     margin: 0;
     max-width: 100%;
-    padding: var(--space-4) var(--space-8);
+    padding: var(--space-4) 0;
     transition: all var(--duration-base) var(--easing-default);
     width: var(--size-action-width);
 
@@ -133,23 +160,185 @@
       }
     }
 
-    @include ds.md {
-      font-size: var(--font-size-xl);
+    &_icon {
+      padding-left: var(--space-2);
+      text-align: center;
     }
   }
 
-  &_icon {
-    text-align: center;
-    width: var(--size-icon-lg);
+  &_photo {
+    &_wrapper {
+      height: calc(var(--space-10) * 11);
+      isolation: isolate;
+      max-height: 50vh;
+      position: relative;
+      width: calc(var(--space-10) * 9);
+
+      @include ds.lg {
+        width: 95%;
+      }
+    }
+
+    &_dots {
+      background-image: radial-gradient(circle, rgba(0, 210, 200, 0.2) 1px, transparent 1px);
+      background-size: var(--space-5) var(--space-5);
+      border-radius: var(--radius-lg);
+      inset: 0;
+      left: -50%;
+      position: absolute;
+      z-index: 1;
+    }
+
+    &_frame {
+      border-radius: var(--radius-lg);
+      bottom: 0;
+      height: 100%;
+      left: 50%;
+      overflow: hidden;
+      position: absolute;
+      transform: translateX(-50%);
+      width: 100%;
+      z-index: 1;
+
+      &::after {
+        background: linear-gradient(to top, var(--palette-bg-deepest) 0%, transparent 40%);
+        content: '';
+        inset: 0;
+        position: absolute;
+      }
+
+      picture,
+      img {
+        display: block;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+        width: 100%;
+      }
+    }
+  }
+
+  &_kpi {
+    align-items: flex-start;
+    backdrop-filter: blur(var(--space-3));
+    background: rgba(255, 255, 255, 0.07);
+    border: var(--border-width-default) solid var(--border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-4) var(--space-6);
+    position: absolute;
+    z-index: 2;
+
+    @include ds.md {
+      padding: var(--space-4);
+    }
+
+    &_value {
+      color: var(--palette-white);
+      font-size: var(--font-size-2xl);
+      font-weight: var(--font-weight-bold);
+      line-height: var(--line-height-tight);
+    }
+
+    &_label {
+      color: var(--text-secondary);
+      font-size: var(--font-size-xs);
+      margin-top: var(--space-1);
+      max-width: calc(var(--space-10) * 2);
+    }
+
+    &--experience {
+      right: calc(var(--space-12) * -2);
+      top: var(--space-6);
+
+      @include ds.md {
+        right: calc(var(--space-4) * -2);
+      }
+    }
+
+    &--projects {
+      bottom: calc(var(--space-10) * 2);
+      left: calc(var(--space-12) * -2);
+
+      @include ds.md {
+        left: calc(var(--space-4) * -2);
+      }
+    }
+
+    &--quality {
+      bottom: var(--space-6);
+      right: calc(var(--space-12) * -2);
+
+      @include ds.md {
+        right: calc(var(--space-4) * -2);
+      }
+    }
+  }
+
+  &_features {
+    display: grid;
+    gap: var(--space-8);
+    grid-template-columns: repeat(4, 1fr);
+    margin: var(--space-12) 0;
+
+    @include ds.lg {
+      font-size: var(--font-size-sm);
+    }
+
+    @include ds.md {
+      grid-template-columns: repeat(2, 1fr);
+      margin: var(--space-12) 0;
+    }
+  }
+
+  &_feature {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(var(--space-4));
+    border: var(--border-width-default) solid var(--border-strong);
+    border-radius: var(--radius-md);
+    display: flex;
+    padding: var(--space-6) var(--space-4);
+    width: 100%;
+
+    &_icon {
+      font-size: var(--font-size-2xl);
+      padding-right: var(--space-4);
+      padding-top: var(--space-4);
+
+      @include ds.md {
+        font-size: var(--font-size-lg);
+      }
+
+      &.blue {
+        color: var(--palette-accent-blue);
+      }
+
+      &.light {
+        color: var(--palette-accent-light);
+      }
+    }
+
+    span {
+      display: block;
+      font-weight: 600;
+    }
+
+    small {
+      color: #9fb3c8;
+      font-size: 12px;
+    }
   }
 
   &_scroll {
+    color: var(--palette-accent-blue);
     display: flex;
     justify-content: center;
     width: 100%;
 
     @include ds.md {
-      margin-bottom: calc(var(--space-10) * 2);
+      display: none;
     }
 
     & a {
