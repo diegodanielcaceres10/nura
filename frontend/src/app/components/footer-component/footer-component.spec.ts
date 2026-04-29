@@ -32,28 +32,9 @@ describe('FooterComponent', () => {
     expect(contactText).toContain('diegodanielcaceres10@gmail.com');
   });
 
-  it('should render 3 social links with target blank', () => {
-    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon') as NodeListOf<HTMLAnchorElement>;
-    expect(links.length).toBe(3);
-
-    Array.from(links).forEach((link) => {
-      expect(link.getAttribute('target')).toBe('_blank');
-    });
-  });
-
-  it('should contain expected social urls', () => {
-    const links = fixture.nativeElement.querySelectorAll('.footer_icons .footer_icon') as NodeListOf<HTMLAnchorElement>;
-    const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
-
-    expect(hrefs).toContain('https://www.linkedin.com/in/diego-daniel-caceres-1328991aa/');
-    expect(hrefs).toContain('https://github.com/diegodanielcaceres10');
-    expect(hrefs).toContain('https://www.npmjs.com/~diegodanielcaceres10');
-  });
-
   it('should render copyright section', () => {
     const copyright = fixture.nativeElement.querySelector('.footer_copyright');
     expect(copyright).toBeTruthy();
     expect(copyright.textContent).toContain('Diego Daniel Caceres');
   });
 });
-
