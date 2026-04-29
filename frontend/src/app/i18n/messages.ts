@@ -84,7 +84,6 @@ export const MESSAGES: Record<string, string> = {
   PROJECT_ANGULARJSONFORM_DESC: $localize`:@@PROJECT_ANGULARJSONFORM_DESC:angular-json-form is an Angular library published on npm that generates dynamic forms from JSON configuration. Supports 15 input types, declarative validations, dynamic field rules, trilingual i18n and configurable theming. Includes a demo app for quick adoption. Stack Angular 13 + TypeScript + RxJS, packaged with ng-packagr and distributed on npm (v1.4.6).`,
   PROJECT_ANGULARJSONFORM_KPI_1: $localize`:@@PROJECT_ANGULARJSONFORM_KPI_1:published on npm`,
   PROJECT_ANGULARJSONFORM_KPI_2: $localize`:@@PROJECT_ANGULARJSONFORM_KPI_2:Input types`,
-  PROJECT_ANGULARJSONFORM_KPI_3: $localize`:@@PROJECT_ANGULARJSONFORM_KPI_3:i18n languages`,
   PROJECT_REPOSITORY: $localize`:@@PROJECT_REPOSITORY:Repository`,
   PROJECT_DEMO: $localize`:@@PROJECT_DEMO:Demo`,
   CONTACT: $localize`:@@CONTACT:Links & Contact`,

@@ -1,6 +1,7 @@
 export interface ProjectKpi {
   legend: string;
   value: string;
+  icon: string;
 }
 
 export interface ProjectCard {

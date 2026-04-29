@@ -84,7 +84,6 @@
   "PROJECT_ANGULARJSONFORM_DESC": "angular-json-form is an Angular library published on npm that generates dynamic forms from JSON configuration. Supports 15 input types, declarative validations, dynamic field rules, trilingual i18n and configurable theming. Includes a demo app for quick adoption. Stack Angular 13 + TypeScript + RxJS, packaged with ng-packagr and distributed on npm (v1.4.6).",
   "PROJECT_ANGULARJSONFORM_KPI_1": "published on npm",
   "PROJECT_ANGULARJSONFORM_KPI_2": "Input types",
-  "PROJECT_ANGULARJSONFORM_KPI_3": "i18n languages",
   "PROJECT_REPOSITORY": "Repository",
   "PROJECT_DEMO": "Demo",
   "CONTACT": "Links & Contact"

@@ -1,50 +1,63 @@
 <section class="projects">
-  <h2>{{ 'PROJECTS' | translate }}</h2>
-  <div class="projects_cards section-container">
-    @for (project of projects(); track project.title) {
-      <div class="projects_card">
-        <div class="projects_card_container">
-          <div class="projects_card_front" [style.background]="getGradient(project.colors)()">
-            @if (project.new) {
-              <div class="projects_card_front_tag">{{ 'PROJECT_NEW' | translate }}</div>
-            }
-            <div class="projects_card_front_logo">
-              <picture>
-                <source [srcset]="'assets/projects/' + project.filename + '/logo.avif'" type="image/avif" />
-                <source [srcset]="'assets/projects/' + project.filename + '/logo.webp'" type="image/webp" />
-                <img [src]="'assets/projects/' + project.filename + '/logo.png'" loading="lazy" width="200" height="200" [alt]="project.title + ' Logo'" decoding="async" />
-              </picture>
-            </div>
-            <span class="projects_card_front_title">{{ project.title | translate }}</span>
-            <p class="projects_card_front_subtitle">{{ project.subtitle | translate }}</p>
-            <div class="projects_card_front_skills">
-              @for (skill of project.skills; track $index) {
-                <span>{{ skill }}</span>
+  <div class="projects_container section-container">
+    <h2>{{ 'PROJECTS' | translate }}</h2>
+    <div class="projects_cards">
+      @for (project of projects(); track project.title) {
+        <div class="projects_card">
+          <div class="projects_card_container">
+            <div class="projects_card_front" [style.background]="getGradient(project.colors)()">
+              @if (project.new) {
+                <div class="projects_card_front_tag">{{ 'PROJECT_NEW' | translate }}</div>
               }
+              <div class="projects_card_front_logo">
+                <picture>
+                  <source [srcset]="'assets/projects/' + project.filename + '/logo.avif'" type="image/avif" />
+                  <source [srcset]="'assets/projects/' + project.filename + '/logo.webp'" type="image/webp" />
+                  <img [src]="'assets/projects/' + project.filename + '/logo.png'" loading="lazy" width="200" height="200" [alt]="project.title + ' Logo'" decoding="async" />
+                </picture>
+              </div>
+              <span class="projects_card_front_title">{{ project.title | translate }}</span>
+              <p class="projects_card_front_subtitle">{{ project.subtitle | translate }}</p>
+              <div class="projects_card_front_skills">
+                @for (skill of project.skills; track $index) {
+                  <span>{{ skill }}</span>
+                }
+              </div>
             </div>
-          </div>
-          <div class="projects_card_back">
-            <h3>{{ project.name }}</h3>
-            <div class="projects_card_back_info">
-              <p>{{ project.description | translate }}</p>
-            </div>
-            <div class="projects_card_back_kpis">
-              @for (kpi of project.kpis; track $index) {
-                <div class="projects_card_back_kpi">
-                  <strong>{{ kpi.value }}</strong>
-                  <span>{{ kpi.legend | translate }}</span>
-                </div>
-              }
-            </div>
-            <div class="projects_card_back_links">
-              <a [href]="project.repo" target="_blank" rel="noopener noreferrer">
-                <i class="fa-solid fa-up-right-from-square"></i>
-                {{ 'PROJECT_REPOSITORY' | translate }}
-              </a>
+            <div class="projects_card_back">
+              <div class="projects_card_back_logo">
+                <picture>
+                  <source [srcset]="'assets/projects/' + project.filename + '/logo.avif'" type="image/avif" />
+                  <source [srcset]="'assets/projects/' + project.filename + '/logo.webp'" type="image/webp" />
+                  <img [src]="'assets/projects/' + project.filename + '/logo.png'" loading="lazy" width="200" height="200" [alt]="project.title + ' Logo'" decoding="async" />
+                </picture>
+              </div>
+              <div class="projects_card_back_info">
+                <p>{{ project.description | translate }}</p>
+              </div>
+              <div class="projects_card_back_kpis">
+                @for (kpi of project.kpis; track $index) {
+                  <div class="projects_card_back_kpi">
+                    <div class="projects_card_back_kpi_icon">
+                      <i class="{{ kpi.icon }}"></i>
+                    </div>
+                    <div class="projects_card_back_kpi_text">
+                      <strong>{{ kpi.value }}</strong>
+                      <span>{{ kpi.legend | translate }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+              <div class="projects_card_back_links">
+                <a [href]="project.repo" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                  {{ 'PROJECT_REPOSITORY' | translate }}
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
 </section>
