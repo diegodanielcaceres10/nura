@@ -85,6 +85,11 @@
   "PROJECT_ANGULARJSONFORM_KPI_1": "publicada no npm",
   "PROJECT_ANGULARJSONFORM_KPI_2": "Tipos de input",
   "PROJECT_REPOSITORY": "Repositório",
-  "PROJECT_DEMO": "Demo",
-  "CONTACT": "Links & Contato"
+  "CONTACT": "Links & Contato",
+  "CONTACT_TITLE": "Vamos conversar",
+  "CONTACT_SUBTITLE": "Estou disponível para novos projetos, colaborações e oportunidades onde posso agregar valor real.",
+  "CONTACT_EMAIL_LABEL": "Email",
+  "CONTACT_PHONE_LABEL": "Telefone",
+  "CONTACT_LOCATION_LABEL": "Localização",
+  "CONTACT_SOCIAL_TITLE": "Conecte-se comigo"
 }

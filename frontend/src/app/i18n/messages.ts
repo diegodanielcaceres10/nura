@@ -85,6 +85,11 @@ export const MESSAGES: Record<string, string> = {
   PROJECT_ANGULARJSONFORM_KPI_1: $localize`:@@PROJECT_ANGULARJSONFORM_KPI_1:published on npm`,
   PROJECT_ANGULARJSONFORM_KPI_2: $localize`:@@PROJECT_ANGULARJSONFORM_KPI_2:Input types`,
   PROJECT_REPOSITORY: $localize`:@@PROJECT_REPOSITORY:Repository`,
-  PROJECT_DEMO: $localize`:@@PROJECT_DEMO:Demo`,
   CONTACT: $localize`:@@CONTACT:Links & Contact`,
+  CONTACT_TITLE: $localize`:@@CONTACT_TITLE:Let’s talk`,
+  CONTACT_SUBTITLE: $localize`:@@CONTACT_SUBTITLE:I’m available for new projects, collaborations and opportunities where I can deliver real value.`,
+  CONTACT_EMAIL_LABEL: $localize`:@@CONTACT_EMAIL_LABEL:Email`,
+  CONTACT_PHONE_LABEL: $localize`:@@CONTACT_PHONE_LABEL:Phone`,
+  CONTACT_LOCATION_LABEL: $localize`:@@CONTACT_LOCATION_LABEL:Location`,
+  CONTACT_SOCIAL_TITLE: $localize`:@@CONTACT_SOCIAL_TITLE:Connect with me`,
 };
