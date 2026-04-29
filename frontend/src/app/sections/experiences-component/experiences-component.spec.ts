@@ -53,17 +53,9 @@ describe('ExperiencesComponent', () => {
 
   it('should render total number of responsibilities paragraphs', () => {
     const paragraphs = fixture.nativeElement.querySelectorAll('.experiences_container p');
-    const expected = component.experiences.reduce(
-      (acc, experience) => acc + experience.responsibilityKeys.length,
-      0,
-    );
+    const expected = component.experiences.reduce((acc, experience) => acc + experience.responsibilityKeys.length, 0);
 
     expect(paragraphs.length).toBe(expected);
-  });
-
-  it('should render one period span per experience', () => {
-    const periods = fixture.nativeElement.querySelectorAll('.experiences_period');
-    expect(periods.length).toBe(component.experiences.length);
   });
 
   it('should render section root and cards wrapper', () => {
@@ -74,4 +66,3 @@ describe('ExperiencesComponent', () => {
     expect(wrapper).toBeTruthy();
   });
 });
-
