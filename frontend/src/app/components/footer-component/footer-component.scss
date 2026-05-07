@@ -6,7 +6,7 @@
   padding: var(--space-10);
 
   @include ds.md {
-    padding: calc(var(--space-10) * 2) var(--space-8);
+    padding: calc(var(--space-10) * 2) 0;
   }
 
   &_section {
@@ -71,6 +71,11 @@
         margin: 0 var(--space-4);
       }
 
+      @include ds.md {
+        margin: 0 var(--space-2);
+        padding: var(--space-4) 0;
+      }
+
       &:not(:last-child) {
         border-bottom: 1px solid var(--border-default);
       }
@@ -87,12 +92,20 @@
         justify-content: center;
         margin-right: var(--space-4);
         width: 3rem;
+
+        @include ds.md {
+          margin-right: var(--space-2);
+        }
       }
 
       &_text {
         display: flex;
         flex-direction: column;
         font-size: var(--font-size-lg);
+
+        @include ds.md {
+          font-size: var(--font-size-sm);
+        }
 
         & small {
           font-size: var(--font-size-sm);
