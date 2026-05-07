@@ -30,12 +30,10 @@ h1 {
 }
 
 h2 {
-  color: var(--text-primary);
+  color: var(--text-subtle);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: var(--font-weight-semibold);
   line-height: var(--line-height-tight);
-  letter-spacing: 0.1rem;
-  font-style: italic;
 
   &:after {
     background: linear-gradient(90deg, var(--palette-accent-blue) 0%, var(--palette-accent-purple) 60%);
