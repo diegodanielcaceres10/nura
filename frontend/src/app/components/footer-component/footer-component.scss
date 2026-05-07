@@ -6,7 +6,7 @@
   padding: var(--space-10);
 
   @include ds.md {
-    padding: calc(var(--space-10) * 2) 0;
+    padding: var(--space-4) 0;
   }
 
   &_section {
