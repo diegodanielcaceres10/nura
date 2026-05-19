@@ -38,14 +38,14 @@ describe('HomeComponent', () => {
   it('should open CV with current locale in url', () => {
     localeService.getCurrentLocale.mockReturnValue('en');
     component.openCV();
-    expect(windowOpenSpy).toHaveBeenCalledWith('assets/cvs/diego-daniel-caceres-cv-en.pdf', '_blank');
+    expect(windowOpenSpy).toHaveBeenCalledWith('assets/cvs/cv_diego_daniel_caceres_en.pdf', '_blank');
   });
 
   it('should open CV with correct url for each locale', () => {
     ['en', 'es', 'pt'].forEach((lang) => {
       localeService.getCurrentLocale.mockReturnValue(lang);
       component.openCV();
-      expect(windowOpenSpy).toHaveBeenCalledWith(`assets/cvs/diego-daniel-caceres-cv-${lang}.pdf`, '_blank');
+      expect(windowOpenSpy).toHaveBeenCalledWith(`assets/cvs/cv_diego_daniel_caceres_${lang}.pdf`, '_blank');
     });
   });
 });
