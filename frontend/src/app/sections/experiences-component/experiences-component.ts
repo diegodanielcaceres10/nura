@@ -11,7 +11,7 @@ import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 export class ExperiencesComponent {
   experiences: Experience[] = [
     {
-      company: 'Cesla - WS Solutions',
+      company: 'WS Solutions - Cesla',
       roleKey: 'CESLA_TECH_LEAD_ROLE',
       roleShortKey: 'CESLA_TECH_LEAD_SHORT',
       startPeriodKey: 'CESLA_TECH_LEAD_START_PERIOD',
@@ -20,7 +20,7 @@ export class ExperiencesComponent {
       responsibilityKeys: ['CESLA_TECH_LEAD_RESPONSIBILITY_1', 'CESLA_TECH_LEAD_RESPONSIBILITY_2', 'CESLA_TECH_LEAD_RESPONSIBILITY_3', 'CESLA_TECH_LEAD_RESPONSIBILITY_4', 'CESLA_TECH_LEAD_RESPONSIBILITY_5', 'CESLA_TECH_LEAD_RESPONSIBILITY_6', 'CESLA_TECH_LEAD_RESPONSIBILITY_7'],
     },
     {
-      company: 'Cesla - WS Solutions',
+      company: 'WS Solutions - Cesla',
       roleKey: 'CESLA_FULLSTACK_ROLE',
       roleShortKey: 'CESLA_FULLSTACK_SHORT',
       startPeriodKey: 'CESLA_FULLSTACK_START_PERIOD',
@@ -29,7 +29,7 @@ export class ExperiencesComponent {
       responsibilityKeys: ['CESLA_FULLSTACK_RESPONSIBILITY_1', 'CESLA_FULLSTACK_RESPONSIBILITY_2', 'CESLA_FULLSTACK_RESPONSIBILITY_3', 'CESLA_FULLSTACK_RESPONSIBILITY_4', 'CESLA_FULLSTACK_RESPONSIBILITY_5', 'CESLA_FULLSTACK_RESPONSIBILITY_6'],
     },
     {
-      company: 'Apex America',
+      company: 'Apex America - Cognitive',
       roleKey: 'APEX_FRONTEND_ROLE',
       roleShortKey: 'APEX_FRONTEND_SHORT',
       startPeriodKey: 'APEX_FRONTEND_START_PERIOD',
