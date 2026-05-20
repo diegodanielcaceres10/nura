@@ -38,7 +38,7 @@ describe('AboutComponent', () => {
 
   it('should render 4 description paragraphs', () => {
     const paragraphs = fixture.nativeElement.querySelectorAll('.about_text p');
-    expect(paragraphs.length).toBe(4);
+    expect(paragraphs.length).toBe(3);
   });
 
   it('should render profile image with expected source and alt', () => {

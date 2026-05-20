@@ -33,8 +33,8 @@ describe('ExperiencesComponent', () => {
     const titles = fixture.nativeElement.querySelectorAll('.experiences_title') as NodeListOf<HTMLElement>;
     const rendered = Array.from(titles).map((item) => item.textContent?.trim() ?? '');
 
-    expect(rendered).toContain('Cesla - WS Solutions');
-    expect(rendered).toContain('Apex America');
+    expect(rendered).toContain('WS Solutions - Cesla');
+    expect(rendered).toContain('Apex America - Cognitive');
   });
 
   it('should render total number of skill icons', () => {
