@@ -15,10 +15,11 @@
   }
 
   &_content {
-    align-items: start;
     display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
 
-    @include ds.md {
+    @include ds.lg {
       align-items: center;
       flex-direction: column;
     }
@@ -29,21 +30,57 @@
     flex: 1;
     flex-direction: column;
     font-style: italic;
+  }
 
-    & hr {
-      border: none;
-      border-top: var(--border-width-default) solid var(--border-default);
-      margin: var(--space-2) 0;
+  &_column {
+    display: flex;
+    flex-direction: column;
+    width: calc(var(--space-10) * 8);
+
+    @include ds.xl {
+      width: calc(var(--space-10) * 6);
+    }
+
+    @include ds.lg {
+      width: 100%;
+    }
+
+    @include ds.md {
+      padding: 0 var(--space-2);
+    }
+
+    &-main {
+      flex: 1;
+    }
+
+    & h3 {
+      margin: 0;
+    }
+
+    & h4 {
+      color: var(--palette-accent-blue);
+      margin-bottom: 0;
     }
   }
 
-  &_side {
-    display: flex;
-    flex: 1;
+  &_cards {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-lg);
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: var(--space-4);
+  }
 
-    @include ds.xl {
-      align-items: center;
-      flex-direction: column;
+  &_bullet {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin: var(--space-2) 0;
+
+    & i {
+      font-size: var(--font-size-xs);
+      color: var(--palette-accent-blue);
+      margin: 0 var(--space-2);
     }
   }
 
@@ -75,14 +112,13 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-4);
-    padding: 0 var(--space-8);
 
-    @include ds.xl {
-      padding: var(--space-8);
+    @include ds.lg {
+      grid-template-columns: repeat(3, 1fr);
     }
 
     @include ds.md {
-      padding: var(--space-4) 0;
+      gap: var(--space-2);
     }
   }
 
@@ -94,6 +130,11 @@
     border-radius: var(--radius-lg);
     display: flex;
     padding: var(--space-4);
+
+    @include ds.md {
+      flex-direction: column;
+      padding: var(--space-4) var(--space-2);
+    }
 
     &_icon {
       backdrop-filter: blur(10px);
@@ -119,7 +160,12 @@
     &_texts {
       display: flex;
       flex-direction: column;
-      padding-left: 1rem;
+      padding-left: var(--space-4);
+
+      @include ds.md {
+        margin-top: var(--space-4);
+        padding-left: 0;
+      }
     }
 
     strong {

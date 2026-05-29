@@ -18,6 +18,7 @@ export const MESSAGES: Record<string, string> = {
   HOME_FEATURE_CLEAN_TITLE: $localize`:@@HOME_FEATURE_CLEAN_TITLE:Best Practices`,
   HOME_FEATURE_CLEAN_DESC: $localize`:@@HOME_FEATURE_CLEAN_DESC:Clean, maintainable code aligned to industry standards`,
   ABOUT: $localize`:@@ABOUT:Professional Profile`,
+  ABOUT_ME: $localize`:@@ABOUT_ME:About me`,
   ABOUT_KPI_EXPERIENCE_TITLE: $localize`:@@ABOUT_KPI_EXPERIENCE_TITLE:Years of experience`,
   ABOUT_KPI_EXPERIENCE_DESC: $localize`:@@ABOUT_KPI_EXPERIENCE_DESC:Building scalable and efficient solutions`,
   ABOUT_KPI_IMPACT_TITLE: $localize`:@@ABOUT_KPI_IMPACT_TITLE:Incident reduction`,

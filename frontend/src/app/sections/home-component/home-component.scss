@@ -8,7 +8,7 @@
   position: relative;
   width: 100%;
 
-  @include ds.md {
+  @include ds.lg {
     height: initial;
   }
 
@@ -53,7 +53,7 @@
     justify-content: center;
     width: 100%;
 
-    @include ds.md {
+    @include ds.lg {
       align-items: center;
       flex-direction: column;
     }
@@ -139,7 +139,6 @@
     border: var(--border-width-default) solid var(--border-strong);
     border-radius: var(--radius-full);
     box-shadow: var(--shadow-md);
-    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -158,12 +157,12 @@
     &:hover {
       background: var(--state-hover-overlay);
       border-color: var(--palette-accent-light);
+      color: var(--palette-accent-light);
     }
 
     &-alt {
       background: var(--palette-accent-blue);
       border-color: var(--palette-accent-blue);
-      color: var(--palette-bg-deepest);
 
       &:hover {
         background: var(--color-action-hover);
@@ -247,41 +246,36 @@
     }
 
     &--experience {
-      right: calc(var(--space-12) * -2);
+      right: 0;
       top: var(--space-6);
-
-      @include ds.md {
-        right: calc(var(--space-4) * -2);
-      }
     }
 
     &--projects {
       bottom: calc(var(--space-10) * 2);
-      left: calc(var(--space-12) * -2);
-
-      @include ds.md {
-        left: calc(var(--space-4) * -2);
-      }
+      left: 0;
     }
 
     &--quality {
       bottom: var(--space-6);
-      right: calc(var(--space-12) * -2);
-
-      @include ds.md {
-        right: calc(var(--space-4) * -2);
-      }
+      right: 0;
     }
   }
 
   &_features {
     display: grid;
-    gap: var(--space-8);
+    gap: var(--space-4);
     grid-template-columns: repeat(4, 1fr);
-    margin: var(--space-12) 0;
+    margin: 0 calc(var(--space-8) * 5);
+    margin-bottom: var(--space-12);
+
+    @include ds.xl {
+      margin: 0 calc(var(--space-8) * 2);
+    }
 
     @include ds.lg {
       font-size: var(--font-size-sm);
+      margin: 0;
+      margin-bottom: var(--space-8);
     }
 
     @include ds.md {
