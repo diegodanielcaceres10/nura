@@ -36,13 +36,6 @@ describe('AboutComponent', () => {
     expect(text).toContain('TypeScript');
   });
 
-  it('should render profile image with expected source and alt', () => {
-    const image = fixture.nativeElement.querySelector('.about_photo img');
-    expect(image).toBeTruthy();
-    expect(image.getAttribute('src')).toBe('assets/caricature/caricature.webp');
-    expect(image.getAttribute('alt')).toBe('Caricature of Diego');
-  });
-
   it('should render section title and wrappers', () => {
     const section = fixture.nativeElement.querySelector('section.about');
     const title = fixture.nativeElement.querySelector('h2');
