@@ -41,9 +41,13 @@
 
   &_title {
     color: var(--text-primary);
-    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-size: calc(var(--font-size-4xl) * 1.5);
     letter-spacing: -0.04em;
     margin: 0 0 var(--space-4);
+
+    @include ds.md {
+      font-size: calc(var(--font-size-4xl) * 1);
+    }
   }
 
   &_grid {

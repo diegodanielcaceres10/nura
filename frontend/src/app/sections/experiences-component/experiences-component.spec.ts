@@ -37,20 +37,6 @@ describe('ExperiencesComponent', () => {
     expect(rendered).toContain('Apex America - Cognitive');
   });
 
-  it('should render total number of skill icons', () => {
-    const icons = fixture.nativeElement.querySelectorAll('.experiences_skills i');
-    const expected = component.experiences.reduce((acc, experience) => acc + experience.skills.length, 0);
-    expect(icons.length).toBe(expected);
-  });
-
-  it('should render at least one known skill class', () => {
-    const icons = fixture.nativeElement.querySelectorAll('.experiences_skills i') as NodeListOf<HTMLElement>;
-    const classes = Array.from(icons).map((item) => item.getAttribute('class'));
-
-    expect(classes.some((value) => value?.includes('fa-angular'))).toBe(true);
-    expect(classes.some((value) => value?.includes('fa-react'))).toBe(true);
-  });
-
   it('should render total number of responsibilities paragraphs', () => {
     const paragraphs = fixture.nativeElement.querySelectorAll('.experiences_container p');
     const expected = component.experiences.reduce((acc, experience) => acc + experience.responsibilityKeys.length, 0);

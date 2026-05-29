@@ -15,7 +15,7 @@
               <span>{{ experience.roleKey | translate }}</span>
               <div class="experiences_skills">
                 @for (skill of experience.skills; track $index) {
-                  <i [class]="skill"></i>
+                  <span>{{ skill }}</span>
                 }
               </div>
             </div>

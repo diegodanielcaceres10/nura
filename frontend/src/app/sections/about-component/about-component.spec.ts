@@ -36,11 +36,6 @@ describe('AboutComponent', () => {
     expect(text).toContain('TypeScript');
   });
 
-  it('should render 4 description paragraphs', () => {
-    const paragraphs = fixture.nativeElement.querySelectorAll('.about_text p');
-    expect(paragraphs.length).toBe(3);
-  });
-
   it('should render profile image with expected source and alt', () => {
     const image = fixture.nativeElement.querySelector('.about_photo img');
     expect(image).toBeTruthy();

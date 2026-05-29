@@ -69,6 +69,7 @@
 
     @include ds.md {
       flex-direction: column;
+      padding: var(--space-4) var(--space-8);
     }
 
     &-visual {
@@ -106,12 +107,15 @@
 
   &_subtitle {
     font-size: var(--font-size-lg);
-    letter-spacing: 0.05rem;
+  }
+
+  &_text {
+    font-size: var(--font-size-md);
   }
 
   &_buttons {
     display: flex;
-    gap: var(--space-8);
+    gap: var(--space-4);
     margin-top: 2rem;
 
     @include ds.md {
@@ -122,7 +126,11 @@
     & a {
       display: flex;
       justify-content: center;
-      width: var(--size-action-width);
+      width: calc(var(--size-action-width) * 4);
+
+      @include ds.lg {
+        width: calc(var(--size-action-width) * 15);
+      }
     }
   }
 
@@ -141,7 +149,11 @@
     max-width: 100%;
     padding: var(--space-4) 0;
     transition: all var(--duration-base) var(--easing-default);
-    width: var(--size-action-width);
+    width: calc(var(--size-action-width) * 4);
+
+    @include ds.lg {
+      width: calc(var(--size-action-width) * 15);
+    }
 
     &:hover {
       background: var(--state-hover-overlay);
@@ -189,10 +201,17 @@
       z-index: 1;
     }
 
-    & img {
-      border: 0.2rem solid var(--border-strong);
-      border-radius: var(--radius-lg);
+    &_image {
       overflow: hidden;
+
+      & img {
+        border: var(--border-width-default) solid var(--border-default);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow-lg);
+        height: auto;
+        object-fit: contain;
+        width: 100%;
+      }
     }
   }
 
