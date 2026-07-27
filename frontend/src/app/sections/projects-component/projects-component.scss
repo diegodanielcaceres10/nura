@@ -8,15 +8,18 @@
     flex-direction: column;
   }
 
+  &_content {
+    display: flex;
+    justify-content: center;
+  }
+
   &_cards {
     display: grid;
     gap: var(--space-8);
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     font-size: var(--font-size-sm);
-
-    @include ds.xl {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    width: 100%;
+    max-width: 900px;
 
     @include ds.md {
       gap: var(--space-4);
