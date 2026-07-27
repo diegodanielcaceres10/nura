@@ -147,11 +147,12 @@ describe('HeaderComponent', () => {
     const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
     const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
 
-    expect(links.length).toBe(4);
+    expect(links.length).toBe(5);
     expect(hrefs[0]).toContain('#about');
     expect(hrefs[1]).toContain('#experiences');
-    expect(hrefs[2]).toContain('#projects');
-    expect(hrefs[3]).toContain('#contact');
+    expect(hrefs[2]).toContain('#feedbacks');
+    expect(hrefs[3]).toContain('#projects');
+    expect(hrefs[4]).toContain('#contact');
   });
 
   it('should trigger toggle handler when each nav link is clicked', () => {
@@ -160,6 +161,6 @@ describe('HeaderComponent', () => {
 
     Array.from(links).forEach((link) => link.click());
 
-    expect(toggleSpy).toHaveBeenCalledTimes(4);
+    expect(toggleSpy).toHaveBeenCalledTimes(5);
   });
 });

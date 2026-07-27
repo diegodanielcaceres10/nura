@@ -31,7 +31,7 @@ export class LanguageSelectorPage {
     },
     {
       code: 'pt',
-      title: 'Portugues',
+      title: 'Português',
       badge: 'Brasil',
       cta: 'Acessar',
     },

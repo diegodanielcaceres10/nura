@@ -1,7 +1,7 @@
 @use 'index' as ds;
 
 .projects {
-  background: var(--palette-bg-deepest);
+  background: var(--palette-bg-primary);
 
   &_container {
     display: flex;

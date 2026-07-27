@@ -63,6 +63,30 @@
       grid-template-columns: 1fr;
     }
   }
+
+  &_social_media {
+    display: flex;
+    gap: var(--space-8);
+    justify-content: center;
+    margin-top: var(--space-12);
+
+    & a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-4xl);
+      height: var(--space-12);
+      width: var(--space-12);
+      transition:
+        transform var(--duration-base) var(--easing-default),
+        border-color var(--duration-base) var(--easing-default);
+
+      &:hover {
+        border-color: var(--border-brand);
+        transform: translateY(-4px);
+      }
+    }
+  }
 }
 
 .lang-card {

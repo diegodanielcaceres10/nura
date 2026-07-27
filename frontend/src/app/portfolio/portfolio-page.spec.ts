@@ -36,6 +36,7 @@ describe('PortfolioPage', () => {
     expect(root.querySelector('app-home-component')).toBeTruthy();
     expect(root.querySelector('app-about-component')).toBeTruthy();
     expect(root.querySelector('app-experiences-component')).toBeTruthy();
+    expect(root.querySelector('app-feedbacks-component')).toBeTruthy();
     expect(root.querySelector('app-projects-component')).toBeTruthy();
     expect(root.querySelector('app-footer-component')).toBeTruthy();
   });
