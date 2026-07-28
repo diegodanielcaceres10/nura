@@ -85,7 +85,9 @@
           "options": {
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
-            "runnerConfig": "vitest.config.ts"
+            "runnerConfig": "vitest.config.ts",
+            "reporters": ["default", "junit"],
+            "outputFile": "./vitest/junit-report.xml"
           }
         },
         "lint": {

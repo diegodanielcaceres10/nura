@@ -51,7 +51,7 @@ jobs:
         run: npm run build
 
       - name: Publish test results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v3
         if: always()
         with:
           name: Vitest Results
@@ -59,7 +59,7 @@ jobs:
           reporter: java-junit
 
       - name: Publish Cypress test results
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@v3
         if: always()
         with:
           name: Cypress E2E Results
