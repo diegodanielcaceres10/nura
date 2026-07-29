@@ -109,4 +109,5 @@ export const MESSAGES: Record<string, string> = {
   CONTACT_PHONE_LABEL: $localize`:@@CONTACT_PHONE_LABEL:Phone`,
   CONTACT_LOCATION_LABEL: $localize`:@@CONTACT_LOCATION_LABEL:Location`,
   CONTACT_SOCIAL_TITLE: $localize`:@@CONTACT_SOCIAL_TITLE:Connect with me`,
+  CONTACT_LINKS_TITLE: $localize`:@@CONTACT_LINKS_TITLE:My links`,
 };

@@ -21,10 +21,11 @@
   &_content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
+    gap: var(--space-8);
     max-width: 1200px;
     margin: 0 auto;
     margin-bottom: var(--space-12);
+    padding: var(--space-8);
 
     @include ds.md {
       grid-template-columns: 1fr;

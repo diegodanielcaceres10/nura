@@ -108,5 +108,6 @@
   "CONTACT_EMAIL_LABEL": "Email",
   "CONTACT_PHONE_LABEL": "Phone",
   "CONTACT_LOCATION_LABEL": "Location",
-  "CONTACT_SOCIAL_TITLE": "Connect with me"
+  "CONTACT_SOCIAL_TITLE": "Connect with me",
+  "CONTACT_LINKS_TITLE": "My links"
 }

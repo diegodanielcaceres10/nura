@@ -110,10 +110,17 @@
   }
 
   &_nav {
+    align-items: center;
     display: flex;
     font-size: var(--font-size-xl);
     gap: var(--space-8);
     padding: var(--space-4);
+
+    @include ds.lg {
+      gap: var(--space-2);
+      font-size: var(--font-size-sm);
+      padding: var(--space-4) var(--space-2);
+    }
 
     @include ds.md {
       align-items: center;
@@ -136,6 +143,11 @@
     gap: var(--space-2);
     margin-left: var(--space-4);
     padding: var(--space-4);
+
+    @include ds.lg {
+      padding: var(--space-2);
+      margin-left: var(--space-2);
+    }
   }
 
   &_lang {
