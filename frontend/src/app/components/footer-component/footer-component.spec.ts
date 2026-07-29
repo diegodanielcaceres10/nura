@@ -27,7 +27,7 @@ describe('FooterComponent', () => {
   });
 
   it('should render phone and email contact info', () => {
-    const contactText = fixture.nativeElement.querySelector('.footer_list').textContent;
+    const contactText = fixture.nativeElement.querySelector('.footer_address').textContent;
     expect(contactText).toContain('+34 62431-2028');
     expect(contactText).toContain('diegodanielcaceres10@gmail.com');
   });
