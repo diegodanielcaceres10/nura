@@ -189,4 +189,72 @@
   --z-modal: #{ds.$z-modal};
   --z-toast: #{ds.$z-toast};
   --z-tooltip: #{ds.$z-tooltip};
+
+  // V2 - VARIABLES
+
+  // Colors
+  --primary-color: #{ds.$primary-color};
+  --secondary-color: #{ds.$secondary-color};
+  --alternative-color: #{ds.$alternative-color};
+
+  // Backgrounds
+  --bg-primary: #{ds.$bg-primary};
+  --bg-surface: #{ds.$bg-surface};
+
+  // Text
+  --text-primary: #{ds.$white-color};
+  --text-secondary: #{ds.$secondary-color};
+  --text-on-accent: #{ds.$white-color};
+
+  // Borders
+  --border-color: #{ds.$border-color};
+  --border-color-accent: #{ds.$border-color-accent};
+
+  // Gradients & effects
+  --gradient-primary: #{ds.$gradient-primary};
+  --shadow-glow: #{ds.$shadow-glow};
+
+  --font-size-2xs: #{ds.$font-size-2xs};
+  --font-size-xs: #{ds.$font-size-xs};
+  --font-size-sm: #{ds.$font-size-sm};
+  --font-size-md: #{ds.$font-size-md};
+  --font-size-lg: #{ds.$font-size-lg};
+  --font-size-xl: #{ds.$font-size-xl};
+  --font-size-2xl: #{ds.$font-size-2xl};
+  --font-size-3xl: #{ds.$font-size-3xl};
+  --font-size-4xl: #{ds.$font-size-4xl};
+  --font-size-5xl: #{ds.$font-size-5xl};
+
+  --font-weight-regular: #{ds.$font-weight-regular};
+  --font-weight-medium: #{ds.$font-weight-medium};
+  --font-weight-semibold: #{ds.$font-weight-semibold};
+  --font-weight-bold: #{ds.$font-weight-bold};
+
+  // Spacing scale
+  --spacing-2xs: #{ds.$spacing-2xs};
+  --spacing-xs: #{ds.$spacing-xs};
+  --spacing-sm: #{ds.$spacing-sm};
+  --spacing-md: #{ds.$spacing-md};
+  --spacing-lg: #{ds.$spacing-lg};
+  --spacing-xl: #{ds.$spacing-xl};
+  --spacing-2xl: #{ds.$spacing-2xl};
+  --spacing-3xl: #{ds.$spacing-3xl};
+
+  // Radius
+  --radius-sm: #{ds.$radius-sm};
+  --radius-md: #{ds.$radius-md};
+  --radius-lg: #{ds.$radius-lg};
+  --radius-full: #{ds.$radius-full};
+
+  // Transitions
+  --transition-fast: #{ds.$transition-fast};
+  --transition-base: #{ds.$transition-base};
+
+  // Z-Index
+  --z-base: #{ds.$z-base};
+  --z-sticky: #{ds.$z-sticky};
+  --z-full: #{ds.$z-full};
+
+  // Layout
+  --container-max-width: 1200px;
 }

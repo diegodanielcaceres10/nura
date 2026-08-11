@@ -6,7 +6,7 @@ import { AboutComponent } from '../sections/about-component/about-component';
 import { ExperiencesComponent } from '../sections/experiences-component/experiences-component';
 import { FeedbacksComponent } from '../sections/feedbacks-component/feedbacks-component';
 import { ProjectsComponent } from '../sections/projects-component/projects-component';
-import { HomeComponent } from '../sections/home-component/home-component';
+import { HomeComponent } from '../sections/home-component/home.component';
 import { LocaleService } from '../services/locale/locale.service';
 import { ScrollService } from '../services/scroll/scroll.service';
 

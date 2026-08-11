@@ -23,56 +23,6 @@ a {
   text-decoration: none;
 }
 
-h1 {
-  font-size: clamp(2.5rem, 6vw, 5rem);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-}
-
-h2 {
-  color: var(--text-subtle);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
-
-  &:after {
-    background: linear-gradient(90deg, var(--palette-accent-blue) 0%, var(--palette-accent-purple) 60%);
-    border-radius: var(--radius-full);
-    content: '';
-    display: block;
-    height: 4px;
-    width: var(--size-section-accent-width);
-    margin: var(--space-5) 0;
-  }
-}
-
-h3 {
-  color: var(--text-subtle);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
-}
-
-h4 {
-  color: var(--text-subtle);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
-  line-height: var(--line-height-tight);
-}
-
-p {
-  font-size: var(--font-size-md);
-  line-height: var(--line-height-relaxed);
-  color: var(--text-secondary);
-  max-width: var(--size-reading-max);
-}
-
-hr {
-  border: none;
-  border-top: var(--border-width-default) solid var(--border-default);
-  height: 0;
-}
-
 img {
   display: block;
 }
@@ -93,62 +43,4 @@ button:hover {
 :focus-visible {
   outline: 2px solid var(--state-focus-ring);
   outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-section {
-  border: var(--border-width-default) solid transparent;
-
-  & > h2,
-  & > h3 {
-    margin: auto;
-    margin-top: var(--space-12);
-    max-width: var(--size-content-max);
-    padding: 0 var(--space-12);
-
-    @include ds.md {
-      margin: var(--space-12) 0 0;
-    }
-  }
-
-  & .section-container {
-    margin: auto;
-    max-width: var(--size-content-max);
-    padding: var(--space-8) calc(var(--space-10) * 2);
-
-    @include ds.lg {
-      padding: var(--space-8) calc(var(--space-4) * 2);
-    }
-
-    @include ds.md {
-      padding: var(--space-4);
-    }
-  }
-}
-
-app-about-component,
-app-experiences-component,
-app-projects-component,
-app-footer-component {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
 }

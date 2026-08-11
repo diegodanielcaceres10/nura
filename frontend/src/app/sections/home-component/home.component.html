@@ -1,0 +1,49 @@
+﻿<section class="home">
+  <span class="home__glow home__glow-primary" aria-hidden="true"></span>
+  <span class="home__glow home__glow-secondary" aria-hidden="true"></span>
+  <div class="home__container">
+    <div class="home__content">
+      <span class="home__badge">
+        <span class="home__badge-dot"></span>
+        {{ 'HOME_REMOTE_CONTRACTOR' | translate }}
+      </span>
+
+      <h1 class="home__title">
+        <span class="home__title-greeting">{{ 'HOME_GREETING' | translate }}</span>
+        <span class="home__title-name">{{ fullName() }}</span>
+        <small class="home__title-subtitle">{{ roles() }}</small>
+      </h1>
+
+      <p class="home__description">{{ 'HOME_DESCRIPTION' | translate }}</p>
+
+      <div class="home__actions">
+        <a class="home__cta home__cta-primary" [routerLink]="['/', currentLang]" fragment="projects">
+          <i class="fa-solid fa-rocket"></i>
+          {{ 'HOME_MY_WORK' | translate }}
+        </a>
+        <a class="home__cta home__cta-secondary" [routerLink]="['/', currentLang]" fragment="contact">
+          <i class="fa-solid fa-envelope"></i>
+          {{ 'HOME_CONTACT_ME' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="home__visual">
+      <div class="home__image-wrapper">
+        <img class="home__image" [src]="profileImage()" [alt]="profileImageAlt()" />
+
+        <div class="home__tech-badges">
+          @for (badge of techBadges(); track badge.name) {
+            <div class="home__tech-badge" [class]="'home__tech-badge--' + badge.position">
+              <img class="home__tech-badge-icon" [src]="badge.icon" [alt]="badge.name" />
+              <div class="home__tech-badge-text">
+                <span class="home__tech-badge-name">{{ badge.name }}</span>
+                <span class="home__tech-badge-detail">{{ badge.detail }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

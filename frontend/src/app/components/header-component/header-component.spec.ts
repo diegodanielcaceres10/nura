@@ -66,12 +66,12 @@ describe('HeaderComponent', () => {
   });
 
   it('should render 3 language buttons', () => {
-    const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+    const buttons = fixture.nativeElement.querySelectorAll('.header__lang');
     expect(buttons.length).toBe(3);
   });
 
   it('should mark active button based on currentLang', () => {
-    const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+    const buttons = fixture.nativeElement.querySelectorAll('.header__lang');
     expect(buttons[1].classList.contains('active')).toBe(true);
     expect(buttons[0].classList.contains('active')).toBe(false);
     expect(buttons[2].classList.contains('active')).toBe(false);
@@ -79,7 +79,7 @@ describe('HeaderComponent', () => {
 
   it('should call changeLang with selected locale after clicking language button', () => {
     const changeLangSpy = vi.spyOn(component, 'changeLang');
-    const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+    const buttons = fixture.nativeElement.querySelectorAll('.header__lang');
 
     buttons[0].click();
     fixture.detectChanges();
@@ -89,7 +89,7 @@ describe('HeaderComponent', () => {
 
   it('should call changeLang for each language button', () => {
     const changeLangSpy = vi.spyOn(component, 'changeLang');
-    const buttons = fixture.nativeElement.querySelectorAll('.header_lang');
+    const buttons = fixture.nativeElement.querySelectorAll('.header__lang');
 
     (buttons[0] as HTMLButtonElement).click();
     (buttons[1] as HTMLButtonElement).click();
@@ -116,20 +116,20 @@ describe('HeaderComponent', () => {
   });
 
   it('should render menu open class when menu is toggled from UI button', () => {
-    const button = fixture.nativeElement.querySelector('.header_button');
-    const container = fixture.nativeElement.querySelector('.header_container');
+    const button = fixture.nativeElement.querySelector('.header__button');
+    const container = fixture.nativeElement.querySelector('.header__container');
 
-    expect(container.classList.contains('header_container-open')).toBe(false);
+    expect(container.classList.contains('header__container-open')).toBe(false);
 
     button.click();
     fixture.detectChanges();
 
     expect(component.isMenuOpen()).toBe(true);
-    expect(container.classList.contains('header_container-open')).toBe(true);
+    expect(container.classList.contains('header__container-open')).toBe(true);
   });
 
   it('should switch icon visibility classes based on menu state', () => {
-    const icons = fixture.nativeElement.querySelectorAll('.header_button i');
+    const icons = fixture.nativeElement.querySelectorAll('.header__button i');
     const bars = icons[0] as HTMLElement;
     const close = icons[1] as HTMLElement;
 
@@ -144,7 +144,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should render 4 navigation anchors with section hashes', () => {
-    const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
+    const links = fixture.nativeElement.querySelectorAll('.header__nav a') as NodeListOf<HTMLAnchorElement>;
     const hrefs = Array.from(links).map((link) => link.getAttribute('href'));
 
     expect(links.length).toBe(5);
@@ -156,7 +156,7 @@ describe('HeaderComponent', () => {
   });
 
   it('should trigger toggle handler when each nav link is clicked', () => {
-    const links = fixture.nativeElement.querySelectorAll('.header_nav a') as NodeListOf<HTMLAnchorElement>;
+    const links = fixture.nativeElement.querySelectorAll('.header__nav a') as NodeListOf<HTMLAnchorElement>;
     const toggleSpy = vi.spyOn(component, 'toogleMenu');
 
     Array.from(links).forEach((link) => link.click());

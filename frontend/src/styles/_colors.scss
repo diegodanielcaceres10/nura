@@ -49,3 +49,20 @@ $warning: #f0a500;
 $warning-light: rgba(240, 165, 0, 0.15);
 $error: #e05c5c;
 $error-light: rgba(224, 92, 92, 0.15);
+
+// V2 - VARIABLES
+
+$primary-color: #521f57;
+$secondary-color: #2cabb3;
+$alternative-color: #7dd4d8;
+
+$white-color: #ffffff;
+
+$bg-primary: #0f0a1e;
+$bg-surface: rgba(255, 255, 255, 0.06);
+
+$border-color: rgba(255, 255, 255, 0.12);
+$border-color-accent: rgba(44, 171, 179, 0.4);
+
+$gradient-primary: linear-gradient(90deg, $primary-color 0%, $secondary-color 100%);
+$shadow-glow: 0 8px 24px rgba(44, 171, 179, 0.35);
