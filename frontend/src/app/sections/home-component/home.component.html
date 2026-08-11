@@ -47,3 +47,51 @@
     </div>
   </div>
 </section>
+<section class="stats">
+  <div class="stats__container">
+    <div class="stats__heading">
+      <h2 class="stats__title">{{ 'HOME_STATS_TITLE' | translate }}</h2>
+      <span class="stats__underline"></span>
+    </div>
+
+    <div class="stats__grid">
+      @for (stat of stats(); track stat.label) {
+        <div class="stats__item">
+          <span class="stats__icon">
+            <i [class]="stat.icon"></i>
+          </span>
+          <span class="stats__value">{{ stat.value }}</span>
+          <span class="stats__label">{{ stat.label | translate }}</span>
+          <span class="stats__description">{{ stat.description | translate }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<section class="tech-stack">
+  <div class="tech-stack__container">
+    <div class="tech-stack__heading">
+      <h2 class="tech-stack__title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
+      <span class="tech-stack__underline"></span>
+    </div>
+
+    <div class="tech-stack__grid">
+      @for (category of categories(); track category.label) {
+        <div class="tech-stack__category">
+          <div class="tech-stack__category-header">
+            <i [class]="category.headerIcon"></i>
+            <span>{{ category.label }}</span>
+          </div>
+
+          <div class="tech-stack__icons">
+            @for (tech of category.technologies; track tech.name) {
+              <img class="tech-stack__icon" [src]="tech.icon" [alt]="tech.name" />
+            }
+          </div>
+
+          <p class="tech-stack__caption">{{ category.caption }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

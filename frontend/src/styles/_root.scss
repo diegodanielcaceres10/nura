@@ -197,6 +197,10 @@
   --secondary-color: #{ds.$secondary-color};
   --alternative-color: #{ds.$alternative-color};
 
+  --primary-color-rgba: #{ds.$primary-color-rgba};
+
+  --primary-color-light: #{ds.$primary-color-light};
+
   // Backgrounds
   --bg-primary: #{ds.$bg-primary};
   --bg-surface: #{ds.$bg-surface};
@@ -205,10 +209,12 @@
   --text-primary: #{ds.$white-color};
   --text-secondary: #{ds.$secondary-color};
   --text-on-accent: #{ds.$white-color};
+  --text-muted: #{ds.$muted-color};
 
   // Borders
   --border-color: #{ds.$border-color};
   --border-color-accent: #{ds.$border-color-accent};
+  --border-color-deep: #{ds.$border-color-deep};
 
   // Gradients & effects
   --gradient-primary: #{ds.$gradient-primary};

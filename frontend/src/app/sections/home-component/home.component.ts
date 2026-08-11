@@ -12,6 +12,25 @@ export interface TechBadge {
   position: TechBadgePosition;
 }
 
+export interface StatItem {
+  icon: string;
+  value: string;
+  label: string;
+  description: string;
+}
+
+export interface TechIcon {
+  icon: string;
+  name: string;
+}
+
+export interface TechCategory {
+  headerIcon: string;
+  label: string;
+  technologies: TechIcon[];
+  caption: string;
+}
+
 @Component({
   selector: 'app-home-component',
   standalone: true,
@@ -36,6 +55,61 @@ export class HomeComponent {
       name: 'Cloud & DevOps',
       detail: 'Docker · Azure',
       position: 'bottom-right',
+    },
+  ]);
+
+  protected readonly stats = input<StatItem[]>([
+    { icon: 'fa-solid fa-users', value: '40+', label: 'HOME_STATS_CLIENTS_LABEL', description: 'HOME_STATS_CLIENTS_DESCRIPTION' },
+    { icon: 'fa-solid fa-user', value: '+1000', label: 'HOME_STATS_USERS_LABEL', description: 'HOME_STATS_USERS_DESCRIPTION' },
+    {
+      icon: 'fa-solid fa-shield-halved',
+      value: '>95%',
+      label: 'HOME_STATS_AVAILAVILITY_LABEL',
+      description: 'HOME_STATS_AVAILAVILITY_DESCRIPTION',
+    },
+    { icon: 'fa-solid fa-rocket', value: '5 min', label: 'HOME_STATS_DEPLOY_LABEL', description: 'HOME_STATS_DEPLOY_DESCRIPTION' },
+    { icon: 'fa-solid fa-chart-line', value: '50%', label: 'HOME_STATS_COST_LABEL', description: 'HOME_STATS_COST_DESCRIPTION' },
+  ]);
+
+  protected readonly categories = input<TechCategory[]>([
+    {
+      headerIcon: 'fa-solid fa-desktop',
+      label: 'Frontend',
+      technologies: [
+        { icon: 'assets/logos/angular.png', name: 'Angular' },
+        { icon: 'assets/logos/react.png', name: 'React' },
+      ],
+      caption: 'Angular (AngularJS · v21) · React · TypeScript · JavaScript · HTML5 · CSS3',
+    },
+    {
+      headerIcon: 'fa-solid fa-mobile-screen',
+      label: 'Mobile',
+      technologies: [
+        { icon: 'assets/logos/ionic.png', name: 'Ionic' },
+        { icon: 'assets/logos/capacitor.png', name: 'Capacitor' },
+        { icon: 'assets/logos/cordova.png', name: 'Cordova' },
+      ],
+      caption: 'Ionic · Capacitor · Cordova',
+    },
+    {
+      headerIcon: 'fa-solid fa-server',
+      label: 'Backend',
+      technologies: [
+        { icon: 'assets/logos/node.png', name: 'Node.js' },
+        { icon: 'assets/logos/php.png', name: 'PHP' },
+        { icon: 'assets/logos/mysql.png', name: 'MySQL' },
+      ],
+      caption: 'Node.js · PHP · MySQL · REST APIs',
+    },
+    {
+      headerIcon: 'fa-solid fa-cloud',
+      label: 'Cloud & DevOps',
+      technologies: [
+        { icon: 'assets/logos/docker.png', name: 'Docker' },
+        { icon: 'assets/logos/azure.png', name: 'Azure' },
+        { icon: 'assets/logos/aws.png', name: 'AWS' },
+      ],
+      caption: 'Docker · Azure · AWS · CI/CD · Cloudflare R2 · Firebase',
     },
   ]);
 
