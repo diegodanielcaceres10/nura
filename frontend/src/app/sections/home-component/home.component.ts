@@ -59,8 +59,8 @@ export class HomeComponent {
   ]);
 
   protected readonly stats = input<StatItem[]>([
-    { icon: 'fa-solid fa-users', value: '40+', label: 'HOME_STATS_CLIENTS_LABEL', description: 'HOME_STATS_CLIENTS_DESCRIPTION' },
-    { icon: 'fa-solid fa-user', value: '+1000', label: 'HOME_STATS_USERS_LABEL', description: 'HOME_STATS_USERS_DESCRIPTION' },
+    { icon: 'fa-solid fa-user-tie', value: '40+', label: 'HOME_STATS_CLIENTS_LABEL', description: 'HOME_STATS_CLIENTS_DESCRIPTION' },
+    { icon: 'fa-solid fa-users', value: '+1000', label: 'HOME_STATS_USERS_LABEL', description: 'HOME_STATS_USERS_DESCRIPTION' },
     {
       icon: 'fa-solid fa-shield-halved',
       value: '>95%',

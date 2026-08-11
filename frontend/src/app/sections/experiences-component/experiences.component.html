@@ -1,0 +1,77 @@
+<section class="experiences">
+  <div class="experiences__container">
+    <header class="experiences__header">
+      <h2 class="experiences__title">{{ 'EXPERIENCE' | translate }}</h2>
+      <p class="experiences__subtitle">{{ 'EXPERIENCE_SUBTITLE' | translate }}</p>
+      <p class="experiences__intro">{{ 'EXPERIENCE_INTRO' | translate }}</p>
+    </header>
+
+    <div class="experiences__body">
+      <span class="experiences__timeline-line"></span>
+      <ol class="experiences__timeline">
+        <li class="experiences__timeline-item">
+          <i class="fa-regular fa-circle-dot"></i>
+          <span class="experiences__timeline-year">2020</span>
+        </li>
+        <li class="experiences__timeline-item">
+          <i class="fa-regular fa-circle-dot"></i>
+          <span class="experiences__timeline-year">2021</span>
+        </li>
+        <li class="experiences__timeline-item">
+          <i class="fa-regular fa-circle"></i>
+          <span class="experiences__timeline-year">2026</span>
+        </li>
+      </ol>
+
+      <div class="experiences__entries">
+        @for (entry of entries(); track entry.id) {
+          <article class="experiences__card">
+            <div class="experiences__card-main">
+              <div class="experiences__card-header">
+                <div class="experiences__logo" [class]="'experiences__logo--' + entry.logoVariant">
+                  {{ entry.logoText }}
+                </div>
+
+                <div class="experiences__card-meta">
+                  <div class="experiences__card-meta-top">
+                    <h3 class="experiences__company">{{ entry.company }}</h3>
+                    <span class="experiences__duration">{{ entry.durationLabel }}</span>
+                  </div>
+                  <p class="experiences__role">{{ entry.roleKey | translate }}</p>
+                  <p class="experiences__period">
+                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                    {{ entry.startPeriodKey | translate }} – {{ entry.endPeriodKey | translate }}
+                  </p>
+                </div>
+              </div>
+
+              @for (descriptionKey of entry.descriptionKeys; track descriptionKey) {
+                <p class="experiences__description">- {{ descriptionKey | translate }}</p>
+              }
+
+              <ul class="experiences__tech-list">
+                @for (tech of entry.techStack; track tech) {
+                  <li class="experiences__tech-tag">{{ tech }}</li>
+                }
+              </ul>
+            </div>
+
+            @if (entry.stats?.length) {
+              <ul class="experiences__stats">
+                @for (stat of entry.stats; track stat.labelKey) {
+                  <li class="experiences__stat" [class.experiences__stat--kpi]="stat.value">
+                    <i class="fa-solid fa-{{ stat.icon }} experiences__stat-icon" aria-hidden="true"></i>
+                    <span class="experiences__stat-text">
+                      <span class="experiences__stat-value">{{ stat.value }}</span>
+                      <span class="experiences__stat-label">{{ stat.labelKey | translate }}</span>
+                    </span>
+                  </li>
+                }
+              </ul>
+            }
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</section>
