@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 
@@ -32,7 +32,7 @@ export interface ExperienceEntry {
   styleUrl: './experiences.component.scss',
 })
 export class ExperiencesComponent {
-  protected readonly entries = input<ExperienceEntry[]>([
+  protected readonly entries = signal<ExperienceEntry[]>([
     {
       id: 'apex',
       logoText: 'APEX',

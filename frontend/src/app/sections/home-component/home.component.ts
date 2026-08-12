@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
@@ -42,12 +42,12 @@ export interface TechCategory {
 export class HomeComponent {
   private readonly localeService = inject(LocaleService);
 
-  protected readonly fullName = input<string>('Diego Daniel Caceres');
-  protected readonly roles = input<string>('Senior Full Stack & Mobile Engineer · Angular Developer');
-  protected readonly secondaryCtaLabel = input<string>('Get In Touch');
-  protected readonly profileImage = input<string>('assets/diegodanielcaceres/photo.png');
-  protected readonly profileImageAlt = input<string>('Diego Daniel Caceres');
-  protected readonly techBadges = input<TechBadge[]>([
+  protected readonly fullName = signal<string>('Diego Daniel Caceres');
+  protected readonly roles = signal<string>('Senior Full Stack & Mobile Engineer · Angular Developer');
+  protected readonly secondaryCtaLabel = signal<string>('Get In Touch');
+  protected readonly profileImage = signal<string>('assets/diegodanielcaceres/photo.png');
+  protected readonly profileImageAlt = signal<string>('Diego Daniel Caceres');
+  protected readonly techBadges = signal<TechBadge[]>([
     { icon: 'assets/logos/angular.png', name: 'Angular', detail: 'v21', position: 'top-left' },
     { icon: 'assets/logos/ionic.png', name: 'Ionic', detail: 'Capacitor', position: 'top-right' },
     { icon: 'assets/logos/node.png', name: 'Node.js', detail: 'Express', position: 'bottom-left' },
@@ -59,7 +59,7 @@ export class HomeComponent {
     },
   ]);
 
-  protected readonly stats = input<StatItem[]>([
+  protected readonly stats = signal<StatItem[]>([
     { icon: 'fa-solid fa-user-tie', value: '40+', label: 'HOME_STATS_CLIENTS_LABEL', description: 'HOME_STATS_CLIENTS_DESCRIPTION' },
     { icon: 'fa-solid fa-users', value: '+1000', label: 'HOME_STATS_USERS_LABEL', description: 'HOME_STATS_USERS_DESCRIPTION' },
     {
@@ -72,7 +72,7 @@ export class HomeComponent {
     { icon: 'fa-solid fa-chart-line', value: '50%', label: 'HOME_STATS_COST_LABEL', description: 'HOME_STATS_COST_DESCRIPTION' },
   ]);
 
-  protected readonly categories = input<TechCategory[]>([
+  protected readonly categories = signal<TechCategory[]>([
     {
       headerIcon: 'fa-solid fa-desktop',
       label: 'Frontend',

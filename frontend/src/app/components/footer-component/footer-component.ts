@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 
 @Component({
   selector: 'app-footer-component',
-  imports: [TranslateKeyPipe],
+  imports: [],
   templateUrl: './footer-component.html',
   styleUrl: './footer-component.scss',
 })
