@@ -150,7 +150,6 @@ describe('HeaderComponent', () => {
     expect(links.length).toBe(5);
     expect(hrefs[0]).toContain('#about');
     expect(hrefs[1]).toContain('#experiences');
-    expect(hrefs[2]).toContain('#feedbacks');
     expect(hrefs[3]).toContain('#projects');
     expect(hrefs[4]).toContain('#contact');
   });

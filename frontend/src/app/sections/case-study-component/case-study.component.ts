@@ -1,5 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Component, signal } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 
@@ -23,7 +22,7 @@ export interface CaseStudyItem {
 @Component({
   selector: 'app-case-study-component',
   standalone: true,
-  imports: [RouterLink, TranslateKeyPipe, TitleComponent],
+  imports: [TranslateKeyPipe, TitleComponent],
   templateUrl: './case-study.component.html',
   styleUrl: './case-study.component.scss',
 })
