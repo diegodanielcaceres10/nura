@@ -1,5 +1,6 @@
 import { Component, input } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { TitleComponent } from '../../components/title/title.component';
 
 export type ExperienceLogoVariant = 'apex' | 'cesla';
 
@@ -26,7 +27,7 @@ export interface ExperienceEntry {
 @Component({
   selector: 'app-experiences-component',
   standalone: true,
-  imports: [TranslateKeyPipe],
+  imports: [TranslateKeyPipe, TitleComponent],
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.scss',
 })
