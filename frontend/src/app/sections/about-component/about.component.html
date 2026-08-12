@@ -1,0 +1,76 @@
+﻿<section class="about">
+  <div class="about__container">
+    <app-title-component title="ABOUT_TITLE" subtitle="ABOUT_SUBTITLE" intro="ABOUT_DESCRIPTION" />
+
+    <div class="about__details">
+      <article class="about__card about__card-story">
+        <h3 class="about__title">
+          <span class="about__dot"></span>
+          {{ 'ABOUT_STORY_TITLE' | translate }}
+        </h3>
+
+        <p class="about__paragraph">{{ 'ABOUT_STORY_PARAGRAPH' | translate }}</p>
+        <div class="about__signature">
+          <img src="assets/diegodanielcaceres/signature.png" alt="Nura Logo" width="1024" height="100" decoding="async" />
+        </div>
+      </article>
+
+      <article class="about__card about__card-education">
+        <h3 class="about__title">
+          <span class="about__dot"></span>
+          {{ 'ABOUT_EDUCATION_TITLE' | translate }}
+        </h3>
+
+        <div class="about__education">
+          <span class="about__icon">
+            <i [class]="education().icon"></i>
+          </span>
+          <div class="about__education-text">
+            <span class="about__education-degree">{{ education().degree }}</span>
+            <span class="about__education-institution">{{ education().institution }}</span>
+            <span class="about__education-meta">{{ education().location }} · {{ education().year }}</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="about__card about__card-beyond">
+        <h3 class="about__title">
+          <span class="about__dot"></span>
+          {{ 'ABOUT_BEYOND_TITLE' | translate }}
+        </h3>
+
+        <div class="about__beyond-list">
+          @for (item of beyondWork(); track item.title) {
+            <div class="about__beyond-item">
+              <span class="about__icon">
+                <i [class]="item.icon"></i>
+              </span>
+              <div class="about__beyond-text">
+                <span class="about__beyond-title">{{ item.title | translate }}</span>
+                <p class="about__beyond-description">{{ item.description | translate }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      </article>
+
+      <article class="about__card about__card-languages">
+        <h3 class="about__title">
+          <span class="about__dot"></span>
+          {{ 'ABOUT_LANGUAGES_TITLE' | translate }}
+        </h3>
+
+        <div class="about__languages">
+          @for (language of languages(); track language.name) {
+            <div class="about__language">
+              <span class="about__language-name">
+                {{ language.name | translate }}
+              </span>
+              <small class="about__language-level">{{ language.level | translate }}</small>
+            </div>
+          }
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

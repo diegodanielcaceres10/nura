@@ -57,7 +57,7 @@
     display: flex;
     gap: var(--spacing-md);
 
-    @include ds.md {
+    @include ds.lg {
       flex-direction: column;
     }
   }
@@ -72,15 +72,20 @@
     border-radius: var(--radius-md);
     font-size: var(--font-size-xl);
     flex-shrink: 0;
-    background: linear-gradient(135deg, #2d1160 0%, #150d39 100%);
+    background: radial-gradient(circle at 30% 25%, rgba(82, 31, 87, 0.25), transparent 85%), radial-gradient(circle at 70% 75%, rgba(44, 171, 179, 0.4), transparent 85%);
+    border: 1px solid var(--border-color);
 
     & i {
       color: var(--secondary-color);
       font-size: var(--font-size-4xl);
+      background: var(--gradient-secondary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 
-  &__card-header {
+  &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -102,14 +107,14 @@
     color: var(--primary-color-light);
   }
 
-  &__card-title {
+  &__title {
     margin: 0 0 var(--spacing-2xs);
     color: var(--text-primary);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
   }
 
-  &__card-subtitle {
+  &__subtitle {
     margin: 0 0 var(--spacing-sm);
     color: var(--secondary-color);
     font-size: var(--font-size-sm);

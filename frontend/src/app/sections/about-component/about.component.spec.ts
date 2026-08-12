@@ -1,6 +1,6 @@
 ﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { describe, it, expect, beforeEach } from 'vitest';
-import { AboutComponent } from './about-component';
+import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {
   let component: AboutComponent;
@@ -18,15 +18,6 @@ describe('AboutComponent', () => {
 
   it('should be defined', () => {
     expect(component).toBeDefined();
-  });
-
-  it('should expose non-empty skills list', () => {
-    expect(component.skills().length).toBeGreaterThan(0);
-  });
-
-  it('should render one tag per skill', () => {
-    const tags = fixture.nativeElement.querySelectorAll('.about_tag');
-    expect(tags.length).toBe(component.skills().length);
   });
 
   it('should render key skill tags', () => {
