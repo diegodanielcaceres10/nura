@@ -12,9 +12,9 @@
   <div [class.header__container-open]="isMenuOpen()" class="header__container">
     <nav class="header__nav">
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="projects">{{ 'MENU_PROJECTS' | translate }}</a>
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="recommendations">{{ 'MENU_RECOMMENDATIONS' | translate }}</a>
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
-      <!-- <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="projects">{{ 'MENU_PROJECTS' | translate }}</a> -->
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="contact">{{ 'MENU_CONTACT' | translate }}</a>
     </nav>
     <div class="header__langs">

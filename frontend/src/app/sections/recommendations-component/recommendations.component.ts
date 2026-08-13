@@ -23,7 +23,7 @@ export interface Testimonial {
 export class RecommendationsComponent {
   protected readonly testimonials = signal<Testimonial[]>([
     {
-      avatar: 'https://media.licdn.com/dms/image/v2/D4D03AQHtj2b_f7H9IA/profile-displayphoto-scale_400_400/B4DZnkY0WjKoAg-/0/1760473335928?e=1786579200&v=beta&t=wGTC65frXUclXyPlM07PRFT0-tpxrHxZNmqrxVOu-4s',
+      avatar: 'assets/recomendations/bruno.jpg',
       name: 'Bruno Zanon',
       linkedinUrl: 'https://www.linkedin.com/in/brunozanondev/',
       role: 'Programador (PHP Laravel)',
@@ -34,7 +34,7 @@ export class RecommendationsComponent {
       lang: 'Português',
     },
     {
-      avatar: 'https://media.licdn.com/dms/image/v2/D4D03AQHVteIxWOMktg/profile-displayphoto-scale_400_400/B4DZnh8w4dGQAk-/0/1760432433286?e=1786579200&v=beta&t=-nc5w1tcqsF2gT_0wy_tRCa45H8HX3pXds4j6MHIKP0',
+      avatar: 'assets/recomendations/paulo.jpg',
       name: 'Paulo César Rodrigues',
       linkedinUrl: 'https://www.linkedin.com/in/rodrigpc/',
       role: 'Founder & CEO da empresa Claxion Tech',
@@ -45,7 +45,7 @@ export class RecommendationsComponent {
       lang: 'English',
     },
     {
-      avatar: 'https://media.licdn.com/dms/image/v2/C4D03AQH1bK9afDQ_EA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1516631607637?e=1786579200&v=beta&t=fomq6AxXUQNO1mDMtOogJlA-ur1pmr89acN8rCIR_Z0',
+      avatar: 'assets/recomendations/marisa.jpg',
       name: 'Marisa Rosana Paredes',
       linkedinUrl: 'https://www.linkedin.com/in/marisa-rosana-paredes-58358317/',
       role: 'Senior Software Engineer',

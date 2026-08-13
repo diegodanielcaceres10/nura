@@ -2,12 +2,12 @@
 
 .header {
   align-items: center;
+  justify-content: space-between;
   background-color: transparent;
   border-bottom: var(--border-width-default) solid transparent;
   color: var(--palette-white);
   display: flex;
   height: var(--size-header-height);
-  justify-content: end;
   padding: var(--space-2) 0;
   position: fixed;
   top: 0;
@@ -33,20 +33,19 @@
   &__logo {
     align-items: center;
     display: flex;
-    flex: 1;
-    gap: var(--space-4);
-    margin: 0 var(--space-4);
+    gap: var(--spacing-sm);
+    margin: 0 var(--spacing-sm);
 
     @include ds.md {
       flex: initial;
     }
 
     & span {
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-lg);
       white-space: nowrap;
 
       @include ds.lg {
-        font-size: var(--font-size-md);
+        display: none;
       }
     }
   }
@@ -87,9 +86,7 @@
 
   &__container {
     display: flex;
-    justify-content: end;
     transition: transform var(--duration-slow) var(--easing-default);
-    width: 100%;
 
     @include ds.md {
       align-items: center;
