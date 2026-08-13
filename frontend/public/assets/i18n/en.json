@@ -1,8 +1,8 @@
 {
-  "MENU_ABOUT_ME": "About me",
   "MENU_EXPERIENCE": "Experience",
-  "MENU_RECOMMENDATIONS": "Recommendations",
   "MENU_PROJECTS": "Projects",
+  "MENU_RECOMMENDATIONS": "Recommendations",
+  "MENU_ABOUT_ME": "About me",
   "MENU_CONTACT": "Contact",
   "HOME_REMOTE_CONTRACTOR": "AVAILABLE FOR REMOTE WORK / CONTRACTOR",
   "HOME_GREETING": "Hi, I'm",
