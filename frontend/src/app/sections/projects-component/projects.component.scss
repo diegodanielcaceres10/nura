@@ -35,7 +35,6 @@
     box-shadow: var(--shadow-brand);
     transition:
       transform var(--transition-base),
-      border-color var(--transition-base),
       box-shadow var(--transition-base);
 
     &:hover,

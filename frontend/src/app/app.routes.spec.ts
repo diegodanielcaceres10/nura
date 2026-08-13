@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
-import { LanguageSelectorPage } from './language-selector/language-selector-page';
+import { LanguageSelectorPage } from './language-selector/language-selector.page';
 import { PortfolioPage } from './portfolio/portfolio-page';
 import { routes } from './app.routes';
 

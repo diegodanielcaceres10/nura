@@ -1,0 +1,40 @@
+<section class="language">
+  <span class="language__wave language__wave--left" aria-hidden="true"></span>
+  <span class="language__wave language__wave--right" aria-hidden="true"></span>
+
+  <div class="language__container">
+    <div class="language__logo">
+      <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
+      <span>Nura • Portfolio</span>
+    </div>
+
+    <h1 class="language__profile">
+      <span class="language__profile-name">Diego Daniel Caceres</span>
+      <small class="language__profile-subtitle">Senior Full Stack & Mobile Engineer · Angular Developer</small>
+    </h1>
+
+    <h1 class="language__title">Choose your language · Selecciona tu idioma · Escolha seu idioma</h1>
+
+    <div class="language__langs">
+      @for (language of languages(); track language.code) {
+        <a class="language__lang" (click)="selectLanguage(language.locale)" (keyup.enter)="selectLanguage(language.locale)">
+          <strong>{{ language.code }}</strong>
+          <span>{{ language.name }}</span>
+          <small>{{ language.description }}</small>
+        </a>
+      }
+    </div>
+
+    <div class="language__channels">
+      @for (channel of channels(); track channel.label) {
+        <a class="language__channel" [href]="channel.url" target="_blank" rel="noopener">
+          <div class="language__channel-text">
+            <i [class]="channel.icon"></i>
+            <span class="language__channel-label">{{ channel.label }}</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
