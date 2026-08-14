@@ -32,6 +32,8 @@
   --shadow-glow: #{ds.$shadow-glow};
   --shadow-brand: #{ds.$shadow-brand};
 
+  --font-family-base: #{ds.$font-family-base};
+
   --font-size-2xs: #{ds.$font-size-2xs};
   --font-size-xs: #{ds.$font-size-xs};
   --font-size-sm: #{ds.$font-size-sm};
@@ -69,7 +71,6 @@
   --transition-base: #{ds.$transition-base};
 
   // Z-Index
-  --z-base: #{ds.$z-base};
   --z-sticky: #{ds.$z-sticky};
   --z-full: #{ds.$z-full};
 

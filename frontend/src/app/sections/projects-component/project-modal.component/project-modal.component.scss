@@ -54,6 +54,7 @@
   &__section {
     display: flex;
     flex-direction: column;
+    color: var(--text-primary);
 
     & span {
       color: var(--text-muted);

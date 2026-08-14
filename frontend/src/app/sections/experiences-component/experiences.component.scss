@@ -179,7 +179,7 @@
 
   &__role {
     margin: 0;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--secondary-color);
   }
@@ -187,7 +187,7 @@
   &__period {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2xs);
+    gap: var(--spacing-xs);
     margin: 0;
     font-size: var(--font-size-xs);
     color: var(--text-muted);
@@ -262,7 +262,6 @@
     }
 
     &-value {
-      font-size: var(--font-size-base);
       font-weight: var(--font-weight-bold);
       color: var(--text-primary);
     }

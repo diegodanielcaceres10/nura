@@ -12,7 +12,7 @@ html {
 
 body {
   background-color: var(--bg-primary);
-  color: var(--text-on-action);
+  color: var(--text-primary);
   font-family: var(--font-family-base);
   margin: 0;
   padding: 0;
@@ -44,7 +44,7 @@ button:hover {
 }
 
 :focus-visible {
-  outline: 2px solid var(--state-focus-ring);
+  outline: 2px solid transparent;
   outline-offset: 2px;
 }
 
