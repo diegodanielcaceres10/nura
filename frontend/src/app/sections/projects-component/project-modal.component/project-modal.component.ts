@@ -12,10 +12,10 @@ import { ProjectCardComponent } from '../project-card.component/project-card.com
 export class ProjectModalComponent {
   readonly project = input.required<ProjectItem>();
 
-  readonly onCloseProject = output<void>();
+  readonly closeModalProject = output<void>();
 
   protected closeProject(): void {
-    this.onCloseProject.emit();
+    this.closeModalProject.emit();
   }
 
   protected downloadAPK(path?: string): void {

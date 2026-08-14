@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';

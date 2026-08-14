@@ -17,11 +17,11 @@
 
     <div class="language__langs">
       @for (language of languages(); track language.code) {
-        <a class="language__lang" (click)="selectLanguage(language.locale)" (keyup.enter)="selectLanguage(language.locale)">
+        <button class="language__lang" (click)="selectLanguage(language.locale)" (keyup.enter)="selectLanguage(language.locale)">
           <strong>{{ language.code }}</strong>
           <span>{{ language.name }}</span>
           <small>{{ language.description }}</small>
-        </a>
+        </button>
       }
     </div>
 

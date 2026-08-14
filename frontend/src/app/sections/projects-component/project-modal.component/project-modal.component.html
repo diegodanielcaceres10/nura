@@ -1,5 +1,5 @@
-<div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="project().title" (click)="closeProject()">
-  <div class="modal__container" (click)="$event.stopPropagation()">
+<div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="project().title" tabindex="0" (click)="closeProject()" (keydown.enter)="closeProject()" (keydown.space)="closeProject(); $event.preventDefault()">
+  <div class="modal__container" tabindex="0" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()" (keydown.space)="$event.stopPropagation(); $event.preventDefault()">
     <button class="modal__close" type="button" (click)="closeProject()" [attr.aria-label]="'PROJECTS_MODAL_CLOSE' | translate">
       <i class="fa-solid fa-xmark"></i>
     </button>
