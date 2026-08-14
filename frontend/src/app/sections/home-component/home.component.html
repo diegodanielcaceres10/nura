@@ -31,7 +31,7 @@
         <img class="home__image" src="assets/diegodanielcaceres/photo.png" alt="Diego Daniel Caceres Photo" />
 
         <div class="home__tech-badges">
-          @for (badge of techBadges(); track badge.name) {
+          @for (badge of techBadges; track badge.name) {
             <div class="home__tech-badge" [class]="'home__tech-badge--' + badge.position">
               <img class="home__tech-badge-icon" [src]="badge.icon" [alt]="badge.name" />
               <div class="home__tech-badge-text">
@@ -53,7 +53,7 @@
     </div>
 
     <div class="stats__grid">
-      @for (stat of stats(); track stat.label) {
+      @for (stat of stats; track stat.label) {
         <div class="stats__item">
           <span class="stats__icon">
             <i [class]="stat.icon"></i>
@@ -74,7 +74,7 @@
     </div>
 
     <div class="tech-stack__grid">
-      @for (category of categories(); track category.label) {
+      @for (category of categories; track category.label) {
         <div class="tech-stack__category">
           <div class="tech-stack__category-header">
             <i [class]="category.headerIcon"></i>
