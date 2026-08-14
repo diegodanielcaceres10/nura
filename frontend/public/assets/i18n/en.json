@@ -76,7 +76,7 @@
   "PROJECTS_STATUS_IN_PROGRESS": "In progress",
   "PROJECTS_STATUS_ARCHIVED": "Archived",
   "PROJECTS_CARD_IONIC_PLUGIN_LAB_SHORT_DESC": "Capacitor native plugins playground built with Angular and Ionic",
-  "PROJECTS_CARD_IONIC_PLUGIN_LAB_FULL_DESC": "Personal laboratory to test and implement Capacitor native plugins using Angular and Ionic, providing real and reusable examples for Android, iOS, and Web.",
+  "PROJECTS_CARD_IONIC_PLUGIN_LAB_FULL_DESC": "Personal playground for testing and implementing native Capacitor plugins with Angular and Ionic, with real, reusable examples for Android (Web support is for local development only).",
   "PROJECTS_CARD_IONIC_PLUGIN_LAB_ROLE": "Personal Project",
   "PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_1": "Navigable catalog of 18+ implemented native plugins, organized by category",
   "PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_2": "Feature-based architecture (data/pages) - a self-contained module for each plugin",
