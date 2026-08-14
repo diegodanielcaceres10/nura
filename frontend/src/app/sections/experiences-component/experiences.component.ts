@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 
@@ -32,7 +32,7 @@ export interface ExperienceEntry {
   styleUrl: './experiences.component.scss',
 })
 export class ExperiencesComponent {
-  protected readonly entries = signal<ExperienceEntry[]>([
+  protected readonly entries: ExperienceEntry[] = [
     {
       id: 'apex',
       logoText: 'APEX',
@@ -66,5 +66,5 @@ export class ExperiencesComponent {
         { icon: 'fa-solid fa-arrow-trend-down', value: '50%', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_INCIDENTS' },
       ],
     },
-  ]);
+  ];
 }
