@@ -3,7 +3,7 @@
     <app-title-component title="RECOMMENDATIONS_TITLE" subtitle="RECOMMENDATIONS_SUBTITLE" intro="RECOMMENDATIONS_DESCRIPTION" />
 
     <div class="recommendations__grid">
-      @for (testimonial of testimonials(); track testimonial.name) {
+      @for (testimonial of testimonials; track testimonial.name) {
         <article class="recommendations__card">
           <header class="recommendations__header">
             <img class="recommendations__avatar" [src]="testimonial.avatar" loading="lazy" width="200" height="200" decoding="async" [alt]="testimonial.name" />

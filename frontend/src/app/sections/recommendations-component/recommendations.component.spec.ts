@@ -7,10 +7,7 @@ describe('RecommendationsComponent', () => {
   let fixture: ComponentFixture<RecommendationsComponent>;
 
   beforeEach(async () => {
-    vi.stubGlobal(
-      '$localize',
-      (message: string | TemplateStringsArray, ..._args: unknown[]) => (typeof message === 'string' ? message : message[0] ?? ''),
-    );
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray, ..._args: unknown[]) => (typeof message === 'string' ? message : (message[0] ?? '')));
 
     await TestBed.configureTestingModule({
       imports: [RecommendationsComponent],
@@ -36,8 +33,8 @@ describe('RecommendationsComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should have testimonials in signal', () => {
-    const testimonials = component['testimonials']();
+  it('should have testimonials in array', () => {
+    const testimonials = component['testimonials'];
 
     expect(testimonials.length).toBeGreaterThan(0);
     expect(testimonials[0].name).toBe('Bruno Zanon');

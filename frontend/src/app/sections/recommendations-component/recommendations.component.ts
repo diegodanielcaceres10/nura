@@ -21,7 +21,7 @@ export interface Testimonial {
   styleUrl: './recommendations.component.scss',
 })
 export class RecommendationsComponent {
-  protected readonly testimonials = signal<Testimonial[]>([
+  protected readonly testimonials: Testimonial[] = [
     {
       avatar: 'assets/recomendations/bruno.jpg',
       name: 'Bruno Zanon',
@@ -54,5 +54,5 @@ export class RecommendationsComponent {
       location: 'Argentina',
       lang: 'Español',
     },
-  ]);
+  ];
 }
