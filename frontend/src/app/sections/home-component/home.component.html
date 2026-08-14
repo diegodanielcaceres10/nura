@@ -1,6 +1,4 @@
 ﻿<section class="home">
-  <span class="home__glow home__glow-primary" aria-hidden="true"></span>
-  <span class="home__glow home__glow-secondary" aria-hidden="true"></span>
   <div class="home__container">
     <div class="home__content">
       <span class="home__badge">
@@ -10,8 +8,8 @@
 
       <h1 class="home__title">
         <span class="home__title-greeting">{{ 'HOME_GREETING' | translate }}</span>
-        <span class="home__title-name">{{ fullName() }}</span>
-        <small class="home__title-subtitle">{{ roles() }}</small>
+        <span class="home__title-name">Diego Daniel Caceres</span>
+        <small class="home__title-subtitle">Senior Full Stack & Mobile Engineer · Angular Developer</small>
       </h1>
 
       <p class="home__description">{{ 'HOME_DESCRIPTION' | translate }}</p>
@@ -30,7 +28,7 @@
 
     <div class="home__visual">
       <div class="home__image-wrapper">
-        <img class="home__image" [src]="profileImage()" [alt]="profileImageAlt()" />
+        <img class="home__image" src="assets/diegodanielcaceres/photo.png" alt="Diego Daniel Caceres Photo" />
 
         <div class="home__tech-badges">
           @for (badge of techBadges(); track badge.name) {

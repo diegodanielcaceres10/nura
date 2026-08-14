@@ -169,6 +169,48 @@ export class ProjectsComponent {
       },
     },
     {
+      id: 'nura',
+      avatar: 'assets/projects/nura/logo.png',
+      title: 'Nura - Portfolio',
+      type: 'Web',
+      shortDescription: 'PROJECTS_CARD_NURA_SHORT_DESC',
+      coverImage: 'assets/projects/nura/cover.png',
+      techStackPreview: ['Angular 21', 'TypeScript', 'SCSS', 'SSG'],
+      status: 'IN_PROGRESS',
+      year: 2026,
+      fullDescription: 'PROJECTS_CARD_NURA_FULL_DESC',
+      role: 'PROJECTS_CARD_NURA_ROLE',
+      techStackFull: [
+        {
+          category: 'Frontend',
+          items: ['Angular 21', 'TypeScript', 'SCSS', 'Angular Router', 'i18n propio (EN, ES, PT)'],
+        },
+        {
+          category: 'Testing',
+          items: ['Vitest (unit)', 'Cypress (e2e)'],
+        },
+        {
+          category: 'Calidad y CI/CD',
+          items: ['ESLint', 'Prettier', 'Lighthouse CI (desktop + mobile)', 'GitHub Actions'],
+        },
+        {
+          category: 'DevOps',
+          items: ['Docker (entorno de desarrollo)'],
+        },
+      ],
+      keyFeatures: ['PROJECTS_CARD_NURA_FEATURE_1', 'PROJECTS_CARD_NURA_FEATURE_2', 'PROJECTS_CARD_NURA_FEATURE_3', 'PROJECTS_CARD_NURA_FEATURE_4', 'PROJECTS_CARD_NURA_FEATURE_5'],
+      challenges: ['PROJECTS_CARD_NURA_CHALLENGE_1', 'PROJECTS_CARD_NURA_CHALLENGE_2'],
+      links: {
+        repo: 'https://github.com/diegodanielcaceres10/nura',
+      },
+      typeDetails: {
+        kind: 'web',
+        deployUrl: 'https://diegodanielcaceres10.github.io/nura/',
+        pwa: false,
+        responsive: true,
+      },
+    },
+    {
       id: 'oilgroup',
       avatar: 'assets/projects/oilgroup/logo.png',
       title: 'Oilgroup',

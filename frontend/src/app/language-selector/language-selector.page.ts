@@ -36,7 +36,7 @@ export class LanguageSelectorPage {
   ]);
 
   protected readonly channels = signal<QuickLink[]>([
-    { icon: 'fa-brands fa-linkedin-in', label: 'LinkedIn', url: 'https://linkedin.com/in/diego-daniel-caceres-10' },
+    { icon: 'fa-brands fa-linkedin-in', label: 'LinkedIn', url: 'https://www.linkedin.com/in/diego-daniel-caceres-1328991aa' },
     { icon: 'fa-brands fa-github', label: 'GitHub', url: 'https://github.com/diegodanielcaceres10' },
     { icon: 'fa-brands fa-npm', label: 'npm', url: 'https://www.npmjs.com/~diegodanielcaceres10' },
   ]);

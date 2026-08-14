@@ -42,11 +42,6 @@ export interface TechCategory {
 export class HomeComponent {
   private readonly localeService = inject(LocaleService);
 
-  protected readonly fullName = signal<string>('Diego Daniel Caceres');
-  protected readonly roles = signal<string>('Senior Full Stack & Mobile Engineer · Angular Developer');
-  protected readonly secondaryCtaLabel = signal<string>('Get In Touch');
-  protected readonly profileImage = signal<string>('assets/diegodanielcaceres/photo.png');
-  protected readonly profileImageAlt = signal<string>('Diego Daniel Caceres');
   protected readonly techBadges = signal<TechBadge[]>([
     { icon: 'assets/logos/angular.png', name: 'Angular', detail: 'v21', position: 'top-left' },
     { icon: 'assets/logos/ionic.png', name: 'Ionic', detail: 'Capacitor', position: 'top-right' },
