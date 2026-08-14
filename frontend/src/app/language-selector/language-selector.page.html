@@ -16,7 +16,7 @@
     <h1 class="language__title">Choose your language · Selecciona tu idioma · Escolha seu idioma</h1>
 
     <div class="language__langs">
-      @for (language of languages(); track language.code) {
+      @for (language of languages; track language.code) {
         <button class="language__lang" (click)="selectLanguage(language.locale)" (keyup.enter)="selectLanguage(language.locale)">
           <strong>{{ language.code }}</strong>
           <span>{{ language.name }}</span>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="language__channels">
-      @for (channel of channels(); track channel.label) {
+      @for (channel of channels; track channel.label) {
         <a class="language__channel" [href]="channel.url" target="_blank" rel="noopener">
           <div class="language__channel-text">
             <i [class]="channel.icon"></i>

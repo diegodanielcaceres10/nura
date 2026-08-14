@@ -24,7 +24,7 @@ export interface QuickLink {
 export class LanguageSelectorPage {
   private readonly localeService = inject(LocaleService);
 
-  protected readonly languages = signal<LanguageOption[]>([
+  protected readonly languages: LanguageOption[] = [
     { code: 'ES', locale: 'es', name: 'Español', description: 'Ver portfolio en español' },
     { code: 'EN', locale: 'en', name: 'English', description: 'View portfolio in English' },
     {
@@ -33,13 +33,13 @@ export class LanguageSelectorPage {
       name: 'Português',
       description: 'Ver portfólio em português',
     },
-  ]);
+  ];
 
-  protected readonly channels = signal<QuickLink[]>([
+  protected readonly channels: QuickLink[] = [
     { icon: 'fa-brands fa-linkedin-in', label: 'LinkedIn', url: 'https://www.linkedin.com/in/diego-daniel-caceres-1328991aa' },
     { icon: 'fa-brands fa-github', label: 'GitHub', url: 'https://github.com/diegodanielcaceres10' },
     { icon: 'fa-brands fa-npm', label: 'npm', url: 'https://www.npmjs.com/~diegodanielcaceres10' },
-  ]);
+  ];
 
   selectLanguage(lang: string): void {
     this.localeService.changeLocale(lang);
