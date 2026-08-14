@@ -143,4 +143,10 @@ describe('LocaleService', () => {
 
     expect(result).toBe('es');
   });
+
+  it('should handle storage reading in non-browser environment gracefully', () => {
+    const result = LocaleService.resolveStartupLocale();
+    expect(result).toBeDefined();
+    expect(['en', 'es', 'pt']).toContain(result);
+  });
 });

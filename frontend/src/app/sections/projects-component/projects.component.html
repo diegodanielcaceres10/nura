@@ -3,7 +3,7 @@
     <app-title-component title="PROJECTS_TITLE" subtitle="PROJECTS_SUBTITLE" intro="PROJECTS_DESCRIPTION" />
 
     <div class="projects__grid">
-      @for (project of projects(); track project.id) {
+      @for (project of projects; track project.id) {
         <article class="projects__card" role="button" tabindex="0">
           <div class="projects__content">
             <app-project-card-component [project]="project" />

@@ -87,7 +87,7 @@ export interface ChallengeDetails {
   styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
-  protected readonly projects = signal<ProjectItem[]>([
+  protected readonly projects: ProjectItem[] = [
     {
       id: 'ionic-plugin-lab',
       avatar: 'assets/projects/ionic-plugin-lab/logo.png',
@@ -366,7 +366,7 @@ export class ProjectsComponent {
         topics: ['Node.js', 'Express', 'REST API', 'Validación de datos', 'Algoritmos'],
       },
     },
-  ]);
+  ];
 
   protected readonly activeProject = signal<ProjectItem | null>(null);
   protected openProject(project: ProjectItem): void {
