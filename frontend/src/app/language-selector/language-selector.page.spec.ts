@@ -8,7 +8,7 @@ describe('LanguageSelectorPage', () => {
 
   beforeEach(async () => {
     vi.stubGlobal('$localize', (message: any, ..._args: any) => {
-      return typeof message === 'string' ? message : message[0] ?? '';
+      return typeof message === 'string' ? message : (message[0] ?? '');
     });
 
     await TestBed.configureTestingModule({
@@ -45,7 +45,7 @@ describe('LanguageSelectorPage', () => {
   });
 
   it('should have valid URLs in channels', () => {
-    const urls = component['channels'].map(c => c.url);
+    const urls = component['channels'].map((c) => c.url);
     expect(urls[0]).toContain('linkedin.com');
     expect(urls[1]).toContain('github.com');
     expect(urls[2]).toContain('npmjs.com');
