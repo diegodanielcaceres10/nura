@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
 
 export interface LanguageOption {
