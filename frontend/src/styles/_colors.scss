@@ -1,57 +1,4 @@
 // _colors.scss
-
-// ─────────────────────────────────────────
-// BACKGROUNDS
-// ─────────────────────────────────────────
-
-$bg-deepest: #07152a;
-$bg-primary: #0a1f44;
-$bg-mid: #1a1530;
-$bg-blur: rgba(10, 31, 68, 0.7);
-
-// ─────────────────────────────────────────
-// ACCENTS
-// ─────────────────────────────────────────
-
-$accent-purple: #521f57;
-$accent-blue: #2cabb3;
-$accent-light: #7dd4d8;
-
-// ─────────────────────────────────────────
-// NEUTRALS
-// ─────────────────────────────────────────
-
-$lavender: #d8c6e1;
-$text-muted: #8fa3b8;
-$white: #ffffff;
-$black: #000000;
-
-// ─────────────────────────────────────────
-// OVERLAYS & BORDERS
-// ─────────────────────────────────────────
-
-$border-color-default: rgba(125, 212, 216, 0.15);
-$border-color-strong: rgba(125, 212, 216, 0.35);
-$bg-overlay: rgba(7, 21, 42, 0.85);
-$home-glow-primary: rgba(60, 90, 145, 0.2);
-$home-glow-secondary: rgba(59, 26, 64, 0.15);
-$home-wave-overlay: rgba(60, 90, 145, 0.08);
-$state-hover-overlay: rgba(60, 90, 145, 0.15);
-$state-active-overlay: rgba(60, 90, 145, 0.3);
-
-// ─────────────────────────────────────────
-// FEEDBACK
-// ─────────────────────────────────────────
-
-$success: #4caf82;
-$success-light: rgba(76, 175, 130, 0.15);
-$warning: #f0a500;
-$warning-light: rgba(240, 165, 0, 0.15);
-$error: #e05c5c;
-$error-light: rgba(224, 92, 92, 0.15);
-
-// V2 - VARIABLES
-
 $primary-color: #521f57;
 $secondary-color: #2cabb3;
 $alternative-color: #7dd4d8;
@@ -65,6 +12,7 @@ $muted-color: #8fa3b8;
 
 $bg-primary: #0f0a1e;
 $bg-surface: rgba(255, 255, 255, 0.06);
+$bg-blur: rgba(10, 31, 68, 0.7);
 
 $border-color: rgba(255, 255, 255, 0.12);
 $border-color-accent: rgba(44, 171, 179, 0.4);

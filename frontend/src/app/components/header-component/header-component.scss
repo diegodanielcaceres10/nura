@@ -4,26 +4,33 @@
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
-  border-bottom: var(--border-width-default) solid transparent;
-  color: var(--palette-white);
+  border-bottom: var(--border-color) solid transparent;
+  color: var(--text-primary);
   display: flex;
-  height: var(--size-header-height);
-  padding: var(--space-2) 0;
+  height: 60px;
+  padding: var(--spacing-sm) 0;
   position: fixed;
   top: 0;
   transition:
-    background-color var(--duration-base) var(--easing-default),
-    box-shadow var(--duration-base) var(--easing-default),
-    border-color var(--duration-base) var(--easing-default);
+    background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
   width: 100%;
   z-index: var(--z-sticky);
 
-  &.sticky {
-    background: var(--palette-bg-blur);
+  &-sticky {
+    background: var(--bg-blur);
     backdrop-filter: blur(1rem);
     -webkit-backdrop-filter: blur(1rem);
-    border-color: var(--border-default);
-    box-shadow: var(--shadow-md);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-brand);
+  }
+
+  &-blur {
+    @include ds.md {
+      backdrop-filter: initial;
+      -webkit-backdrop-filter: initial;
+    }
   }
 
   @include ds.lg {
@@ -58,7 +65,6 @@
     position: relative;
     z-index: var(--z-full);
     border-radius: var(--radius-md);
-    transition: background var(--duration-fast) var(--easing-default);
 
     & i {
       font-size: var(--font-size-3xl);
@@ -70,8 +76,8 @@
       align-items: center;
       justify-content: center;
       transition:
-        transform var(--duration-base) var(--easing-default),
-        opacity var(--duration-slow) var(--easing-default);
+        transform var(--transition-base),
+        opacity var(--transition-base);
 
       &.hide {
         transform: rotate(360deg) scale(0);
@@ -86,11 +92,11 @@
 
   &__container {
     display: flex;
-    transition: transform var(--duration-slow) var(--easing-default);
+    transition: transform var(--transition-base);
 
     @include ds.md {
       align-items: center;
-      background: var(--palette-bg-blur);
+      background: var(--bg-blur);
       backdrop-filter: blur(1.5rem);
       -webkit-backdrop-filter: blur(1.5rem);
       display: flex;
@@ -115,26 +121,26 @@
     align-items: center;
     display: flex;
     font-size: var(--font-size-lg);
-    gap: var(--space-6);
-    padding: var(--space-4);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-md);
 
     @include ds.lg {
-      gap: var(--space-4);
+      gap: var(--spacing-md);
       font-size: var(--font-size-md);
-      padding: var(--space-4) var(--space-2);
+      padding: var(--spacing-md) var(--spacing-xs);
     }
 
     @include ds.md {
       align-items: center;
       flex-direction: column;
-      margin: calc(var(--space-10) * 2) 0;
+      margin: var(--spacing-3xl) 0;
       font-size: var(--font-size-xl);
-      gap: var(--space-8);
+      gap: var(--spacing-xl);
     }
 
     & a {
       color: var(--text-primary);
-      transition: color var(--duration-fast) var(--easing-default);
+      transition: color var(--transition-fast);
 
       &:hover {
         color: var(--secondary-color);
@@ -144,13 +150,13 @@
 
   &__langs {
     display: flex;
-    gap: var(--space-2);
-    margin-left: var(--space-4);
-    padding: var(--space-4);
+    gap: var(--spacing-xs);
+    margin-left: var(--spacing-md);
+    padding: var(--spacing-md);
 
     @include ds.lg {
-      padding: var(--space-2);
-      margin-left: var(--space-2);
+      padding: var(--spacing-xs);
+      margin-left: var(--spacing-xs);
     }
   }
 
@@ -160,7 +166,7 @@
     cursor: pointer;
     font-size: var(--font-size-lg);
     opacity: 0.5;
-    transition: opacity var(--duration-base) var(--easing-default);
+    transition: opacity var(--transition-base);
 
     &:hover,
     &.active {

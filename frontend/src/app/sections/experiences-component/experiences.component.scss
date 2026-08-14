@@ -1,12 +1,6 @@
 @use 'index' as ds;
 
 .experiences {
-  position: relative;
-  width: 100%;
-  padding: var(--spacing-3xl) var(--spacing-lg);
-  background: var(--bg-primary);
-  overflow: hidden;
-
   &__container {
     position: relative;
     max-width: var(--container-max-width);
@@ -17,11 +11,7 @@
     position: relative;
     display: grid;
     grid-template-columns: min-content 1fr;
-    margin: var(--spacing-xl) var(--spacing-sm);
-
-    @include ds.md {
-      grid-template-columns: 1fr;
-    }
+    margin-top: var(--spacing-xl);
   }
 
   &__timeline {
@@ -34,30 +24,12 @@
     justify-content: space-between;
     font-size: var(--font-size-lg);
     border: 1px solid var(--border-color-deep);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     background: linear-gradient(0deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
 
     @include ds.md {
       padding: var(--spacing-2xl) var(--spacing-xs);
-      position: absolute;
-      left: -20px;
-      top: 0;
-      margin: auto;
-      height: 100%;
-    }
-
-    &-line {
-      position: absolute;
-      left: 34px;
-      top: 0;
-      width: 15px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-      opacity: 0.1;
-
-      @include ds.md {
-        left: -8px;
-      }
+      border-radius: var(--radius-sm);
     }
 
     &-item {
@@ -92,6 +64,20 @@
     }
   }
 
+  &__line {
+    position: absolute;
+    left: 34px;
+    top: 0;
+    width: 15px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    opacity: 0.1;
+
+    @include ds.md {
+      left: 12px;
+    }
+  }
+
   &__entries {
     display: flex;
     flex-direction: column;
@@ -109,13 +95,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     border: 1px solid var(--border-color-deep);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     background: linear-gradient(0deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
 
     @include ds.md {
       flex-direction: column;
       padding: var(--spacing-sm);
-      margin-left: var(--spacing-lg);
+      border-radius: var(--radius-sm);
     }
 
     &-main {
@@ -248,7 +234,7 @@
       border-left: none;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--spacing-md);
+      padding: var(--spacing-md);
     }
   }
 

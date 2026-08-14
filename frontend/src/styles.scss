@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background-color: var(--palette-bg-primary);
+  background-color: var(--bg-primary);
   color: var(--text-on-action);
   font-family: var(--font-family-base);
   margin: 0;
@@ -46,4 +46,14 @@ button:hover {
 :focus-visible {
   outline: 2px solid var(--state-focus-ring);
   outline-offset: 2px;
+}
+
+.page-section {
+  width: 100%;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  background: var(--bg-primary);
+
+  @include ds.md {
+    padding: var(--spacing-xl) var(--spacing-lg);
+  }
 }

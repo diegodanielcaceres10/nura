@@ -1,10 +1,6 @@
 @use 'index' as ds;
 
 .case-study {
-  width: 100%;
-  padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-3xl);
-  background: var(--bg-primary);
-
   &__container {
     max-width: var(--container-max-width);
     margin: 0 auto;

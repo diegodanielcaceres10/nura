@@ -1,18 +1,15 @@
 @use 'index' as ds;
 
 .footer {
-  background: var(--bg-primary);
   border: 1px solid var(--border-color-deep);
-  padding: var(--space-10);
+  display: flex;
+  justify-content: center;
 
   &_copyright {
     color: var(--text-muted);
     display: flex;
-    justify-content: center;
-    margin: var(--space-4) 0 var(--space-8);
-
-    & i {
-      padding: 0 var(--space-1);
-    }
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-2xl) 0;
   }
 }

@@ -1,12 +1,6 @@
 @use 'index' as ds;
 
 .contact {
-  position: relative;
-  width: 100%;
-  padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-3xl);
-  background: var(--bg-primary);
-  overflow: hidden;
-
   &__container {
     position: relative;
     max-width: var(--container-max-width);
@@ -35,15 +29,16 @@
 
     @include ds.md {
       padding: var(--spacing-sm) var(--spacing-md);
+      flex-direction: column;
     }
   }
 
   &__channel-icon {
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-shrink: 0;
     color: var(--alternative-color);
+    width: 70px;
 
     & i {
       font-size: var(--font-size-5xl);
@@ -52,10 +47,6 @@
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-
-      @include ds.md {
-        font-size: var(--font-size-2xl);
-      }
     }
   }
 
@@ -109,6 +100,7 @@
     @include ds.lg {
       flex-direction: column;
       align-items: stretch;
+      padding: var(--spacing-md);
     }
   }
 
