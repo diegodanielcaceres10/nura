@@ -29,21 +29,21 @@ export interface BeyondWorkItem {
   styleUrl: './about.component.scss',
 })
 export class AboutComponent {
-  protected readonly education = signal<EducationItem>({
+  protected readonly education: EducationItem = {
     icon: 'fa-solid fa-graduation-cap',
     degree: 'Analista de Sistemas',
     institution: 'Instituto Cervantes',
     location: 'Argentina',
     year: '2020',
-  });
+  };
 
-  protected readonly languages = signal<LanguageItem[]>([
+  protected readonly languages: LanguageItem[] = [
     { name: 'ABOUT_LANGUAGES_ES', level: 'ABOUT_LANGUAGES_NATIVE' },
     { name: 'ABOUT_LANGUAGES_PT', level: 'ABOUT_LANGUAGES_PROFESSIONAL' },
     { name: 'ABOUT_LANGUAGES_EN', level: 'ABOUT_LANGUAGES_PROFESSIONAL' },
-  ]);
+  ];
 
-  protected readonly beyondWork = signal<BeyondWorkItem[]>([
+  protected readonly beyondWork: BeyondWorkItem[] = [
     {
       icon: 'fa-solid fa-plane',
       title: 'I love to travel',
@@ -59,5 +59,5 @@ export class AboutComponent {
       title: 'Good coffee',
       description: 'Fuel for focused work and great ideas.',
     },
-  ]);
+  ];
 }

@@ -23,12 +23,12 @@
 
         <div class="about__education">
           <span class="about__icon">
-            <i [class]="education().icon"></i>
+            <i [class]="education.icon"></i>
           </span>
           <div class="about__education-text">
-            <span class="about__education-degree">{{ education().degree }}</span>
-            <span class="about__education-institution">{{ education().institution }}</span>
-            <span class="about__education-meta">{{ education().location }} · {{ education().year }}</span>
+            <span class="about__education-degree">{{ education.degree }}</span>
+            <span class="about__education-institution">{{ education.institution }}</span>
+            <span class="about__education-meta">{{ education.location }} · {{ education.year }}</span>
           </div>
         </div>
       </article>
@@ -40,7 +40,7 @@
         </h3>
 
         <div class="about__beyond-list">
-          @for (item of beyondWork(); track item.title) {
+          @for (item of beyondWork; track item.title) {
             <div class="about__beyond-item">
               <span class="about__icon">
                 <i [class]="item.icon"></i>
@@ -61,7 +61,7 @@
         </h3>
 
         <div class="about__languages">
-          @for (language of languages(); track language.name) {
+          @for (language of languages; track language.name) {
             <div class="about__language">
               <span class="about__language-name">
                 {{ language.name | translate }}

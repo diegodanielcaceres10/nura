@@ -3,7 +3,7 @@
     <app-title-component title="CASE_STUDY_TITLE" subtitle="CASE_STUDY_SUBTITLE" intro="CASE_STUDY_DESCRIPTION" />
 
     <div class="case-study__grid">
-      @for (item of caseStudies(); track item.number) {
+      @for (item of caseStudies; track item.number) {
         <article class="case-study__card">
           <div class="case-study__glow"></div>
           <div class="case-study__content">

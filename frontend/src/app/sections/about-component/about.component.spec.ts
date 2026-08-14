@@ -33,20 +33,20 @@ describe('AboutComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should have education item in signal', () => {
-    const education = component['education']();
+  it('should have education item', () => {
+    const education = component['education'];
 
     expect(education.degree).toBe('Analista de Sistemas');
   });
 
-  it('should have languages in signal', () => {
-    const languages = component['languages']();
+  it('should have languages in array', () => {
+    const languages = component['languages'];
 
     expect(languages.length).toBeGreaterThan(0);
   });
 
-  it('should have beyond work items in signal', () => {
-    const beyondWork = component['beyondWork']();
+  it('should have beyond work items in array', () => {
+    const beyondWork = component['beyondWork'];
 
     expect(beyondWork.length).toBeGreaterThan(0);
   });

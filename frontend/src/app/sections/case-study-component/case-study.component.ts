@@ -27,7 +27,7 @@ export interface CaseStudyItem {
   styleUrl: './case-study.component.scss',
 })
 export class CaseStudyComponent {
-  protected readonly caseStudies = signal<CaseStudyItem[]>([
+  protected readonly caseStudies: CaseStudyItem[] = [
     {
       number: '01',
       category: 'Mobile',
@@ -74,5 +74,5 @@ export class CaseStudyComponent {
       metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_TITLE' }],
       link: '/case-studies/legacy-codebase-modernization',
     },
-  ]);
+  ];
 }
