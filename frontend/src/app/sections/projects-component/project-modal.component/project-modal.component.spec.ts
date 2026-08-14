@@ -9,7 +9,7 @@ describe('ProjectModalComponent', () => {
   let mockProject: ProjectItem;
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: string | TemplateStringsArray, ..._args: unknown[]) => (typeof message === 'string' ? message : (message[0] ?? '')));
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => (typeof message === 'string' ? message : (message[0] ?? '')));
 
     mockProject = {
       id: 'test-project',
@@ -69,9 +69,9 @@ describe('ProjectModalComponent', () => {
       click: vi.fn(),
       href: '',
       download: '',
-    } as any);
-    const appendChildSpy = vi.spyOn(document.body, 'appendChild').mockImplementation(() => null as any);
-    const removeChildSpy = vi.spyOn(document.body, 'removeChild').mockImplementation(() => null as any);
+    } as unknown as HTMLAnchorElement);
+    const appendChildSpy = vi.spyOn(document.body, 'appendChild').mockImplementation(() => document.createElement('a'));
+    const removeChildSpy = vi.spyOn(document.body, 'removeChild').mockImplementation(() => document.createElement('a'));
 
     component['downloadAPK'](path);
 

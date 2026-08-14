@@ -7,7 +7,7 @@ describe('LanguageSelectorPage', () => {
   let fixture: ComponentFixture<LanguageSelectorPage>;
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: any, ..._args: any) => {
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
       return typeof message === 'string' ? message : (message[0] ?? '');
     });
 

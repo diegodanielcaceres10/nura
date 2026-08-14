@@ -7,7 +7,7 @@ describe('FooterComponent', () => {
   let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: any, ..._args: any) => {
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
       return typeof message === 'string' ? message : (message[0] ?? '');
     });
 

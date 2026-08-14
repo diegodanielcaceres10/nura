@@ -7,7 +7,7 @@ describe('ProjectsComponent', () => {
   let fixture: ComponentFixture<ProjectsComponent>;
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: string | TemplateStringsArray, ..._args: unknown[]) => (typeof message === 'string' ? message : (message[0] ?? '')));
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => (typeof message === 'string' ? message : (message[0] ?? '')));
 
     await TestBed.configureTestingModule({
       imports: [ProjectsComponent],

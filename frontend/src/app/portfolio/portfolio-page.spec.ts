@@ -8,7 +8,7 @@ describe('PortfolioPage', () => {
   let fixture: ComponentFixture<PortfolioPage>;
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: any, ..._args: any) => {
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
       return typeof message === 'string' ? message : (message[0] ?? '');
     });
 

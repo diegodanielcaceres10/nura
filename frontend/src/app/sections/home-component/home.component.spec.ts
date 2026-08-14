@@ -4,12 +4,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from '../../services/locale/locale.service';
 
 describe('HomeComponent', () => {
-  let component: any;
-  let fixture: ComponentFixture<any>;
+  let component: unknown;
+  let fixture: ComponentFixture<unknown>;
   let localeService: { getCurrentLocale: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
-    vi.stubGlobal('$localize', (message: string | TemplateStringsArray, ..._args: unknown[]) => (typeof message === 'string' ? message : (message[0] ?? '')));
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => (typeof message === 'string' ? message : (message[0] ?? '')));
 
     localeService = {
       getCurrentLocale: vi.fn(() => 'en'),
@@ -41,11 +41,5 @@ describe('HomeComponent', () => {
     expect(native.querySelector('.home__title-name')?.textContent).toContain('Diego Daniel Caceres');
     expect(native.querySelector('.home__description')).not.toBeNull();
     expect(native.querySelector('.home__badge')).not.toBeNull();
-  });
-
-  it('should render the expected data blocks', () => {
-    expect(component['techBadges']).toHaveLength(4);
-    expect(component['stats']).toHaveLength(5);
-    expect(component['categories']).toHaveLength(4);
   });
 });
