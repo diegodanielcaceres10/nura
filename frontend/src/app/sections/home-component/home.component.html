@@ -1,0 +1,96 @@
+﻿<section class="home">
+  <div class="home__container">
+    <div class="home__content">
+      <span class="home__badge">
+        <span class="home__badge-dot"></span>
+        {{ 'HOME_REMOTE_CONTRACTOR' | translate }}
+      </span>
+
+      <h1 class="home__title">
+        <span class="home__title-greeting">{{ 'HOME_GREETING' | translate }}</span>
+        <span class="home__title-name">Diego Daniel Caceres</span>
+        <small class="home__title-subtitle">Senior Full Stack & Mobile Engineer · Angular Developer</small>
+      </h1>
+
+      <p class="home__description">{{ 'HOME_DESCRIPTION' | translate }}</p>
+
+      <div class="home__actions">
+        <a class="home__cta home__cta-primary" [routerLink]="['/', currentLang]" fragment="projects">
+          <i class="fa-solid fa-rocket"></i>
+          {{ 'HOME_MY_WORK' | translate }}
+        </a>
+        <a class="home__cta home__cta-secondary" [routerLink]="['/', currentLang]" fragment="contact">
+          <i class="fa-solid fa-envelope"></i>
+          {{ 'HOME_CONTACT_ME' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="home__visual">
+      <div class="home__image-wrapper">
+        <img class="home__image" src="assets/diegodanielcaceres/photo.png" alt="Diego Daniel Caceres Photo" />
+
+        <div class="home__tech-badges">
+          @for (badge of techBadges; track badge.name) {
+            <div class="home__tech-badge" [class]="'home__tech-badge--' + badge.position">
+              <img class="home__tech-badge-icon" [src]="badge.icon" [alt]="badge.name" />
+              <div class="home__tech-badge-text">
+                <span class="home__tech-badge-name">{{ badge.name }}</span>
+                <span class="home__tech-badge-detail">{{ badge.detail }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="stats">
+  <div class="stats__container">
+    <div class="stats__heading">
+      <h2 class="stats__title">{{ 'HOME_STATS_TITLE' | translate }}</h2>
+      <span class="stats__underline"></span>
+    </div>
+
+    <div class="stats__grid">
+      @for (stat of stats; track stat.label) {
+        <div class="stats__item">
+          <span class="stats__icon">
+            <i [class]="stat.icon"></i>
+          </span>
+          <span class="stats__value">{{ stat.value }}</span>
+          <span class="stats__label">{{ stat.label | translate }}</span>
+          <span class="stats__description">{{ stat.description | translate }}</span>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<section class="tech-stack">
+  <div class="tech-stack__container">
+    <div class="tech-stack__heading">
+      <h2 class="tech-stack__title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
+      <span class="tech-stack__underline"></span>
+    </div>
+
+    <div class="tech-stack__grid">
+      @for (category of categories; track category.label) {
+        <div class="tech-stack__category">
+          <div class="tech-stack__category-header">
+            <i [class]="category.headerIcon"></i>
+            <span>{{ category.label }}</span>
+          </div>
+
+          <div class="tech-stack__icons">
+            @for (tech of category.technologies; track tech.name) {
+              <img class="tech-stack__icon" [src]="tech.icon" [alt]="tech.name" />
+            }
+          </div>
+
+          <p class="tech-stack__caption">{{ category.caption }}</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>
+<app-case-study-component />

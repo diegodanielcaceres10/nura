@@ -1,0 +1,28 @@
+<div class="project-card">
+  <div class="project-card__header">
+    <span class="project-card__logo">
+      @if (project().avatar) {
+        <img class="project-card__avatar" [src]="project().avatar" loading="lazy" width="200" height="200" decoding="async" [alt]="project().title" />
+      } @else if (project().icon) {
+        <i [class]="project().icon"></i>
+      }
+    </span>
+
+    <div class="project-card__heading">
+      <h3 class="project-card__title">{{ project().title }}</h3>
+      <small>{{ project().year }}</small>
+    </div>
+    <div class="project-card__tags">
+      <small>{{ project().type }}</small>
+      <small>{{ `PROJECTS_STATUS_${project().status}` | translate }}</small>
+    </div>
+  </div>
+
+  <p class="project-card__description">{{ (fullDescription() ? project().fullDescription : project().shortDescription) | translate }}</p>
+
+  <div class="project-card__techs">
+    @for (tech of project().techStackPreview; track tech) {
+      <span class="project-card__tech">{{ tech }}</span>
+    }
+  </div>
+</div>

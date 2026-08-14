@@ -1,0 +1,56 @@
+﻿<section class="contact page-section">
+  <div class="contact__container">
+    <app-title-component title="CONTACT_TITLE" subtitle="CONTACT_SUBTITLE" intro="CONTACT_DESCRIPTION" />
+
+    <div class="contact__channels">
+      @for (channel of channels(); track channel.label) {
+        <div class="contact__channel">
+          <span class="contact__channel-icon">
+            <i [class]="channel.icon"></i>
+          </span>
+          <div class="contact__channel-text">
+            <span class="contact__channel-label">{{ channel.label }}</span>
+            @if (channel.value) {
+              <span class="contact__channel-value">{{ channel.value }}</span>
+            }
+            @if (channel.href && channel.actionLabel) {
+              <a class="contact__channel-action" [href]="channel.href" target="_blank" rel="noopener">
+                {{ channel.actionLabel | translate }}
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            } @else if (channel.note) {
+              <span class="contact__channel-note">{{ channel.note | translate }}</span>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="contact__availability">
+      <div class="contact__availability-info">
+        <span class="contact__availability-icon">
+          <i class="fa-solid fa-rocket"></i>
+        </span>
+        <div class="contact__availability-text">
+          <p class="contact__availability-title">
+            {{ 'CONTACT_AVAILABILITY_PREFIX' | translate }}
+            <span class="contact__availability-highlight">{{ 'CONTACT_AVAILABILITY_HIGHLIGHT' | translate }}</span>
+          </p>
+          <span class="contact__availability-description">{{ 'CONTACT_AVAILABILITY_DESCRIPTION' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="contact__availability-meta">
+        @for (meta of availabilityMeta(); track meta.title) {
+          <div class="contact__meta-item">
+            <i [class]="meta.icon"></i>
+            <div class="contact__meta-text">
+              <span class="contact__meta-title">{{ meta.title | translate }}</span>
+              <span class="contact__meta-description">{{ meta.description | translate }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

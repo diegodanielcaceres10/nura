@@ -1,0 +1,41 @@
+<section class="case-study page-section">
+  <div class="case-study__container">
+    <app-title-component title="CASE_STUDY_TITLE" subtitle="CASE_STUDY_SUBTITLE" intro="CASE_STUDY_DESCRIPTION" />
+
+    <div class="case-study__grid">
+      @for (item of caseStudies; track item.number) {
+        <article class="case-study__card">
+          <div class="case-study__glow"></div>
+          <div class="case-study__content">
+            <span class="case-study__icon">
+              <i [class]="item.icon"></i>
+            </span>
+
+            <div class="case-study__info">
+              <div class="case-study__header">
+                <span class="case-study__number">{{ item.number }}</span>
+                <span class="case-study__tag">{{ item.category }}</span>
+              </div>
+
+              <h3 class="case-study__title">{{ item.title | translate }}</h3>
+              <p class="case-study__subtitle">{{ item.subtitle }}</p>
+              <p class="case-study__card-description">{{ item.description | translate }}</p>
+            </div>
+          </div>
+
+          <div class="case-study__metrics">
+            @for (metric of item.metrics; track metric.label) {
+              <div class="case-study__metric">
+                <i [class]="metric.icon"></i>
+                <div class="case-study__metric-text">
+                  <span class="case-study__metric-value">{{ metric.value }}</span>
+                  <span class="case-study__metric-label">{{ metric.label | translate }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

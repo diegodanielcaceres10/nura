@@ -1,94 +1,40 @@
 @use 'index' as ds;
 
 :root {
-  // ─────────────────────────────────────────
-  // PALETTE — RAW TOKENS
-  // ─────────────────────────────────────────
+  // Colors
+  --primary-color: #{ds.$primary-color};
+  --secondary-color: #{ds.$secondary-color};
+  --alternative-color: #{ds.$alternative-color};
+
+  --primary-color-rgba: #{ds.$primary-color-rgba};
+
+  --primary-color-light: #{ds.$primary-color-light};
 
   // Backgrounds
-  --palette-bg-deepest: #{ds.$bg-deepest};
-  --palette-bg-primary: #{ds.$bg-primary};
-  --palette-bg-mid: #{ds.$bg-mid};
-  --palette-bg-blur: #{ds.$bg-blur};
+  --bg-primary: #{ds.$bg-primary};
+  --bg-surface: #{ds.$bg-surface};
+  --bg-blur: #{ds.$bg-blur};
 
-  // Accents
-  --palette-accent-purple: #{ds.$accent-purple};
-  --palette-accent-blue: #{ds.$accent-blue};
-  --palette-accent-light: #{ds.$accent-light};
+  // Text
+  --text-primary: #{ds.$white-color};
+  --text-secondary: #{ds.$secondary-color};
+  --text-on-accent: #{ds.$white-color};
+  --text-muted: #{ds.$muted-color};
 
-  // Neutrals
-  --palette-lavender: #{ds.$lavender};
-  --palette-text-muted: #{ds.$text-muted};
-  --palette-white: #{ds.$white};
-  --palette-black: #{ds.$black};
+  // Borders
+  --border-color: #{ds.$border-color};
+  --border-color-accent: #{ds.$border-color-accent};
+  --border-color-deep: #{ds.$border-color-deep};
 
-  // Feedback
-  --color-success: #{ds.$success};
-  --color-success-light: #{ds.$success-light};
-  --color-warning: #{ds.$warning};
-  --color-warning-light: #{ds.$warning-light};
-  --color-error: #{ds.$error};
-  --color-error-light: #{ds.$error-light};
-
-  // ─────────────────────────────────────────
-  // SEMANTIC — BACKGROUND
-  // ─────────────────────────────────────────
-
-  --bg-app: var(--palette-bg-deepest);
-  --bg-card: var(--palette-bg-primary);
-  --bg-card-alt: var(--palette-bg-mid);
-  --bg-overlay: #{ds.$bg-overlay};
-  --bg-home-glow-primary: #{ds.$home-glow-primary};
-  --bg-home-glow-secondary: #{ds.$home-glow-secondary};
-  --bg-home-wave-overlay: #{ds.$home-wave-overlay};
-
-  // ─────────────────────────────────────────
-  // SEMANTIC — BRAND & ACTION
-  // ─────────────────────────────────────────
-
-  --color-brand: var(--palette-accent-blue);
-  --color-brand-light: var(--palette-accent-light);
-  --color-brand-dark: var(--palette-accent-purple);
-  --color-action: var(--palette-accent-blue);
-  --color-action-hover: var(--palette-accent-light);
-
-  // ─────────────────────────────────────────
-  // SEMANTIC — TEXT
-  // ─────────────────────────────────────────
-
-  --text-primary: var(--palette-accent-light);
-  --text-secondary: var(--palette-text-muted);
-  --text-disabled: var(--palette-text-muted);
-  --text-heading: var(--palette-accent-light);
-  --text-on-brand: var(--palette-white);
-  --text-on-action: var(--palette-white);
-  --text-brand: var(--palette-accent-light);
-  --text-subtle: var(--palette-lavender);
-
-  // ─────────────────────────────────────────
-  // SEMANTIC — BORDERS
-  // ─────────────────────────────────────────
-
-  --border-default: #{ds.$border-color-default};
-  --border-strong: #{ds.$border-color-strong};
-  --border-brand: var(--palette-accent-blue);
-  --border-action: var(--palette-accent-light);
-
-  // ─────────────────────────────────────────
-  // SEMANTIC — STATES
-  // ─────────────────────────────────────────
-
-  --state-focus-ring: var(--palette-accent-light);
-  --state-hover-overlay: #{ds.$state-hover-overlay};
-  --state-active-overlay: #{ds.$state-active-overlay};
-  --state-disabled-bg: var(--palette-bg-mid);
-  --state-disabled-text: var(--palette-text-muted);
-
-  // ─────────────────────────────────────────
-  // TYPOGRAPHY
-  // ─────────────────────────────────────────
+  // Gradients & effects
+  --gradient-primary: #{ds.$gradient-primary};
+  --gradient-secondary: #{ds.$gradient-secondary};
+  --shadow-glow: #{ds.$shadow-glow};
+  --shadow-brand: #{ds.$shadow-brand};
 
   --font-family-base: #{ds.$font-family-base};
+
+  --font-size-2xs: #{ds.$font-size-2xs};
   --font-size-xs: #{ds.$font-size-xs};
   --font-size-sm: #{ds.$font-size-sm};
   --font-size-md: #{ds.$font-size-md};
@@ -97,96 +43,37 @@
   --font-size-2xl: #{ds.$font-size-2xl};
   --font-size-3xl: #{ds.$font-size-3xl};
   --font-size-4xl: #{ds.$font-size-4xl};
+  --font-size-5xl: #{ds.$font-size-5xl};
+
   --font-weight-regular: #{ds.$font-weight-regular};
   --font-weight-medium: #{ds.$font-weight-medium};
   --font-weight-semibold: #{ds.$font-weight-semibold};
   --font-weight-bold: #{ds.$font-weight-bold};
-  --line-height-tight: #{ds.$line-height-tight};
-  --line-height-base: #{ds.$line-height-base};
-  --line-height-relaxed: #{ds.$line-height-relaxed};
 
-  // ─────────────────────────────────────────
-  // SPACING
-  // ─────────────────────────────────────────
+  // Spacing scale
+  --spacing-2xs: #{ds.$spacing-2xs};
+  --spacing-xs: #{ds.$spacing-xs};
+  --spacing-sm: #{ds.$spacing-sm};
+  --spacing-md: #{ds.$spacing-md};
+  --spacing-lg: #{ds.$spacing-lg};
+  --spacing-xl: #{ds.$spacing-xl};
+  --spacing-2xl: #{ds.$spacing-2xl};
+  --spacing-3xl: #{ds.$spacing-3xl};
 
-  --space-1: #{ds.$space-1};
-  --space-2: #{ds.$space-2};
-  --space-3: #{ds.$space-3};
-  --space-4: #{ds.$space-4};
-  --space-5: #{ds.$space-5};
-  --space-6: #{ds.$space-6};
-  --space-8: #{ds.$space-8};
-  --space-10: #{ds.$space-10};
-  --space-12: #{ds.$space-12};
-  --space-16: #{ds.$space-16};
-
-  // Sizing
-  --size-content-max: 1900px;
-  --size-reading-max: 65ch;
-  --size-section-accent-width: calc(var(--space-10) * 4);
-  --size-header-height: calc(var(--space-10) * 2);
-  --size-header-toggle: var(--space-12);
-  --size-icon-button: var(--space-16);
-  --size-icon-lg: var(--space-12);
-  --size-icon-md: var(--space-8);
-  --size-home-wave-height: calc(var(--space-10) * 4);
-  --size-home-logo-max: 500px;
-  --size-action-width: var(--space-12);
-  --size-project-card-height: var(--space-10);
-  --size-tooltip-arrow: 0.4rem;
-  --size-tooltip-arrow-offset: -0.3rem;
-
-  // ─────────────────────────────────────────
-  // BORDERS & RADIUS
-  // ─────────────────────────────────────────
-
+  // Radius
   --radius-sm: #{ds.$radius-sm};
   --radius-md: #{ds.$radius-md};
   --radius-lg: #{ds.$radius-lg};
-  --radius-xl: #{ds.$radius-xl};
   --radius-full: #{ds.$radius-full};
 
-  --border-width-default: #{ds.$border-width-default};
-  --border-width-thick: #{ds.$border-width-thick};
+  // Transitions
+  --transition-fast: #{ds.$transition-fast};
+  --transition-base: #{ds.$transition-base};
 
-  // ─────────────────────────────────────────
-  // SHADOWS
-  // ─────────────────────────────────────────
-
-  --shadow-sm: #{ds.$shadow-sm};
-  --shadow-md: #{ds.$shadow-md};
-  --shadow-lg: #{ds.$shadow-lg};
-  --shadow-xl: #{ds.$shadow-xl};
-  --shadow-brand: #{ds.$shadow-brand};
-
-  // ─────────────────────────────────────────
-  // TRANSITIONS
-  // ─────────────────────────────────────────
-
-  --duration-fast: #{ds.$duration-fast};
-  --duration-base: #{ds.$duration-base};
-  --duration-slow: #{ds.$duration-slow};
-  --duration-wave-short: 10s;
-  --duration-wave-medium: 18s;
-  --duration-wave-long: 20s;
-  --duration-bounce: 1.4s;
-  --delay-wave-short: -3s;
-  --delay-wave-long: -1s;
-  --easing-default: #{ds.$easing-default};
-  --easing-in: #{ds.$easing-in};
-  --easing-out: #{ds.$easing-out};
-  --easing-elastic: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  --easing-bounce: ease-in-out;
-
-  // ─────────────────────────────────────────
-  // Z-INDEX
-  // ─────────────────────────────────────────
-
-  --z-base: #{ds.$z-base};
-  --z-dropdown: #{ds.$z-dropdown};
+  // Z-Index
   --z-sticky: #{ds.$z-sticky};
-  --z-overlay: #{ds.$z-overlay};
-  --z-modal: #{ds.$z-modal};
-  --z-toast: #{ds.$z-toast};
-  --z-tooltip: #{ds.$z-tooltip};
+  --z-full: #{ds.$z-full};
+
+  // Layout
+  --container-max-width: 1200px;
 }

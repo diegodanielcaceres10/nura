@@ -1,0 +1,75 @@
+<div class="modal" role="dialog" aria-modal="true" [attr.aria-label]="project().title" tabindex="0" (click)="closeProject()" (keydown.enter)="closeProject()" (keydown.space)="closeProject(); $event.preventDefault()">
+  <div class="modal__container" tabindex="0" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()" (keydown.space)="$event.stopPropagation(); $event.preventDefault()">
+    <button class="modal__close" type="button" (click)="closeProject()" [attr.aria-label]="'PROJECTS_MODAL_CLOSE' | translate">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <app-project-card-component [project]="project()" [fullDescription]="true" />
+    <div class="modal__section">
+      <span>{{ 'PROJECTS_MODAL_ROLE' | translate }}</span>
+      <small>{{ project().role | translate }}</small>
+    </div>
+    @if (project().techStackFull?.length) {
+      <div class="modal__section">
+        <span>{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
+        <div class="modal__stacks">
+          @for (tech of project().techStackFull; track tech) {
+            <h3>{{ tech.category }}</h3>
+            <div class="modal__techs">
+              @for (item of tech.items; track item) {
+                <small>{{ item }}</small>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    }
+    <div class="modal__section">
+      <span>{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
+      <div class="modal__features">
+        <ul>
+          @for (keyFeature of project().keyFeatures; track keyFeature) {
+            <li>{{ keyFeature | translate }}</li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="modal__section">
+      <span>{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
+      <div class="modal__challenges">
+        @for (challenge of project().challenges; track challenge) {
+          <p>{{ challenge | translate }}</p>
+        }
+      </div>
+    </div>
+    @if (project().gallery?.length) {
+      <div class="modal__section">
+        <span>{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
+        <div class="modal__gallery">
+          @for (print of project().gallery; track print) {
+            <div class="modal__photo">
+              <img [src]="print" loading="lazy" width="200" height="200" decoding="async" alt="Print" />
+            </div>
+          }
+        </div>
+      </div>
+    }
+    <div class="modal__footer">
+      <a class="modal__action" [href]="project().links.repo" target="_blank" rel="noopener">
+        Repo
+        <i class="fa-solid fa-up-right-from-square"></i>
+      </a>
+      @if (project().links.demo) {
+        <a class="modal__action" [href]="project().links.demo" target="_blank" rel="noopener">
+          Demo
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </a>
+      }
+      @if (project().links.apk) {
+        <button class="modal__action" (click)="downloadAPK(project().links.apk)">
+          APK
+          <i class="fa-brands fa-android"></i>
+        </button>
+      }
+    </div>
+  </div>
+</div>

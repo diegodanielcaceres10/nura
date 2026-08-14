@@ -11,34 +11,6 @@
 
   & i {
     font-size: var(--font-size-4xl);
-    color: var(--text-primary);
-  }
-}
-
-.defer-placeholder {
-  animation: placeholderPulse 1.3s ease-in-out infinite;
-  background: linear-gradient(135deg, rgba(82, 31, 87, 0.25), rgba(44, 171, 179, 0.25));
-  border: 1px dashed rgba(125, 212, 216, 0.3);
-  border-radius: var(--radius-lg);
-  margin: var(--space-8) auto;
-  min-height: 60vh;
-  width: min(900px, 90vw);
-
-  &--footer {
-    min-height: 240px;
-  }
-}
-
-@keyframes placeholderPulse {
-  0% {
-    opacity: 0.4;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-
-  100% {
-    opacity: 0.4;
+    color: var(--secondary-color);
   }
 }

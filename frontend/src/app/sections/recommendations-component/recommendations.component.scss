@@ -1,0 +1,125 @@
+@use 'index' as ds;
+
+.recommendations {
+  &__container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    grid-template-columns: repeat(2, 1fr);
+
+    @include ds.md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-2xl);
+    background: linear-gradient(0deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--secondary-color);
+    border-radius: var(--radius-sm);
+    transition:
+      transform var(--transition-base),
+      border-color var(--transition-base);
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+
+    @include ds.lg {
+      padding: var(--spacing-md);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+  }
+
+  &__avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: var(--radius-full);
+    flex-shrink: 0;
+
+    @include ds.md {
+      width: 80px;
+      height: 80px;
+    }
+  }
+
+  &__identity {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: var(--spacing-xs);
+  }
+
+  &__profile {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--spacing-xs);
+  }
+
+  &__name {
+    color: var(--text-primary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+  }
+
+  &__linkedin {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background: #0a66c2;
+    border-radius: 3px;
+    color: var(--text-on-accent);
+    font-size: 16px;
+    text-decoration: none;
+  }
+
+  &__role {
+    color: var(--secondary-color);
+    font-size: var(--font-size-xs);
+  }
+
+  &__lang {
+    color: var(--text-muted);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  &__quote {
+    margin: 0 0 var(--spacing-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+  }
+
+  &__icon {
+    margin-bottom: var(--spacing-xs);
+    color: var(--secondary-color);
+    font-size: var(--font-size-xl);
+  }
+
+  &__footer {
+    padding-top: var(--spacing-sm);
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: var(--font-size-2xs);
+  }
+}

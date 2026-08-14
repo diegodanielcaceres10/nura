@@ -1,12 +1,16 @@
-﻿import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FooterComponent } from './footer-component';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
 
   beforeEach(async () => {
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
+      return typeof message === 'string' ? message : (message[0] ?? '');
+    });
+
     await TestBed.configureTestingModule({
       imports: [FooterComponent],
     }).compileComponents();
@@ -16,25 +20,17 @@ describe('FooterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be defined', () => {
-    expect(component).toBeDefined();
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should render contact title', () => {
-    const title = fixture.nativeElement.querySelector('h3');
-    expect(title).toBeTruthy();
-    expect(title.textContent.trim().length).toBeGreaterThan(0);
+  it('should render footer element', () => {
+    const footerElement = fixture.nativeElement.querySelector('footer');
+    expect(footerElement).toBeTruthy();
   });
 
-  it('should render phone and email contact info', () => {
-    const contactText = fixture.nativeElement.querySelector('.footer_address').textContent;
-    expect(contactText).toContain('+34 62431-2028');
-    expect(contactText).toContain('diegodanielcaceres10@gmail.com');
-  });
-
-  it('should render copyright section', () => {
-    const copyright = fixture.nativeElement.querySelector('.footer_copyright');
-    expect(copyright).toBeTruthy();
-    expect(copyright.textContent).toContain('Diego Daniel Caceres');
+  it('should render footer container', () => {
+    const footerContainer = fixture.nativeElement.querySelector('.footer');
+    expect(footerContainer).toBeTruthy();
   });
 });

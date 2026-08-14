@@ -1,25 +1,25 @@
-﻿<header [class.sticky]="isSticky()" class="header">
-  <button type="button" (click)="toogleMenu()" class="header_button" aria-label="Toggle menu">
+﻿<header [class.header-sticky]="isSticky()" [class.header-blur]="isMenuOpen()" class="header">
+  <div class="header__logo">
+    <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
+    <span>
+      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="home">Nura • Portfolio</a>
+    </span>
+  </div>
+  <button type="button" (click)="toogleMenu()" class="header__button" aria-label="Toggle menu">
     <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars"></i>
     <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
   </button>
-  <div [class.header_container-open]="isMenuOpen()" class="header_container">
-    <div class="header_icon">
-      <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
-      <span>
-        <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="home">Nura • Portfolio</a>
-      </span>
-    </div>
-    <nav class="header_nav">
-      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
+  <div [class.header__container-open]="isMenuOpen()" class="header__container">
+    <nav class="header__nav">
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
-      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="feedbacks">{{ 'MENU_FEEDBACK' | translate }}</a>
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="projects">{{ 'MENU_PROJECTS' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="recommendations">{{ 'MENU_RECOMMENDATIONS' | translate }}</a>
+      <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
       <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="contact">{{ 'MENU_CONTACT' | translate }}</a>
     </nav>
-    <div class="header_langs">
+    <div class="header__langs">
       @for (lang of langs; track lang.code) {
-        <button class="header_lang" [class.active]="currentLang() === lang.code" (click)="changeLang(lang.code)">
+        <button class="header__lang" [class.active]="currentLang() === lang.code" (click)="changeLang(lang.code)">
           {{ lang.flag }}
         </button>
       }
