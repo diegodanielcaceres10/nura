@@ -17,7 +17,6 @@
     max-width: 95%;
     max-height: 85vh;
     padding: var(--spacing-xl);
-    overflow-y: auto;
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -51,6 +50,32 @@
     }
   }
 
+  &__scroll {
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    padding: var(--spacing-md);
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--bg-surface) transparent;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--bg-surface);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--bg-surface);
+    }
+  }
+
   &__section {
     display: flex;
     flex-direction: column;
@@ -70,6 +95,10 @@
       margin: var(--spacing-sm) 0 var(--spacing-xs);
       color: var(--secondary-color);
     }
+  }
+
+  &__role {
+    padding: var(--spacing-sm) 0;
   }
 
   &__techs {
@@ -109,6 +138,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     margin-top: var(--spacing-sm);
+    gap: var(--spacing-2xs);
 
     @include ds.md {
       grid-template-columns: 1fr;
@@ -119,9 +149,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: var(--spacing-xs);
-    margin-top: var(--spacing-md);
     padding-top: var(--spacing-md);
-    border-top: 1px solid var(--border-color);
     font-size: var(--font-size-sm);
 
     @include ds.md {
@@ -150,6 +178,10 @@
     &:hover {
       border-color: var(--secondary-color);
       transform: translateY(-2px);
+    }
+
+    &-android i:first-child {
+      color: #a4c639;
     }
   }
 }

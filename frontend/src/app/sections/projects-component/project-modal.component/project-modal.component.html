@@ -4,55 +4,57 @@
       <i class="fa-solid fa-xmark"></i>
     </button>
     <app-project-card-component [project]="project()" [fullDescription]="true" />
-    <div class="modal__section">
-      <span>{{ 'PROJECTS_MODAL_ROLE' | translate }}</span>
-      <small>{{ project().role | translate }}</small>
-    </div>
-    @if (project().techStackFull?.length) {
+    <div class="modal__scroll">
       <div class="modal__section">
-        <span>{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
-        <div class="modal__stacks">
-          @for (tech of project().techStackFull; track tech) {
-            <h3>{{ tech.category }}</h3>
-            <div class="modal__techs">
-              @for (item of tech.items; track item) {
-                <small>{{ item }}</small>
-              }
-            </div>
+        <span>{{ 'PROJECTS_MODAL_ROLE' | translate }}</span>
+        <small class="modal__role">{{ project().role | translate }}</small>
+      </div>
+      @if (project().techStackFull?.length) {
+        <div class="modal__section">
+          <span>{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
+          <div class="modal__stacks">
+            @for (tech of project().techStackFull; track tech) {
+              <h3>{{ tech.category }}</h3>
+              <div class="modal__techs">
+                @for (item of tech.items; track item) {
+                  <small>{{ item }}</small>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+      <div class="modal__section">
+        <span>{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
+        <div class="modal__features">
+          <ul>
+            @for (keyFeature of project().keyFeatures; track keyFeature) {
+              <li>{{ keyFeature | translate }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="modal__section">
+        <span>{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
+        <div class="modal__challenges">
+          @for (challenge of project().challenges; track challenge) {
+            <p>{{ challenge | translate }}</p>
           }
         </div>
       </div>
-    }
-    <div class="modal__section">
-      <span>{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
-      <div class="modal__features">
-        <ul>
-          @for (keyFeature of project().keyFeatures; track keyFeature) {
-            <li>{{ keyFeature | translate }}</li>
-          }
-        </ul>
-      </div>
-    </div>
-    <div class="modal__section">
-      <span>{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
-      <div class="modal__challenges">
-        @for (challenge of project().challenges; track challenge) {
-          <p>{{ challenge | translate }}</p>
-        }
-      </div>
-    </div>
-    @if (project().gallery?.length) {
-      <div class="modal__section">
-        <span>{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
-        <div class="modal__gallery">
-          @for (print of project().gallery; track print) {
-            <div class="modal__photo">
-              <img [src]="print" loading="lazy" width="200" height="200" decoding="async" alt="Print" />
-            </div>
-          }
+      @if (project().gallery?.length) {
+        <div class="modal__section">
+          <span>{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
+          <div class="modal__gallery">
+            @for (print of project().gallery; track print) {
+              <div class="modal__photo">
+                <img [src]="print" loading="lazy" width="200" height="200" decoding="async" alt="Print" />
+              </div>
+            }
+          </div>
         </div>
-      </div>
-    }
+      }
+    </div>
     <div class="modal__footer">
       <a class="modal__action" [href]="project().links.repo" target="_blank" rel="noopener">
         Repo
@@ -64,11 +66,12 @@
           <i class="fa-solid fa-up-right-from-square"></i>
         </a>
       }
-      @if (project().links.apk) {
-        <button class="modal__action" (click)="downloadAPK(project().links.apk)">
-          APK
+      @if (project().links.androidAPK) {
+        <a class="modal__action modal__action-android" [href]="project().links.androidAPK" target="_blank" rel="noopener">
           <i class="fa-brands fa-android"></i>
-        </button>
+          Android APK
+          <i class="fa-solid fa-download"></i>
+        </a>
       }
     </div>
   </div>

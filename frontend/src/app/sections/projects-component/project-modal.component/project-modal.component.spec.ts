@@ -62,21 +62,4 @@ describe('ProjectModalComponent', () => {
 
     expect(emitSpy).toHaveBeenCalled();
   });
-
-  it('should download APK when downloadAPK is called with valid path', () => {
-    const path = 'assets/test.apk';
-    const createElementSpy = vi.spyOn(document, 'createElement').mockReturnValue({
-      click: vi.fn(),
-      href: '',
-      download: '',
-    } as unknown as HTMLAnchorElement);
-    const appendChildSpy = vi.spyOn(document.body, 'appendChild').mockImplementation(() => document.createElement('a'));
-    const removeChildSpy = vi.spyOn(document.body, 'removeChild').mockImplementation(() => document.createElement('a'));
-
-    component['downloadAPK'](path);
-
-    expect(createElementSpy).toHaveBeenCalledWith('a');
-    expect(appendChildSpy).toHaveBeenCalled();
-    expect(removeChildSpy).toHaveBeenCalled();
-  });
 });

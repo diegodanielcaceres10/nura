@@ -57,6 +57,14 @@
     font-size: var(--font-size-sm);
   }
 
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: end;
+    gap: var(--spacing-sm);
+  }
+
   &__action {
     display: flex;
     align-items: center;
@@ -71,6 +79,18 @@
     &:hover {
       color: var(--secondary-color);
       transform: translateY(-2px);
+    }
+
+    & i {
+      width: 20px;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    &-android i:first-child {
+      color: #a4c639;
     }
   }
 }

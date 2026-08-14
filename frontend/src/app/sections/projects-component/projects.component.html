@@ -9,16 +9,27 @@
             <app-project-card-component [project]="project" />
           </div>
           <div class="projects__footer">
-            <a class="projects__action" [href]="project.links.repo" target="_blank" rel="noopener">
-              <i class="fa-brands fa-github"></i>
-              Repo
-              <i class="fa-solid fa-up-right-from-square"></i>
-            </a>
+            <div class="projects__links">
+              <a class="projects__action" [href]="project.links.repo" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i>
+                Repo
+                <i class="fa-solid fa-up-right-from-square"></i>
+              </a>
+              @if (project.links.androidAPK) {
+                <a class="projects__action projects__action-android" [href]="project.links.androidAPK" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-android"></i>
+                  Android APK
+                  <i class="fa-solid fa-download"></i>
+                </a>
+              }
+            </div>
 
-            <button class="projects__action" (click)="openProject(project)" (keydown.enter)="openProject(project)" (keydown.space)="openProject(project)">
-              Ver mas
-              <i class="fa-solid fa-arrow-right-long"></i>
-            </button>
+            <div class="projects__links">
+              <button class="projects__action" (click)="openProject(project)" (keydown.enter)="openProject(project)" (keydown.space)="openProject(project)">
+                Ver mas
+                <i class="fa-solid fa-arrow-right-long"></i>
+              </button>
+            </div>
           </div>
         </article>
       }

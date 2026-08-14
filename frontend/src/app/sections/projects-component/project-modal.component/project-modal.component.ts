@@ -17,14 +17,4 @@ export class ProjectModalComponent {
   protected closeProject(): void {
     this.closeModalProject.emit();
   }
-
-  protected downloadAPK(path?: string): void {
-    if (!path) return;
-    const link = document.createElement('a');
-    link.href = path;
-    link.download = 'mi-app.apk';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
 }
