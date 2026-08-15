@@ -114,8 +114,8 @@ export class ProjectsComponent {
           items: ['Karma + Jasmine'],
         },
       ],
-      keyFeatures: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_2', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_3', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_4', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_5', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_6'],
-      challenges: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_2'],
+      keyFeatures: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_2', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_3', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_4', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_5', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_6', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_7'],
+      challenges: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_2', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_3'],
       gallery: ['assets/projects/ionic-plugin-lab/screen-splash.png', 'assets/projects/ionic-plugin-lab/screen-home.png', 'assets/projects/ionic-plugin-lab/screen-camera.png', 'assets/projects/ionic-plugin-lab/screen-biometrics.png', 'assets/projects/ionic-plugin-lab/screen-favorites.png', 'assets/projects/ionic-plugin-lab/screen-logs.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab',
