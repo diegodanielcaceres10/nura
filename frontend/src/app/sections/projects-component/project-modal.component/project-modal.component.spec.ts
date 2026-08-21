@@ -21,7 +21,6 @@ describe('ProjectModalComponent', () => {
       status: 'COMPLETED',
       year: 2026,
       fullDescription: 'TEST_FULL_DESC',
-      role: 'TEST_ROLE',
       keyFeatures: ['FEATURE_1', 'FEATURE_2'],
       links: {
         repo: 'https://github.com/test/test',

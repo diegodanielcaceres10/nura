@@ -15,7 +15,6 @@ export interface ProjectItem {
   status: 'COMPLETED' | 'IN_PROGRESS' | 'ARCHIVED';
   year: number;
   fullDescription: string;
-  role: string;
   techStackFull?: TechCategory[];
   keyFeatures: string[];
   challenges?: string[];
@@ -89,6 +88,41 @@ export interface ChallengeDetails {
 export class ProjectsComponent {
   protected readonly projects: ProjectItem[] = [
     {
+      id: 'kora-roster',
+      avatar: 'assets/projects/kora-roster/logo.png',
+      title: 'Kora Roster',
+      type: 'Web',
+      shortDescription: 'PROJECTS_CARD_KORA_ROSTER_SHORT_DESC',
+      coverImage: '',
+      techStackPreview: ['React', 'TypeScript', 'Vite', 'Docker'],
+      status: 'IN_PROGRESS',
+      year: 2026,
+      fullDescription: 'PROJECTS_CARD_KORA_ROSTER_FULL_DESC',
+      techStackFull: [
+        {
+          category: 'Frontend',
+          items: ['React', 'TypeScript', 'Vite', 'CSS Modules'],
+        },
+        {
+          category: 'DevOps',
+          items: ['Docker', 'Docker Compose', 'GitHub Actions', 'GitHub Pages'],
+        },
+      ],
+      keyFeatures: ['PROJECTS_CARD_KORA_ROSTER_FEATURE_1', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_2', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_3', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_4', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_5'],
+      challenges: ['PROJECTS_CARD_KORA_ROSTER_CHALLENGE_1', 'PROJECTS_CARD_KORA_ROSTER_CHALLENGE_2'],
+      gallery: ['assets/projects/kora-roster/screen-welcome.png', 'assets/projects/kora-roster/screen-step1.png', 'assets/projects/kora-roster/screen-step2.png', 'assets/projects/kora-roster/screen-step3.png', 'assets/projects/kora-roster/screen-draw.png', 'assets/projects/kora-roster/screen-export.png'],
+      links: {
+        repo: 'https://github.com/diegodanielcaceres10/kora-roster',
+        demo: 'https://diegodanielcaceres10.github.io/kora-roster/',
+      },
+      typeDetails: {
+        kind: 'web',
+        deployUrl: 'https://diegodanielcaceres10.github.io/kora-roster/',
+        pwa: false,
+        responsive: true,
+      },
+    },
+    {
       id: 'ionic-plugin-lab',
       avatar: 'assets/projects/ionic-plugin-lab/logo.png',
       title: 'Ionic Plugin Lab',
@@ -99,7 +133,6 @@ export class ProjectsComponent {
       status: 'IN_PROGRESS',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FULL_DESC',
-      role: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_ROLE',
       techStackFull: [
         {
           category: 'Frontend',
@@ -139,7 +172,6 @@ export class ProjectsComponent {
       status: 'COMPLETED',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FULL_DESC',
-      role: 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_ROLE',
       techStackFull: [
         {
           category: 'Frontend',
@@ -179,7 +211,6 @@ export class ProjectsComponent {
       status: 'IN_PROGRESS',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_NURA_FULL_DESC',
-      role: 'PROJECTS_CARD_NURA_ROLE',
       techStackFull: [
         {
           category: 'Frontend',
@@ -221,7 +252,6 @@ export class ProjectsComponent {
       status: 'COMPLETED',
       year: 2024,
       fullDescription: 'PROJECTS_CARD_OILGROUP_FULL_DESC',
-      role: 'PROJECTS_CARD_OILGROUP_ROLE',
       techStackFull: [
         {
           category: 'Frontend',
@@ -264,7 +294,6 @@ export class ProjectsComponent {
       status: 'ARCHIVED',
       year: 2023,
       fullDescription: 'PROJECTS_CARD_ANGULARJSONFORM_FULL_DESC',
-      role: 'PROJECTS_CARD_ANGULARJSONFORM_ROLE',
       techStackFull: [
         {
           category: 'Librería',
@@ -306,7 +335,6 @@ export class ProjectsComponent {
       status: 'ARCHIVED',
       year: 2023,
       fullDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_FULL_DESC',
-      role: 'PROJECTS_CARD_OCTOAUTODRIVE_ROLE',
       techStackFull: [
         {
           category: 'Frontend',
@@ -353,7 +381,6 @@ export class ProjectsComponent {
       status: 'COMPLETED',
       year: 2022,
       fullDescription: 'PROJECTS_CARD_BOLETO_FULL_DESC',
-      role: 'PROJECTS_CARD_BOLETO_ROLE',
       keyFeatures: ['PROJECTS_CARD_BOLETO_FEATURE_1', 'PROJECTS_CARD_BOLETO_FEATURE_2', 'PROJECTS_CARD_BOLETO_FEATURE_3', 'PROJECTS_CARD_BOLETO_FEATURE_4'],
       challenges: ['PROJECTS_CARD_BOLETO_CHALLENGE_1', 'PROJECTS_CARD_BOLETO_CHALLENGE_2'],
       links: {

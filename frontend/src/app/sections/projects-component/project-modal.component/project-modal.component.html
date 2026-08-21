@@ -5,10 +5,6 @@
     </button>
     <app-project-card-component [project]="project()" [fullDescription]="true" />
     <div class="modal__scroll">
-      <div class="modal__section">
-        <span>{{ 'PROJECTS_MODAL_ROLE' | translate }}</span>
-        <small class="modal__role">{{ project().role | translate }}</small>
-      </div>
       @if (project().techStackFull?.length) {
         <div class="modal__section">
           <span>{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
