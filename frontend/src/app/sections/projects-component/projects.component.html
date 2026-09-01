@@ -2,8 +2,16 @@
   <div class="projects__container">
     <app-title-component title="PROJECTS_TITLE" subtitle="PROJECTS_SUBTITLE" intro="PROJECTS_DESCRIPTION" />
 
+    <div class="projects__filters" aria-label="Filtros rapidos de proyectos">
+      @for (filter of projectFilters; track filter.value) {
+        <button type="button" class="projects__filter" [class.projects__filter--active]="activeFilter() === filter.value" [attr.aria-pressed]="activeFilter() === filter.value" (click)="setActiveFilter(filter.value)">
+          {{ filter.label }}
+        </button>
+      }
+    </div>
+
     <div class="projects__grid">
-      @for (project of projects; track project.id) {
+      @for (project of filteredProjects(); track project.id) {
         <article class="projects__card" role="button" tabindex="0">
           <div class="projects__content">
             <app-project-card-component [project]="project" />
@@ -32,6 +40,8 @@
             </div>
           </div>
         </article>
+      } @empty {
+        <p class="projects__empty">No hay proyectos para este filtro.</p>
       }
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, computed, signal } from '@angular/core';
 import { TitleComponent } from '../../components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
 import { ProjectModalComponent } from './project-modal.component/project-modal.component';
@@ -78,6 +78,13 @@ export interface ChallengeDetails {
   topics: string[];
 }
 
+type ProjectFilterValue = 'all' | 'angular' | 'typescript' | 'ionic' | 'capacitor' | 'react' | 'node' | 'docker';
+
+interface ProjectFilter {
+  label: string;
+  value: ProjectFilterValue;
+}
+
 @Component({
   selector: 'app-projects-component',
   standalone: true,
@@ -86,6 +93,19 @@ export interface ChallengeDetails {
   styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
+  protected readonly projectFilters: ProjectFilter[] = [
+    { label: 'Todos', value: 'all' },
+    { label: 'Angular', value: 'angular' },
+    { label: 'TypeScript', value: 'typescript' },
+    { label: 'Ionic', value: 'ionic' },
+    { label: 'Capacitor', value: 'capacitor' },
+    { label: 'React', value: 'react' },
+    { label: 'Node.js', value: 'node' },
+    { label: 'Docker', value: 'docker' },
+  ];
+
+  protected readonly activeFilter = signal<ProjectFilterValue>('all');
+
   protected readonly projects: ProjectItem[] = [
     {
       id: 'kora-roster',
@@ -129,7 +149,7 @@ export class ProjectsComponent {
       type: 'Mobile',
       shortDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_SHORT_DESC',
       coverImage: 'assets/projects/ionic-plugin-lab/cover.png',
-      techStackPreview: ['Angular 20', 'Ionic', 'Capacitor', 'TypeScript'],
+      techStackPreview: ['Ionic', 'Angular 20', 'Capacitor', 'TypeScript'],
       status: 'IN_PROGRESS',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FULL_DESC',
@@ -248,7 +268,7 @@ export class ProjectsComponent {
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_OILGROUP_SHORT_DESC',
       coverImage: 'assets/projects/oilgroup/cover.png',
-      techStackPreview: ['Angular 11', 'Node.js / Express', 'MySQL', 'amCharts'],
+      techStackPreview: ['Angular 11', 'Node.js', 'Express', 'MySQL', 'amCharts'],
       status: 'COMPLETED',
       year: 2024,
       fullDescription: 'PROJECTS_CARD_OILGROUP_FULL_DESC',
@@ -331,7 +351,7 @@ export class ProjectsComponent {
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_SHORT_DESC',
       coverImage: 'assets/projects/octoautodrive/cover.png',
-      techStackPreview: ['Angular 13', 'Node.js / Express', 'Socket.IO', 'MySQL'],
+      techStackPreview: ['Angular 13', 'Node.js', 'Express', 'Socket.IO', 'MySQL'],
       status: 'ARCHIVED',
       year: 2023,
       fullDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_FULL_DESC',
@@ -395,7 +415,22 @@ export class ProjectsComponent {
     },
   ];
 
+  protected readonly filteredProjects = computed(() => {
+    const activeFilter = this.activeFilter();
+
+    if (activeFilter === 'all') {
+      return this.projects;
+    }
+
+    return this.projects.filter((project) => this.matchesProjectFilter(project, activeFilter));
+  });
+
   protected readonly activeProject = signal<ProjectItem | null>(null);
+
+  protected setActiveFilter(filter: ProjectFilterValue): void {
+    this.activeFilter.set(filter);
+  }
+
   protected openProject(project: ProjectItem): void {
     this.activeProject.set(project);
   }
@@ -407,5 +442,29 @@ export class ProjectsComponent {
   @HostListener('document:keydown.escape')
   protected onEscape(): void {
     this.closeProject();
+  }
+
+  private matchesProjectFilter(project: ProjectItem, filter: Exclude<ProjectFilterValue, 'all'>): boolean {
+    const searchTermByFilter: Record<Exclude<ProjectFilterValue, 'all'>, string> = {
+      angular: 'angular',
+      typescript: 'typescript',
+      ionic: 'ionic',
+      capacitor: 'capacitor',
+      react: 'react',
+      node: 'node',
+      docker: 'docker',
+    };
+
+    const searchTerm = searchTermByFilter[filter];
+    const searchPattern = new RegExp(`(^|[^a-z0-9])${searchTerm}(?=$|[^a-z0-9])`, 'i');
+
+    return this.getProjectSearchTerms(project).some((term) => searchPattern.test(term));
+  }
+
+  private getProjectSearchTerms(project: ProjectItem): string[] {
+    const techStackFull = project.techStackFull?.flatMap((category) => [category.category, ...category.items]) ?? [];
+    const typeDetails = project.typeDetails ? Object.values(project.typeDetails).flatMap((value) => (Array.isArray(value) ? value : [String(value)])) : [];
+
+    return [project.title, project.type, ...project.techStackPreview, ...techStackFull, ...typeDetails];
   }
 }

@@ -40,6 +40,43 @@ describe('ProjectsComponent', () => {
     expect(cards.length).toBe(8);
   });
 
+  it('should render quick filter buttons', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const filters = Array.from(native.querySelectorAll<HTMLButtonElement>('.projects__filter')).map((filter) => filter.textContent?.trim());
+
+    expect(filters).toEqual(['Todos', 'Angular', 'React', 'Ionic', 'PHP', 'Node.js']);
+  });
+
+  it('should filter project cards by selected technology', () => {
+    component['setActiveFilter']('react');
+    fixture.detectChanges();
+
+    const cards = fixture.nativeElement.querySelectorAll('.projects__card');
+
+    expect(component['filteredProjects']().map((project) => project.id)).toEqual(['kora-roster']);
+    expect(cards.length).toBe(1);
+  });
+
+  it('should show an empty state when there are no matching projects', () => {
+    component['setActiveFilter']('php');
+    fixture.detectChanges();
+
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelectorAll('.projects__card').length).toBe(0);
+    expect(native.querySelector('.projects__empty')?.textContent).toContain('No hay proyectos para este filtro.');
+  });
+
+  it('should mark the active quick filter as pressed', () => {
+    component['setActiveFilter']('ionic');
+    fixture.detectChanges();
+
+    const activeFilter = fixture.nativeElement.querySelector('.projects__filter--active') as HTMLButtonElement;
+
+    expect(activeFilter?.textContent?.trim()).toBe('Ionic');
+    expect(activeFilter?.getAttribute('aria-pressed')).toBe('true');
+  });
+
   it('should have the expected projects array', () => {
     const projects = component['projects'];
 
