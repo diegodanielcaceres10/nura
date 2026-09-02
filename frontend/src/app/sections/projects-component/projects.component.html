@@ -18,13 +18,15 @@
           </div>
           <div class="projects__footer">
             <div class="projects__links">
-              <a class="projects__action" [href]="project.links.repo" target="_blank" rel="noopener">
-                <i class="fa-brands fa-github"></i>
-                Repo
-                <i class="fa-solid fa-up-right-from-square"></i>
-              </a>
-              @if (project.links.androidAPK) {
-                <a class="projects__action projects__action-android" [href]="project.links.androidAPK" target="_blank" rel="noopener">
+              @if (project.links?.repo) {
+                <a class="projects__action" [href]="project.links!.repo" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-github"></i>
+                  Repo
+                  <i class="fa-solid fa-up-right-from-square"></i>
+                </a>
+              }
+              @if (project.links?.androidAPK) {
+                <a class="projects__action projects__action-android" [href]="project.links!.androidAPK" target="_blank" rel="noopener">
                   <i class="fa-brands fa-android"></i>
                   Android APK
                   <i class="fa-solid fa-download"></i>

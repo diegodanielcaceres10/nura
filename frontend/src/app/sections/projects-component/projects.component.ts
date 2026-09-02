@@ -19,7 +19,7 @@ export interface ProjectItem {
   keyFeatures: string[];
   challenges?: string[];
   gallery?: string[];
-  links: ProjectLinks;
+  links?: ProjectLinks;
   metrics?: ProjectMetrics;
   typeDetails?: MobileDetails | WebDetails | FullstackDetails | LibraryDetails | ChallengeDetails;
 }
@@ -107,6 +107,45 @@ export class ProjectsComponent {
   protected readonly activeFilter = signal<ProjectFilterValue>('all');
 
   protected readonly projects: ProjectItem[] = [
+    {
+      id: 'kora-core',
+      avatar: 'assets/projects/kora-core/logo.png',
+      title: 'Kora Core',
+      type: 'Fullstack',
+      shortDescription: 'PROJECTS_CARD_KORA_CORE_SHORT_DESC',
+      coverImage: '',
+      techStackPreview: ['Node.js', 'Express', 'TypeScript', 'Prisma', 'PostgreSQL'],
+      status: 'IN_PROGRESS',
+      year: 2026,
+      fullDescription: 'PROJECTS_CARD_KORA_CORE_FULL_DESC',
+      techStackFull: [
+        {
+          category: 'Backend',
+          items: ['Node.js', 'Express', 'TypeScript', 'REST API'],
+        },
+        {
+          category: 'Datos',
+          items: ['PostgreSQL', 'Prisma ORM', 'Migrations'],
+        },
+        {
+          category: 'Autenticación',
+          items: ['JWT', 'Google OAuth', 'Access & Refresh Tokens'],
+        },
+        {
+          category: 'Frontend',
+          items: ['React', 'TypeScript', 'Vite', 'i18n'],
+        },
+      ],
+      keyFeatures: ['PROJECTS_CARD_KORA_CORE_FEATURE_1', 'PROJECTS_CARD_KORA_CORE_FEATURE_2', 'PROJECTS_CARD_KORA_CORE_FEATURE_3', 'PROJECTS_CARD_KORA_CORE_FEATURE_4', 'PROJECTS_CARD_KORA_CORE_FEATURE_5'],
+      challenges: ['PROJECTS_CARD_KORA_CORE_CHALLENGE_1', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_2'],
+      typeDetails: {
+        kind: 'fullstack',
+        backendStack: ['Node.js', 'Express', 'TypeScript'],
+        databases: ['PostgreSQL'],
+        apiType: 'REST',
+        deployment: 'Docker / infraestructura a confirmar',
+      },
+    },
     {
       id: 'kora-roster',
       avatar: 'assets/projects/kora-roster/logo.png',

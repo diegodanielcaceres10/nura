@@ -52,18 +52,20 @@
       }
     </div>
     <div class="modal__footer">
-      <a class="modal__action" [href]="project().links.repo" target="_blank" rel="noopener">
-        Repo
-        <i class="fa-solid fa-up-right-from-square"></i>
-      </a>
-      @if (project().links.demo) {
-        <a class="modal__action" [href]="project().links.demo" target="_blank" rel="noopener">
+      @if (project().links?.repo) {
+        <a class="modal__action" [href]="project().links!.repo" target="_blank" rel="noopener">
+          Repo
+          <i class="fa-solid fa-up-right-from-square"></i>
+        </a>
+      }
+      @if (project().links?.demo) {
+        <a class="modal__action" [href]="project().links!.demo" target="_blank" rel="noopener">
           Demo
           <i class="fa-solid fa-up-right-from-square"></i>
         </a>
       }
-      @if (project().links.androidAPK) {
-        <a class="modal__action modal__action-android" [href]="project().links.androidAPK" target="_blank" rel="noopener">
+      @if (project().links?.androidAPK) {
+        <a class="modal__action modal__action-android" [href]="project().links!.androidAPK" target="_blank" rel="noopener">
           <i class="fa-brands fa-android"></i>
           Android APK
           <i class="fa-solid fa-download"></i>
