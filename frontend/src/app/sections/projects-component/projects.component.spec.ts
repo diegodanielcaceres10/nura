@@ -37,7 +37,7 @@ describe('ProjectsComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = native.querySelectorAll('.projects__card');
 
-    expect(cards.length).toBe(8);
+    expect(cards.length).toBe(9);
   });
 
   it('should render quick filter buttons', () => {
@@ -70,15 +70,16 @@ describe('ProjectsComponent', () => {
   it('should have the expected projects array', () => {
     const projects = component['projects'];
 
-    expect(projects).toHaveLength(8);
-    expect(projects[0].id).toBe('kora-roster');
-    expect(projects[1].id).toBe('ionic-plugin-lab');
-    expect(projects[2].id).toBe('riu-frontend-diego-daniel-caceres');
-    expect(projects[3].id).toBe('nura');
-    expect(projects[4].id).toBe('oilgroup');
-    expect(projects[5].id).toBe('angularjsonform');
-    expect(projects[6].id).toBe('octoautodrive');
-    expect(projects[7].id).toBe('boleto');
+    expect(projects).toHaveLength(9);
+    expect(projects[0].id).toBe('kora-core');
+    expect(projects[1].id).toBe('kora-roster');
+    expect(projects[2].id).toBe('ionic-plugin-lab');
+    expect(projects[3].id).toBe('riu-frontend-diego-daniel-caceres');
+    expect(projects[4].id).toBe('nura');
+    expect(projects[5].id).toBe('oilgroup');
+    expect(projects[6].id).toBe('angularjsonform');
+    expect(projects[7].id).toBe('octoautodrive');
+    expect(projects[8].id).toBe('boleto');
   });
 
   it('should open and close projects modal', () => {

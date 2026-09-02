@@ -131,10 +131,6 @@ export class ProjectsComponent {
           category: 'Autenticación',
           items: ['JWT', 'Google OAuth', 'Access & Refresh Tokens'],
         },
-        {
-          category: 'Frontend',
-          items: ['React', 'TypeScript', 'Vite', 'i18n'],
-        },
       ],
       keyFeatures: ['PROJECTS_CARD_KORA_CORE_FEATURE_1', 'PROJECTS_CARD_KORA_CORE_FEATURE_2', 'PROJECTS_CARD_KORA_CORE_FEATURE_3', 'PROJECTS_CARD_KORA_CORE_FEATURE_4', 'PROJECTS_CARD_KORA_CORE_FEATURE_5'],
       challenges: ['PROJECTS_CARD_KORA_CORE_CHALLENGE_1', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_2'],
@@ -409,7 +405,7 @@ export class ProjectsComponent {
         },
         {
           category: 'DevOps',
-          items: ['Forever', 'Multi-entorno (prod/dev/cloud)'],
+          items: ['Forever', 'Multi-env (prod/dev/cloud)'],
         },
         {
           category: 'Testing',
@@ -502,8 +498,7 @@ export class ProjectsComponent {
 
   private getProjectSearchTerms(project: ProjectItem): string[] {
     const techStackFull = project.techStackFull?.flatMap((category) => [category.category, ...category.items]) ?? [];
-    const typeDetails = project.typeDetails ? Object.values(project.typeDetails).flatMap((value) => (Array.isArray(value) ? value : [String(value)])) : [];
 
-    return [project.title, project.type, ...project.techStackPreview, ...techStackFull, ...typeDetails];
+    return [...project.techStackPreview, ...techStackFull];
   }
 }
