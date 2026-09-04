@@ -131,15 +131,19 @@ export class ProjectsComponent {
           category: 'Autenticación',
           items: ['JWT', 'Google OAuth', 'Access & Refresh Tokens'],
         },
+        {
+          category: 'Email',
+          items: ['Brevo', 'Resend', 'Transactional Email', 'HTML Templates', 'i18n'],
+        },
       ],
-      keyFeatures: ['PROJECTS_CARD_KORA_CORE_FEATURE_1', 'PROJECTS_CARD_KORA_CORE_FEATURE_2', 'PROJECTS_CARD_KORA_CORE_FEATURE_3', 'PROJECTS_CARD_KORA_CORE_FEATURE_4', 'PROJECTS_CARD_KORA_CORE_FEATURE_5'],
-      challenges: ['PROJECTS_CARD_KORA_CORE_CHALLENGE_1', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_2'],
+      keyFeatures: ['PROJECTS_CARD_KORA_CORE_FEATURE_1', 'PROJECTS_CARD_KORA_CORE_FEATURE_2', 'PROJECTS_CARD_KORA_CORE_FEATURE_3', 'PROJECTS_CARD_KORA_CORE_FEATURE_4', 'PROJECTS_CARD_KORA_CORE_FEATURE_5', 'PROJECTS_CARD_KORA_CORE_FEATURE_6', 'PROJECTS_CARD_KORA_CORE_FEATURE_7'],
+      challenges: ['PROJECTS_CARD_KORA_CORE_CHALLENGE_1', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_2', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_3'],
       typeDetails: {
         kind: 'fullstack',
         backendStack: ['Node.js', 'Express', 'TypeScript'],
         databases: ['PostgreSQL'],
         apiType: 'REST',
-        deployment: 'Docker / infraestructura a confirmar',
+        deployment: 'Render (API) · Supabase (PostgreSQL)',
       },
     },
     {
