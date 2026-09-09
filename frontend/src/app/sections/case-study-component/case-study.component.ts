@@ -70,8 +70,8 @@ export class CaseStudyComponent {
       icon: 'fa-solid fa-code',
       title: 'CASE_STUDY_04_TITLE',
       subtitle: 'Refactor',
-      description: 'CASE_STUDY_04_TITLE',
-      metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_TITLE' }],
+      description: 'CASE_STUDY_04_DESCRIPTION',
+      metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_METRIC_01_LABEL' }],
       link: '/case-studies/legacy-codebase-modernization',
     },
   ];
