@@ -210,7 +210,7 @@ export const MESSAGES: Record<string, string> = {
   CONTACT_NPM_NOTE: $localize`:@@CONTACT_NPM_NOTE:Check out my packages`,
   CONTACT_DESCRIPTION: $localize`:@@CONTACT_DESCRIPTION:Have a project, an opportunity or just want to talk tech? I'd love to hear from you.`,
   CONTACT_AVAILABILITY_PREFIX: $localize`:@@CONTACT_AVAILABILITY_PREFIX:Available for`,
-  CONTACT_AVAILABILITY_HIGHLIGHT: $localize`:@@CONTACT_AVAILABILITY_HIGHLIGHT:remote work / contractor`,
+  CONTACT_AVAILABILITY_HIGHLIGHT: $localize`:@@CONTACT_AVAILABILITY_HIGHLIGHT:remote work`,
   CONTACT_AVAILABILITY_DESCRIPTION: $localize`:@@CONTACT_AVAILABILITY_DESCRIPTION:Open to exciting projects and long-term opportunities.`,
   CONTACT_AVAILABILITY_GLOBE_TITLE: $localize`:@@CONTACT_AVAILABILITY_GLOBE_TITLE:Worldwide`,
   CONTACT_AVAILABILITY_GLOBE_DESCRIPTION: $localize`:@@CONTACT_AVAILABILITY_GLOBE_DESCRIPTION:Work from anywhere`,
