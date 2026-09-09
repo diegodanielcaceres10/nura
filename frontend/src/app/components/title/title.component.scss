@@ -3,12 +3,12 @@
 .title {
   max-width: 40rem;
   margin: var(--spacing-3xl) 0 var(--spacing-2xl);
+  color: var(--light-color);
 
   &__text {
     margin: 0;
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
-    color: var(--text-primary);
 
     @include ds.md {
       font-size: var(--font-size-2xl);
@@ -19,15 +19,15 @@
     margin: var(--spacing-2xs) 0 0;
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    background: var(--gradient-secondary);
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    max-width: max-content;
   }
 
   &__intro {
     margin: var(--spacing-md) 0 0;
-    color: var(--text-muted);
     line-height: 1.6;
   }
 }

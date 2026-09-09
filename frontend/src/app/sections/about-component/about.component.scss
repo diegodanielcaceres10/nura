@@ -63,7 +63,7 @@
     font-size: var(--font-size-xl);
     background: var(--primary-color-rgba);
     border: 1px solid var(--primary-color);
-    color: var(--primary-color-light);
+    color: var(--primary-color);
   }
 
   &__paragraph {
@@ -95,18 +95,17 @@
   }
 
   &__education-degree {
-    color: var(--text-primary);
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-semibold);
   }
 
   &__education-institution {
-    color: var(--text-secondary);
+    color: var(--primary-color);
     font-size: var(--font-size-sm);
   }
 
   &__education-meta {
-    color: var(--text-secondary);
+    color: var(--primary-color);
     font-size: var(--font-size-xs);
   }
 
@@ -132,7 +131,7 @@
     }
 
     & small {
-      color: var(--text-secondary);
+      color: var(--primary-color);
       font-size: var(--font-size-2xs);
       white-space: nowrap;
       text-align: right;

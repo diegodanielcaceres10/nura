@@ -20,7 +20,6 @@
     background: var(--bg-primary);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    box-shadow: var(--shadow-brand);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
@@ -38,15 +37,15 @@
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-full);
-    color: var(--text-secondary);
+    color: var(--light-color);
     cursor: pointer;
     transition:
       color var(--transition-fast),
       border-color var(--transition-fast);
 
     &:hover {
-      color: var(--text-primary);
-      border-color: var(--border-color-accent);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
     }
   }
 
@@ -79,10 +78,9 @@
   &__section {
     display: flex;
     flex-direction: column;
-    color: var(--text-primary);
 
     & span {
-      color: var(--text-muted);
+      color: var(--light-color);
       text-transform: uppercase;
     }
   }
@@ -93,7 +91,7 @@
 
     & h3 {
       margin: var(--spacing-sm) 0 var(--spacing-xs);
-      color: var(--secondary-color);
+      color: var(--light-color);
     }
   }
 

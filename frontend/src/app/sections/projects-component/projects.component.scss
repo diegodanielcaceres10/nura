@@ -31,8 +31,7 @@
       transform var(--transition-fast);
 
     &:hover {
-      color: var(--text-primary);
-      border-color: var(--secondary-color);
+      border-color: var(--primary-color);
       transform: translateY(-2px);
     }
 
@@ -42,9 +41,9 @@
     }
 
     &--active {
-      color: var(--text-on-accent);
-      background: var(--secondary-color);
-      border-color: var(--secondary-color);
+      color: var(--white-color);
+      background: var(--primary-color);
+      border-color: var(--primary-color);
     }
   }
 
@@ -130,7 +129,7 @@
       box-shadow var(--transition-fast);
 
     &:hover {
-      color: var(--secondary-color);
+      color: var(--accent-color);
       transform: translateY(-2px);
     }
 

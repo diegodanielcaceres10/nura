@@ -42,8 +42,7 @@
 
     & i {
       font-size: var(--font-size-5xl);
-      color: var(--secondary-color);
-      background: var(--gradient-secondary);
+      background: var(--gradient-primary);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -57,18 +56,16 @@
   }
 
   &__channel-label {
-    color: var(--text-primary);
     font-size: var(--font-size-md);
     font-weight: var(--font-weight-semibold);
   }
 
   &__channel-value {
-    color: var(--text-secondary);
+    color: var(--primary-color);
     font-size: var(--font-size-sm);
   }
 
   &__channel-note {
-    color: var(--text-muted);
     font-size: var(--font-size-xs);
   }
 
@@ -76,7 +73,7 @@
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-2xs);
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-medium);
     text-decoration: none;
@@ -121,7 +118,7 @@
     font-size: var(--font-size-xl);
     background: var(--primary-color-rgba);
     border: 1px solid var(--primary-color);
-    color: var(--primary-color-light);
+    color: var(--primary-color);
   }
 
   &__availability-text {
@@ -168,7 +165,7 @@
     white-space: nowrap;
 
     i {
-      color: var(--secondary-color);
+      color: var(--primary-color);
       font-size: var(--font-size-xl);
     }
   }

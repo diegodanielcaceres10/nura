@@ -172,15 +172,15 @@
     border-radius: var(--radius-full);
     font-size: var(--font-size-2xs);
     font-weight: var(--font-weight-semibold);
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color-light);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
   }
 
   &__role {
     margin: 0;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
-    color: var(--secondary-color);
+    color: var(--primary-color);
   }
 
   &__period {
@@ -215,7 +215,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
     font-size: var(--font-size-2xs);
-    color: var(--text-secondary);
+    color: var(--primary-color);
   }
 
   &__stats {
@@ -251,7 +251,7 @@
 
     &-icon {
       margin-top: 2px;
-      color: var(--secondary-color);
+      color: var(--primary-color);
       font-size: var(--font-size-sm);
     }
 

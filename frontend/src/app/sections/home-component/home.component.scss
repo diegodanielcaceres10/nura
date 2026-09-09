@@ -4,7 +4,7 @@
   position: relative;
   width: 100%;
   padding: var(--spacing-3xl) var(--spacing-lg);
-  background: radial-gradient(circle at 30% 30%, rgba(82, 31, 87, 0.4), transparent 50%), radial-gradient(circle at 80% 70%, rgba(44, 171, 179, 0.2), transparent 20%);
+  background: radial-gradient(circle at 30% 30%, var(--primary-color-rgba), transparent 50%), radial-gradient(circle at 80% 70%, var(--secondary-color-rgba), transparent 20%);
   height: 100vh;
 
   @include ds.lg {
@@ -51,9 +51,9 @@
     gap: var(--spacing-2xs);
     width: fit-content;
     padding: var(--spacing-xs) var(--spacing-sm);
-    border: 1px solid var(--border-color-accent);
+    border: 1px solid var(--primary-color);
     border-radius: var(--radius-full);
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-size: var(--font-size-2xs);
     font-weight: var(--font-weight-semibold);
 
@@ -61,8 +61,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--secondary-color);
-      box-shadow: 0 0 8px var(--secondary-color);
+      background: var(--primary-color);
+      box-shadow: 0 0 8px var(--primary-color);
     }
 
     @include ds.md {
@@ -80,7 +80,6 @@
 
     &-greeting {
       font-size: var(--font-size-2xl);
-      color: var(--text-primary);
     }
 
     &-name {
@@ -101,7 +100,6 @@
       flex-direction: column;
       font-size: var(--font-size-xl);
       font-weight: var(--font-weight-regular);
-      color: var(--text-primary);
       line-height: 1.4;
 
       @include ds.md {
@@ -114,8 +112,8 @@
     max-width: 46ch;
     margin: 0;
     font-size: var(--font-size-md);
-    color: var(--text-secondary);
     line-height: 1.6;
+    color: var(--light-color);
 
     @include ds.md {
       font-size: var(--font-size-sm);
@@ -151,13 +149,11 @@
 
     &-primary {
       background: var(--gradient-primary);
-      color: var(--text-on-accent);
       box-shadow: var(--shadow-glow);
     }
 
     &-secondary {
       background: transparent;
-      color: var(--text-primary);
       border: 1px solid var(--border-color);
 
       &:hover {
@@ -264,7 +260,7 @@
 
     &-detail {
       font-size: var(--font-size-2xs);
-      color: var(--text-secondary);
+      color: var(--primary-color);
     }
   }
 }
@@ -338,14 +334,14 @@
     background: var(--primary-color-rgba);
     border: 1px solid var(--primary-color);
     border-radius: var(--radius-full);
-    color: var(--primary-color-light);
+    color: var(--primary-color);
     font-size: var(--font-size-lg);
   }
 
   &__value {
     font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
-    color: var(--secondary-color);
+    color: var(--accent-color);
 
     @include ds.md {
       font-size: var(--font-size-xl);
@@ -428,10 +424,10 @@
       gap: var(--spacing-xs);
       font-size: var(--font-size-lg);
       font-weight: var(--font-weight-semibold);
-      color: var(--text-primary);
+      color: var(--white-color);
 
       i {
-        color: var(--secondary-color);
+        color: var(--primary-color);
       }
     }
   }
@@ -453,7 +449,7 @@
   &__caption {
     margin: 0;
     font-size: var(--font-size-xs);
-    color: var(--text-muted);
+    color: var(--primary-color);
     line-height: 1.5;
   }
 }
