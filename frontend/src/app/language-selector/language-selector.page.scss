@@ -93,7 +93,7 @@
   }
 
   &__title {
-    color: var(--text-secondary);
+    color: var(--light-color);
     font-size: var(--font-size-2xl);
   }
 
@@ -134,7 +134,7 @@
     }
 
     & small {
-      color: var(--text-secondary);
+      color: var(--primary-color);
       font-size: var(--font-size-xs);
     }
 
