@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from './locale.service';
 
 describe('LocaleService', () => {
@@ -9,6 +9,9 @@ describe('LocaleService', () => {
     window.history.replaceState({}, '', '/');
     document.documentElement.lang = '';
     TestBed.resetTestingModule();
+
+    // Mock navigator.languages to empty so browser detection doesn't interfere
+    vi.stubGlobal('navigator', { ...navigator, languages: [], language: '' });
   });
 
   it('resolveStartupLocale should use query param first', () => {
@@ -39,6 +42,20 @@ describe('LocaleService', () => {
   });
 
   it('resolveStartupLocale should fallback to default locale for unsupported values', () => {
+    expect(LocaleService.resolveStartupLocale()).toBe('es');
+  });
+
+  it('resolveStartupLocale should detect browser locale when supported', () => {
+    vi.stubGlobal('navigator', { ...navigator, languages: ['pt-BR', 'pt'], language: 'pt-BR' });
+    window.history.replaceState({}, '', '/');
+
+    expect(LocaleService.resolveStartupLocale()).toBe('pt');
+  });
+
+  it('resolveStartupLocale should fallback to default for unsupported browser locale', () => {
+    vi.stubGlobal('navigator', { ...navigator, languages: ['de-DE'], language: 'de-DE' });
+    window.history.replaceState({}, '', '/');
+
     expect(LocaleService.resolveStartupLocale()).toBe('es');
   });
 

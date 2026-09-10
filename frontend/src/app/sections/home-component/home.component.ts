@@ -9,7 +9,6 @@ export type TechBadgePosition = 'top-left' | 'top-right' | 'bottom-left' | 'bott
 export interface TechBadge {
   icon: string;
   name: string;
-  detail: string;
   position: TechBadgePosition;
 }
 
@@ -43,13 +42,12 @@ export class HomeComponent {
   private readonly localeService = inject(LocaleService);
 
   protected readonly techBadges: TechBadge[] = [
-    { icon: 'assets/logos/angular.png', name: 'Angular', detail: 'v21', position: 'top-left' },
-    { icon: 'assets/logos/ionic.png', name: 'Ionic', detail: 'Capacitor', position: 'top-right' },
-    { icon: 'assets/logos/node.png', name: 'Node.js', detail: 'Express', position: 'bottom-left' },
+    { icon: 'assets/logos/angular.png', name: 'Angular', position: 'top-left' },
+    { icon: 'assets/logos/ionic.png', name: 'Ionic', position: 'top-right' },
+    { icon: 'assets/logos/typescript.png', name: 'Typescript', position: 'bottom-left' },
     {
       icon: 'assets/logos/cloud.png',
-      name: 'Cloud & DevOps',
-      detail: 'Docker · Azure',
+      name: 'Cloud',
       position: 'bottom-right',
     },
   ];

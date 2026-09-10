@@ -1,15 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LanguageSelectorPage } from './language-selector.page';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { AppLocale, LocaleService } from '../services/locale/locale.service';
 
 describe('LanguageSelectorPage', () => {
   let component: LanguageSelectorPage;
   let fixture: ComponentFixture<LanguageSelectorPage>;
+  let resolveStartupLocaleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(async () => {
     vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
       return typeof message === 'string' ? message : (message[0] ?? '');
     });
+
+    // Prevent auto-redirect so the selector UI renders during tests
+    resolveStartupLocaleSpy = vi.spyOn(LocaleService, 'resolveStartupLocale')
+      .mockReturnValue('' as AppLocale);
 
     await TestBed.configureTestingModule({
       imports: [LanguageSelectorPage],
@@ -70,5 +76,21 @@ describe('LanguageSelectorPage', () => {
   it('should render channel links', () => {
     const links = fixture.nativeElement.querySelectorAll('.language__channel');
     expect(links.length).toBeGreaterThan(0);
+  });
+
+  it('should show spinner and hide container when redirecting', () => {
+    resolveStartupLocaleSpy.mockReturnValue('en' as AppLocale);
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const spinner = fixture.nativeElement.querySelector('.language__spinner-overlay');
+    const container = fixture.nativeElement.querySelector('.language__container--hidden');
+    expect(spinner).toBeTruthy();
+    expect(container).toBeTruthy();
+  });
+
+  it('should not show spinner when no locale is detected', () => {
+    const spinner = fixture.nativeElement.querySelector('.language__spinner-overlay');
+    expect(spinner).toBeFalsy();
   });
 });

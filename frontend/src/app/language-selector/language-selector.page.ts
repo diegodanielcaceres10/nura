@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
 
-const REDIRECT_DELAY_MS = 2000;
+const REDIRECT_DELAY_MS = 1500;
 
 export interface LanguageOption {
   code: string;
