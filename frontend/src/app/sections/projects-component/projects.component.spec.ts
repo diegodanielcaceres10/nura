@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ProjectsComponent } from './projects.component';
+import { ProjectItem, ProjectsComponent } from './projects.component';
+import { Router } from '@angular/router';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -11,6 +12,7 @@ describe('ProjectsComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ProjectsComponent],
+      providers: [{ provide: Router, useValue: { navigate: vi.fn() } }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectsComponent);
@@ -115,16 +117,18 @@ describe('ProjectsComponent', () => {
   });
 
   it('should open project via button click in template', () => {
+    const spy = vi.spyOn(component as unknown as { navigateToProject: (p: ProjectItem) => void }, 'navigateToProject');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('.projects__action:not([href])') as HTMLButtonElement;
 
     button?.click();
     fixture.detectChanges();
 
-    expect(component['activeProject']()).not.toBeNull();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should handle keydown.enter on button', () => {
+    const spy = vi.spyOn(component as unknown as { navigateToProject: (p: ProjectItem) => void }, 'navigateToProject');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('.projects__action:not([href])') as HTMLButtonElement;
 
@@ -132,10 +136,11 @@ describe('ProjectsComponent', () => {
     button?.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(component['activeProject']()).not.toBeNull();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should handle keydown.space on button', () => {
+    const spy = vi.spyOn(component as unknown as { navigateToProject: (p: ProjectItem) => void }, 'navigateToProject');
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('.projects__action:not([href])') as HTMLButtonElement;
 
@@ -143,7 +148,7 @@ describe('ProjectsComponent', () => {
     button?.dispatchEvent(event);
     fixture.detectChanges();
 
-    expect(component['activeProject']()).not.toBeNull();
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should render anchor tag with href to github repo', () => {

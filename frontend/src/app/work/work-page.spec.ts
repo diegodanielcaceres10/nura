@@ -1,17 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WorkPage } from './work-page';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectsService } from '../services/projects/projects.service';
+import { ProjectItem } from '../sections/projects-component/projects.component';
 
-const mockProject = {
+const mockProject: ProjectItem = {
   id: 'ionic-plugin-lab',
   title: 'Ionic Plugin Lab',
-  type: 'Mobile' as const,
+  type: 'Mobile',
   shortDescription: 'Short desc',
   coverImage: '',
   techStackPreview: ['Ionic', 'Angular'],
-  status: 'IN_PROGRESS' as const,
+  status: 'IN_PROGRESS',
   year: 2026,
   fullDescription: 'Full desc',
   keyFeatures: ['Feature 1'],
@@ -27,15 +29,11 @@ describe('WorkPage', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [WorkPage],
+      imports: [WorkPage, RouterTestingModule],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: { snapshot: { paramMap: { get: () => 'ionic-plugin-lab' } } },
-        },
-        {
-          provide: Router,
-          useValue: { navigate: vi.fn() },
         },
         {
           provide: ProjectsService,
@@ -68,13 +66,12 @@ describe('WorkPage', () => {
   it('should show not-found state when project does not exist', async () => {
     await TestBed.resetTestingModule();
     await TestBed.configureTestingModule({
-      imports: [WorkPage],
+      imports: [WorkPage, RouterTestingModule],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: { snapshot: { paramMap: { get: () => 'nonexistent-id' } } },
         },
-        { provide: Router, useValue: { navigate: vi.fn() } },
         {
           provide: ProjectsService,
           useValue: { getAll: () => [], getById: () => undefined },
@@ -88,8 +85,8 @@ describe('WorkPage', () => {
   });
 
   it('should navigate back when goBack is called', () => {
-    const router = TestBed.inject(Router);
+    const navigateSpy = vi.spyOn(component['router'], 'navigate');
     component['goBack']();
-    expect(router.navigate).toHaveBeenCalled();
+    expect(navigateSpy).toHaveBeenCalled();
   });
 });
