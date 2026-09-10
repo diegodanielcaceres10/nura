@@ -1,16 +1,21 @@
 @use 'index' as ds;
 
 .work {
-  min-height: 100vh;
+  height: 100vh;
   padding: calc(var(--header-height, 80px) + var(--spacing-2xl)) var(--spacing-lg) var(--spacing-4xl);
   background: var(--bg-primary);
+  padding-top: var(--spacing-3xl);
+  display: flex;
+  flex-direction: column;
 
   &__container {
-    max-width: 900px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2xl);
+    flex: 1;
+    min-height: 0;
   }
 
   &__back {
@@ -42,28 +47,45 @@
     align-items: center;
     gap: var(--spacing-lg);
     padding: var(--spacing-4xl);
-    color: var(--text-secondary, var(--light-color));
+    color: var(--light-color);
     font-size: var(--font-size-lg);
 
     & i {
       font-size: var(--font-size-5xl);
-      color: var(--border-color);
+      color: var(--light-color);
     }
   }
 
   &__content {
+    display: grid;
+    grid-template-columns: 40% 60%;
+    flex: 1;
+    min-height: 0;
+  }
+
+  &__aside {
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-2xl);
+    gap: var(--spacing-md);
+  }
+
+  &__sections {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: 0 var(--spacing-md);
+    margin-bottom: var(--spacing-md);
   }
 
   &__section {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-md);
     background: var(--bg-surface);
     border: 1px solid var(--border-color);
+    border-left: 4px solid var(--secondary-color);
     border-radius: var(--radius-md);
   }
 
@@ -109,7 +131,7 @@
   }
 
   &__features {
-    padding-left: var(--spacing-xl);
+    padding-left: var(--spacing-md);
     font-size: var(--font-size-sm);
     display: flex;
     flex-direction: column;
@@ -125,8 +147,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-lg);
-    border-left: 4px solid var(--secondary-color);
     font-size: var(--font-size-sm);
 
     & p {
@@ -137,7 +157,7 @@
 
   &__gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-sm);
 
     @include ds.md {

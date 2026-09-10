@@ -37,8 +37,8 @@
 
   &__heading {
     display: flex;
-    justify-content: space-between;
-    gap: var(--spacing-sm);
+    align-items: center;
+    gap: var(--spacing-md);
 
     & small {
       color: var(--accent-color);

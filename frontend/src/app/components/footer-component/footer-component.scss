@@ -6,10 +6,11 @@
   justify-content: center;
 
   &_copyright {
+    font-size: var(--font-size-xs);
     color: var(--text-muted);
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
-    margin: var(--spacing-2xl) 0;
+    margin: var(--spacing-xl) 0;
   }
 }

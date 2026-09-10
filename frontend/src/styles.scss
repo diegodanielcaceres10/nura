@@ -57,3 +57,27 @@ button:hover {
     padding: var(--spacing-xl) var(--spacing-lg);
   }
 }
+
+.custom-scroll {
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-surface) transparent;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--bg-surface);
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-surface);
+  }
+}
