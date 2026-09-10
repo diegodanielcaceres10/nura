@@ -29,6 +29,9 @@ export class LocaleService {
     const queryLocale = this.readQueryLocale();
     if (queryLocale) return queryLocale;
 
+    const browserLocale = this.readBrowserLocale();
+    if (browserLocale) return browserLocale;
+
     return DEFAULT_LOCALE;
   }
 
@@ -48,6 +51,18 @@ export class LocaleService {
   private static normalizeStatic(locale: string): AppLocale {
     const short = locale.split('-')[0] as AppLocale;
     return SUPPORTED_LOCALES.includes(short) ? short : DEFAULT_LOCALE;
+  }
+
+  private static readBrowserLocale(): AppLocale | null {
+    if (!isBrowser) return null;
+
+    const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
+    for (const lang of languages) {
+      const normalized = this.normalizeStatic(lang);
+      if (SUPPORTED_LOCALES.includes(normalized)) return normalized;
+    }
+
+    return null;
   }
 
   private static readQueryLocale(): AppLocale | null {

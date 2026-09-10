@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
+
+const REDIRECT_DELAY_MS = 2000;
 
 export interface LanguageOption {
   code: string;
@@ -21,8 +23,19 @@ export interface QuickLink {
   templateUrl: './language-selector.page.html',
   styleUrl: './language-selector.page.scss',
 })
-export class LanguageSelectorPage {
+export class LanguageSelectorPage implements OnInit {
   private readonly localeService = inject(LocaleService);
+
+  protected readonly redirecting = signal(true);
+
+  ngOnInit(): void {
+    const detected = LocaleService.resolveStartupLocale();
+    if (detected) {
+      setTimeout(() => this.localeService.changeLocale(detected), REDIRECT_DELAY_MS);
+    } else {
+      this.redirecting.set(false);
+    }
+  }
 
   protected readonly languages: LanguageOption[] = [
     { code: 'ES', locale: 'es', name: 'Español', description: 'Ver portfolio en español' },
