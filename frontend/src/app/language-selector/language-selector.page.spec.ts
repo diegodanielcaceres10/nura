@@ -6,7 +6,6 @@ import { AppLocale, LocaleService } from '../services/locale/locale.service';
 describe('LanguageSelectorPage', () => {
   let component: LanguageSelectorPage;
   let fixture: ComponentFixture<LanguageSelectorPage>;
-  let resolveStartupLocaleSpy: ReturnType<typeof vi.spyOn>;
 
   beforeEach(async () => {
     vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => {
@@ -14,8 +13,7 @@ describe('LanguageSelectorPage', () => {
     });
 
     // Prevent auto-redirect so the selector UI renders during tests
-    resolveStartupLocaleSpy = vi.spyOn(LocaleService, 'resolveStartupLocale')
-      .mockReturnValue('' as AppLocale);
+    vi.spyOn(LocaleService, 'resolveStartupLocale').mockReturnValue('' as AppLocale);
 
     await TestBed.configureTestingModule({
       imports: [LanguageSelectorPage],
@@ -78,19 +76,24 @@ describe('LanguageSelectorPage', () => {
     expect(links.length).toBeGreaterThan(0);
   });
 
-  it('should show spinner and hide container when redirecting', () => {
-    resolveStartupLocaleSpy.mockReturnValue('en' as AppLocale);
-    component.ngOnInit();
+  it('should show spinner when redirecting', () => {
+    component['redirecting'].set(true);
     fixture.detectChanges();
 
-    const spinner = fixture.nativeElement.querySelector('.language__spinner-overlay');
-    const container = fixture.nativeElement.querySelector('.language__container--hidden');
+    const spinner = fixture.nativeElement.querySelector('.language__spinner');
     expect(spinner).toBeTruthy();
-    expect(container).toBeTruthy();
+  });
+
+  it('should hide language buttons when redirecting', () => {
+    component['redirecting'].set(true);
+    fixture.detectChanges();
+
+    const buttons = fixture.nativeElement.querySelectorAll('.language__lang');
+    expect(buttons.length).toBe(0);
   });
 
   it('should not show spinner when no locale is detected', () => {
-    const spinner = fixture.nativeElement.querySelector('.language__spinner-overlay');
+    const spinner = fixture.nativeElement.querySelector('.language__spinner');
     expect(spinner).toBeFalsy();
   });
 });
