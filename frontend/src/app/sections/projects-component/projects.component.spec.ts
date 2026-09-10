@@ -84,38 +84,6 @@ describe('ProjectsComponent', () => {
     expect(projects[8].id).toBe('boleto');
   });
 
-  it('should open and close projects modal', () => {
-    const project = component['projects'][0];
-
-    component['openProject'](project);
-    expect(component['activeProject']()).toBe(project);
-
-    component['closeProject']();
-    expect(component['activeProject']()).toBeNull();
-  });
-
-  it('should render the project modal when activeProject is set', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const project = component['projects'][0];
-
-    component['openProject'](project);
-    fixture.detectChanges();
-
-    expect(native.querySelector('app-project-modal-component')).not.toBeNull();
-  });
-
-  it('should close modal on escape key press', () => {
-    const project = component['projects'][0];
-
-    component['openProject'](project);
-    expect(component['activeProject']()).toBe(project);
-
-    const event = new KeyboardEvent('keydown', { key: 'Escape' });
-    document.dispatchEvent(event);
-
-    expect(component['activeProject']()).toBeNull();
-  });
-
   it('should open project via button click in template', () => {
     const spy = vi.spyOn(component as unknown as { navigateToProject: (p: ProjectItem) => void }, 'navigateToProject');
     fixture.detectChanges();
