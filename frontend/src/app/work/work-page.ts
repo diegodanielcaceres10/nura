@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
@@ -18,6 +19,7 @@ import { ProjectItem } from '../sections/projects-component/projects.component';
 export class WorkPage implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
   private readonly projectsService = inject(ProjectsService);
   private readonly localeService = inject(LocaleService);
 
@@ -41,6 +43,6 @@ export class WorkPage implements OnInit {
 
   protected goBack(): void {
     const lang = this.localeService.getCurrentLocale();
-    this.router.navigate(['/', lang]);
+    this.router.navigate(['/', lang], { fragment: 'projects' });
   }
 }

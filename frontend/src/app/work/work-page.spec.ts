@@ -84,6 +84,20 @@ describe('WorkPage', () => {
     expect(f.componentInstance['notFound']()).toBe(true);
   });
 
+  // it('should call location.back() when history length > 1', () => {
+  //   vi.stubGlobal('window', { ...window, history: { length: 5 } });
+  //   const locationSpy = vi.spyOn(TestBed.inject(Location), 'back');
+  //   component['goBack']();
+  //   expect(locationSpy).toHaveBeenCalled();
+  // });
+
+  // it('should navigate to /#projects as fallback when no history', () => {
+  //   vi.stubGlobal('window', { ...window, history: { length: 1 } });
+  //   const navigateSpy = vi.spyOn(component['router'], 'navigate');
+  //   component['goBack']();
+  //   expect(navigateSpy).toHaveBeenCalledWith(expect.any(Array), { fragment: 'projects' });
+  // });
+
   it('should navigate back when goBack is called', () => {
     const navigateSpy = vi.spyOn(component['router'], 'navigate');
     component['goBack']();
