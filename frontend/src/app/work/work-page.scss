@@ -1,0 +1,193 @@
+@use 'index' as ds;
+
+.work {
+  min-height: 100vh;
+  padding: calc(var(--header-height, 80px) + var(--spacing-2xl)) var(--spacing-lg) var(--spacing-4xl);
+  background: var(--bg-primary);
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+  }
+
+  &__back {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast);
+    align-self: flex-start;
+
+    &:hover {
+      border-color: var(--secondary-color);
+      transform: translateX(-4px);
+    }
+  }
+
+  &__not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg);
+    padding: var(--spacing-4xl);
+    color: var(--text-secondary, var(--light-color));
+    font-size: var(--font-size-lg);
+
+    & i {
+      font-size: var(--font-size-5xl);
+      color: var(--border-color);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    padding: var(--spacing-xl);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+  }
+
+  &__section-label {
+    color: var(--light-color);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  &__stacks {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  &__stack-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  &__stack-category {
+    font-size: var(--font-size-sm);
+    color: var(--light-color);
+    margin: 0;
+  }
+
+  &__techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2xs);
+
+    & small {
+      padding: var(--spacing-2xs) var(--spacing-sm);
+      background: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-2xs);
+      color: var(--text-primary);
+    }
+  }
+
+  &__features {
+    padding-left: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    margin: 0;
+
+    & li {
+      color: var(--text-primary);
+    }
+  }
+
+  &__challenges {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-left: 4px solid var(--secondary-color);
+    font-size: var(--font-size-sm);
+
+    & p {
+      margin: 0;
+      color: var(--text-primary);
+    }
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+
+    @include ds.md {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__photo {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+
+    & img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color var(--transition-fast),
+      transform var(--transition-fast);
+
+    &:hover {
+      border-color: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    &--android i:first-child {
+      color: #a4c639;
+    }
+  }
+}

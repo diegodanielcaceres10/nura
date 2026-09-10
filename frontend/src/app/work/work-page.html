@@ -1,0 +1,113 @@
+<app-header-component />
+
+<main class="work">
+  <div class="work__container">
+
+    <button class="work__back" type="button" (click)="goBack()">
+      <i class="fa-solid fa-arrow-left-long"></i>
+      {{ 'WORK_BACK' | translate }}
+    </button>
+
+    @if (notFound()) {
+      <div class="work__not-found">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p>{{ 'WORK_NOT_FOUND' | translate }}</p>
+        <button class="work__back" type="button" (click)="goBack()">
+          {{ 'WORK_BACK' | translate }}
+        </button>
+      </div>
+    }
+
+    @if (project(); as p) {
+      <div class="work__content">
+
+        <app-project-card-component [project]="p" [fullDescription]="true" />
+
+        @if (p.techStackFull?.length) {
+          <div class="work__section">
+            <span class="work__section-label">{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
+            <div class="work__stacks">
+              @for (tech of p.techStackFull; track tech.category) {
+                <div class="work__stack-group">
+                  <h3 class="work__stack-category">{{ tech.category }}</h3>
+                  <div class="work__techs">
+                    @for (item of tech.items; track item) {
+                      <small>{{ item }}</small>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="work__section">
+          <span class="work__section-label">{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
+          <ul class="work__features">
+            @for (feature of p.keyFeatures; track feature) {
+              <li>{{ feature | translate }}</li>
+            }
+          </ul>
+        </div>
+
+        @if (p.challenges?.length) {
+          <div class="work__section">
+            <span class="work__section-label">{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
+            <div class="work__challenges">
+              @for (challenge of p.challenges; track challenge) {
+                <p>{{ challenge | translate }}</p>
+              }
+            </div>
+          </div>
+        }
+
+        @if (p.gallery?.length) {
+          <div class="work__section">
+            <span class="work__section-label">{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
+            <div class="work__gallery">
+              @for (img of p.gallery; track img) {
+                <div class="work__photo">
+                  <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="work__actions">
+          @if (p.links?.repo) {
+            <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
+              <i class="fa-brands fa-github"></i>
+              Repo
+              <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
+          }
+          @if (p.links?.demo) {
+            <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
+              Demo
+              <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
+          }
+          @if (p.links?.npm) {
+            <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
+              <i class="fa-brands fa-npm"></i>
+              npm
+              <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
+          }
+          @if (p.links?.androidAPK) {
+            <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
+              <i class="fa-brands fa-android"></i>
+              Android APK
+              <i class="fa-solid fa-download"></i>
+            </a>
+          }
+        </div>
+
+      </div>
+    }
+
+  </div>
+</main>
+
+<app-footer-component />
