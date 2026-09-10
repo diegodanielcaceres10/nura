@@ -1,8 +1,7 @@
-import { Component, HostListener, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
-import { ProjectModalComponent } from './project-modal.component/project-modal.component';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { LocaleService } from '../../services/locale/locale.service';
 
@@ -91,7 +90,7 @@ interface ProjectFilter {
 @Component({
   selector: 'app-projects-component',
   standalone: true,
-  imports: [TitleComponent, ProjectCardComponent, ProjectModalComponent],
+  imports: [TitleComponent, ProjectCardComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })
@@ -125,8 +124,6 @@ export class ProjectsComponent {
     return this.projects.filter((project) => this.matchesProjectFilter(project, activeFilter));
   });
 
-  protected readonly activeProject = signal<ProjectItem | null>(null);
-
   protected setActiveFilter(filter: ProjectFilterValue): void {
     this.activeFilter.set(filter);
   }
@@ -134,19 +131,6 @@ export class ProjectsComponent {
   protected navigateToProject(project: ProjectItem): void {
     const lang = this.localeService.getCurrentLocale();
     this.router.navigate(['/', lang, 'work', project.id]);
-  }
-
-  protected openProject(project: ProjectItem): void {
-    this.activeProject.set(project);
-  }
-
-  protected closeProject(): void {
-    this.activeProject.set(null);
-  }
-
-  @HostListener('document:keydown.escape')
-  protected onEscape(): void {
-    this.closeProject();
   }
 
   private matchesProjectFilter(project: ProjectItem, filter: Exclude<ProjectFilterValue, 'all'>): boolean {
