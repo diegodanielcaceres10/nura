@@ -69,8 +69,11 @@
     border: 1px solid var(--border-color);
 
     & i {
-      color: var(--primary-color);
       font-size: var(--font-size-4xl);
+      background: var(--gradient-primary);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   }
 

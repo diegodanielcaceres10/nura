@@ -4,8 +4,9 @@
   // Colors
   --primary-color: #{ds.$primary-color};
   --secondary-color: #{ds.$secondary-color};
-  --alternative-color: #{ds.$alternative-color};
+  --terciary-color: #{ds.$terciary-color};
   --accent-color: #{ds.$accent-color};
+  --alternative-color: #{ds.$alternative-color};
   --light-color: #{ds.$light-color};
 
   --primary-color-rgba: #{ds.$primary-color-rgba};
@@ -31,7 +32,7 @@
 
   // Gradients & effects
   --gradient-primary: #{ds.$gradient-primary};
-  --gradient-secondary: #{ds.$gradient-secondary};
+
   --shadow-glow: #{ds.$shadow-glow};
   --shadow-brand: #{ds.$shadow-brand};
 
