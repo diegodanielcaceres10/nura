@@ -1,3 +1,45 @@
-<main class="dashboard-page">
-  <h1>Dashboard</h1>
-</main>
+<div class="dashboard">
+  <header class="dashboard__header">
+    <div class="dashboard__brand">
+      <img src="assets/logo.png" alt="Nura Logo" width="191" height="44" decoding="async" />
+    </div>
+
+    <div class="dashboard__heading">
+      <div class="dashboard__title-group">
+        <img
+          class="dashboard__ga-logo"
+          src="assets/google-analytics-icon.png"
+          alt="Logo de Google Analytics"
+          width="38"
+          height="44"
+          decoding="async"
+        />
+        <div>
+          <h1 class="dashboard__title">Google Analytics</h1>
+          <p class="dashboard__subtitle">Descubre cómo interactúan los usuarios con tu web.</p>
+        </div>
+      </div>
+
+      <div class="period">
+        <svg class="period__icon" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3.5" y="5" width="17" height="15.5" rx="2.5" />
+          <path d="M3.5 10h17M8 3v4M16 3v4" />
+        </svg>
+        <select
+          class="period__select"
+          aria-label="Período"
+          (change)="onPeriodChange($event)"
+        >
+          @for (option of periods; track option.value) {
+            <option [value]="option.value" [selected]="option.value === period()">
+              {{ option.label }}
+            </option>
+          }
+        </select>
+        <svg class="period__chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </div>
+    </div>
+  </header>
+</div>

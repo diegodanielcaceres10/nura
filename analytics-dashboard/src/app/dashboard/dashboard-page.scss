@@ -1,3 +1,145 @@
 :host {
   display: block;
 }
+
+.dashboard {
+  min-height: 100vh;
+  padding: 32px 40px;
+  background: var(--app-background);
+}
+
+.dashboard__header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dashboard__brand {
+  align-self: flex-start;
+  padding: 10px 22px;
+  border-radius: 14px;
+  background: #f4f1ff;
+  box-shadow: 0 8px 24px rgba(91, 63, 214, 0.35);
+
+  img {
+    display: block;
+    height: 44px;
+    width: auto;
+  }
+}
+
+.dashboard__heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.dashboard__title-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard__ga-logo {
+  display: block;
+  height: 44px;
+  width: auto;
+}
+
+.dashboard__title {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.dashboard__subtitle {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-text-muted);
+}
+
+.period {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.period__select {
+  appearance: none;
+  height: 46px;
+  min-width: 200px;
+  padding: 0 42px 0 44px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.07);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  option {
+    background: #0e1533;
+    color: var(--color-text);
+  }
+}
+
+.period__icon,
+.period__chevron {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.period__icon {
+  left: 16px;
+}
+
+.period__chevron {
+  right: 14px;
+}
+
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 24px 20px;
+  }
+
+  .dashboard__header {
+    gap: 24px;
+  }
+
+  .dashboard__title {
+    font-size: 24px;
+  }
+
+  .dashboard__heading,
+  .period,
+  .period__select {
+    width: 100%;
+  }
+}

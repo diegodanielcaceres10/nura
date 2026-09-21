@@ -8,10 +8,7 @@
   grid-template-rows: 1fr auto;
   justify-items: center;
   padding: 48px 24px 32px;
-  background:
-    radial-gradient(60% 45% at 8% 100%, rgba(91, 63, 214, 0.45), transparent 70%),
-    radial-gradient(55% 40% at 90% 0%, rgba(59, 91, 219, 0.25), transparent 70%),
-    linear-gradient(180deg, #0a1030 0%, #070c22 100%);
+  background: var(--app-background);
 }
 
 .login__panel {
