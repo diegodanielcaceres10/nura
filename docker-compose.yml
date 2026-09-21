@@ -2,7 +2,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/web/Dockerfile
     container_name: nura-frontend
     ports:
       - "4001:4200"
@@ -11,3 +11,17 @@ services:
       - /app/node_modules
     stdin_open: true
     tty: true
+
+  analytics-dashboard:
+    build:
+      context: .
+      dockerfile: docker/analytics/Dockerfile
+    container_name: nura-analytics-dashboard
+    ports:
+      - "8001:4200"
+    volumes:
+      - ./analytics-dashboard:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    profiles: ["analytics-dashboard"]
