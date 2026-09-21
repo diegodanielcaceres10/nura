@@ -2,8 +2,6 @@ FROM node:20-bullseye
 
 WORKDIR /app
 
-RUN npm install -g @angular/cli
-
 COPY analytics-dashboard/package*.json ./
 
 RUN npm ci
