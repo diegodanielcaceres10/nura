@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-bg: #070c22;
+  --color-text: #f5f7ff;
+  --color-text-muted: #a9b3d1;
+  --color-primary: #8b6cf6;
+  --color-accent: #8f96ff;
+  --color-border: rgba(255, 255, 255, 0.12);
+  --font-family: 'Google Sans', 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-family);
+  color-scheme: dark;
+}
