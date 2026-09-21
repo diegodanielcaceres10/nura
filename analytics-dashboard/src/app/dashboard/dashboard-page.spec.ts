@@ -45,4 +45,14 @@ describe('DashboardPage', () => {
 
     expect(fixture.componentInstance['period']()).toBe('7d');
   });
+
+  it('should render the four metric cards from the prototype', () => {
+    const cards = element.querySelectorAll('.metric-card');
+    expect(cards.length).toBe(4);
+
+    const values = Array.from(cards).map(
+      (card) => card.querySelector('.metric-card__value')?.textContent?.trim(),
+    );
+    expect(values).toEqual(['198', '257', '1.886', '779']);
+  });
 });

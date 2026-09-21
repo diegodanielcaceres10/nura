@@ -1,0 +1,150 @@
+:host {
+  display: block;
+}
+
+.metric-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03);
+
+  --accent: var(--color-primary);
+  --accent-soft: rgba(139, 108, 246, 0.16);
+
+  &[data-accent='blue'] {
+    --accent: #4d9bf5;
+    --accent-soft: rgba(77, 155, 245, 0.16);
+  }
+
+  &[data-accent='green'] {
+    --accent: #34d399;
+    --accent-soft: rgba(52, 211, 153, 0.16);
+  }
+
+  &[data-accent='pink'] {
+    --accent: #f4679b;
+    --accent-soft: rgba(244, 103, 155, 0.16);
+  }
+}
+
+.metric-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.metric-card__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, var(--accent), color-mix(in srgb, var(--accent) 55%, #0a0f24));
+
+  svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  svg path[d^='M12.5'] {
+    fill: #ffffff;
+    stroke: none;
+  }
+}
+
+.metric-card__label {
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.metric-card__body {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 52px;
+}
+
+.metric-card__value {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.metric-card__delta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #34d399;
+}
+
+.metric-card__delta-icon {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.metric-card__caption {
+  margin: 0;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.metric-card__sparkline {
+  position: absolute;
+  right: -4px;
+  bottom: -4px;
+  width: 96px;
+  height: 40px;
+}
+
+.metric-card__sparkline-area {
+  fill: var(--accent-soft);
+  stroke: none;
+}
+
+.metric-card__sparkline-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 960px) {
+  .metric-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .metric-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card__sparkline {
+    width: 76px;
+  }
+}

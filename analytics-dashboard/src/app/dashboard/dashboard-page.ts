@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 
 export type PeriodValue = '7d' | '28d' | '90d' | '12m';
 
@@ -9,11 +10,51 @@ interface PeriodOption {
 
 @Component({
   selector: 'app-dashboard-page',
+  imports: [MetricCards],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardPage {
+  protected readonly metrics: readonly MetricCardData[] = [
+    {
+      id: 'users',
+      label: 'Usuarios activos',
+      value: '198',
+      deltaPercent: 12.5,
+      icon: 'users',
+      accent: 'purple',
+      sparkline: [6, 8, 7, 11, 9, 13, 12, 16, 15, 19],
+    },
+    {
+      id: 'sessions',
+      label: 'Sesiones',
+      value: '257',
+      deltaPercent: 8.7,
+      icon: 'sessions',
+      accent: 'blue',
+      sparkline: [10, 9, 13, 11, 15, 13, 17, 16, 20, 22],
+    },
+    {
+      id: 'events',
+      label: 'Eventos',
+      value: '1.886',
+      deltaPercent: 18.3,
+      icon: 'events',
+      accent: 'green',
+      sparkline: [8, 11, 9, 14, 12, 17, 15, 21, 18, 25],
+    },
+    {
+      id: 'pageviews',
+      label: 'Visualizaciones de página',
+      value: '779',
+      deltaPercent: 14.2,
+      icon: 'pageviews',
+      accent: 'pink',
+      sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
+    },
+  ];
+
   protected readonly periods: readonly PeriodOption[] = [
     { value: '7d', label: 'Últimos 7 días' },
     { value: '28d', label: 'Últimos 28 días' },

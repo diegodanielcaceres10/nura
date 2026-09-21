@@ -1,0 +1,54 @@
+<div class="metric-cards">
+  @for (metric of metrics(); track metric.id) {
+    <article class="metric-card" [attr.data-accent]="metric.accent">
+      <header class="metric-card__header">
+        <span class="metric-card__icon">
+          @switch (metric.icon) {
+            @case ('users') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="8.5" r="3.2" />
+                <path d="M5.5 19.5c0-3.31 2.91-6 6.5-6s6.5 2.69 6.5 6" />
+              </svg>
+            }
+            @case ('sessions') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="4" y="5" width="16" height="11" rx="1.6" />
+                <path d="M9 20h6M12 16v4" />
+              </svg>
+            }
+            @case ('events') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.5 3.5 6 13h5l-1 7.5L18 11h-5l0.5-7.5z" />
+              </svg>
+            }
+            @case ('pageviews') {
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 12c1.8-4 5.2-6.5 9-6.5s7.2 2.5 9 6.5c-1.8 4-5.2 6.5-9 6.5S4.8 16 3 12z" />
+                <circle cx="12" cy="12" r="2.6" />
+              </svg>
+            }
+          }
+        </span>
+        <span class="metric-card__label">{{ metric.label }}</span>
+      </header>
+
+      <div class="metric-card__body">
+        <div class="metric-card__stats">
+          <p class="metric-card__value">{{ metric.value }}</p>
+          <p class="metric-card__delta">
+            <svg class="metric-card__delta-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 19V5M5 12l7-7 7 7" />
+            </svg>
+            <span>+{{ metric.deltaPercent }}%</span>
+          </p>
+          <p class="metric-card__caption">vs. período anterior</p>
+        </div>
+
+        <svg class="metric-card__sparkline" viewBox="0 0 96 40" preserveAspectRatio="none" aria-hidden="true">
+          <polygon class="metric-card__sparkline-area" [attr.points]="sparklineArea(metric.sparkline)" />
+          <polyline class="metric-card__sparkline-line" [attr.points]="sparklinePoints(metric.sparkline)" />
+        </svg>
+      </div>
+    </article>
+  }
+</div>
