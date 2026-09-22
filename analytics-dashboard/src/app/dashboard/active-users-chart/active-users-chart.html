@@ -1,0 +1,52 @@
+<article class="chart-card">
+  <header class="chart-card__header">
+    <div class="chart-card__title">
+      <svg class="chart-card__icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8.5" r="3.2" />
+        <path d="M5.5 19.5c0-3.31 2.91-6 6.5-6s6.5 2.69 6.5 6" />
+      </svg>
+      <h2>Usuarios activos</h2>
+    </div>
+
+    <div class="chart-card__legend">
+      <span class="chart-card__legend-dot"></span>
+      <span>Usuarios activos</span>
+    </div>
+  </header>
+
+  <div class="chart-card__body">
+    <ul class="chart-card__y-axis">
+      @for (tick of yTicks; track tick) {
+        <li>{{ tick }}</li>
+      }
+    </ul>
+
+    <div class="chart-card__plot">
+      <svg [attr.viewBox]="viewBox" preserveAspectRatio="none" aria-hidden="true">
+        @for (tick of yTicks; track tick) {
+          <line
+            class="chart-card__gridline"
+            x1="0"
+            [attr.x2]="720"
+            [attr.y1]="260 - (tick / maxValue) * 260"
+            [attr.y2]="260 - (tick / maxValue) * 260"
+          />
+        }
+        <defs>
+          <linearGradient id="activeUsersFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.45" />
+            <stop offset="100%" stop-color="var(--color-primary)" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+        <path class="chart-card__area" [attr.d]="areaPath()" />
+        <path class="chart-card__line" [attr.d]="linePath()" />
+      </svg>
+
+      <ul class="chart-card__x-axis">
+        @for (point of xLabels(); track point.label) {
+          <li>{{ point.label }}</li>
+        }
+      </ul>
+    </div>
+  </div>
+</article>

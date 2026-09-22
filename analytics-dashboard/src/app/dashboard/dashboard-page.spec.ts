@@ -55,4 +55,10 @@ describe('DashboardPage', () => {
     );
     expect(values).toEqual(['198', '257', '1.886', '779']);
   });
+
+  it('should render the active users chart', () => {
+    expect(element.querySelector('app-active-users-chart h2')?.textContent).toContain(
+      'Usuarios activos',
+    );
+  });
 });

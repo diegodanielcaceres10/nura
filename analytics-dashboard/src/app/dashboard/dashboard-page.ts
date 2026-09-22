@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
+import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
 
 export type PeriodValue = '7d' | '28d' | '90d' | '12m';
 
@@ -10,7 +11,7 @@ interface PeriodOption {
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MetricCards],
+  imports: [MetricCards, ActiveUsersChart],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,6 +54,19 @@ export class DashboardPage {
       accent: 'pink',
       sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
     },
+  ];
+
+  protected readonly activeUsers: readonly ActiveUsersPoint[] = [
+    { label: '1 abr', value: 12 },
+    { label: '4 abr', value: 20 },
+    { label: '7 abr', value: 14 },
+    { label: '10 abr', value: 19 },
+    { label: '13 abr', value: 15 },
+    { label: '16 abr', value: 21 },
+    { label: '19 abr', value: 16 },
+    { label: '22 abr', value: 26 },
+    { label: '25 abr', value: 22 },
+    { label: '28 abr', value: 27 },
   ];
 
   protected readonly periods: readonly PeriodOption[] = [
