@@ -2,6 +2,9 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
 import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
+import { TopPageRow, TopPages } from './top-pages/top-pages';
+import { TopEventRow, TopEvents } from './top-events/top-events';
+import { SummaryCard } from './summary-card/summary-card';
 
 export type PeriodValue = '7d' | '28d' | '90d' | '12m';
 
@@ -12,7 +15,7 @@ interface PeriodOption {
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MetricCards, ActiveUsersChart, TrafficDonut],
+  imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -77,6 +80,29 @@ export class DashboardPage {
     { id: 'social', label: 'Social', percent: 5.4, color: 'pink' },
     { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
   ];
+
+
+  protected readonly topPages: readonly TopPageRow[] = [
+    { path: '/', views: 312 },
+    { path: '/proyectos', views: 198 },
+    { path: '/sobre-mi', views: 134 },
+    { path: '/contacto', views: 89 },
+    { path: '/blog', views: 46 },
+  ];
+
+  protected readonly topEvents: readonly TopEventRow[] = [
+    { name: 'page_view', count: 779, percent: 41.3 },
+    { name: 'user_engagement', count: 612, percent: 32.5 },
+    { name: 'session_start', count: 257, percent: 13.6 },
+    { name: 'first_visit', count: 198, percent: 10.5 },
+    { name: 'click', count: 40, percent: 2.1 },
+  ];
+
+  protected readonly summaryText =
+    'Tu sitio web está teniendo un buen rendimiento. El tráfico orgánico sigue siendo tu principal fuente de visitas, con un 62.3% del total.';
+
+  protected readonly opportunityText =
+    'Considera crear más contenido en el blog para aumentar las visualizaciones de página.';
 
   protected readonly periods: readonly PeriodOption[] = [
     { value: '7d', label: 'Últimos 7 días' },

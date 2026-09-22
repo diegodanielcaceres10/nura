@@ -29,6 +29,10 @@
   gap: 20px;
 }
 
+.dashboard__row--triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 .dashboard__row-main,
 .dashboard__row-side {
   min-width: 0;
@@ -140,6 +144,12 @@
 
 .period__chevron {
   right: 14px;
+}
+
+@media (max-width: 960px) {
+  .dashboard__row--triple {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 640px) {

@@ -67,4 +67,14 @@ describe('DashboardPage', () => {
       'Tipos de tráfico',
     );
   });
+
+  it('should render the top pages, top events and summary cards', () => {
+    expect(element.querySelector('app-top-pages h2')?.textContent).toContain(
+      'Páginas más vistas',
+    );
+    expect(element.querySelector('app-top-events h2')?.textContent).toContain(
+      'Eventos principales',
+    );
+    expect(element.querySelector('app-summary-card h2')?.textContent).toContain('Resumen');
+  });
 });

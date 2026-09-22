@@ -1,0 +1,29 @@
+<article class="panel-card">
+  <header class="panel-card__header">
+    <svg class="panel-card__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="12" cy="12" r="3.4" />
+      <path d="M12 2v3.4M18.5 5.5l-2.4 2.4" />
+    </svg>
+    <h2>Eventos principales</h2>
+  </header>
+
+  <table class="top-events__table">
+    <thead>
+      <tr>
+        <th>Evento</th>
+        <th>Conteo</th>
+        <th>% del total</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (event of events(); track event.name) {
+        <tr>
+          <td class="top-events__name">{{ event.name }}</td>
+          <td>{{ event.count }}</td>
+          <td>{{ event.percent }}%</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</article>

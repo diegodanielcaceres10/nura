@@ -54,4 +54,14 @@
       totalValue="257"
     />
   </div>
+
+  <div class="dashboard__section dashboard__row dashboard__row--triple">
+    <app-top-pages [pages]="topPages" />
+    <app-top-events [events]="topEvents" />
+    <app-summary-card
+      [summary]="summaryText"
+      opportunityTitle="Oportunidad"
+      [opportunityText]="opportunityText"
+    />
+  </div>
 </div>

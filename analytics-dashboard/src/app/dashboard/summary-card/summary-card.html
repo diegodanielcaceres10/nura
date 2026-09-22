@@ -1,0 +1,21 @@
+<article class="panel-card">
+  <header class="panel-card__header">
+    <svg class="panel-card__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 18h6M10 21h4" />
+      <path d="M12 3a6 6 0 0 0-3.5 10.9c.6.44.9 1.1.9 1.8V16h5.2v-.3c0-.7.3-1.36.9-1.8A6 6 0 0 0 12 3z" />
+    </svg>
+    <h2>Resumen</h2>
+  </header>
+
+  <p class="summary-card__text">{{ summary() }}</p>
+
+  <div class="summary-card__opportunity">
+    <svg class="summary-card__opportunity-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+    <div>
+      <p class="summary-card__opportunity-title">{{ opportunityTitle() }}</p>
+      <p class="summary-card__opportunity-text">{{ opportunityText() }}</p>
+    </div>
+  </div>
+</article>

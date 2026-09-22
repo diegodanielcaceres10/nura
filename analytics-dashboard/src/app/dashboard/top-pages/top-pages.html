@@ -1,0 +1,22 @@
+<article class="panel-card">
+  <header class="panel-card__header">
+    <svg class="panel-card__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <rect x="4" y="14" width="3.4" height="6" rx="1" />
+      <rect x="10.3" y="9.5" width="3.4" height="10.5" rx="1" />
+      <rect x="16.6" y="5" width="3.4" height="15" rx="1" />
+    </svg>
+    <h2>Páginas más vistas</h2>
+  </header>
+
+  <ul class="top-pages__list">
+    @for (page of pages(); track page.path) {
+      <li class="top-pages__row">
+        <span class="top-pages__path">{{ page.path }}</span>
+        <span class="top-pages__bar-track">
+          <span class="top-pages__bar" [style.width.%]="barWidth(page.views)"></span>
+        </span>
+        <span class="top-pages__value">{{ page.views }}</span>
+      </li>
+    }
+  </ul>
+</article>
