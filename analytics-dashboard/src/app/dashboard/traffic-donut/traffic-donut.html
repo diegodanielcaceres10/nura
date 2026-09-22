@@ -1,0 +1,43 @@
+<article class="traffic-card">
+  <header class="traffic-card__header">
+    <svg class="traffic-card__icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2a10 10 0 1 0 10 10H12z" />
+      <path d="M12 2a10 10 0 0 1 10 10H12z" opacity="0.55" />
+    </svg>
+    <h2>Tipos de tráfico</h2>
+  </header>
+
+  <div class="traffic-card__body">
+    <div class="traffic-card__chart">
+      <svg viewBox="0 0 140 140" aria-hidden="true">
+        <circle class="traffic-card__track" cx="70" cy="70" [attr.r]="radius" />
+        @for (arc of arcs(); track arc.id) {
+          <circle
+            class="traffic-card__arc"
+            [attr.data-color]="arc.color"
+            cx="70"
+            cy="70"
+            [attr.r]="radius"
+            [attr.stroke-dasharray]="arc.dashArray"
+            [attr.stroke-dashoffset]="arc.dashOffset"
+          />
+        }
+      </svg>
+
+      <div class="traffic-card__total">
+        <p class="traffic-card__total-value">{{ totalValue() }}</p>
+        <p class="traffic-card__total-label">{{ totalLabel() }}</p>
+      </div>
+    </div>
+
+    <ul class="traffic-card__legend">
+      @for (channel of legend(); track channel.id) {
+        <li class="traffic-card__legend-item">
+          <span class="traffic-card__legend-dot" [attr.data-color]="channel.color"></span>
+          <span class="traffic-card__legend-label">{{ channel.label }}</span>
+          <span class="traffic-card__legend-percent">{{ channel.percent }}%</span>
+        </li>
+      }
+    </ul>
+  </div>
+</article>

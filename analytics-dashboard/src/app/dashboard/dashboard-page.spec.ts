@@ -61,4 +61,10 @@ describe('DashboardPage', () => {
       'Usuarios activos',
     );
   });
+
+  it('should render the traffic donut', () => {
+    expect(element.querySelector('app-traffic-donut h2')?.textContent).toContain(
+      'Tipos de tráfico',
+    );
+  });
 });

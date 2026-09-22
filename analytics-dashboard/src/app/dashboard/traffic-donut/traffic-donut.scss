@@ -1,0 +1,161 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+.traffic-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px 26px;
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.traffic-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 500;
+  }
+}
+
+.traffic-card__icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-primary);
+}
+
+.traffic-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
+}
+
+.traffic-card__chart {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+.traffic-card__chart svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.traffic-card__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 16;
+}
+
+.traffic-card__arc {
+  fill: none;
+  stroke-width: 16;
+  stroke-linecap: butt;
+
+  &[data-color='purple'] {
+    stroke: var(--color-primary);
+  }
+
+  &[data-color='blue'] {
+    stroke: #4d9bf5;
+  }
+
+  &[data-color='green'] {
+    stroke: #34d399;
+  }
+
+  &[data-color='pink'] {
+    stroke: #f4679b;
+  }
+
+  &[data-color='orange'] {
+    stroke: #f5a555;
+  }
+}
+
+.traffic-card__total {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.traffic-card__total-value {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.traffic-card__total-label {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.traffic-card__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.traffic-card__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.traffic-card__legend-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+
+  &[data-color='purple'] {
+    background: var(--color-primary);
+  }
+
+  &[data-color='blue'] {
+    background: #4d9bf5;
+  }
+
+  &[data-color='green'] {
+    background: #34d399;
+  }
+
+  &[data-color='pink'] {
+    background: #f4679b;
+  }
+
+  &[data-color='orange'] {
+    background: #f5a555;
+  }
+}
+
+.traffic-card__legend-label {
+  flex: 1;
+  color: var(--color-text-muted);
+}
+
+.traffic-card__legend-percent {
+  font-weight: 500;
+}

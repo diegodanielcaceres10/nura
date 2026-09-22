@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
+import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
 
 export type PeriodValue = '7d' | '28d' | '90d' | '12m';
 
@@ -11,7 +12,7 @@ interface PeriodOption {
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MetricCards, ActiveUsersChart],
+  imports: [MetricCards, ActiveUsersChart, TrafficDonut],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,6 +68,14 @@ export class DashboardPage {
     { label: '22 abr', value: 26 },
     { label: '25 abr', value: 22 },
     { label: '28 abr', value: 27 },
+  ];
+
+  protected readonly trafficChannels: readonly TrafficChannel[] = [
+    { id: 'organic', label: 'Organic Search', percent: 62.3, color: 'purple' },
+    { id: 'direct', label: 'Direct', percent: 18.7, color: 'blue' },
+    { id: 'referral', label: 'Referral', percent: 10.5, color: 'green' },
+    { id: 'social', label: 'Social', percent: 5.4, color: 'pink' },
+    { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
   ];
 
   protected readonly periods: readonly PeriodOption[] = [
