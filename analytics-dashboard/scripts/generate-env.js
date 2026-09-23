@@ -15,11 +15,12 @@ if (fs.existsSync(envPath) && typeof process.loadEnvFile === 'function') {
 }
 
 const clientId = process.env['GOOGLE_CLIENT_ID'] ?? '';
+const gaPropertyId = process.env['GA_PROPERTY_ID'] ?? '';
 
-if (!clientId) {
+if (!clientId || !gaPropertyId) {
   console.warn(
-    '[generate-env] GOOGLE_CLIENT_ID no está definido. ' +
-      'Copiá analytics-dashboard/.env.example a analytics-dashboard/.env y completá el valor.',
+    '[generate-env] Faltan variables por definir (GOOGLE_CLIENT_ID / GA_PROPERTY_ID). ' +
+      'Copiá analytics-dashboard/.env.example a analytics-dashboard/.env y completá los valores.',
   );
 }
 
@@ -27,7 +28,10 @@ const outDir = path.join(projectRoot, 'public');
 fs.mkdirSync(outDir, { recursive: true });
 
 const outPath = path.join(outDir, 'env.js');
-const contents = `window.__env = ${JSON.stringify({ GOOGLE_CLIENT_ID: clientId })};\n`;
+const contents = `window.__env = ${JSON.stringify({
+  GOOGLE_CLIENT_ID: clientId,
+  GA_PROPERTY_ID: gaPropertyId,
+})};\n`;
 
 fs.writeFileSync(outPath, contents);
 console.log(`[generate-env] public/env.js generado.`);

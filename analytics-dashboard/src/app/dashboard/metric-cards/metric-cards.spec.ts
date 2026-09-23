@@ -59,4 +59,42 @@ describe('MetricCards', () => {
     expect(cards[0].getAttribute('data-accent')).toBe('purple');
     expect(cards[1].getAttribute('data-accent')).toBe('blue');
   });
+
+  it('should show a loading placeholder when a metric has status "loading"', () => {
+    fixture.componentRef.setInput('metrics', [
+      { ...metrics[0], status: 'loading' },
+    ]);
+    fixture.detectChanges();
+
+    const card = element.querySelector('.metric-card');
+    expect(card?.querySelector('.metric-card__value')?.textContent).toContain('···');
+    expect(card?.querySelector('.metric-card__caption')?.textContent).toContain('Cargando');
+  });
+
+  it('should show an error placeholder when a metric has status "error"', () => {
+    fixture.componentRef.setInput('metrics', [{ ...metrics[0], status: 'error' }]);
+    fixture.detectChanges();
+
+    const card = element.querySelector('.metric-card');
+    expect(card?.querySelector('.metric-card__value')?.textContent).toContain('—');
+    expect(card?.querySelector('.metric-card__caption')?.textContent).toContain(
+      'No se pudo cargar',
+    );
+  });
+
+  it('should mark the delta as down and omit the sign for negative values', () => {
+    fixture.componentRef.setInput('metrics', [{ ...metrics[0], deltaPercent: -4.2 }]);
+    fixture.detectChanges();
+
+    const delta = element.querySelector('.metric-card__delta');
+    expect(delta?.classList.contains('metric-card__delta--down')).toBe(true);
+    expect(delta?.textContent).toContain('-4.2%');
+  });
+
+  it('should hide the delta row when deltaPercent is null', () => {
+    fixture.componentRef.setInput('metrics', [{ ...metrics[0], deltaPercent: null }]);
+    fixture.detectChanges();
+
+    expect(element.querySelector('.metric-card__delta')).toBeNull();
+  });
 });

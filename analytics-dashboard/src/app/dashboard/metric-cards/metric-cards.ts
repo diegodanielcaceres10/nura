@@ -4,10 +4,13 @@ export interface MetricCardData {
   id: string;
   label: string;
   value: string;
-  deltaPercent: number;
+  /** null while loading, or when there's no previous-period data to compare against. */
+  deltaPercent: number | null;
   icon: 'users' | 'sessions' | 'events' | 'pageviews';
   accent: 'purple' | 'blue' | 'green' | 'pink';
   sparkline: readonly number[];
+  /** Defaults to 'ready' when omitted — only cards backed by a live fetch need to set this. */
+  status?: 'loading' | 'ready' | 'error';
 }
 
 @Component({

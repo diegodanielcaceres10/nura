@@ -5,12 +5,20 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 ## Configuración
 
 Antes de levantar el proyecto (local o vía Docker), copiá `.env.example` a `.env`
-y completá `GOOGLE_CLIENT_ID` con el Client ID de OAuth de Google Cloud Console
-(tipo "Web application", con `http://localhost:4200` y `http://localhost:8001`
-como orígenes autorizados). `.env` está ignorado por git.
+y completá:
+- `GOOGLE_CLIENT_ID`: Client ID de OAuth de Google Cloud Console (tipo "Web
+  application", con `http://localhost:4200` y `http://localhost:8001` como
+  orígenes autorizados).
+- `GA_PROPERTY_ID`: el ID numérico de la propiedad de GA4 a consultar (en
+  Admin > Property details, sin el prefijo `properties/`). La cuenta de
+  Google con la que inicies sesión necesita acceso de lectura a esa
+  propiedad.
+
+`.env` está ignorado por git.
 
 `npm start` genera automáticamente `public/env.js` a partir de ese `.env`
-(script `prestart`), que expone `window.__env.GOOGLE_CLIENT_ID` al navegador.
+(script `prestart`), que expone `window.__env` (con `GOOGLE_CLIENT_ID` y
+`GA_PROPERTY_ID`) al navegador.
 
 ## Development server
 

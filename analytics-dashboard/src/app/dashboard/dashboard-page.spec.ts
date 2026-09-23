@@ -1,18 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { GoogleAuthService } from '../auth/google-auth.service';
+import { GoogleAnalyticsService } from '../api/google-analytics.service';
 import { DashboardPage } from './dashboard-page';
+
+// Lets pending microtasks (the mocked GA4 fetch) settle before asserting.
+async function flush(): Promise<void> {
+  await new Promise((resolve) => setTimeout(resolve, 0));
+}
 
 describe('DashboardPage', () => {
   let fixture: ComponentFixture<DashboardPage>;
   let element: HTMLElement;
-  let authServiceStub: { isAuthenticated: () => boolean; signOut: ReturnType<typeof vi.fn> };
+  let authServiceStub: {
+    isAuthenticated: () => boolean;
+    accessToken: () => string | null;
+    signOut: ReturnType<typeof vi.fn>;
+  };
+  let analyticsServiceStub: { getActiveUsers: ReturnType<typeof vi.fn> };
   let router: Router;
 
   beforeEach(async () => {
     authServiceStub = {
       isAuthenticated: () => true,
+      accessToken: () => 'fake-token',
       signOut: vi.fn(),
+    };
+    analyticsServiceStub = {
+      getActiveUsers: vi
+        .fn()
+        .mockResolvedValue({ activeUsers: 321, previousActiveUsers: 300, deltaPercent: 7 }),
     };
 
     await TestBed.configureTestingModule({
@@ -20,6 +37,7 @@ describe('DashboardPage', () => {
       providers: [
         provideRouter([]),
         { provide: GoogleAuthService, useValue: authServiceStub },
+        { provide: GoogleAnalyticsService, useValue: analyticsServiceStub },
       ],
     }).compileComponents();
 
@@ -27,6 +45,8 @@ describe('DashboardPage', () => {
     vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
     fixture = TestBed.createComponent(DashboardPage);
+    fixture.detectChanges();
+    await flush();
     fixture.detectChanges();
     element = fixture.nativeElement as HTMLElement;
   });
@@ -62,14 +82,29 @@ describe('DashboardPage', () => {
     expect(fixture.componentInstance['period']()).toBe('7d');
   });
 
-  it('should render the four metric cards from the prototype', () => {
+  it('should render the four metric cards, with real data for active users', () => {
     const cards = element.querySelectorAll('.metric-card');
     expect(cards.length).toBe(4);
 
     const values = Array.from(cards).map(
       (card) => card.querySelector('.metric-card__value')?.textContent?.trim(),
     );
-    expect(values).toEqual(['198', '257', '1.886', '779']);
+    expect(values).toEqual(['321', '257', '1.886', '779']);
+    expect(cards[0].querySelector('.metric-card__delta')?.textContent).toContain('+7%');
+  });
+
+  it('should request a new active users summary when the period changes', async () => {
+    expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(1);
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '7d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+
+    expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(2);
+    const [, ranges] = analyticsServiceStub.getActiveUsers.mock.calls[1];
+    expect(ranges.current.startDate).toBe('7daysAgo');
   });
 
   it('should render the active users chart', () => {

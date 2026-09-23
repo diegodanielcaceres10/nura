@@ -53,7 +53,7 @@
     </div>
   </header>
 
-  <app-metric-cards class="dashboard__section" [metrics]="metrics" />
+  <app-metric-cards class="dashboard__section" [metrics]="metrics()" />
 
   <div class="dashboard__section dashboard__row">
     <app-active-users-chart class="dashboard__row-main" [data]="activeUsers" />

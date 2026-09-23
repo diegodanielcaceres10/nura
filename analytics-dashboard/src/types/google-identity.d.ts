@@ -42,6 +42,7 @@ declare global {
     google?: GoogleIdentityServices;
     __env?: {
       GOOGLE_CLIENT_ID?: string;
+      GA_PROPERTY_ID?: string;
     };
   }
 

@@ -34,14 +34,24 @@
 
       <div class="metric-card__body">
         <div class="metric-card__stats">
-          <p class="metric-card__value">{{ metric.value }}</p>
-          <p class="metric-card__delta">
-            <svg class="metric-card__delta-icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 19V5M5 12l7-7 7 7" />
-            </svg>
-            <span>+{{ metric.deltaPercent }}%</span>
-          </p>
-          <p class="metric-card__caption">vs. período anterior</p>
+          @if (metric.status === 'loading') {
+            <p class="metric-card__value metric-card__value--muted">···</p>
+            <p class="metric-card__caption">Cargando…</p>
+          } @else if (metric.status === 'error') {
+            <p class="metric-card__value metric-card__value--muted">—</p>
+            <p class="metric-card__caption metric-card__caption--error">No se pudo cargar</p>
+          } @else {
+            <p class="metric-card__value">{{ metric.value }}</p>
+            @if (metric.deltaPercent !== null) {
+              <p class="metric-card__delta" [class.metric-card__delta--down]="metric.deltaPercent < 0">
+                <svg class="metric-card__delta-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 19V5M5 12l7-7 7 7" />
+                </svg>
+                <span>{{ metric.deltaPercent >= 0 ? '+' : '' }}{{ metric.deltaPercent }}%</span>
+              </p>
+            }
+            <p class="metric-card__caption">vs. período anterior</p>
+          }
         </div>
 
         <svg class="metric-card__sparkline" viewBox="0 0 96 40" preserveAspectRatio="none" aria-hidden="true">

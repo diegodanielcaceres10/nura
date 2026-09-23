@@ -1,19 +1,43 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+  untracked,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { GoogleAuthService } from '../auth/google-auth.service';
+import { GoogleAnalyticsService } from '../api/google-analytics.service';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
 import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
 import { TopPageRow, TopPages } from './top-pages/top-pages';
 import { TopEventRow, TopEvents } from './top-events/top-events';
 import { SummaryCard } from './summary-card/summary-card';
+import { getDateRangesForPeriod, PeriodValue } from './period-ranges';
 
-export type PeriodValue = '7d' | '28d' | '90d' | '12m';
+export type { PeriodValue };
 
 interface PeriodOption {
   value: PeriodValue;
   label: string;
 }
+
+const ACTIVE_USERS_CARD_ID = 'users';
+
+// Shown immediately while the real value loads, and as the base to restore
+// the card's icon/accent/sparkline once a fetch resolves.
+const INITIAL_ACTIVE_USERS_CARD: MetricCardData = {
+  id: ACTIVE_USERS_CARD_ID,
+  label: 'Usuarios activos',
+  value: '198',
+  deltaPercent: 12.5,
+  icon: 'users',
+  accent: 'purple',
+  sparkline: [6, 8, 7, 11, 9, 13, 12, 16, 15, 19],
+};
 
 @Component({
   selector: 'app-dashboard-page',
@@ -24,19 +48,17 @@ interface PeriodOption {
 })
 export class DashboardPage {
   private readonly authService = inject(GoogleAuthService);
+  private readonly analyticsService = inject(GoogleAnalyticsService);
   private readonly router = inject(Router);
 
+  // "Usuarios activos" is the only card wired to the real GA4 API so far;
+  // the other three keep their example data until they're wired up too.
+  private readonly activeUsersCard = signal<MetricCardData>({
+    ...INITIAL_ACTIVE_USERS_CARD,
+    status: 'loading',
+  });
 
-  protected readonly metrics: readonly MetricCardData[] = [
-    {
-      id: 'users',
-      label: 'Usuarios activos',
-      value: '198',
-      deltaPercent: 12.5,
-      icon: 'users',
-      accent: 'purple',
-      sparkline: [6, 8, 7, 11, 9, 13, 12, 16, 15, 19],
-    },
+  private readonly staticMetrics: readonly MetricCardData[] = [
     {
       id: 'sessions',
       label: 'Sesiones',
@@ -65,6 +87,11 @@ export class DashboardPage {
       sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
     },
   ];
+
+  protected readonly metrics = computed<readonly MetricCardData[]>(() => [
+    this.activeUsersCard(),
+    ...this.staticMetrics,
+  ]);
 
   protected readonly activeUsers: readonly ActiveUsersPoint[] = [
     { label: '1 abr', value: 12 },
@@ -119,8 +146,42 @@ export class DashboardPage {
 
   protected readonly period = signal<PeriodValue>('28d');
 
+  constructor() {
+    // Re-fetches "Usuarios activos" whenever the selected period changes,
+    // including the first run right after construction.
+    effect(() => {
+      const period = this.period();
+      untracked(() => void this.refreshActiveUsers(period));
+    });
+  }
+
   protected onPeriodChange(event: Event): void {
     this.period.set((event.target as HTMLSelectElement).value as PeriodValue);
+  }
+
+  private async refreshActiveUsers(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.activeUsersCard.update((card) => ({ ...card, status: 'loading' }));
+
+    try {
+      const summary = await this.analyticsService.getActiveUsers(
+        accessToken,
+        getDateRangesForPeriod(period),
+      );
+      this.activeUsersCard.set({
+        ...INITIAL_ACTIVE_USERS_CARD,
+        value: summary.activeUsers.toLocaleString('es-AR'),
+        deltaPercent: summary.deltaPercent,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar los usuarios activos', error);
+      this.activeUsersCard.update((card) => ({ ...card, status: 'error' }));
+    }
   }
 
   protected onSignOut(): void {
