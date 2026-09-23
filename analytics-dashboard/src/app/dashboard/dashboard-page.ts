@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { GoogleAuthService } from '../auth/google-auth.service';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
 import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
@@ -21,6 +23,10 @@ interface PeriodOption {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardPage {
+  private readonly authService = inject(GoogleAuthService);
+  private readonly router = inject(Router);
+
+
   protected readonly metrics: readonly MetricCardData[] = [
     {
       id: 'users',
@@ -115,5 +121,10 @@ export class DashboardPage {
 
   protected onPeriodChange(event: Event): void {
     this.period.set((event.target as HTMLSelectElement).value as PeriodValue);
+  }
+
+  protected onSignOut(): void {
+    this.authService.signOut();
+    void this.router.navigateByUrl('/login');
   }
 }

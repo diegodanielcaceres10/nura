@@ -1,14 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter, Router } from '@angular/router';
+import { GoogleAuthService } from '../auth/google-auth.service';
 import { DashboardPage } from './dashboard-page';
 
 describe('DashboardPage', () => {
   let fixture: ComponentFixture<DashboardPage>;
   let element: HTMLElement;
+  let authServiceStub: { isAuthenticated: () => boolean; signOut: ReturnType<typeof vi.fn> };
+  let router: Router;
 
   beforeEach(async () => {
+    authServiceStub = {
+      isAuthenticated: () => true,
+      signOut: vi.fn(),
+    };
+
     await TestBed.configureTestingModule({
       imports: [DashboardPage],
+      providers: [
+        provideRouter([]),
+        { provide: GoogleAuthService, useValue: authServiceStub },
+      ],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
+    vi.spyOn(router, 'navigateByUrl').mockResolvedValue(true);
 
     fixture = TestBed.createComponent(DashboardPage);
     fixture.detectChanges();
@@ -76,5 +92,13 @@ describe('DashboardPage', () => {
       'Eventos principales',
     );
     expect(element.querySelector('app-summary-card h2')?.textContent).toContain('Resumen');
+  });
+
+  it('should sign out and redirect to /login when the sign-out button is clicked', () => {
+    const button = element.querySelector<HTMLButtonElement>('.dashboard__sign-out');
+    button!.click();
+
+    expect(authServiceStub.signOut).toHaveBeenCalled();
+    expect(router.navigateByUrl).toHaveBeenCalledWith('/login');
   });
 });

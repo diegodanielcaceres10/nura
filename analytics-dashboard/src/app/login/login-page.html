@@ -12,9 +12,18 @@
       de Google Analytics.
     </p>
 
-    <button type="button" class="login__google">
-      <span>Continuar con Google</span>
+    <button
+      type="button"
+      class="login__google"
+      [disabled]="loading()"
+      (click)="onGoogleSignIn()"
+    >
+      <span>{{ loading() ? 'Conectando…' : 'Continuar con Google' }}</span>
     </button>
+
+    @if (errorMessage(); as message) {
+      <p class="login__error" role="alert">{{ message }}</p>
+    }
 
     <div class="login__divider" role="separator"><span>o</span></div>
 

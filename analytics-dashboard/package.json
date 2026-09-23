@@ -2,7 +2,9 @@
   "name": "analytics-dashboard",
   "version": "0.0.0",
   "scripts": {
-    "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000"
+    "prestart": "node scripts/generate-env.js",
+    "start": "ng serve --host 0.0.0.0 --port 4200 --watch --poll=2000",
+    "prebuild": "node scripts/generate-env.js"
   },
   "private": true,
   "packageManager": "npm@9.4.0",

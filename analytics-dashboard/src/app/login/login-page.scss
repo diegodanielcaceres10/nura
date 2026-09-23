@@ -87,11 +87,24 @@
     outline: 3px solid var(--color-primary);
     outline-offset: 3px;
   }
+
+  &:disabled {
+    cursor: progress;
+    opacity: 0.75;
+    transform: none;
+  }
 }
 
-.login__google-icon {
-  width: 22px;
-  height: 22px;
+.login__error {
+  width: 100%;
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(244, 103, 155, 0.12);
+  color: #f4a8c2;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
 }
 
 .login__divider {
