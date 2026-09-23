@@ -75,4 +75,22 @@ describe('GoogleAnalyticsService', () => {
 
     await expect(service.getActiveUsers('token', ranges)).rejects.toThrow(/403/);
   });
+
+  it('should compute sessions and their percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('410')).mockResolvedValueOnce(jsonResponse('400'));
+
+    const summary = await service.getSessions('token', ranges);
+
+    expect(summary).toEqual({ sessions: 410, previousSessions: 400, deltaPercent: 2.5 });
+  });
+
+  it('should request the "sessions" metric when fetching sessions', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getSessions('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'sessions' }]);
+  });
 });

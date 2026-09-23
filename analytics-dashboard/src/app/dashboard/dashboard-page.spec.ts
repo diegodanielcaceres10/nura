@@ -17,7 +17,10 @@ describe('DashboardPage', () => {
     accessToken: () => string | null;
     signOut: ReturnType<typeof vi.fn>;
   };
-  let analyticsServiceStub: { getActiveUsers: ReturnType<typeof vi.fn> };
+  let analyticsServiceStub: {
+    getActiveUsers: ReturnType<typeof vi.fn>;
+    getSessions: ReturnType<typeof vi.fn>;
+  };
   let router: Router;
 
   beforeEach(async () => {
@@ -30,6 +33,9 @@ describe('DashboardPage', () => {
       getActiveUsers: vi
         .fn()
         .mockResolvedValue({ activeUsers: 321, previousActiveUsers: 300, deltaPercent: 7 }),
+      getSessions: vi
+        .fn()
+        .mockResolvedValue({ sessions: 410, previousSessions: 400, deltaPercent: 2.5 }),
     };
 
     await TestBed.configureTestingModule({
@@ -82,19 +88,21 @@ describe('DashboardPage', () => {
     expect(fixture.componentInstance['period']()).toBe('7d');
   });
 
-  it('should render the four metric cards, with real data for active users', () => {
+  it('should render the four metric cards, with real data for active users and sessions', () => {
     const cards = element.querySelectorAll('.metric-card');
     expect(cards.length).toBe(4);
 
     const values = Array.from(cards).map(
       (card) => card.querySelector('.metric-card__value')?.textContent?.trim(),
     );
-    expect(values).toEqual(['321', '257', '1.886', '779']);
+    expect(values).toEqual(['321', '410', '1.886', '779']);
     expect(cards[0].querySelector('.metric-card__delta')?.textContent).toContain('+7%');
+    expect(cards[1].querySelector('.metric-card__delta')?.textContent).toContain('+2.5%');
   });
 
-  it('should request a new active users summary when the period changes', async () => {
+  it('should request new active users and sessions summaries when the period changes', async () => {
     expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(1);
+    expect(analyticsServiceStub.getSessions).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
     select!.value = '7d';
@@ -103,8 +111,11 @@ describe('DashboardPage', () => {
     await flush();
 
     expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(2);
-    const [, ranges] = analyticsServiceStub.getActiveUsers.mock.calls[1];
-    expect(ranges.current.startDate).toBe('7daysAgo');
+    expect(analyticsServiceStub.getSessions).toHaveBeenCalledTimes(2);
+    const [, activeUsersRanges] = analyticsServiceStub.getActiveUsers.mock.calls[1];
+    const [, sessionsRanges] = analyticsServiceStub.getSessions.mock.calls[1];
+    expect(activeUsersRanges.current.startDate).toBe('7daysAgo');
+    expect(sessionsRanges.current.startDate).toBe('7daysAgo');
   });
 
   it('should render the active users chart', () => {

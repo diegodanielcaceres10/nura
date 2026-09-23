@@ -25,18 +25,26 @@ interface PeriodOption {
   label: string;
 }
 
-const ACTIVE_USERS_CARD_ID = 'users';
-
 // Shown immediately while the real value loads, and as the base to restore
 // the card's icon/accent/sparkline once a fetch resolves.
 const INITIAL_ACTIVE_USERS_CARD: MetricCardData = {
-  id: ACTIVE_USERS_CARD_ID,
+  id: 'users',
   label: 'Usuarios activos',
   value: '198',
   deltaPercent: 12.5,
   icon: 'users',
   accent: 'purple',
   sparkline: [6, 8, 7, 11, 9, 13, 12, 16, 15, 19],
+};
+
+const INITIAL_SESSIONS_CARD: MetricCardData = {
+  id: 'sessions',
+  label: 'Sesiones',
+  value: '257',
+  deltaPercent: 8.7,
+  icon: 'sessions',
+  accent: 'blue',
+  sparkline: [10, 9, 13, 11, 15, 13, 17, 16, 20, 22],
 };
 
 @Component({
@@ -51,23 +59,19 @@ export class DashboardPage {
   private readonly analyticsService = inject(GoogleAnalyticsService);
   private readonly router = inject(Router);
 
-  // "Usuarios activos" is the only card wired to the real GA4 API so far;
-  // the other three keep their example data until they're wired up too.
+  // "Usuarios activos" and "Sesiones" are wired to the real GA4 API; the
+  // other two keep their example data until they're wired up too.
   private readonly activeUsersCard = signal<MetricCardData>({
     ...INITIAL_ACTIVE_USERS_CARD,
     status: 'loading',
   });
 
+  private readonly sessionsCard = signal<MetricCardData>({
+    ...INITIAL_SESSIONS_CARD,
+    status: 'loading',
+  });
+
   private readonly staticMetrics: readonly MetricCardData[] = [
-    {
-      id: 'sessions',
-      label: 'Sesiones',
-      value: '257',
-      deltaPercent: 8.7,
-      icon: 'sessions',
-      accent: 'blue',
-      sparkline: [10, 9, 13, 11, 15, 13, 17, 16, 20, 22],
-    },
     {
       id: 'events',
       label: 'Eventos',
@@ -90,6 +94,7 @@ export class DashboardPage {
 
   protected readonly metrics = computed<readonly MetricCardData[]>(() => [
     this.activeUsersCard(),
+    this.sessionsCard(),
     ...this.staticMetrics,
   ]);
 
@@ -147,11 +152,14 @@ export class DashboardPage {
   protected readonly period = signal<PeriodValue>('28d');
 
   constructor() {
-    // Re-fetches "Usuarios activos" whenever the selected period changes,
-    // including the first run right after construction.
+    // Re-fetches "Usuarios activos" and "Sesiones" whenever the selected
+    // period changes, including the first run right after construction.
     effect(() => {
       const period = this.period();
-      untracked(() => void this.refreshActiveUsers(period));
+      untracked(() => {
+        void this.refreshActiveUsers(period);
+        void this.refreshSessions(period);
+      });
     });
   }
 
@@ -181,6 +189,31 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar los usuarios activos', error);
       this.activeUsersCard.update((card) => ({ ...card, status: 'error' }));
+    }
+  }
+
+  private async refreshSessions(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.sessionsCard.update((card) => ({ ...card, status: 'loading' }));
+
+    try {
+      const summary = await this.analyticsService.getSessions(
+        accessToken,
+        getDateRangesForPeriod(period),
+      );
+      this.sessionsCard.set({
+        ...INITIAL_SESSIONS_CARD,
+        value: summary.sessions.toLocaleString('es-AR'),
+        deltaPercent: summary.deltaPercent,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar las sesiones', error);
+      this.sessionsCard.update((card) => ({ ...card, status: 'error' }));
     }
   }
 

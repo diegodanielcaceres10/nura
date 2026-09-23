@@ -1,10 +1,23 @@
 import { Injectable } from '@angular/core';
-import { DateRange, PeriodDateRanges } from '../dashboard/period-ranges';
+import { PeriodDateRanges } from '../dashboard/period-ranges';
 
 export interface ActiveUsersSummary {
   activeUsers: number;
   previousActiveUsers: number;
   /** null when the previous period has no data to compare against. */
+  deltaPercent: number | null;
+}
+
+export interface SessionsSummary {
+  sessions: number;
+  previousSessions: number;
+  /** null when the previous period has no data to compare against. */
+  deltaPercent: number | null;
+}
+
+interface MetricSummary {
+  value: number;
+  previousValue: number;
   deltaPercent: number | null;
 }
 
@@ -17,9 +30,10 @@ interface Ga4RunReportResponse {
 const GA4_ENDPOINT = 'https://analyticsdata.googleapis.com/v1beta';
 
 /**
- * Thin client for the GA4 Data API (runReport). Each metric currently
- * fetches its own report; if more cards start reusing the same date
- * ranges, this is a natural place to batch them into a single request.
+ * Thin client for the GA4 Data API (runReport). Each metric fetches its
+ * own current/previous-period report via getMetricSummary; if several
+ * cards start needing the same date ranges, this is a natural place to
+ * batch them into a single request instead.
  */
 @Injectable({
   providedIn: 'root',
@@ -34,20 +48,49 @@ export class GoogleAnalyticsService {
    * the percentage change between them.
    */
   async getActiveUsers(accessToken: string, ranges: PeriodDateRanges): Promise<ActiveUsersSummary> {
-    const [activeUsers, previousActiveUsers] = await Promise.all([
-      this.fetchActiveUsers(accessToken, ranges.current),
-      this.fetchActiveUsers(accessToken, ranges.previous),
+    const { value, previousValue, deltaPercent } = await this.getMetricSummary(
+      accessToken,
+      ranges,
+      'activeUsers',
+    );
+    return { activeUsers: value, previousActiveUsers: previousValue, deltaPercent };
+  }
+
+  /**
+   * Fetches sessions for the current and previous periods and returns the
+   * percentage change between them.
+   */
+  async getSessions(accessToken: string, ranges: PeriodDateRanges): Promise<SessionsSummary> {
+    const { value, previousValue, deltaPercent } = await this.getMetricSummary(
+      accessToken,
+      ranges,
+      'sessions',
+    );
+    return { sessions: value, previousSessions: previousValue, deltaPercent };
+  }
+
+  private async getMetricSummary(
+    accessToken: string,
+    ranges: PeriodDateRanges,
+    metricName: string,
+  ): Promise<MetricSummary> {
+    const [value, previousValue] = await Promise.all([
+      this.fetchMetric(accessToken, ranges.current.startDate, ranges.current.endDate, metricName),
+      this.fetchMetric(accessToken, ranges.previous.startDate, ranges.previous.endDate, metricName),
     ]);
 
     const deltaPercent =
-      previousActiveUsers > 0
-        ? Math.round(((activeUsers - previousActiveUsers) / previousActiveUsers) * 1000) / 10
-        : null;
+      previousValue > 0 ? Math.round(((value - previousValue) / previousValue) * 1000) / 10 : null;
 
-    return { activeUsers, previousActiveUsers, deltaPercent };
+    return { value, previousValue, deltaPercent };
   }
 
-  private async fetchActiveUsers(accessToken: string, range: DateRange): Promise<number> {
+  private async fetchMetric(
+    accessToken: string,
+    startDate: string,
+    endDate: string,
+    metricName: string,
+  ): Promise<number> {
     const propertyId = this.propertyId;
     if (!propertyId) {
       throw new Error(
@@ -62,13 +105,13 @@ export class GoogleAnalyticsService {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-        metrics: [{ name: 'activeUsers' }],
+        dateRanges: [{ startDate, endDate }],
+        metrics: [{ name: metricName }],
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar activeUsers.`);
+      throw new Error(`GA4 respondió ${response.status} al consultar ${metricName}.`);
     }
 
     const data = (await response.json()) as Ga4RunReportResponse;
