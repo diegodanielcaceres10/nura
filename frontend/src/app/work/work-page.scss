@@ -16,6 +16,10 @@
     gap: var(--spacing-md);
     flex: 1;
     min-height: 0;
+
+    @include ds.md {
+      min-height: auto;
+    }
   }
 
   &__back {
@@ -29,6 +33,7 @@
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     padding: var(--spacing-sm) var(--spacing-md);
+    margin-left: var(--spacing-md);
     cursor: pointer;
     transition:
       border-color var(--transition-fast),
@@ -61,6 +66,14 @@
     grid-template-columns: 40% 60%;
     flex: 1;
     min-height: 0;
+    padding: var(--spacing-md);
+    gap: var(--spacing-md);
+
+    @include ds.md {
+      display: flex;
+      flex-direction: column;
+      min-height: auto;
+    }
   }
 
   &__aside {
@@ -74,7 +87,6 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
-    padding: 0 var(--spacing-md);
     margin-bottom: var(--spacing-md);
   }
 

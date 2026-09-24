@@ -12,7 +12,7 @@ export interface ProjectItem {
   title: string;
   type: 'Mobile' | 'Web' | 'Fullstack' | 'Library' | 'Challenge';
   shortDescription: string;
-  coverImage: string;
+  coverImage?: string;
   techStackPreview: string[];
   status: 'COMPLETED' | 'IN_PROGRESS' | 'ARCHIVED';
   year: number;

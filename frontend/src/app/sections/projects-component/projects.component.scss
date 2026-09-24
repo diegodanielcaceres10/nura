@@ -49,7 +49,7 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--spacing-lg);
 
     @include ds.lg {
@@ -81,6 +81,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-brand);
+    overflow: hidden;
     transition:
       transform var(--transition-base),
       box-shadow var(--transition-base);
@@ -96,8 +97,22 @@
     }
   }
 
+  &__cover {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+
+    & img {
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+
   &__content {
     flex: 1;
+    z-index: 1;
   }
 
   &__footer {
@@ -107,6 +122,7 @@
     padding-top: var(--spacing-md);
     border-top: 1px solid var(--border-color);
     font-size: var(--font-size-sm);
+    z-index: 1;
   }
 
   &__links {

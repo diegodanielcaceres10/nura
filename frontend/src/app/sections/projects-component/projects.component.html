@@ -13,6 +13,11 @@
     <div class="projects__grid">
       @for (project of filteredProjects(); track project.id) {
         <article class="projects__card" role="button" tabindex="0">
+          @if (project.coverImage) {
+            <div class="projects__cover">
+              <img [src]="project.coverImage" loading="lazy" width="200" height="200" decoding="async" [alt]="project.title" />
+            </div>
+          }
           <div class="projects__content">
             <app-project-card-component [project]="project" />
           </div>

@@ -1,12 +1,12 @@
 <div class="project-card">
   <div class="project-card__header">
-    <span class="project-card__logo">
+    <div class="project-card__logo">
       @if (project().avatar) {
         <img class="project-card__avatar" [src]="project().avatar" loading="lazy" width="200" height="200" decoding="async" [alt]="project().title" />
       } @else if (project().icon) {
         <i [class]="project().icon"></i>
       }
-    </span>
+    </div>
 
     <div class="project-card__heading">
       <h3 class="project-card__title">{{ project().title }}</h3>
