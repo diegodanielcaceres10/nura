@@ -21,6 +21,7 @@ describe('DashboardPage', () => {
     getActiveUsers: ReturnType<typeof vi.fn>;
     getSessions: ReturnType<typeof vi.fn>;
     getEventCount: ReturnType<typeof vi.fn>;
+    getPageViews: ReturnType<typeof vi.fn>;
   };
   let router: Router;
 
@@ -40,6 +41,9 @@ describe('DashboardPage', () => {
       getEventCount: vi
         .fn()
         .mockResolvedValue({ eventCount: 2010, previousEventCount: 2000, deltaPercent: 0.5 }),
+      getPageViews: vi
+        .fn()
+        .mockResolvedValue({ pageViews: 850, previousPageViews: 800, deltaPercent: 6.3 }),
     };
 
     await TestBed.configureTestingModule({
@@ -92,23 +96,25 @@ describe('DashboardPage', () => {
     expect(fixture.componentInstance['period']()).toBe('7d');
   });
 
-  it('should render the four metric cards, with real data for active users, sessions and events', () => {
+  it('should render the four metric cards with real data from the GA4 API', () => {
     const cards = element.querySelectorAll('.metric-card');
     expect(cards.length).toBe(4);
 
     const values = Array.from(cards).map(
       (card) => card.querySelector('.metric-card__value')?.textContent?.trim(),
     );
-    expect(values).toEqual(['321', '410', '2.010', '779']);
+    expect(values).toEqual(['321', '410', '2.010', '850']);
     expect(cards[0].querySelector('.metric-card__delta')?.textContent).toContain('+7%');
     expect(cards[1].querySelector('.metric-card__delta')?.textContent).toContain('+2.5%');
     expect(cards[2].querySelector('.metric-card__delta')?.textContent).toContain('+0.5%');
+    expect(cards[3].querySelector('.metric-card__delta')?.textContent).toContain('+6.3%');
   });
 
-  it('should request new active users, sessions and events summaries when the period changes', async () => {
+  it('should request new summaries for all four metrics when the period changes', async () => {
     expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(1);
     expect(analyticsServiceStub.getSessions).toHaveBeenCalledTimes(1);
     expect(analyticsServiceStub.getEventCount).toHaveBeenCalledTimes(1);
+    expect(analyticsServiceStub.getPageViews).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
     select!.value = '7d';
@@ -119,12 +125,15 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getActiveUsers).toHaveBeenCalledTimes(2);
     expect(analyticsServiceStub.getSessions).toHaveBeenCalledTimes(2);
     expect(analyticsServiceStub.getEventCount).toHaveBeenCalledTimes(2);
+    expect(analyticsServiceStub.getPageViews).toHaveBeenCalledTimes(2);
     const [, activeUsersRanges] = analyticsServiceStub.getActiveUsers.mock.calls[1];
     const [, sessionsRanges] = analyticsServiceStub.getSessions.mock.calls[1];
     const [, eventsRanges] = analyticsServiceStub.getEventCount.mock.calls[1];
+    const [, pageViewsRanges] = analyticsServiceStub.getPageViews.mock.calls[1];
     expect(activeUsersRanges.current.startDate).toBe('7daysAgo');
     expect(sessionsRanges.current.startDate).toBe('7daysAgo');
     expect(eventsRanges.current.startDate).toBe('7daysAgo');
+    expect(pageViewsRanges.current.startDate).toBe('7daysAgo');
   });
 
   it('should render the active users chart', () => {

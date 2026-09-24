@@ -111,4 +111,22 @@ describe('GoogleAnalyticsService', () => {
     const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
     expect(body.metrics).toEqual([{ name: 'eventCount' }]);
   });
+
+  it('should compute page views and their percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('779')).mockResolvedValueOnce(jsonResponse('682'));
+
+    const summary = await service.getPageViews('token', ranges);
+
+    expect(summary).toEqual({ pageViews: 779, previousPageViews: 682, deltaPercent: 14.2 });
+  });
+
+  it('should request the "screenPageViews" metric when fetching page views', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getPageViews('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'screenPageViews' }]);
+  });
 });

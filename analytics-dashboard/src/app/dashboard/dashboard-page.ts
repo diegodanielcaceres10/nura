@@ -57,6 +57,16 @@ const INITIAL_EVENTS_CARD: MetricCardData = {
   sparkline: [8, 11, 9, 14, 12, 17, 15, 21, 18, 25],
 };
 
+const INITIAL_PAGE_VIEWS_CARD: MetricCardData = {
+  id: 'pageviews',
+  label: 'Visualizaciones de página',
+  value: '779',
+  deltaPercent: 14.2,
+  icon: 'pageviews',
+  accent: 'pink',
+  sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
+};
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -69,8 +79,7 @@ export class DashboardPage {
   private readonly analyticsService = inject(GoogleAnalyticsService);
   private readonly router = inject(Router);
 
-  // "Usuarios activos", "Sesiones" y "Eventos" are wired to the real GA4
-  // API; "Visualizaciones de página" keeps its example data for now.
+  // Las 4 tarjetas de métricas están conectadas a la API real de GA4.
   private readonly activeUsersCard = signal<MetricCardData>({
     ...INITIAL_ACTIVE_USERS_CARD,
     status: 'loading',
@@ -86,23 +95,16 @@ export class DashboardPage {
     status: 'loading',
   });
 
-  private readonly staticMetrics: readonly MetricCardData[] = [
-    {
-      id: 'pageviews',
-      label: 'Visualizaciones de página',
-      value: '779',
-      deltaPercent: 14.2,
-      icon: 'pageviews',
-      accent: 'pink',
-      sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
-    },
-  ];
+  private readonly pageViewsCard = signal<MetricCardData>({
+    ...INITIAL_PAGE_VIEWS_CARD,
+    status: 'loading',
+  });
 
   protected readonly metrics = computed<readonly MetricCardData[]>(() => [
     this.activeUsersCard(),
     this.sessionsCard(),
     this.eventsCard(),
-    ...this.staticMetrics,
+    this.pageViewsCard(),
   ]);
 
   protected readonly activeUsers: readonly ActiveUsersPoint[] = [
@@ -168,6 +170,7 @@ export class DashboardPage {
         void this.refreshActiveUsers(period);
         void this.refreshSessions(period);
         void this.refreshEvents(period);
+        void this.refreshPageViews(period);
       });
     });
   }
@@ -248,6 +251,31 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar los eventos', error);
       this.eventsCard.update((card) => ({ ...card, status: 'error' }));
+    }
+  }
+
+  private async refreshPageViews(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.pageViewsCard.update((card) => ({ ...card, status: 'loading' }));
+
+    try {
+      const summary = await this.analyticsService.getPageViews(
+        accessToken,
+        getDateRangesForPeriod(period),
+      );
+      this.pageViewsCard.set({
+        ...INITIAL_PAGE_VIEWS_CARD,
+        value: summary.pageViews.toLocaleString('es-AR'),
+        deltaPercent: summary.deltaPercent,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar las visualizaciones de página', error);
+      this.pageViewsCard.update((card) => ({ ...card, status: 'error' }));
     }
   }
 

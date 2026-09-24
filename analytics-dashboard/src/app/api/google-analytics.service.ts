@@ -22,6 +22,13 @@ export interface EventCountSummary {
   deltaPercent: number | null;
 }
 
+export interface PageViewsSummary {
+  pageViews: number;
+  previousPageViews: number;
+  /** null when the previous period has no data to compare against. */
+  deltaPercent: number | null;
+}
+
 interface MetricSummary {
   value: number;
   previousValue: number;
@@ -87,6 +94,19 @@ export class GoogleAnalyticsService {
       'eventCount',
     );
     return { eventCount: value, previousEventCount: previousValue, deltaPercent };
+  }
+
+  /**
+   * Fetches page views (screenPageViews) for the current and previous
+   * periods and returns the percentage change between them.
+   */
+  async getPageViews(accessToken: string, ranges: PeriodDateRanges): Promise<PageViewsSummary> {
+    const { value, previousValue, deltaPercent } = await this.getMetricSummary(
+      accessToken,
+      ranges,
+      'screenPageViews',
+    );
+    return { pageViews: value, previousPageViews: previousValue, deltaPercent };
   }
 
   private async getMetricSummary(
