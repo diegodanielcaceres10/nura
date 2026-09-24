@@ -93,4 +93,22 @@ describe('GoogleAnalyticsService', () => {
     const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
     expect(body.metrics).toEqual([{ name: 'sessions' }]);
   });
+
+  it('should compute the event count and its percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('1886')).mockResolvedValueOnce(jsonResponse('1600'));
+
+    const summary = await service.getEventCount('token', ranges);
+
+    expect(summary).toEqual({ eventCount: 1886, previousEventCount: 1600, deltaPercent: 17.9 });
+  });
+
+  it('should request the "eventCount" metric when fetching events', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getEventCount('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'eventCount' }]);
+  });
 });

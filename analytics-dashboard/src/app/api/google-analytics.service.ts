@@ -15,6 +15,13 @@ export interface SessionsSummary {
   deltaPercent: number | null;
 }
 
+export interface EventCountSummary {
+  eventCount: number;
+  previousEventCount: number;
+  /** null when the previous period has no data to compare against. */
+  deltaPercent: number | null;
+}
+
 interface MetricSummary {
   value: number;
   previousValue: number;
@@ -67,6 +74,19 @@ export class GoogleAnalyticsService {
       'sessions',
     );
     return { sessions: value, previousSessions: previousValue, deltaPercent };
+  }
+
+  /**
+   * Fetches the total event count for the current and previous periods and
+   * returns the percentage change between them.
+   */
+  async getEventCount(accessToken: string, ranges: PeriodDateRanges): Promise<EventCountSummary> {
+    const { value, previousValue, deltaPercent } = await this.getMetricSummary(
+      accessToken,
+      ranges,
+      'eventCount',
+    );
+    return { eventCount: value, previousEventCount: previousValue, deltaPercent };
   }
 
   private async getMetricSummary(

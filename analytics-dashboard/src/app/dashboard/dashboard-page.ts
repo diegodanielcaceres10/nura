@@ -47,6 +47,16 @@ const INITIAL_SESSIONS_CARD: MetricCardData = {
   sparkline: [10, 9, 13, 11, 15, 13, 17, 16, 20, 22],
 };
 
+const INITIAL_EVENTS_CARD: MetricCardData = {
+  id: 'events',
+  label: 'Eventos',
+  value: '1.886',
+  deltaPercent: 18.3,
+  icon: 'events',
+  accent: 'green',
+  sparkline: [8, 11, 9, 14, 12, 17, 15, 21, 18, 25],
+};
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -59,8 +69,8 @@ export class DashboardPage {
   private readonly analyticsService = inject(GoogleAnalyticsService);
   private readonly router = inject(Router);
 
-  // "Usuarios activos" and "Sesiones" are wired to the real GA4 API; the
-  // other two keep their example data until they're wired up too.
+  // "Usuarios activos", "Sesiones" y "Eventos" are wired to the real GA4
+  // API; "Visualizaciones de página" keeps its example data for now.
   private readonly activeUsersCard = signal<MetricCardData>({
     ...INITIAL_ACTIVE_USERS_CARD,
     status: 'loading',
@@ -71,16 +81,12 @@ export class DashboardPage {
     status: 'loading',
   });
 
+  private readonly eventsCard = signal<MetricCardData>({
+    ...INITIAL_EVENTS_CARD,
+    status: 'loading',
+  });
+
   private readonly staticMetrics: readonly MetricCardData[] = [
-    {
-      id: 'events',
-      label: 'Eventos',
-      value: '1.886',
-      deltaPercent: 18.3,
-      icon: 'events',
-      accent: 'green',
-      sparkline: [8, 11, 9, 14, 12, 17, 15, 21, 18, 25],
-    },
     {
       id: 'pageviews',
       label: 'Visualizaciones de página',
@@ -95,6 +101,7 @@ export class DashboardPage {
   protected readonly metrics = computed<readonly MetricCardData[]>(() => [
     this.activeUsersCard(),
     this.sessionsCard(),
+    this.eventsCard(),
     ...this.staticMetrics,
   ]);
 
@@ -152,13 +159,15 @@ export class DashboardPage {
   protected readonly period = signal<PeriodValue>('28d');
 
   constructor() {
-    // Re-fetches "Usuarios activos" and "Sesiones" whenever the selected
-    // period changes, including the first run right after construction.
+    // Re-fetches "Usuarios activos", "Sesiones" y "Eventos" whenever the
+    // selected period changes, including the first run right after
+    // construction.
     effect(() => {
       const period = this.period();
       untracked(() => {
         void this.refreshActiveUsers(period);
         void this.refreshSessions(period);
+        void this.refreshEvents(period);
       });
     });
   }
@@ -214,6 +223,31 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar las sesiones', error);
       this.sessionsCard.update((card) => ({ ...card, status: 'error' }));
+    }
+  }
+
+  private async refreshEvents(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.eventsCard.update((card) => ({ ...card, status: 'loading' }));
+
+    try {
+      const summary = await this.analyticsService.getEventCount(
+        accessToken,
+        getDateRangesForPeriod(period),
+      );
+      this.eventsCard.set({
+        ...INITIAL_EVENTS_CARD,
+        value: summary.eventCount.toLocaleString('es-AR'),
+        deltaPercent: summary.deltaPercent,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar los eventos', error);
+      this.eventsCard.update((card) => ({ ...card, status: 'error' }));
     }
   }
 
