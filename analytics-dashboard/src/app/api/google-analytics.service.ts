@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PeriodDateRanges } from '../dashboard/period-ranges';
+import { DateRange, PeriodDateRanges } from '../dashboard/period-ranges';
 
 export interface ActiveUsersSummary {
   activeUsers: number;
@@ -29,6 +29,11 @@ export interface PageViewsSummary {
   deltaPercent: number | null;
 }
 
+export interface DailyActiveUsersPoint {
+  label: string;
+  value: number;
+}
+
 interface MetricSummary {
   value: number;
   previousValue: number;
@@ -41,7 +46,71 @@ interface Ga4RunReportResponse {
   }>;
 }
 
+interface Ga4DailyReportResponse {
+  rows?: ReadonlyArray<{
+    dimensionValues?: ReadonlyArray<{ value?: string }>;
+    metricValues?: ReadonlyArray<{ value?: string }>;
+  }>;
+}
+
 const GA4_ENDPOINT = 'https://analyticsdata.googleapis.com/v1beta';
+
+// How many points the "Usuarios activos" chart should end up with,
+// regardless of how many days the selected period spans. Consecutive days
+// are averaged together into buckets to reach roughly this count.
+const CHART_TARGET_POINTS = 10;
+
+const MONTH_ABBREVIATIONS = [
+  'ene',
+  'feb',
+  'mar',
+  'abr',
+  'may',
+  'jun',
+  'jul',
+  'ago',
+  'sep',
+  'oct',
+  'nov',
+  'dic',
+] as const;
+
+/** Parses GA4's "date" dimension format (YYYYMMDD) into a local Date. */
+function parseGa4Date(value: string): Date {
+  const year = Number(value.slice(0, 4));
+  const month = Number(value.slice(4, 6)) - 1;
+  const day = Number(value.slice(6, 8));
+  return new Date(year, month, day);
+}
+
+function formatDayLabel(date: Date): string {
+  return `${date.getDate()} ${MONTH_ABBREVIATIONS[date.getMonth()]}`;
+}
+
+/**
+ * Groups daily values into ~targetPoints buckets (consecutive-day
+ * averages), so a 90-day or 12-month period doesn't render one x-axis
+ * label per day.
+ */
+function bucketDailyPoints(
+  daily: ReadonlyArray<{ date: Date; value: number }>,
+  targetPoints: number,
+): DailyActiveUsersPoint[] {
+  if (daily.length === 0) {
+    return [];
+  }
+
+  const bucketSize = Math.max(1, Math.ceil(daily.length / targetPoints));
+  const points: DailyActiveUsersPoint[] = [];
+
+  for (let i = 0; i < daily.length; i += bucketSize) {
+    const bucket = daily.slice(i, i + bucketSize);
+    const average = bucket.reduce((sum, item) => sum + item.value, 0) / bucket.length;
+    points.push({ label: formatDayLabel(bucket[0].date), value: Math.round(average) });
+  }
+
+  return points;
+}
 
 /**
  * Thin client for the GA4 Data API (runReport). Each metric fetches its
@@ -107,6 +176,50 @@ export class GoogleAnalyticsService {
       'screenPageViews',
     );
     return { pageViews: value, previousPageViews: previousValue, deltaPercent };
+  }
+
+  /**
+   * Fetches a day-by-day activeUsers breakdown for the given range and
+   * buckets it into ~CHART_TARGET_POINTS points, for the "Usuarios
+   * activos" chart.
+   */
+  async getActiveUsersByDay(
+    accessToken: string,
+    range: DateRange,
+    targetPoints = CHART_TARGET_POINTS,
+  ): Promise<DailyActiveUsersPoint[]> {
+    const propertyId = this.propertyId;
+    if (!propertyId) {
+      throw new Error(
+        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
+      );
+    }
+
+    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'date' }],
+        metrics: [{ name: 'activeUsers' }],
+        orderBys: [{ dimension: { dimensionName: 'date' } }],
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`GA4 respondió ${response.status} al consultar activeUsers por día.`);
+    }
+
+    const data = (await response.json()) as Ga4DailyReportResponse;
+    const daily = (data.rows ?? []).map((row) => ({
+      date: parseGa4Date(row.dimensionValues?.[0]?.value ?? ''),
+      value: Number(row.metricValues?.[0]?.value ?? 0),
+    }));
+
+    return bucketDailyPoints(daily, targetPoints);
   }
 
   private async getMetricSummary(

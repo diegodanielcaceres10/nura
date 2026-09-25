@@ -67,6 +67,20 @@ const INITIAL_PAGE_VIEWS_CARD: MetricCardData = {
   sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
 };
 
+// Shown immediately while the real daily series loads.
+const INITIAL_ACTIVE_USERS_SERIES: readonly ActiveUsersPoint[] = [
+  { label: '1 abr', value: 12 },
+  { label: '4 abr', value: 20 },
+  { label: '7 abr', value: 14 },
+  { label: '10 abr', value: 19 },
+  { label: '13 abr', value: 15 },
+  { label: '16 abr', value: 21 },
+  { label: '19 abr', value: 16 },
+  { label: '22 abr', value: 26 },
+  { label: '25 abr', value: 22 },
+  { label: '28 abr', value: 27 },
+];
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -107,18 +121,13 @@ export class DashboardPage {
     this.pageViewsCard(),
   ]);
 
-  protected readonly activeUsers: readonly ActiveUsersPoint[] = [
-    { label: '1 abr', value: 12 },
-    { label: '4 abr', value: 20 },
-    { label: '7 abr', value: 14 },
-    { label: '10 abr', value: 19 },
-    { label: '13 abr', value: 15 },
-    { label: '16 abr', value: 21 },
-    { label: '19 abr', value: 16 },
-    { label: '22 abr', value: 26 },
-    { label: '25 abr', value: 22 },
-    { label: '28 abr', value: 27 },
-  ];
+  private readonly activeUsersSeries = signal<{
+    points: readonly ActiveUsersPoint[];
+    status: 'loading' | 'ready' | 'error';
+  }>({ points: INITIAL_ACTIVE_USERS_SERIES, status: 'loading' });
+
+  protected readonly activeUsersPoints = computed(() => this.activeUsersSeries().points);
+  protected readonly activeUsersSeriesStatus = computed(() => this.activeUsersSeries().status);
 
   protected readonly trafficChannels: readonly TrafficChannel[] = [
     { id: 'organic', label: 'Organic Search', percent: 62.3, color: 'purple' },
@@ -171,6 +180,7 @@ export class DashboardPage {
         void this.refreshSessions(period);
         void this.refreshEvents(period);
         void this.refreshPageViews(period);
+        void this.refreshActiveUsersSeries(period);
       });
     });
   }
@@ -276,6 +286,27 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar las visualizaciones de página', error);
       this.pageViewsCard.update((card) => ({ ...card, status: 'error' }));
+    }
+  }
+
+  private async refreshActiveUsersSeries(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.activeUsersSeries.update((state) => ({ ...state, status: 'loading' }));
+
+    try {
+      const range = getDateRangesForPeriod(period).current;
+      const points = await this.analyticsService.getActiveUsersByDay(accessToken, range);
+      this.activeUsersSeries.set({
+        points: points.length > 0 ? points : INITIAL_ACTIVE_USERS_SERIES,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudo cargar la serie diaria de usuarios activos', error);
+      this.activeUsersSeries.update((state) => ({ ...state, status: 'error' }));
     }
   }
 

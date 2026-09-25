@@ -18,6 +18,16 @@
   margin-bottom: 24px;
 }
 
+.chart-card__status {
+  margin: -12px 0 20px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.chart-card__status--error {
+  color: #f4679b;
+}
+
 .chart-card__title {
   display: flex;
   align-items: center;

@@ -129,4 +129,64 @@ describe('GoogleAnalyticsService', () => {
     const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
     expect(body.metrics).toEqual([{ name: 'screenPageViews' }]);
   });
+
+  it('should return one point per day, labelled and ordered, for a short range', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: '20260401' }], metricValues: [{ value: '12' }] },
+            { dimensionValues: [{ value: '20260402' }], metricValues: [{ value: '18' }] },
+            { dimensionValues: [{ value: '20260403' }], metricValues: [{ value: '15' }] },
+          ],
+        }),
+    });
+
+    const points = await service.getActiveUsersByDay('token', {
+      startDate: '3daysAgo',
+      endDate: 'yesterday',
+    });
+
+    expect(points).toEqual([
+      { label: '1 abr', value: 12 },
+      { label: '2 abr', value: 18 },
+      { label: '3 abr', value: 15 },
+    ]);
+  });
+
+  it('should bucket a long range into roughly the target number of points', async () => {
+    const rows = Array.from({ length: 28 }, (_, i) => {
+      const day = String(i + 1).padStart(2, '0');
+      return {
+        dimensionValues: [{ value: `202604${day}` }],
+        metricValues: [{ value: String(10 + i) }],
+      };
+    });
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({ rows }) });
+
+    const points = await service.getActiveUsersByDay(
+      'token',
+      { startDate: '28daysAgo', endDate: 'yesterday' },
+      10,
+    );
+
+    expect(points.length).toBeLessThanOrEqual(10);
+    expect(points[0]).toEqual({ label: '1 abr', value: 11 }); // average of days 1-3 (10,11,12)
+  });
+
+  it('should return an empty array when GA4 has no rows for the range', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const points = await service.getActiveUsersByDay('token', ranges.current);
+
+    expect(points).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the daily report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+
+    await expect(service.getActiveUsersByDay('token', ranges.current)).rejects.toThrow(/500/);
+  });
 });

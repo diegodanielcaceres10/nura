@@ -22,6 +22,7 @@ describe('DashboardPage', () => {
     getSessions: ReturnType<typeof vi.fn>;
     getEventCount: ReturnType<typeof vi.fn>;
     getPageViews: ReturnType<typeof vi.fn>;
+    getActiveUsersByDay: ReturnType<typeof vi.fn>;
   };
   let router: Router;
 
@@ -44,6 +45,10 @@ describe('DashboardPage', () => {
       getPageViews: vi
         .fn()
         .mockResolvedValue({ pageViews: 850, previousPageViews: 800, deltaPercent: 6.3 }),
+      getActiveUsersByDay: vi.fn().mockResolvedValue([
+        { label: '1 jul', value: 30 },
+        { label: '2 jul', value: 45 },
+      ]),
     };
 
     await TestBed.configureTestingModule({
@@ -136,10 +141,49 @@ describe('DashboardPage', () => {
     expect(pageViewsRanges.current.startDate).toBe('7daysAgo');
   });
 
-  it('should render the active users chart', () => {
+  it('should render the active users chart with real daily data from the GA4 API', () => {
     expect(element.querySelector('app-active-users-chart h2')?.textContent).toContain(
       'Usuarios activos',
     );
+
+    const labels = Array.from(
+      element.querySelectorAll('app-active-users-chart .chart-card__x-axis li'),
+    ).map((li) => li.textContent?.trim());
+    expect(labels).toEqual(['1 jul', '2 jul']);
+
+    const yTicks = Array.from(
+      element.querySelectorAll('app-active-users-chart .chart-card__y-axis li'),
+    ).map((li) => li.textContent?.trim());
+    expect(yTicks).toEqual(['80', '60', '40', '20', '0']);
+  });
+
+  it('should request a new daily series when the period changes', async () => {
+    expect(analyticsServiceStub.getActiveUsersByDay).toHaveBeenCalledTimes(1);
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '7d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+
+    expect(analyticsServiceStub.getActiveUsersByDay).toHaveBeenCalledTimes(2);
+    const [, range] = analyticsServiceStub.getActiveUsersByDay.mock.calls[1];
+    expect(range.startDate).toBe('7daysAgo');
+  });
+
+  it('should show an error message on the chart when the daily series fails to load', async () => {
+    analyticsServiceStub.getActiveUsersByDay.mockRejectedValueOnce(new Error('GA4 respondió 500'));
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '90d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+    fixture.detectChanges();
+
+    expect(
+      element.querySelector('app-active-users-chart .chart-card__status--error')?.textContent,
+    ).toContain('No se pudieron cargar');
   });
 
   it('should render the traffic donut', () => {

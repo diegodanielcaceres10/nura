@@ -41,6 +41,19 @@ describe('ActiveUsersChart', () => {
     expect(ticks).toEqual(['40', '30', '20', '10', '0']);
   });
 
+  it('should scale the y-axis to the data when values are much larger', () => {
+    fixture.componentRef.setInput('data', [
+      { label: '1 abr', value: 120 },
+      { label: '4 abr', value: 180 },
+    ]);
+    fixture.detectChanges();
+
+    const ticks = Array.from(element.querySelectorAll('.chart-card__y-axis li')).map((li) =>
+      li.textContent?.trim(),
+    );
+    expect(ticks).toEqual(['200', '150', '100', '50', '0']);
+  });
+
   it('should render one x-axis label per data point', () => {
     const labels = Array.from(element.querySelectorAll('.chart-card__x-axis li')).map((li) =>
       li.textContent?.trim(),
@@ -53,5 +66,25 @@ describe('ActiveUsersChart', () => {
     const area = element.querySelector('.chart-card__area');
     expect(line?.getAttribute('d')).toMatch(/^M /);
     expect(area?.getAttribute('d')).toContain('Z');
+  });
+
+  it('should show no status message when ready (the default)', () => {
+    expect(element.querySelector('.chart-card__status')).toBeNull();
+  });
+
+  it('should show a loading message when status is "loading"', () => {
+    fixture.componentRef.setInput('status', 'loading');
+    fixture.detectChanges();
+
+    expect(element.querySelector('.chart-card__status')?.textContent).toContain('Cargando');
+  });
+
+  it('should show an error message when status is "error"', () => {
+    fixture.componentRef.setInput('status', 'error');
+    fixture.detectChanges();
+
+    const status = element.querySelector('.chart-card__status');
+    expect(status?.textContent).toContain('No se pudieron cargar');
+    expect(status?.classList.contains('chart-card__status--error')).toBe(true);
   });
 });

@@ -14,22 +14,31 @@
     </div>
   </header>
 
+  @if (status() !== 'ready') {
+    <p
+      class="chart-card__status"
+      [class.chart-card__status--error]="status() === 'error'"
+    >
+      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar los datos diarios' }}
+    </p>
+  }
+
   <div class="chart-card__body">
     <ul class="chart-card__y-axis">
-      @for (tick of yTicks; track tick) {
+      @for (tick of yTicks(); track tick) {
         <li>{{ tick }}</li>
       }
     </ul>
 
     <div class="chart-card__plot">
       <svg [attr.viewBox]="viewBox" preserveAspectRatio="none" aria-hidden="true">
-        @for (tick of yTicks; track tick) {
+        @for (tick of yTicks(); track tick) {
           <line
             class="chart-card__gridline"
             x1="0"
             [attr.x2]="720"
-            [attr.y1]="260 - (tick / maxValue) * 260"
-            [attr.y2]="260 - (tick / maxValue) * 260"
+            [attr.y1]="260 - (tick / maxValue()) * 260"
+            [attr.y2]="260 - (tick / maxValue()) * 260"
           />
         }
         <defs>

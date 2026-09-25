@@ -56,7 +56,11 @@
   <app-metric-cards class="dashboard__section" [metrics]="metrics()" />
 
   <div class="dashboard__section dashboard__row">
-    <app-active-users-chart class="dashboard__row-main" [data]="activeUsers" />
+    <app-active-users-chart
+      class="dashboard__row-main"
+      [data]="activeUsersPoints()"
+      [status]="activeUsersSeriesStatus()"
+    />
     <app-traffic-donut
       class="dashboard__row-side"
       [channels]="trafficChannels"
