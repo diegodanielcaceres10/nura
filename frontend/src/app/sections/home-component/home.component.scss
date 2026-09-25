@@ -45,42 +45,12 @@
     }
   }
 
-  &__badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-2xs);
-    width: fit-content;
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border: 1px solid var(--primary-color);
-    border-radius: var(--radius-full);
-    color: var(--primary-color);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-
-    &-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--primary-color);
-      box-shadow: 0 0 8px var(--primary-color);
-    }
-
-    @include ds.md {
-      font-weight: var(--font-weight-regular);
-      padding: var(--spacing-xs);
-    }
-  }
-
   &__title {
     display: flex;
     flex-direction: column;
     font-weight: var(--font-weight-bold);
     line-height: 1.15;
     margin-bottom: 0;
-
-    &-greeting {
-      font-size: var(--font-size-2xl);
-    }
 
     &-name {
       font-size: var(--font-size-5xl);
@@ -105,18 +75,6 @@
       @include ds.md {
         font-size: var(--font-size-md);
       }
-    }
-  }
-
-  &__description {
-    max-width: 46ch;
-    margin: 0;
-    font-size: var(--font-size-md);
-    line-height: 1.6;
-    color: var(--light-color);
-
-    @include ds.md {
-      font-size: var(--font-size-sm);
     }
   }
 
