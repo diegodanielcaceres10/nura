@@ -234,4 +234,55 @@ describe('GoogleAnalyticsService', () => {
 
     await expect(service.getTrafficChannels('token', ranges.current)).rejects.toThrow(/403/);
   });
+
+  it('should return the top pages ordered from most to least viewed', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: '/' }], metricValues: [{ value: '312' }] },
+            { dimensionValues: [{ value: '/proyectos' }], metricValues: [{ value: '198' }] },
+          ],
+        }),
+    });
+
+    const pages = await service.getTopPages('token', ranges.current);
+
+    expect(pages).toEqual([
+      { path: '/', views: 312 },
+      { path: '/proyectos', views: 198 },
+    ]);
+  });
+
+  it('should request the top pages ordered by screenPageViews descending with a limit', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await service.getTopPages('token', ranges.current, 5);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as {
+      dimensions: Array<{ name: string }>;
+      orderBys: Array<{ metric: { metricName: string }; desc: boolean }>;
+      limit: number;
+    };
+    expect(body.dimensions).toEqual([{ name: 'pagePath' }]);
+    expect(body.orderBys).toEqual([{ metric: { metricName: 'screenPageViews' }, desc: true }]);
+    expect(body.limit).toBe(5);
+  });
+
+  it('should return an empty array when GA4 has no rows for the top pages report', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const pages = await service.getTopPages('token', ranges.current);
+
+    expect(pages).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the top pages report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+
+    await expect(service.getTopPages('token', ranges.current)).rejects.toThrow(/500/);
+  });
 });

@@ -8,6 +8,12 @@
     <h2>Páginas más vistas</h2>
   </header>
 
+  @if (status() !== 'ready') {
+    <p class="panel-card__status" [class.panel-card__status--error]="status() === 'error'">
+      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar las páginas' }}
+    </p>
+  }
+
   <ul class="top-pages__list">
     @for (page of pages(); track page.path) {
       <li class="top-pages__row">

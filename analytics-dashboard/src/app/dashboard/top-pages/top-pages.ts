@@ -13,6 +13,7 @@ export interface TopPageRow {
 })
 export class TopPages {
   readonly pages = input.required<readonly TopPageRow[]>();
+  readonly status = input<'loading' | 'ready' | 'error'>('ready');
 
   protected readonly maxViews = computed(() =>
     Math.max(...this.pages().map((page) => page.views), 1),

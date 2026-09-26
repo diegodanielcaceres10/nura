@@ -24,6 +24,7 @@ describe('DashboardPage', () => {
     getPageViews: ReturnType<typeof vi.fn>;
     getActiveUsersByDay: ReturnType<typeof vi.fn>;
     getTrafficChannels: ReturnType<typeof vi.fn>;
+    getTopPages: ReturnType<typeof vi.fn>;
   };
   let router: Router;
 
@@ -60,6 +61,10 @@ describe('DashboardPage', () => {
         ],
         totalSessions: 500,
       }),
+      getTopPages: vi.fn().mockResolvedValue([
+        { path: '/inicio', views: 500 },
+        { path: '/proyectos', views: 300 },
+      ]),
     };
 
     await TestBed.configureTestingModule({
@@ -240,14 +245,51 @@ describe('DashboardPage', () => {
     ).toContain('No se pudieron cargar');
   });
 
-  it('should render the top pages, top events and summary cards', () => {
+  it('should render the top pages with real data from the GA4 API', () => {
     expect(element.querySelector('app-top-pages h2')?.textContent).toContain(
       'Páginas más vistas',
     );
+
+    const rows = element.querySelectorAll('app-top-pages .top-pages__row');
+    expect(rows.length).toBe(2);
+    expect(rows[0].querySelector('.top-pages__path')?.textContent).toContain('/inicio');
+    expect(rows[0].querySelector('.top-pages__value')?.textContent).toContain('500');
+  });
+
+  it('should render the top events and summary cards', () => {
     expect(element.querySelector('app-top-events h2')?.textContent).toContain(
       'Eventos principales',
     );
     expect(element.querySelector('app-summary-card h2')?.textContent).toContain('Resumen');
+  });
+
+  it('should request a new top pages list when the period changes', async () => {
+    expect(analyticsServiceStub.getTopPages).toHaveBeenCalledTimes(1);
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '7d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+
+    expect(analyticsServiceStub.getTopPages).toHaveBeenCalledTimes(2);
+    const [, range] = analyticsServiceStub.getTopPages.mock.calls[1];
+    expect(range.startDate).toBe('7daysAgo');
+  });
+
+  it('should show an error message on top pages when the request fails', async () => {
+    analyticsServiceStub.getTopPages.mockRejectedValueOnce(new Error('GA4 respondió 500'));
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '90d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+    fixture.detectChanges();
+
+    expect(
+      element.querySelector('app-top-pages .panel-card__status--error')?.textContent,
+    ).toContain('No se pudieron cargar');
   });
 
   it('should sign out and redirect to /login when the sign-out button is clicked', () => {

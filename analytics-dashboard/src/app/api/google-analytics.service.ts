@@ -67,6 +67,11 @@ interface Ga4DailyReportResponse {
   }>;
 }
 
+export interface TopPageBreakdown {
+  path: string;
+  views: number;
+}
+
 interface Ga4ChannelReportResponse {
   rows?: ReadonlyArray<{
     dimensionValues?: ReadonlyArray<{ value?: string }>;
@@ -314,6 +319,48 @@ export class GoogleAnalyticsService {
     });
 
     return { channels, totalSessions };
+  }
+
+  /**
+   * Fetches the top pages by page views (pagePath + screenPageViews) for
+   * the given range, ordered from most to least viewed.
+   */
+  async getTopPages(
+    accessToken: string,
+    range: DateRange,
+    limit = 5,
+  ): Promise<readonly TopPageBreakdown[]> {
+    const propertyId = this.propertyId;
+    if (!propertyId) {
+      throw new Error(
+        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
+      );
+    }
+
+    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'pagePath' }],
+        metrics: [{ name: 'screenPageViews' }],
+        orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+        limit,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`GA4 respondió ${response.status} al consultar las páginas más vistas.`);
+    }
+
+    const data = (await response.json()) as Ga4ChannelReportResponse;
+    return (data.rows ?? []).map((row) => ({
+      path: row.dimensionValues?.[0]?.value ?? '(not set)',
+      views: Number(row.metricValues?.[0]?.value ?? 0),
+    }));
   }
 
   private async getMetricSummary(

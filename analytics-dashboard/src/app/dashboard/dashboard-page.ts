@@ -91,6 +91,15 @@ const INITIAL_TRAFFIC_CHANNELS: readonly TrafficChannelBreakdown[] = [
   { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
 ];
 
+// Shown immediately while the real top pages load.
+const INITIAL_TOP_PAGES: readonly TopPageRow[] = [
+  { path: '/', views: 312 },
+  { path: '/proyectos', views: 198 },
+  { path: '/sobre-mi', views: 134 },
+  { path: '/contacto', views: 89 },
+  { path: '/blog', views: 46 },
+];
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -153,14 +162,13 @@ export class DashboardPage {
   );
   protected readonly trafficChannelsStatus = computed(() => this.trafficChannelsState().status);
 
+  private readonly topPagesState = signal<{
+    pages: readonly TopPageRow[];
+    status: 'loading' | 'ready' | 'error';
+  }>({ pages: INITIAL_TOP_PAGES, status: 'loading' });
 
-  protected readonly topPages: readonly TopPageRow[] = [
-    { path: '/', views: 312 },
-    { path: '/proyectos', views: 198 },
-    { path: '/sobre-mi', views: 134 },
-    { path: '/contacto', views: 89 },
-    { path: '/blog', views: 46 },
-  ];
+  protected readonly topPages = computed(() => this.topPagesState().pages);
+  protected readonly topPagesStatus = computed(() => this.topPagesState().status);
 
   protected readonly topEvents: readonly TopEventRow[] = [
     { name: 'page_view', count: 779, percent: 41.3 },
@@ -198,6 +206,7 @@ export class DashboardPage {
         void this.refreshPageViews(period);
         void this.refreshActiveUsersSeries(period);
         void this.refreshTrafficChannels(period);
+        void this.refreshTopPages(period);
       });
     });
   }
@@ -346,6 +355,27 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar los tipos de tráfico', error);
       this.trafficChannelsState.update((state) => ({ ...state, status: 'error' }));
+    }
+  }
+
+  private async refreshTopPages(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.topPagesState.update((state) => ({ ...state, status: 'loading' }));
+
+    try {
+      const range = getDateRangesForPeriod(period).current;
+      const pages = await this.analyticsService.getTopPages(accessToken, range);
+      this.topPagesState.set({
+        pages: pages.length > 0 ? pages : INITIAL_TOP_PAGES,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar las páginas más vistas', error);
+      this.topPagesState.update((state) => ({ ...state, status: 'error' }));
     }
   }
 

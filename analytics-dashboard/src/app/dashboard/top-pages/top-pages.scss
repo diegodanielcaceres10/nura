@@ -26,6 +26,16 @@
   }
 }
 
+.panel-card__status {
+  margin: -8px 0 14px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.panel-card__status--error {
+  color: #f4679b;
+}
+
 .panel-card__icon {
   width: 18px;
   height: 18px;
