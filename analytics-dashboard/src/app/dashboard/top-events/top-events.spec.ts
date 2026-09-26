@@ -36,4 +36,24 @@ describe('TopEvents', () => {
     expect(rows[0].textContent).toContain('779');
     expect(rows[0].textContent).toContain('41.3%');
   });
+
+  it('should show no status message when ready (the default)', () => {
+    expect(element.querySelector('.panel-card__status')).toBeNull();
+  });
+
+  it('should show a loading message when status is "loading"', () => {
+    fixture.componentRef.setInput('status', 'loading');
+    fixture.detectChanges();
+
+    expect(element.querySelector('.panel-card__status')?.textContent).toContain('Cargando');
+  });
+
+  it('should show an error message when status is "error"', () => {
+    fixture.componentRef.setInput('status', 'error');
+    fixture.detectChanges();
+
+    const status = element.querySelector('.panel-card__status');
+    expect(status?.textContent).toContain('No se pudieron cargar');
+    expect(status?.classList.contains('panel-card__status--error')).toBe(true);
+  });
 });

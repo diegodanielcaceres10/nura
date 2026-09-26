@@ -14,4 +14,5 @@ export interface TopEventRow {
 })
 export class TopEvents {
   readonly events = input.required<readonly TopEventRow[]>();
+  readonly status = input<'loading' | 'ready' | 'error'>('ready');
 }

@@ -8,6 +8,12 @@
     <h2>Eventos principales</h2>
   </header>
 
+  @if (status() !== 'ready') {
+    <p class="panel-card__status" [class.panel-card__status--error]="status() === 'error'">
+      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar los eventos' }}
+    </p>
+  }
+
   <table class="top-events__table">
     <thead>
       <tr>

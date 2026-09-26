@@ -285,4 +285,59 @@ describe('GoogleAnalyticsService', () => {
 
     await expect(service.getTopPages('token', ranges.current)).rejects.toThrow(/500/);
   });
+
+  it("should return the top events with each one's share of the total event count", async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('1886')).mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: 'page_view' }], metricValues: [{ value: '779' }] },
+            { dimensionValues: [{ value: 'click' }], metricValues: [{ value: '40' }] },
+          ],
+        }),
+    });
+
+    const events = await service.getTopEvents('token', ranges.current);
+
+    expect(events).toEqual([
+      { name: 'page_view', count: 779, percent: 41.3 },
+      { name: 'click', count: 40, percent: 2.1 },
+    ]);
+  });
+
+  it('should request the top events ordered by eventCount descending with a limit', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await service.getTopEvents('token', ranges.current, 5);
+
+    const [, init] = fetchSpy.mock.calls[1] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as {
+      dimensions: Array<{ name: string }>;
+      orderBys: Array<{ metric: { metricName: string }; desc: boolean }>;
+      limit: number;
+    };
+    expect(body.dimensions).toEqual([{ name: 'eventName' }]);
+    expect(body.orderBys).toEqual([{ metric: { metricName: 'eventCount' }, desc: true }]);
+    expect(body.limit).toBe(5);
+  });
+
+  it('should return an empty array when GA4 has no rows for the top events report', async () => {
+    fetchSpy
+      .mockResolvedValueOnce(jsonResponse('0'))
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const events = await service.getTopEvents('token', ranges.current);
+
+    expect(events).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the top events report', async () => {
+    fetchSpy
+      .mockResolvedValueOnce(jsonResponse('100'))
+      .mockResolvedValueOnce({ ok: false, status: 500 });
+
+    await expect(service.getTopEvents('token', ranges.current)).rejects.toThrow(/500/);
+  });
 });

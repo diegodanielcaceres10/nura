@@ -100,6 +100,15 @@ const INITIAL_TOP_PAGES: readonly TopPageRow[] = [
   { path: '/blog', views: 46 },
 ];
 
+// Shown immediately while the real top events load.
+const INITIAL_TOP_EVENTS: readonly TopEventRow[] = [
+  { name: 'page_view', count: 779, percent: 41.3 },
+  { name: 'user_engagement', count: 612, percent: 32.5 },
+  { name: 'session_start', count: 257, percent: 13.6 },
+  { name: 'first_visit', count: 198, percent: 10.5 },
+  { name: 'click', count: 40, percent: 2.1 },
+];
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -170,13 +179,13 @@ export class DashboardPage {
   protected readonly topPages = computed(() => this.topPagesState().pages);
   protected readonly topPagesStatus = computed(() => this.topPagesState().status);
 
-  protected readonly topEvents: readonly TopEventRow[] = [
-    { name: 'page_view', count: 779, percent: 41.3 },
-    { name: 'user_engagement', count: 612, percent: 32.5 },
-    { name: 'session_start', count: 257, percent: 13.6 },
-    { name: 'first_visit', count: 198, percent: 10.5 },
-    { name: 'click', count: 40, percent: 2.1 },
-  ];
+  private readonly topEventsState = signal<{
+    events: readonly TopEventRow[];
+    status: 'loading' | 'ready' | 'error';
+  }>({ events: INITIAL_TOP_EVENTS, status: 'loading' });
+
+  protected readonly topEvents = computed(() => this.topEventsState().events);
+  protected readonly topEventsStatus = computed(() => this.topEventsState().status);
 
   protected readonly summaryText =
     'Tu sitio web está teniendo un buen rendimiento. El tráfico orgánico sigue siendo tu principal fuente de visitas, con un 62.3% del total.';
@@ -207,6 +216,7 @@ export class DashboardPage {
         void this.refreshActiveUsersSeries(period);
         void this.refreshTrafficChannels(period);
         void this.refreshTopPages(period);
+        void this.refreshTopEvents(period);
       });
     });
   }
@@ -376,6 +386,27 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudieron cargar las páginas más vistas', error);
       this.topPagesState.update((state) => ({ ...state, status: 'error' }));
+    }
+  }
+
+  private async refreshTopEvents(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.topEventsState.update((state) => ({ ...state, status: 'loading' }));
+
+    try {
+      const range = getDateRangesForPeriod(period).current;
+      const events = await this.analyticsService.getTopEvents(accessToken, range);
+      this.topEventsState.set({
+        events: events.length > 0 ? events : INITIAL_TOP_EVENTS,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar los eventos principales', error);
+      this.topEventsState.update((state) => ({ ...state, status: 'error' }));
     }
   }
 

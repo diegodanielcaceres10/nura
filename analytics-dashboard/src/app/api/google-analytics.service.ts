@@ -72,6 +72,13 @@ export interface TopPageBreakdown {
   views: number;
 }
 
+export interface TopEventBreakdown {
+  name: string;
+  count: number;
+  /** Share of this event over the total event count for the period. */
+  percent: number;
+}
+
 interface Ga4ChannelReportResponse {
   rows?: ReadonlyArray<{
     dimensionValues?: ReadonlyArray<{ value?: string }>;
@@ -361,6 +368,56 @@ export class GoogleAnalyticsService {
       path: row.dimensionValues?.[0]?.value ?? '(not set)',
       views: Number(row.metricValues?.[0]?.value ?? 0),
     }));
+  }
+
+  /**
+   * Fetches the top events by count (eventName + eventCount) for the given
+   * range, plus each one's share of the total event count for that same
+   * range (not just the share among the top N returned).
+   */
+  async getTopEvents(
+    accessToken: string,
+    range: DateRange,
+    limit = 5,
+  ): Promise<readonly TopEventBreakdown[]> {
+    const propertyId = this.propertyId;
+    if (!propertyId) {
+      throw new Error(
+        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
+      );
+    }
+
+    const [totalEventCount, response] = await Promise.all([
+      this.fetchMetric(accessToken, range.startDate, range.endDate, 'eventCount'),
+      fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+          dimensions: [{ name: 'eventName' }],
+          metrics: [{ name: 'eventCount' }],
+          orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+          limit,
+        }),
+      }),
+    ]);
+
+    if (!response.ok) {
+      throw new Error(`GA4 respondió ${response.status} al consultar los eventos principales.`);
+    }
+
+    const data = (await response.json()) as Ga4ChannelReportResponse;
+    return (data.rows ?? []).map((row) => {
+      const count = Number(row.metricValues?.[0]?.value ?? 0);
+      return {
+        name: row.dimensionValues?.[0]?.value ?? '(not set)',
+        count,
+        percent: totalEventCount > 0 ? Math.round((count / totalEventCount) * 1000) / 10 : 0,
+      };
+    });
   }
 
   private async getMetricSummary(
