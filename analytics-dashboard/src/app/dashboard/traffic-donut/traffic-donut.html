@@ -7,6 +7,15 @@
     <h2>Tipos de tráfico</h2>
   </header>
 
+  @if (status() !== 'ready') {
+    <p
+      class="traffic-card__status"
+      [class.traffic-card__status--error]="status() === 'error'"
+    >
+      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar los tipos de tráfico' }}
+    </p>
+  }
+
   <div class="traffic-card__body">
     <div class="traffic-card__chart">
       <svg viewBox="0 0 140 140" aria-hidden="true">

@@ -29,6 +29,7 @@ export class TrafficDonut {
   readonly channels = input.required<readonly TrafficChannel[]>();
   readonly totalLabel = input.required<string>();
   readonly totalValue = input.required<string>();
+  readonly status = input<'loading' | 'ready' | 'error'>('ready');
 
   protected readonly radius = RADIUS;
   protected readonly circumference = CIRCUMFERENCE;

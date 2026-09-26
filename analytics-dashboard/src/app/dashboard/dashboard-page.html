@@ -63,9 +63,10 @@
     />
     <app-traffic-donut
       class="dashboard__row-side"
-      [channels]="trafficChannels"
+      [channels]="trafficChannels()"
       totalLabel="Sesiones"
-      totalValue="257"
+      [totalValue]="trafficTotalSessions()"
+      [status]="trafficChannelsStatus()"
     />
   </div>
 

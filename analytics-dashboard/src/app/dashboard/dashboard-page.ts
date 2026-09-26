@@ -13,6 +13,7 @@ import { GoogleAnalyticsService } from '../api/google-analytics.service';
 import { MetricCardData, MetricCards } from './metric-cards/metric-cards';
 import { ActiveUsersChart, ActiveUsersPoint } from './active-users-chart/active-users-chart';
 import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
+import { TrafficChannelBreakdown } from '../api/google-analytics.service';
 import { TopPageRow, TopPages } from './top-pages/top-pages';
 import { TopEventRow, TopEvents } from './top-events/top-events';
 import { SummaryCard } from './summary-card/summary-card';
@@ -81,6 +82,15 @@ const INITIAL_ACTIVE_USERS_SERIES: readonly ActiveUsersPoint[] = [
   { label: '28 abr', value: 27 },
 ];
 
+// Shown immediately while the real channel breakdown loads.
+const INITIAL_TRAFFIC_CHANNELS: readonly TrafficChannelBreakdown[] = [
+  { id: 'organic', label: 'Organic Search', percent: 62.3, color: 'purple' },
+  { id: 'direct', label: 'Direct', percent: 18.7, color: 'blue' },
+  { id: 'referral', label: 'Referral', percent: 10.5, color: 'green' },
+  { id: 'social', label: 'Social', percent: 5.4, color: 'pink' },
+  { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
+];
+
 @Component({
   selector: 'app-dashboard-page',
   imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
@@ -129,13 +139,19 @@ export class DashboardPage {
   protected readonly activeUsersPoints = computed(() => this.activeUsersSeries().points);
   protected readonly activeUsersSeriesStatus = computed(() => this.activeUsersSeries().status);
 
-  protected readonly trafficChannels: readonly TrafficChannel[] = [
-    { id: 'organic', label: 'Organic Search', percent: 62.3, color: 'purple' },
-    { id: 'direct', label: 'Direct', percent: 18.7, color: 'blue' },
-    { id: 'referral', label: 'Referral', percent: 10.5, color: 'green' },
-    { id: 'social', label: 'Social', percent: 5.4, color: 'pink' },
-    { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
-  ];
+  private readonly trafficChannelsState = signal<{
+    channels: readonly TrafficChannelBreakdown[];
+    totalSessions: number;
+    status: 'loading' | 'ready' | 'error';
+  }>({ channels: INITIAL_TRAFFIC_CHANNELS, totalSessions: 257, status: 'loading' });
+
+  protected readonly trafficChannels = computed<readonly TrafficChannel[]>(
+    () => this.trafficChannelsState().channels,
+  );
+  protected readonly trafficTotalSessions = computed(() =>
+    this.trafficChannelsState().totalSessions.toLocaleString('es-AR'),
+  );
+  protected readonly trafficChannelsStatus = computed(() => this.trafficChannelsState().status);
 
 
   protected readonly topPages: readonly TopPageRow[] = [
@@ -181,6 +197,7 @@ export class DashboardPage {
         void this.refreshEvents(period);
         void this.refreshPageViews(period);
         void this.refreshActiveUsersSeries(period);
+        void this.refreshTrafficChannels(period);
       });
     });
   }
@@ -307,6 +324,28 @@ export class DashboardPage {
     } catch (error) {
       console.error('No se pudo cargar la serie diaria de usuarios activos', error);
       this.activeUsersSeries.update((state) => ({ ...state, status: 'error' }));
+    }
+  }
+
+  private async refreshTrafficChannels(period: PeriodValue): Promise<void> {
+    const accessToken = this.authService.accessToken();
+    if (!accessToken) {
+      return;
+    }
+
+    this.trafficChannelsState.update((state) => ({ ...state, status: 'loading' }));
+
+    try {
+      const range = getDateRangesForPeriod(period).current;
+      const summary = await this.analyticsService.getTrafficChannels(accessToken, range);
+      this.trafficChannelsState.set({
+        channels: summary.channels,
+        totalSessions: summary.totalSessions,
+        status: 'ready',
+      });
+    } catch (error) {
+      console.error('No se pudieron cargar los tipos de tráfico', error);
+      this.trafficChannelsState.update((state) => ({ ...state, status: 'error' }));
     }
   }
 

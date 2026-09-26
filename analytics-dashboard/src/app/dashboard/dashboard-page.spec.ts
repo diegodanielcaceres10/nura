@@ -23,6 +23,7 @@ describe('DashboardPage', () => {
     getEventCount: ReturnType<typeof vi.fn>;
     getPageViews: ReturnType<typeof vi.fn>;
     getActiveUsersByDay: ReturnType<typeof vi.fn>;
+    getTrafficChannels: ReturnType<typeof vi.fn>;
   };
   let router: Router;
 
@@ -49,6 +50,16 @@ describe('DashboardPage', () => {
         { label: '1 jul', value: 30 },
         { label: '2 jul', value: 45 },
       ]),
+      getTrafficChannels: vi.fn().mockResolvedValue({
+        channels: [
+          { id: 'organic', label: 'Organic Search', percent: 70, color: 'purple' },
+          { id: 'direct', label: 'Direct', percent: 20, color: 'blue' },
+          { id: 'referral', label: 'Referral', percent: 5, color: 'green' },
+          { id: 'social', label: 'Social', percent: 3, color: 'pink' },
+          { id: 'other', label: 'Otros', percent: 2, color: 'orange' },
+        ],
+        totalSessions: 500,
+      }),
     };
 
     await TestBed.configureTestingModule({
@@ -186,10 +197,47 @@ describe('DashboardPage', () => {
     ).toContain('No se pudieron cargar');
   });
 
-  it('should render the traffic donut', () => {
+  it('should render the traffic donut with real data from the GA4 API', () => {
     expect(element.querySelector('app-traffic-donut h2')?.textContent).toContain(
       'Tipos de tráfico',
     );
+    expect(
+      element.querySelector('app-traffic-donut .traffic-card__total-value')?.textContent,
+    ).toContain('500');
+
+    const percents = Array.from(
+      element.querySelectorAll('app-traffic-donut .traffic-card__legend-percent'),
+    ).map((el) => el.textContent?.trim());
+    expect(percents).toEqual(['70%', '20%', '5%', '3%', '2%']);
+  });
+
+  it('should request a new traffic channel breakdown when the period changes', async () => {
+    expect(analyticsServiceStub.getTrafficChannels).toHaveBeenCalledTimes(1);
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '7d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+
+    expect(analyticsServiceStub.getTrafficChannels).toHaveBeenCalledTimes(2);
+    const [, range] = analyticsServiceStub.getTrafficChannels.mock.calls[1];
+    expect(range.startDate).toBe('7daysAgo');
+  });
+
+  it('should show an error message on the donut when the traffic breakdown fails to load', async () => {
+    analyticsServiceStub.getTrafficChannels.mockRejectedValueOnce(new Error('GA4 respondió 500'));
+
+    const select = element.querySelector<HTMLSelectElement>('select.period__select');
+    select!.value = '90d';
+    select!.dispatchEvent(new Event('change'));
+    fixture.detectChanges();
+    await flush();
+    fixture.detectChanges();
+
+    expect(
+      element.querySelector('app-traffic-donut .traffic-card__status--error')?.textContent,
+    ).toContain('No se pudieron cargar');
   });
 
   it('should render the top pages, top events and summary cards', () => {

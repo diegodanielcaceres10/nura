@@ -189,4 +189,49 @@ describe('GoogleAnalyticsService', () => {
 
     await expect(service.getActiveUsersByDay('token', ranges.current)).rejects.toThrow(/500/);
   });
+
+  it('should bucket sessions by channel group and compute each share of the total', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: 'Organic Search' }], metricValues: [{ value: '623' }] },
+            { dimensionValues: [{ value: 'Direct' }], metricValues: [{ value: '187' }] },
+            { dimensionValues: [{ value: 'Referral' }], metricValues: [{ value: '105' }] },
+            { dimensionValues: [{ value: 'Organic Social' }], metricValues: [{ value: '40' }] },
+            { dimensionValues: [{ value: 'Paid Social' }], metricValues: [{ value: '14' }] },
+            { dimensionValues: [{ value: 'Email' }], metricValues: [{ value: '21' }] },
+          ],
+        }),
+    });
+
+    const summary = await service.getTrafficChannels('token', ranges.current);
+
+    expect(summary.totalSessions).toBe(990);
+    expect(summary.channels).toEqual([
+      { id: 'organic', label: 'Organic Search', percent: 62.9, color: 'purple' },
+      { id: 'direct', label: 'Direct', percent: 18.9, color: 'blue' },
+      { id: 'referral', label: 'Referral', percent: 10.6, color: 'green' },
+      { id: 'social', label: 'Social', percent: 5.5, color: 'pink' },
+      { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
+    ]);
+  });
+
+  it('should return all 5 channels at 0% when GA4 has no sessions for the range', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const summary = await service.getTrafficChannels('token', ranges.current);
+
+    expect(summary.totalSessions).toBe(0);
+    expect(summary.channels).toHaveLength(5);
+    expect(summary.channels.every((channel) => channel.percent === 0)).toBe(true);
+  });
+
+  it('should reject when GA4 responds with an error status for the traffic channels report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 403 });
+
+    await expect(service.getTrafficChannels('token', ranges.current)).rejects.toThrow(/403/);
+  });
 });

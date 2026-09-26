@@ -34,6 +34,20 @@ export interface DailyActiveUsersPoint {
   value: number;
 }
 
+export type TrafficChannelId = 'organic' | 'direct' | 'referral' | 'social' | 'other';
+
+export interface TrafficChannelBreakdown {
+  id: TrafficChannelId;
+  label: string;
+  percent: number;
+  color: 'purple' | 'blue' | 'green' | 'pink' | 'orange';
+}
+
+export interface TrafficChannelsSummary {
+  channels: readonly TrafficChannelBreakdown[];
+  totalSessions: number;
+}
+
 interface MetricSummary {
   value: number;
   previousValue: number;
@@ -52,6 +66,29 @@ interface Ga4DailyReportResponse {
     metricValues?: ReadonlyArray<{ value?: string }>;
   }>;
 }
+
+interface Ga4ChannelReportResponse {
+  rows?: ReadonlyArray<{
+    dimensionValues?: ReadonlyArray<{ value?: string }>;
+    metricValues?: ReadonlyArray<{ value?: string }>;
+  }>;
+}
+
+// Maps GA4's sessionDefaultChannelGroup values onto the 5 traffic types
+// the "Tipos de tráfico" donut shows. Anything not explicitly listed here
+// (Paid Search, Email, Display, Affiliates, etc.) falls into "Otros".
+const TRAFFIC_CHANNEL_BUCKETS: ReadonlyArray<{
+  id: TrafficChannelId;
+  label: string;
+  color: TrafficChannelBreakdown['color'];
+  gaGroups: readonly string[];
+}> = [
+  { id: 'organic', label: 'Organic Search', color: 'purple', gaGroups: ['Organic Search'] },
+  { id: 'direct', label: 'Direct', color: 'blue', gaGroups: ['Direct'] },
+  { id: 'referral', label: 'Referral', color: 'green', gaGroups: ['Referral'] },
+  { id: 'social', label: 'Social', color: 'pink', gaGroups: ['Organic Social', 'Paid Social'] },
+];
+const OTHER_TRAFFIC_BUCKET = { id: 'other' as const, label: 'Otros', color: 'orange' as const };
 
 const GA4_ENDPOINT = 'https://analyticsdata.googleapis.com/v1beta';
 
@@ -220,6 +257,63 @@ export class GoogleAnalyticsService {
     }));
 
     return bucketDailyPoints(daily, targetPoints);
+  }
+
+  /**
+   * Fetches sessions grouped by GA4's default channel group for the given
+   * range, buckets them into the 5 traffic types the donut shows, and
+   * returns each bucket's share of the total plus the total itself.
+   */
+  async getTrafficChannels(accessToken: string, range: DateRange): Promise<TrafficChannelsSummary> {
+    const propertyId = this.propertyId;
+    if (!propertyId) {
+      throw new Error(
+        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
+      );
+    }
+
+    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+        metrics: [{ name: 'sessions' }],
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`GA4 respondió ${response.status} al consultar los tipos de tráfico.`);
+    }
+
+    const data = (await response.json()) as Ga4ChannelReportResponse;
+    const rows = data.rows ?? [];
+
+    const sessionsByBucket = new Map<TrafficChannelId, number>();
+    let totalSessions = 0;
+
+    for (const row of rows) {
+      const gaGroup = row.dimensionValues?.[0]?.value ?? '';
+      const sessions = Number(row.metricValues?.[0]?.value ?? 0);
+      totalSessions += sessions;
+
+      const bucket = TRAFFIC_CHANNEL_BUCKETS.find((b) => b.gaGroups.includes(gaGroup));
+      const id = bucket?.id ?? OTHER_TRAFFIC_BUCKET.id;
+      sessionsByBucket.set(id, (sessionsByBucket.get(id) ?? 0) + sessions);
+    }
+
+    const allBuckets = [...TRAFFIC_CHANNEL_BUCKETS, OTHER_TRAFFIC_BUCKET];
+    const channels = allBuckets.map(({ id, label, color }) => {
+      const sessions = sessionsByBucket.get(id) ?? 0;
+      const percent =
+        totalSessions > 0 ? Math.round((sessions / totalSessions) * 1000) / 10 : 0;
+      return { id, label, percent, color };
+    });
+
+    return { channels, totalSessions };
   }
 
   private async getMetricSummary(
