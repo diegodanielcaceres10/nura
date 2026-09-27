@@ -340,4 +340,104 @@ describe('GoogleAnalyticsService', () => {
 
     await expect(service.getTopEvents('token', ranges.current)).rejects.toThrow(/500/);
   });
+
+  describe('caching, deduplication, concurrency and rate limits', () => {
+    it('should cache a successful response and reuse it within the TTL window', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      const first = await service.getTopPages('token', ranges.current);
+      const second = await service.getTopPages('token', ranges.current);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(second).toEqual(first);
+    });
+
+    it('should not reuse the cache for a different date range', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      await service.getTopPages('token', ranges.current);
+      await service.getTopPages('token', ranges.previous);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('should dedupe two concurrent identical requests into a single network call', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      const [first, second] = await Promise.all([
+        service.getTopPages('token', ranges.current),
+        service.getTopPages('token', ranges.current),
+      ]);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(second).toEqual(first);
+    });
+
+    it('should share one request between getEventCount and getTopEvents for the same range', async () => {
+      // Both ask for the current-period eventCount total with an
+      // identical request body, so this should collapse to one call
+      // instead of two.
+      fetchSpy.mockResolvedValue(jsonResponse('500'));
+
+      await Promise.all([
+        service.getEventCount('token', ranges),
+        service.getTopEvents('token', ranges.current),
+      ]);
+
+      const eventCountCalls = fetchSpy.mock.calls.filter(([, init]) => {
+        const body = JSON.parse((init as RequestInit).body as string) as {
+          dimensions?: Array<{ name: string }>;
+          dateRanges: Array<{ startDate: string }>;
+        };
+        return !body.dimensions && body.dateRanges[0].startDate === ranges.current.startDate;
+      });
+      expect(eventCountCalls).toHaveLength(1);
+    });
+
+    it('should not run more than the configured max concurrent requests at once', async () => {
+      let active = 0;
+      let maxActive = 0;
+      fetchSpy.mockImplementation(async () => {
+        active++;
+        maxActive = Math.max(maxActive, active);
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        active--;
+        return jsonResponse('1');
+      });
+
+      const distinctRanges = Array.from({ length: 8 }, (_, i) => ({
+        startDate: `${i}daysAgo`,
+        endDate: 'yesterday',
+      }));
+
+      await Promise.all(
+        distinctRanges.map((range) => service.getActiveUsersByDay('token', range)),
+      );
+
+      expect(maxActive).toBeLessThanOrEqual(4);
+    });
+
+    it('should retry once after a 429 and then resolve successfully', async () => {
+      fetchSpy
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          headers: { get: () => '0' },
+        })
+        .mockResolvedValueOnce(jsonResponse('198'));
+
+      const pages = await service.getTopPages('token', ranges.current);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+      expect(pages).toEqual([{ path: '(not set)', views: 198 }]);
+    });
+
+    it('should give up after repeated 429s with a clear error message', async () => {
+      fetchSpy.mockResolvedValue({ ok: false, status: 429, headers: { get: () => '0' } });
+
+      await expect(service.getTopPages('token', ranges.current)).rejects.toThrow(
+        /límite de solicitudes/,
+      );
+    });
+  });
 });

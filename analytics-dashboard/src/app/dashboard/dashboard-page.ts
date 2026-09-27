@@ -16,7 +16,6 @@ import { TrafficChannel, TrafficDonut } from './traffic-donut/traffic-donut';
 import { TrafficChannelBreakdown } from '../api/google-analytics.service';
 import { TopPageRow, TopPages } from './top-pages/top-pages';
 import { TopEventRow, TopEvents } from './top-events/top-events';
-import { SummaryCard } from './summary-card/summary-card';
 import { getDateRangesForPeriod, PeriodValue } from './period-ranges';
 
 export type { PeriodValue };
@@ -111,7 +110,7 @@ const INITIAL_TOP_EVENTS: readonly TopEventRow[] = [
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents, SummaryCard],
+  imports: [MetricCards, ActiveUsersChart, TrafficDonut, TopPages, TopEvents],
   templateUrl: './dashboard-page.html',
   styleUrl: './dashboard-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -186,12 +185,6 @@ export class DashboardPage {
 
   protected readonly topEvents = computed(() => this.topEventsState().events);
   protected readonly topEventsStatus = computed(() => this.topEventsState().status);
-
-  protected readonly summaryText =
-    'Tu sitio web está teniendo un buen rendimiento. El tráfico orgánico sigue siendo tu principal fuente de visitas, con un 62.3% del total.';
-
-  protected readonly opportunityText =
-    'Considera crear más contenido en el blog para aumentar las visualizaciones de página.';
 
   protected readonly periods: readonly PeriodOption[] = [
     { value: '7d', label: 'Últimos 7 días' },

@@ -70,13 +70,8 @@
     />
   </div>
 
-  <div class="dashboard__section dashboard__row dashboard__row--triple">
+  <div class="dashboard__section dashboard__row dashboard__row--double">
     <app-top-pages [pages]="topPages()" [status]="topPagesStatus()" />
     <app-top-events [events]="topEvents()" [status]="topEventsStatus()" />
-    <app-summary-card
-      [summary]="summaryText"
-      opportunityTitle="Oportunidad"
-      [opportunityText]="opportunityText"
-    />
   </div>
 </div>

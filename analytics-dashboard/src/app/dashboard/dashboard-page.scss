@@ -29,8 +29,8 @@
   gap: 20px;
 }
 
-.dashboard__row--triple {
-  grid-template-columns: repeat(3, 1fr);
+.dashboard__row--double {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .dashboard__row-main,
@@ -191,7 +191,7 @@
 }
 
 @media (max-width: 960px) {
-  .dashboard__row--triple {
+  .dashboard__row--double {
     grid-template-columns: 1fr;
   }
 }

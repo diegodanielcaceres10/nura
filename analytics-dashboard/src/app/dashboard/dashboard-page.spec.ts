@@ -273,8 +273,8 @@ describe('DashboardPage', () => {
     expect(rows[0].textContent).toContain('45%');
   });
 
-  it('should render the summary card', () => {
-    expect(element.querySelector('app-summary-card h2')?.textContent).toContain('Resumen');
+  it('should not render a summary card (removed)', () => {
+    expect(element.querySelector('app-summary-card')).toBeNull();
   });
 
   it('should request a new top events list when the period changes', async () => {

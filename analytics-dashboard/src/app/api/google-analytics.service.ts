@@ -48,25 +48,6 @@ export interface TrafficChannelsSummary {
   totalSessions: number;
 }
 
-interface MetricSummary {
-  value: number;
-  previousValue: number;
-  deltaPercent: number | null;
-}
-
-interface Ga4RunReportResponse {
-  rows?: ReadonlyArray<{
-    metricValues?: ReadonlyArray<{ value?: string }>;
-  }>;
-}
-
-interface Ga4DailyReportResponse {
-  rows?: ReadonlyArray<{
-    dimensionValues?: ReadonlyArray<{ value?: string }>;
-    metricValues?: ReadonlyArray<{ value?: string }>;
-  }>;
-}
-
 export interface TopPageBreakdown {
   path: string;
   views: number;
@@ -79,7 +60,16 @@ export interface TopEventBreakdown {
   percent: number;
 }
 
-interface Ga4ChannelReportResponse {
+interface MetricSummary {
+  value: number;
+  previousValue: number;
+  deltaPercent: number | null;
+}
+
+// Shape shared by every GA4 runReport response we consume: with no
+// dimensions requested, rows only carry metricValues; with one dimension,
+// each row also carries a single dimensionValues entry.
+interface Ga4RunReportResponse {
   rows?: ReadonlyArray<{
     dimensionValues?: ReadonlyArray<{ value?: string }>;
     metricValues?: ReadonlyArray<{ value?: string }>;
@@ -108,6 +98,22 @@ const GA4_ENDPOINT = 'https://analyticsdata.googleapis.com/v1beta';
 // regardless of how many days the selected period spans. Consecutive days
 // are averaged together into buckets to reach roughly this count.
 const CHART_TARGET_POINTS = 10;
+
+// How long a successful response is reused before asking GA4 again. The
+// dashboard's numbers don't need to be second-fresh, and this also means
+// switching the period back and forth doesn't re-fire requests we already
+// have an answer for.
+const CACHE_TTL_MS = 60_000;
+
+// GA4's Data API caps concurrent requests per property; this keeps us
+// comfortably under that regardless of how many cards refetch at once
+// (a single period change can trigger a dozen or so requests today).
+const MAX_CONCURRENT_REQUESTS = 4;
+
+// If GA4 answers 429 (rate limited), retry a couple of times with backoff
+// before giving up.
+const MAX_RATE_LIMIT_RETRIES = 2;
+const RATE_LIMIT_BASE_DELAY_MS = 1000;
 
 const MONTH_ABBREVIATIONS = [
   'ene',
@@ -161,16 +167,45 @@ function bucketDailyPoints(
   return points;
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/** Caps how many callers run concurrently; extras wait their turn in a FIFO queue. */
+class ConcurrencyLimiter {
+  private active = 0;
+  private readonly queue: Array<() => void> = [];
+
+  constructor(private readonly max: number) {}
+
+  async run<T>(task: () => Promise<T>): Promise<T> {
+    if (this.active >= this.max) {
+      await new Promise<void>((resolve) => this.queue.push(resolve));
+    }
+
+    this.active++;
+    try {
+      return await task();
+    } finally {
+      this.active--;
+      this.queue.shift()?.();
+    }
+  }
+}
+
 /**
- * Thin client for the GA4 Data API (runReport). Each metric fetches its
- * own current/previous-period report via getMetricSummary; if several
- * cards start needing the same date ranges, this is a natural place to
- * batch them into a single request instead.
+ * Thin client for the GA4 Data API (runReport). Every request goes through
+ * postRunReport, which adds a short-lived cache, dedupes identical
+ * in-flight requests, caps concurrency, and retries once or twice on 429s.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class GoogleAnalyticsService {
+  private readonly limiter = new ConcurrencyLimiter(MAX_CONCURRENT_REQUESTS);
+  private readonly cache = new Map<string, { value: Ga4RunReportResponse; expiresAt: number }>();
+  private readonly pending = new Map<string, Promise<Ga4RunReportResponse>>();
+
   private get propertyId(): string {
     return window.__env?.GA_PROPERTY_ID ?? '';
   }
@@ -237,32 +272,13 @@ export class GoogleAnalyticsService {
     range: DateRange,
     targetPoints = CHART_TARGET_POINTS,
   ): Promise<DailyActiveUsersPoint[]> {
-    const propertyId = this.propertyId;
-    if (!propertyId) {
-      throw new Error(
-        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
-      );
-    }
-
-    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-        dimensions: [{ name: 'date' }],
-        metrics: [{ name: 'activeUsers' }],
-        orderBys: [{ dimension: { dimensionName: 'date' } }],
-      }),
+    const data = await this.postRunReport(accessToken, {
+      dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+      dimensions: [{ name: 'date' }],
+      metrics: [{ name: 'activeUsers' }],
+      orderBys: [{ dimension: { dimensionName: 'date' } }],
     });
 
-    if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar activeUsers por día.`);
-    }
-
-    const data = (await response.json()) as Ga4DailyReportResponse;
     const daily = (data.rows ?? []).map((row) => ({
       date: parseGa4Date(row.dimensionValues?.[0]?.value ?? ''),
       value: Number(row.metricValues?.[0]?.value ?? 0),
@@ -277,37 +293,16 @@ export class GoogleAnalyticsService {
    * returns each bucket's share of the total plus the total itself.
    */
   async getTrafficChannels(accessToken: string, range: DateRange): Promise<TrafficChannelsSummary> {
-    const propertyId = this.propertyId;
-    if (!propertyId) {
-      throw new Error(
-        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
-      );
-    }
-
-    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-        dimensions: [{ name: 'sessionDefaultChannelGroup' }],
-        metrics: [{ name: 'sessions' }],
-      }),
+    const data = await this.postRunReport(accessToken, {
+      dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+      dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+      metrics: [{ name: 'sessions' }],
     });
-
-    if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar los tipos de tráfico.`);
-    }
-
-    const data = (await response.json()) as Ga4ChannelReportResponse;
-    const rows = data.rows ?? [];
 
     const sessionsByBucket = new Map<TrafficChannelId, number>();
     let totalSessions = 0;
 
-    for (const row of rows) {
+    for (const row of data.rows ?? []) {
       const gaGroup = row.dimensionValues?.[0]?.value ?? '';
       const sessions = Number(row.metricValues?.[0]?.value ?? 0);
       totalSessions += sessions;
@@ -320,8 +315,7 @@ export class GoogleAnalyticsService {
     const allBuckets = [...TRAFFIC_CHANNEL_BUCKETS, OTHER_TRAFFIC_BUCKET];
     const channels = allBuckets.map(({ id, label, color }) => {
       const sessions = sessionsByBucket.get(id) ?? 0;
-      const percent =
-        totalSessions > 0 ? Math.round((sessions / totalSessions) * 1000) / 10 : 0;
+      const percent = totalSessions > 0 ? Math.round((sessions / totalSessions) * 1000) / 10 : 0;
       return { id, label, percent, color };
     });
 
@@ -337,33 +331,14 @@ export class GoogleAnalyticsService {
     range: DateRange,
     limit = 5,
   ): Promise<readonly TopPageBreakdown[]> {
-    const propertyId = this.propertyId;
-    if (!propertyId) {
-      throw new Error(
-        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
-      );
-    }
-
-    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-        dimensions: [{ name: 'pagePath' }],
-        metrics: [{ name: 'screenPageViews' }],
-        orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
-        limit,
-      }),
+    const data = await this.postRunReport(accessToken, {
+      dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+      dimensions: [{ name: 'pagePath' }],
+      metrics: [{ name: 'screenPageViews' }],
+      orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+      limit,
     });
 
-    if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar las páginas más vistas.`);
-    }
-
-    const data = (await response.json()) as Ga4ChannelReportResponse;
     return (data.rows ?? []).map((row) => ({
       path: row.dimensionValues?.[0]?.value ?? '(not set)',
       views: Number(row.metricValues?.[0]?.value ?? 0),
@@ -373,43 +348,26 @@ export class GoogleAnalyticsService {
   /**
    * Fetches the top events by count (eventName + eventCount) for the given
    * range, plus each one's share of the total event count for that same
-   * range (not just the share among the top N returned).
+   * range (not just the share among the top N returned). The grand-total
+   * request here is identical to the one getEventCount makes for the same
+   * range, so when both run in the same batch they share one network call.
    */
   async getTopEvents(
     accessToken: string,
     range: DateRange,
     limit = 5,
   ): Promise<readonly TopEventBreakdown[]> {
-    const propertyId = this.propertyId;
-    if (!propertyId) {
-      throw new Error(
-        'Falta configurar GA_PROPERTY_ID. Completá analytics-dashboard/.env a partir de .env.example.',
-      );
-    }
-
-    const [totalEventCount, response] = await Promise.all([
+    const [totalEventCount, data] = await Promise.all([
       this.fetchMetric(accessToken, range.startDate, range.endDate, 'eventCount'),
-      fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
-          dimensions: [{ name: 'eventName' }],
-          metrics: [{ name: 'eventCount' }],
-          orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
-          limit,
-        }),
+      this.postRunReport(accessToken, {
+        dateRanges: [{ startDate: range.startDate, endDate: range.endDate }],
+        dimensions: [{ name: 'eventName' }],
+        metrics: [{ name: 'eventCount' }],
+        orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+        limit,
       }),
     ]);
 
-    if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar los eventos principales.`);
-    }
-
-    const data = (await response.json()) as Ga4ChannelReportResponse;
     return (data.rows ?? []).map((row) => {
       const count = Number(row.metricValues?.[0]?.value ?? 0);
       return {
@@ -442,6 +400,25 @@ export class GoogleAnalyticsService {
     endDate: string,
     metricName: string,
   ): Promise<number> {
+    const data = await this.postRunReport(accessToken, {
+      dateRanges: [{ startDate, endDate }],
+      metrics: [{ name: metricName }],
+    });
+
+    const raw = data.rows?.[0]?.metricValues?.[0]?.value;
+    return raw !== undefined ? Number(raw) : 0;
+  }
+
+  /**
+   * Single choke point for every runReport call: validates the property
+   * id, serves a cached response when one is fresh, dedupes an identical
+   * request that's already in flight, and otherwise runs it through the
+   * concurrency limiter (with retry-on-429) and caches the result.
+   */
+  private async postRunReport(
+    accessToken: string,
+    body: Record<string, unknown>,
+  ): Promise<Ga4RunReportResponse> {
     const propertyId = this.propertyId;
     if (!propertyId) {
       throw new Error(
@@ -449,24 +426,67 @@ export class GoogleAnalyticsService {
       );
     }
 
-    const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        dateRanges: [{ startDate, endDate }],
-        metrics: [{ name: metricName }],
-      }),
-    });
+    const cacheKey = `${propertyId}:${JSON.stringify(body)}`;
 
-    if (!response.ok) {
-      throw new Error(`GA4 respondió ${response.status} al consultar ${metricName}.`);
+    const cached = this.cache.get(cacheKey);
+    if (cached && cached.expiresAt > Date.now()) {
+      return cached.value;
     }
 
-    const data = (await response.json()) as Ga4RunReportResponse;
-    const raw = data.rows?.[0]?.metricValues?.[0]?.value;
-    return raw !== undefined ? Number(raw) : 0;
+    const inFlight = this.pending.get(cacheKey);
+    if (inFlight) {
+      return inFlight;
+    }
+
+    const requestPromise = this.limiter
+      .run(() => this.fetchWithRetries(accessToken, propertyId, body))
+      .then((data) => {
+        this.cache.set(cacheKey, { value: data, expiresAt: Date.now() + CACHE_TTL_MS });
+        return data;
+      })
+      .finally(() => {
+        this.pending.delete(cacheKey);
+      });
+
+    this.pending.set(cacheKey, requestPromise);
+    return requestPromise;
+  }
+
+  private async fetchWithRetries(
+    accessToken: string,
+    propertyId: string,
+    body: Record<string, unknown>,
+  ): Promise<Ga4RunReportResponse> {
+    for (let attempt = 0; ; attempt++) {
+      const response = await fetch(`${GA4_ENDPOINT}/properties/${propertyId}:runReport`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.status === 429 && attempt < MAX_RATE_LIMIT_RETRIES) {
+        const retryAfterHeader = response.headers?.get('Retry-After');
+        const retryAfterMs = retryAfterHeader
+          ? Number(retryAfterHeader) * 1000
+          : RATE_LIMIT_BASE_DELAY_MS * 2 ** attempt;
+        await delay(retryAfterMs);
+        continue;
+      }
+
+      if (response.status === 429) {
+        throw new Error(
+          'Se alcanzó el límite de solicitudes a la API de Google Analytics. Probá de nuevo en unos segundos.',
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(`GA4 respondió ${response.status} al consultar datos de Analytics.`);
+      }
+
+      return (await response.json()) as Ga4RunReportResponse;
+    }
   }
 }
