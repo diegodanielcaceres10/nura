@@ -1,8 +1,12 @@
 :host {
   display: block;
+  height: 100%;
 }
 
 .chart-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 24px 26px 20px;
   border-radius: 18px;
   border: 1px solid var(--color-border);
@@ -67,6 +71,8 @@
 
 .chart-card__body {
   display: flex;
+  flex: 1;
+  min-height: 0;
   gap: 12px;
 }
 
@@ -83,14 +89,17 @@
 }
 
 .chart-card__plot {
+  display: flex;
   flex: 1;
+  flex-direction: column;
   min-width: 0;
 }
 
 .chart-card__plot svg {
   display: block;
   width: 100%;
-  height: 220px;
+  flex: 1;
+  min-height: 160px;
 }
 
 .chart-card__gridline {
