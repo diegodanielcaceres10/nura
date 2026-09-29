@@ -49,25 +49,25 @@ export class LocaleService {
   }
 
   private static normalizeStatic(locale: string): AppLocale {
+    return this.toSupportedLocale(locale) ?? DEFAULT_LOCALE;
+  }
+
+  private static toSupportedLocale(locale: string): AppLocale | null {
     const short = locale.split('-')[0] as AppLocale;
-    return SUPPORTED_LOCALES.includes(short) ? short : DEFAULT_LOCALE;
+    return SUPPORTED_LOCALES.includes(short) ? short : null;
   }
 
   private static readBrowserLocale(): AppLocale | null {
-    if (!isBrowser) return null;
-
     const languages = navigator.languages?.length ? navigator.languages : [navigator.language];
     for (const lang of languages) {
-      const normalized = this.normalizeStatic(lang);
-      if (SUPPORTED_LOCALES.includes(normalized)) return normalized;
+      const supported = this.toSupportedLocale(lang);
+      if (supported) return supported;
     }
 
     return null;
   }
 
   private static readQueryLocale(): AppLocale | null {
-    if (!isBrowser) return null;
-
     const params = new URLSearchParams(window.location.search);
     const fromQuery = params.get(LOCALE_PARAM);
     if (!fromQuery) return null;
@@ -93,8 +93,6 @@ export class LocaleService {
   }
 
   private static readPathLocale(): AppLocale | null {
-    if (!isBrowser) return null;
-
     const segments = this.getRelativePathSegments();
     const first = segments[0];
     if (!first) return null;
@@ -103,10 +101,6 @@ export class LocaleService {
   }
 
   private static buildLocaleUrl(locale: AppLocale): URL {
-    if (!isBrowser) {
-      return new URL('http://localhost');
-    }
-
     const current = new URL(window.location.href);
     const baseSegments = this.getBasePathSegments();
     const relativeSegments = this.getRelativePathSegments();
@@ -128,8 +122,6 @@ export class LocaleService {
   }
 
   private static getRelativePathSegments(): string[] {
-    if (!isBrowser) return [];
-
     const baseSegments = this.getBasePathSegments();
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
 
@@ -139,8 +131,6 @@ export class LocaleService {
   }
 
   private static getBasePathSegments(): string[] {
-    if (!isBrowser) return [];
-
     const baseEl = document.querySelector('base');
     const baseHref = baseEl?.getAttribute('href') ?? '/';
     const baseUrl = new URL(baseHref, window.location.origin);
