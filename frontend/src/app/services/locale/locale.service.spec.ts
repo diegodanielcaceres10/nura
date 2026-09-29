@@ -52,6 +52,24 @@ describe('LocaleService', () => {
     expect(LocaleService.resolveStartupLocale()).toBe('pt');
   });
 
+  it('resolveStartupLocale should pick the first supported browser language when earlier ones are unsupported', () => {
+    vi.stubGlobal('navigator', { ...navigator, languages: ['de-DE', 'pt-BR'], language: 'de-DE' });
+
+    expect(LocaleService.resolveStartupLocale()).toBe('pt');
+  });
+
+  it('resolveStartupLocale should respect the browser language order among supported ones', () => {
+    vi.stubGlobal('navigator', { ...navigator, languages: ['en-US', 'pt-BR'], language: 'en-US' });
+
+    expect(LocaleService.resolveStartupLocale()).toBe('en');
+  });
+
+  it('resolveStartupLocale should use navigator.language when navigator.languages is empty', () => {
+    vi.stubGlobal('navigator', { ...navigator, languages: [], language: 'pt-BR' });
+
+    expect(LocaleService.resolveStartupLocale()).toBe('pt');
+  });
+
   it('resolveStartupLocale should fallback to default for unsupported browser locale', () => {
     vi.stubGlobal('navigator', { ...navigator, languages: ['de-DE'], language: 'de-DE' });
     window.history.replaceState({}, '', '/');
