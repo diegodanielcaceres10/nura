@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     coverage: {
       provider: 'v8',
-      reporter: ['html', 'lcov', 'cobertura', 'text-summary', 'json-summary'],
+      reporter: ['text', 'text-summary', 'html', 'lcov'],
       reportsDirectory: './vitest/coverage',
     },
   },
