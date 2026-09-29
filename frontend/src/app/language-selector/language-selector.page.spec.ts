@@ -96,4 +96,39 @@ describe('LanguageSelectorPage', () => {
     const spinner = fixture.nativeElement.querySelector('.language__spinner');
     expect(spinner).toBeFalsy();
   });
+
+  it('should change locale when a language button is clicked', () => {
+    const spy = vi.spyOn(component['localeService'], 'changeLocale').mockImplementation(() => undefined);
+    const buttons = fixture.nativeElement.querySelectorAll('.language__lang') as NodeListOf<HTMLButtonElement>;
+
+    buttons[1].click();
+
+    expect(spy).toHaveBeenCalledWith('en');
+  });
+
+  it('should change locale when Enter is released on a language button', () => {
+    const spy = vi.spyOn(component['localeService'], 'changeLocale').mockImplementation(() => undefined);
+    const buttons = fixture.nativeElement.querySelectorAll('.language__lang') as NodeListOf<HTMLButtonElement>;
+
+    buttons[2].dispatchEvent(new KeyboardEvent('keyup', { key: 'Enter' }));
+
+    expect(spy).toHaveBeenCalledWith('pt');
+  });
+
+  it('should redirect to the detected locale after the delay', () => {
+    vi.useFakeTimers();
+    try {
+      vi.spyOn(LocaleService, 'resolveStartupLocale').mockReturnValue('es');
+      const redirectFixture = TestBed.createComponent(LanguageSelectorPage);
+      const spy = vi.spyOn(redirectFixture.componentInstance['localeService'], 'changeLocale').mockImplementation(() => undefined);
+
+      redirectFixture.detectChanges();
+      expect(spy).not.toHaveBeenCalled();
+
+      vi.advanceTimersByTime(1500);
+      expect(spy).toHaveBeenCalledWith('es');
+    } finally {
+      vi.useRealTimers();
+    }
+  });
 });

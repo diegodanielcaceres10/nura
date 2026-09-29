@@ -128,4 +128,15 @@ describe('ProjectsComponent', () => {
     expect(githubLink?.href).toContain('github.com');
     expect(githubLink?.target).toBe('_blank');
   });
+
+  it('should apply the filter when a filter button is clicked', () => {
+    const buttons = fixture.nativeElement.querySelectorAll('.projects__filter') as NodeListOf<HTMLButtonElement>;
+    const reactButton = Array.from(buttons).find((b) => b.textContent?.trim() === 'React') as HTMLButtonElement;
+
+    reactButton.click();
+    fixture.detectChanges();
+
+    expect(component['activeFilter']()).toBe('react');
+    expect(fixture.nativeElement.querySelectorAll('.projects__card').length).toBe(1);
+  });
 });

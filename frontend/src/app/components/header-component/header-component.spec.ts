@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header-component';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -61,5 +62,51 @@ describe('HeaderComponent', () => {
 
   it('should have isSticky signal from scrollService', () => {
     expect(component.isSticky).toBeDefined();
+  });
+
+  describe('template interactions', () => {
+    beforeEach(() => {
+      // RouterLink navigates on click; avoid real navigation in jsdom
+      vi.spyOn(TestBed.inject(Router), 'navigateByUrl').mockResolvedValue(true);
+    });
+
+    it('should toggle the menu when the menu button is clicked', () => {
+      const button = fixture.nativeElement.querySelector('.header__button') as HTMLButtonElement;
+
+      button.click();
+      fixture.detectChanges();
+      expect(component.isMenuOpen()).toBe(true);
+
+      button.click();
+      fixture.detectChanges();
+      expect(component.isMenuOpen()).toBe(false);
+    });
+
+    it('should toggle the menu when the logo link is clicked', () => {
+      const logo = fixture.nativeElement.querySelector('a') as HTMLAnchorElement;
+
+      logo.click();
+      expect(component.isMenuOpen()).toBe(true);
+    });
+
+    it('should toggle the menu when a navigation link is clicked', () => {
+      const links = fixture.nativeElement.querySelectorAll('.header__container a') as NodeListOf<HTMLAnchorElement>;
+      expect(links.length).toBe(5);
+
+      links.forEach((link) => {
+        const before = component.isMenuOpen();
+        link.click();
+        expect(component.isMenuOpen()).toBe(!before);
+      });
+    });
+
+    it('should change language when a language button is clicked', () => {
+      const spy = vi.spyOn(component['localeService'], 'changeLocale').mockImplementation(() => undefined);
+      const buttons = fixture.nativeElement.querySelectorAll('.header__lang') as NodeListOf<HTMLButtonElement>;
+      expect(buttons.length).toBe(3);
+
+      buttons[1].click();
+      expect(spy).toHaveBeenCalledWith('en');
+    });
   });
 });

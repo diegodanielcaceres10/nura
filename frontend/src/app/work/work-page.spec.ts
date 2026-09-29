@@ -103,4 +103,13 @@ describe('WorkPage', () => {
     component['goBack']();
     expect(navigateSpy).toHaveBeenCalled();
   });
+
+  it('should navigate back when the back button is clicked', () => {
+    const navigateSpy = vi.spyOn(component['router'], 'navigate').mockResolvedValue(true);
+    const button = fixture.nativeElement.querySelector('.work__back') as HTMLButtonElement;
+
+    button.click();
+
+    expect(navigateSpy).toHaveBeenCalledWith(expect.any(Array), { fragment: 'projects' });
+  });
 });
