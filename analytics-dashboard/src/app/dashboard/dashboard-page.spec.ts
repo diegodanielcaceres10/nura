@@ -107,19 +107,19 @@ describe('DashboardPage', () => {
     );
   });
 
-  it('should list the period options with the last 28 days selected by default', () => {
+  it('should list the period options with the last 7 days selected by default', () => {
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
     expect(select?.options.length).toBe(4);
-    expect(select?.value).toBe('28d');
+    expect(select?.value).toBe('7d');
   });
 
   it('should update the selected period when the selector changes', () => {
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
 
-    expect(fixture.componentInstance['period']()).toBe('7d');
+    expect(fixture.componentInstance['period']()).toBe('90d');
   });
 
   it('should render the four metric cards with real data from the GA4 API', () => {
@@ -143,7 +143,7 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getPageViews).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
     await flush();
@@ -156,10 +156,10 @@ describe('DashboardPage', () => {
     const [, sessionsRanges] = analyticsServiceStub.getSessions.mock.calls[1];
     const [, eventsRanges] = analyticsServiceStub.getEventCount.mock.calls[1];
     const [, pageViewsRanges] = analyticsServiceStub.getPageViews.mock.calls[1];
-    expect(activeUsersRanges.current.startDate).toBe('7daysAgo');
-    expect(sessionsRanges.current.startDate).toBe('7daysAgo');
-    expect(eventsRanges.current.startDate).toBe('7daysAgo');
-    expect(pageViewsRanges.current.startDate).toBe('7daysAgo');
+    expect(activeUsersRanges.current.startDate).toBe('90daysAgo');
+    expect(sessionsRanges.current.startDate).toBe('90daysAgo');
+    expect(eventsRanges.current.startDate).toBe('90daysAgo');
+    expect(pageViewsRanges.current.startDate).toBe('90daysAgo');
   });
 
   it('should render the active users chart with real daily data from the GA4 API', () => {
@@ -182,14 +182,14 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getActiveUsersByDay).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
     await flush();
 
     expect(analyticsServiceStub.getActiveUsersByDay).toHaveBeenCalledTimes(2);
     const [, range] = analyticsServiceStub.getActiveUsersByDay.mock.calls[1];
-    expect(range.startDate).toBe('7daysAgo');
+    expect(range.startDate).toBe('90daysAgo');
   });
 
   it('should show an error message on the chart when the daily series fails to load', async () => {
@@ -225,14 +225,14 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getTrafficChannels).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
     await flush();
 
     expect(analyticsServiceStub.getTrafficChannels).toHaveBeenCalledTimes(2);
     const [, range] = analyticsServiceStub.getTrafficChannels.mock.calls[1];
-    expect(range.startDate).toBe('7daysAgo');
+    expect(range.startDate).toBe('90daysAgo');
   });
 
   it('should show an error message on the donut when the traffic breakdown fails to load', async () => {
@@ -281,14 +281,14 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getTopEvents).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
     await flush();
 
     expect(analyticsServiceStub.getTopEvents).toHaveBeenCalledTimes(2);
     const [, range] = analyticsServiceStub.getTopEvents.mock.calls[1];
-    expect(range.startDate).toBe('7daysAgo');
+    expect(range.startDate).toBe('90daysAgo');
   });
 
   it('should show an error message on top events when the request fails', async () => {
@@ -310,14 +310,14 @@ describe('DashboardPage', () => {
     expect(analyticsServiceStub.getTopPages).toHaveBeenCalledTimes(1);
 
     const select = element.querySelector<HTMLSelectElement>('select.period__select');
-    select!.value = '7d';
+    select!.value = '90d';
     select!.dispatchEvent(new Event('change'));
     fixture.detectChanges();
     await flush();
 
     expect(analyticsServiceStub.getTopPages).toHaveBeenCalledTimes(2);
     const [, range] = analyticsServiceStub.getTopPages.mock.calls[1];
-    expect(range.startDate).toBe('7daysAgo');
+    expect(range.startDate).toBe('90daysAgo');
   });
 
   it('should show an error message on top pages when the request fails', async () => {

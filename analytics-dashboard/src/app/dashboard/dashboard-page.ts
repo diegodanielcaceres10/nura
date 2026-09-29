@@ -193,7 +193,7 @@ export class DashboardPage {
     { value: '12m', label: 'Últimos 12 meses' },
   ];
 
-  protected readonly period = signal<PeriodValue>('28d');
+  protected readonly period = signal<PeriodValue>('7d');
 
   constructor() {
     // Re-fetches "Usuarios activos", "Sesiones" y "Eventos" whenever the
