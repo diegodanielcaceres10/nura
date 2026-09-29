@@ -12,12 +12,8 @@
       de Google Analytics.
     </p>
 
-    <button
-      type="button"
-      class="login__google"
-      [disabled]="loading()"
-      (click)="onGoogleSignIn()"
-    >
+    <button type="button" class="login__google" [disabled]="loading()" (click)="onGoogleSignIn()">
+      <i class="fa-brands fa-google"></i>
       <span>{{ loading() ? 'Conectando…' : 'Continuar con Google' }}</span>
     </button>
 
@@ -29,23 +25,15 @@
 
     <ul class="login__features">
       <li class="login__feature">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M5 20v-7M12 20V5M19 20v-10" />
-        </svg>
+        <i class="fa-solid fa-chart-simple"></i>
         <span>Analiza<br />tu audiencia</span>
       </li>
       <li class="login__feature">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />
-        </svg>
+        <i class="fa-solid fa-arrow-trend-up"></i>
         <span>Descubre<br />insights</span>
       </li>
       <li class="login__feature">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M12 3c.7 5.2 3.8 8.3 9 9-5.2.7-8.3 3.8-9 9-.7-5.2-3.8-8.3-9-9 5.2-.7 8.3-3.8 9-9z"
-          />
-        </svg>
+        <i class="fa-solid fa-bullseye"></i>
         <span>Mejora<br />tu estrategia</span>
       </li>
     </ul>
@@ -53,7 +41,6 @@
 
   <footer class="login__footer">
     <span class="login__footer-source">
-      Datos de
       <span class="login__ga">
         <img src="assets/google-analytics.png" alt="Google Analytics" width="123" height="24" />
       </span>

@@ -31,10 +31,6 @@
 .login__brand-mark {
   display: grid;
   place-items: center;
-  padding: 10px 22px;
-  border-radius: 14px;
-  background: #f4f1ff;
-  box-shadow: 0 8px 24px rgba(91, 63, 214, 0.35);
 
   img {
     display: block;
@@ -143,16 +139,6 @@
   font-size: 14px;
   line-height: 1.4;
   color: var(--color-text-muted);
-
-  svg {
-    width: 28px;
-    height: 28px;
-    fill: none;
-    stroke: var(--color-accent);
-    stroke-width: 2.4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
 }
 
 .login__footer {
@@ -177,7 +163,6 @@
   align-items: center;
   padding: 5px 12px;
   border-radius: 999px;
-  background: #ffffff;
 
   img {
     display: block;

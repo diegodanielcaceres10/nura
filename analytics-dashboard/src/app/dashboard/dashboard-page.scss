@@ -47,10 +47,6 @@
 
 .dashboard__brand {
   align-self: flex-start;
-  padding: 10px 22px;
-  border-radius: 14px;
-  background: #f4f1ff;
-  box-shadow: 0 8px 24px rgba(91, 63, 214, 0.35);
 
   img {
     display: block;
@@ -69,7 +65,7 @@
 
 .dashboard__sign-out {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 8px;
   padding: 10px 16px;
   border: 1px solid var(--color-border);
@@ -82,16 +78,6 @@
   transition:
     border-color 0.15s ease,
     color 0.15s ease;
-
-  svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
 
   &:hover {
     border-color: rgba(255, 255, 255, 0.24);
@@ -133,6 +119,28 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+
+  & i {
+    position: absolute;
+    top: 50%;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--color-text-muted);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transform: translateY(-50%);
+    pointer-events: none;
+
+    &:first-of-type {
+      left: 16px;
+    }
+
+    &:last-of-type {
+      right: 14px;
+    }
+  }
 }
 
 .period__select {
@@ -165,29 +173,6 @@
     background: #0e1533;
     color: var(--color-text);
   }
-}
-
-.period__icon,
-.period__chevron {
-  position: absolute;
-  top: 50%;
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: var(--color-text-muted);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
-.period__icon {
-  left: 16px;
-}
-
-.period__chevron {
-  right: 14px;
 }
 
 @media (max-width: 960px) {
