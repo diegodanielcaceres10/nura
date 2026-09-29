@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from './locale.service';
 
 describe('LocaleService', () => {
@@ -161,9 +161,98 @@ describe('LocaleService', () => {
     expect(result).toBe('es');
   });
 
-  it('should handle storage reading in non-browser environment gracefully', () => {
-    const result = LocaleService.resolveStartupLocale();
-    expect(result).toBeDefined();
-    expect(['en', 'es', 'pt']).toContain(result);
+  it('getCurrentLocale should fall back to default when the document has no documentElement', () => {
+    TestBed.configureTestingModule({
+      providers: [{ provide: DOCUMENT, useValue: {} }],
+    });
+    const service = TestBed.inject(LocaleService);
+
+    expect(service.getCurrentLocale()).toBe('es');
+  });
+
+  describe('with a non-root base href', () => {
+    let base: HTMLBaseElement;
+
+    beforeEach(() => {
+      base = document.createElement('base');
+      base.setAttribute('href', '/nura/');
+      document.head.appendChild(base);
+    });
+
+    afterEach(() => {
+      base.remove();
+    });
+
+    it('resolveStartupLocale should read the locale segment that follows the base path', () => {
+      window.history.replaceState({}, '', '/nura/pt/about');
+
+      expect(LocaleService.resolveStartupLocale()).toBe('pt');
+    });
+
+    it('syncLocalePath should insert the locale after the base path', () => {
+      window.history.replaceState({}, '', '/nura/about');
+
+      LocaleService.syncLocalePath('pt');
+
+      expect(window.location.pathname).toBe('/nura/pt/about');
+    });
+
+    it('syncLocalePath should replace an existing locale segment and keep the base path', () => {
+      window.history.replaceState({}, '', '/nura/es/about');
+
+      LocaleService.syncLocalePath('en');
+
+      expect(window.location.pathname).toBe('/nura/en/about');
+    });
+
+    it('syncLocalePath should treat a path outside the base as relative segments', () => {
+      window.history.replaceState({}, '', '/other/path');
+
+      LocaleService.syncLocalePath('pt');
+
+      expect(window.location.pathname).toBe('/nura/pt/other/path');
+    });
+  });
+
+  describe('without a browser window (SSR)', () => {
+    let SsrLocaleService: typeof LocaleService;
+
+    beforeEach(async () => {
+      // isBrowser is evaluated once at import time, so the module must be loaded again without a window
+      vi.resetModules();
+      vi.stubGlobal('window', undefined);
+      ({ LocaleService: SsrLocaleService } = await import('./locale.service'));
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+      vi.resetModules();
+    });
+
+    it('resolveStartupLocale should return the default locale without reading the URL', () => {
+      history.replaceState({}, '', '/pt?lang=en');
+
+      expect(SsrLocaleService.resolveStartupLocale()).toBe('es');
+    });
+
+    it('syncLocalePath should not touch the browser history', () => {
+      history.replaceState({}, '', '/about');
+      const replaceSpy = vi.spyOn(history, 'replaceState');
+
+      SsrLocaleService.syncLocalePath('pt');
+
+      expect(replaceSpy).not.toHaveBeenCalled();
+    });
+
+    it('changeLocale should neither persist the locale nor navigate', async () => {
+      const { Injector, runInInjectionContext } = await import('@angular/core');
+      const { DOCUMENT: SsrDocument } = await import('@angular/common');
+      const injector = Injector.create({ providers: [{ provide: SsrDocument, useValue: document }] });
+      const service = runInInjectionContext(injector, () => new SsrLocaleService());
+
+      service.changeLocale('pt');
+
+      expect(localStorage.getItem('app_locale')).toBeNull();
+    });
   });
 });

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectItem, ProjectsComponent } from './projects.component';
 import { Router } from '@angular/router';
+import { ProjectsService } from '../../services/projects/projects.service';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -138,5 +139,75 @@ describe('ProjectsComponent', () => {
 
     expect(component['activeFilter']()).toBe('react');
     expect(fixture.nativeElement.querySelectorAll('.projects__card').length).toBe(1);
+  });
+
+  describe('with controlled projects', () => {
+    const baseProject: ProjectItem = {
+      id: 'base',
+      title: 'Base',
+      type: 'Web',
+      shortDescription: 'Short desc',
+      techStackPreview: [],
+      status: 'COMPLETED',
+      year: 2026,
+      fullDescription: 'Full desc',
+      keyFeatures: ['Feature 1'],
+    };
+    const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', coverImage: '/img/cover.png', techStackPreview: ['Ionic'] };
+    const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', coverImage: '', techStackPreview: ['Angular'] };
+    let navigate: ReturnType<typeof vi.fn>;
+
+    const clickFilter = (label: string): void => {
+      const buttons = Array.from(fixture.nativeElement.querySelectorAll('.projects__filter') as NodeListOf<HTMLButtonElement>);
+      buttons.find((b) => b.textContent?.trim() === label)?.click();
+      fixture.detectChanges();
+    };
+
+    beforeEach(async () => {
+      await TestBed.resetTestingModule();
+      navigate = vi.fn();
+      await TestBed.configureTestingModule({
+        imports: [ProjectsComponent],
+        providers: [
+          { provide: Router, useValue: { navigate } },
+          { provide: ProjectsService, useValue: { getAll: () => [withCover, withoutCover] } },
+        ],
+      }).compileComponents();
+
+      fixture = TestBed.createComponent(ProjectsComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should render the cover image only for projects that have one', () => {
+      const cards = fixture.nativeElement.querySelectorAll('.projects__card') as NodeListOf<HTMLElement>;
+      const cover = cards[0].querySelector('.projects__cover img') as HTMLImageElement;
+
+      expect(cards.length).toBe(2);
+      expect(fixture.nativeElement.querySelectorAll('.projects__cover').length).toBe(1);
+      expect(cover.getAttribute('src')).toBe('/img/cover.png');
+      expect(cover.getAttribute('alt')).toBe('With Cover');
+      expect(cards[1].querySelector('.projects__cover')).toBeNull();
+    });
+
+    it('should not show the empty state while there are projects to display', () => {
+      expect(fixture.nativeElement.querySelector('.projects__empty')).toBeNull();
+    });
+
+    it('should show the empty state when no project matches the selected filter', () => {
+      clickFilter('Docker');
+
+      expect(fixture.nativeElement.querySelectorAll('.projects__card').length).toBe(0);
+      expect(fixture.nativeElement.querySelector('.projects__empty')).not.toBeNull();
+    });
+
+    it('should navigate to the work page of the project whose button was clicked', () => {
+      const buttons = fixture.nativeElement.querySelectorAll('.projects__action:not([href])') as NodeListOf<HTMLButtonElement>;
+
+      buttons[1].click();
+
+      expect(navigate).toHaveBeenCalledTimes(1);
+      expect(navigate).toHaveBeenCalledWith(['/', expect.any(String), 'work', 'without-cover']);
+    });
   });
 });
