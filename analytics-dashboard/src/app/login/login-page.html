@@ -1,0 +1,62 @@
+<main class="login">
+  <section class="login__panel">
+    <div class="login__brand">
+      <span class="login__brand-mark">
+        <img src="assets/logo.png" alt="Nura Logo" width="191" height="44" decoding="async" />
+      </span>
+    </div>
+
+    <h1 class="login__title">Bienvenido a Nura</h1>
+    <p class="login__subtitle">
+      Inicia sesión para acceder a tu dashboard<br />
+      de Google Analytics.
+    </p>
+
+    <button
+      type="button"
+      class="login__google"
+      [disabled]="loading()"
+      (click)="onGoogleSignIn()"
+    >
+      <span>{{ loading() ? 'Conectando…' : 'Continuar con Google' }}</span>
+    </button>
+
+    @if (errorMessage(); as message) {
+      <p class="login__error" role="alert">{{ message }}</p>
+    }
+
+    <div class="login__divider" role="separator"><span>o</span></div>
+
+    <ul class="login__features">
+      <li class="login__feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 20v-7M12 20V5M19 20v-10" />
+        </svg>
+        <span>Analiza<br />tu audiencia</span>
+      </li>
+      <li class="login__feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 17l6-6 4 4 8-8M15 7h6v6" />
+        </svg>
+        <span>Descubre<br />insights</span>
+      </li>
+      <li class="login__feature">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M12 3c.7 5.2 3.8 8.3 9 9-5.2.7-8.3 3.8-9 9-.7-5.2-3.8-8.3-9-9 5.2-.7 8.3-3.8 9-9z"
+          />
+        </svg>
+        <span>Mejora<br />tu estrategia</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="login__footer">
+    <span class="login__footer-source">
+      Datos de
+      <span class="login__ga">
+        <img src="assets/google-analytics.png" alt="Google Analytics" width="123" height="24" />
+      </span>
+    </span>
+  </footer>
+</main>

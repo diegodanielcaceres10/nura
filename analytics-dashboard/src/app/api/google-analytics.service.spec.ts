@@ -1,0 +1,443 @@
+import { TestBed } from '@angular/core/testing';
+import { GoogleAnalyticsService } from './google-analytics.service';
+
+describe('GoogleAnalyticsService', () => {
+  let service: GoogleAnalyticsService;
+  let fetchSpy: ReturnType<typeof vi.fn>;
+
+  const ranges = {
+    current: { startDate: '28daysAgo', endDate: 'yesterday' },
+    previous: { startDate: '56daysAgo', endDate: '29daysAgo' },
+  };
+
+  function jsonResponse(value: string) {
+    return {
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({ rows: [{ metricValues: [{ value }] }] }),
+    };
+  }
+
+  beforeEach(() => {
+    window.__env = { GA_PROPERTY_ID: '123456789' };
+    fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(GoogleAnalyticsService);
+  });
+
+  afterEach(() => {
+    window.__env = undefined;
+    vi.unstubAllGlobals();
+  });
+
+  it('should create', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should reject when GA_PROPERTY_ID is not configured', async () => {
+    window.__env = undefined;
+
+    await expect(service.getActiveUsers('token', ranges)).rejects.toThrow(/GA_PROPERTY_ID/);
+  });
+
+  it('should compute the percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('198')).mockResolvedValueOnce(jsonResponse('176'));
+
+    const summary = await service.getActiveUsers('token', ranges);
+
+    expect(summary).toEqual({ activeUsers: 198, previousActiveUsers: 176, deltaPercent: 12.5 });
+  });
+
+  it('should call the GA4 runReport endpoint with the property id and access token', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getActiveUsers('token-123', ranges);
+
+    const [url, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe(
+      'https://analyticsdata.googleapis.com/v1beta/properties/123456789:runReport',
+    );
+    expect((init.headers as Record<string, string>)['Authorization']).toBe('Bearer token-123');
+  });
+
+  it('should return a null delta when the previous period has no data', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('50')).mockResolvedValueOnce(jsonResponse('0'));
+
+    const summary = await service.getActiveUsers('token', ranges);
+
+    expect(summary.deltaPercent).toBeNull();
+  });
+
+  it('should reject when GA4 responds with an error status', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 403 });
+
+    await expect(service.getActiveUsers('token', ranges)).rejects.toThrow(/403/);
+  });
+
+  it('should compute sessions and their percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('410')).mockResolvedValueOnce(jsonResponse('400'));
+
+    const summary = await service.getSessions('token', ranges);
+
+    expect(summary).toEqual({ sessions: 410, previousSessions: 400, deltaPercent: 2.5 });
+  });
+
+  it('should request the "sessions" metric when fetching sessions', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getSessions('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'sessions' }]);
+  });
+
+  it('should compute the event count and its percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('1886')).mockResolvedValueOnce(jsonResponse('1600'));
+
+    const summary = await service.getEventCount('token', ranges);
+
+    expect(summary).toEqual({ eventCount: 1886, previousEventCount: 1600, deltaPercent: 17.9 });
+  });
+
+  it('should request the "eventCount" metric when fetching events', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getEventCount('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'eventCount' }]);
+  });
+
+  it('should compute page views and their percentage change between the two periods', async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('779')).mockResolvedValueOnce(jsonResponse('682'));
+
+    const summary = await service.getPageViews('token', ranges);
+
+    expect(summary).toEqual({ pageViews: 779, previousPageViews: 682, deltaPercent: 14.2 });
+  });
+
+  it('should request the "screenPageViews" metric when fetching page views', async () => {
+    fetchSpy.mockResolvedValue(jsonResponse('0'));
+
+    await service.getPageViews('token', ranges);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as { metrics: Array<{ name: string }> };
+    expect(body.metrics).toEqual([{ name: 'screenPageViews' }]);
+  });
+
+  it('should return one point per day, labelled and ordered, for a short range', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: '20260401' }], metricValues: [{ value: '12' }] },
+            { dimensionValues: [{ value: '20260402' }], metricValues: [{ value: '18' }] },
+            { dimensionValues: [{ value: '20260403' }], metricValues: [{ value: '15' }] },
+          ],
+        }),
+    });
+
+    const points = await service.getActiveUsersByDay('token', {
+      startDate: '3daysAgo',
+      endDate: 'yesterday',
+    });
+
+    expect(points).toEqual([
+      { label: '1 abr', value: 12 },
+      { label: '2 abr', value: 18 },
+      { label: '3 abr', value: 15 },
+    ]);
+  });
+
+  it('should bucket a long range into roughly the target number of points', async () => {
+    const rows = Array.from({ length: 28 }, (_, i) => {
+      const day = String(i + 1).padStart(2, '0');
+      return {
+        dimensionValues: [{ value: `202604${day}` }],
+        metricValues: [{ value: String(10 + i) }],
+      };
+    });
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({ rows }) });
+
+    const points = await service.getActiveUsersByDay(
+      'token',
+      { startDate: '28daysAgo', endDate: 'yesterday' },
+      10,
+    );
+
+    expect(points.length).toBeLessThanOrEqual(10);
+    expect(points[0]).toEqual({ label: '1 abr', value: 11 }); // average of days 1-3 (10,11,12)
+  });
+
+  it('should return an empty array when GA4 has no rows for the range', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const points = await service.getActiveUsersByDay('token', ranges.current);
+
+    expect(points).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the daily report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+
+    await expect(service.getActiveUsersByDay('token', ranges.current)).rejects.toThrow(/500/);
+  });
+
+  it('should bucket sessions by channel group and compute each share of the total', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: 'Organic Search' }], metricValues: [{ value: '623' }] },
+            { dimensionValues: [{ value: 'Direct' }], metricValues: [{ value: '187' }] },
+            { dimensionValues: [{ value: 'Referral' }], metricValues: [{ value: '105' }] },
+            { dimensionValues: [{ value: 'Organic Social' }], metricValues: [{ value: '40' }] },
+            { dimensionValues: [{ value: 'Paid Social' }], metricValues: [{ value: '14' }] },
+            { dimensionValues: [{ value: 'Email' }], metricValues: [{ value: '21' }] },
+          ],
+        }),
+    });
+
+    const summary = await service.getTrafficChannels('token', ranges.current);
+
+    expect(summary.totalSessions).toBe(990);
+    expect(summary.channels).toEqual([
+      { id: 'organic', label: 'Organic Search', percent: 62.9, color: 'purple' },
+      { id: 'direct', label: 'Direct', percent: 18.9, color: 'blue' },
+      { id: 'referral', label: 'Referral', percent: 10.6, color: 'green' },
+      { id: 'social', label: 'Social', percent: 5.5, color: 'pink' },
+      { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
+    ]);
+  });
+
+  it('should return all 5 channels at 0% when GA4 has no sessions for the range', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const summary = await service.getTrafficChannels('token', ranges.current);
+
+    expect(summary.totalSessions).toBe(0);
+    expect(summary.channels).toHaveLength(5);
+    expect(summary.channels.every((channel) => channel.percent === 0)).toBe(true);
+  });
+
+  it('should reject when GA4 responds with an error status for the traffic channels report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 403 });
+
+    await expect(service.getTrafficChannels('token', ranges.current)).rejects.toThrow(/403/);
+  });
+
+  it('should return the top pages ordered from most to least viewed', async () => {
+    fetchSpy.mockResolvedValue({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: '/' }], metricValues: [{ value: '312' }] },
+            { dimensionValues: [{ value: '/proyectos' }], metricValues: [{ value: '198' }] },
+          ],
+        }),
+    });
+
+    const pages = await service.getTopPages('token', ranges.current);
+
+    expect(pages).toEqual([
+      { path: '/', views: 312 },
+      { path: '/proyectos', views: 198 },
+    ]);
+  });
+
+  it('should request the top pages ordered by screenPageViews descending with a limit', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await service.getTopPages('token', ranges.current, 5);
+
+    const [, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as {
+      dimensions: Array<{ name: string }>;
+      orderBys: Array<{ metric: { metricName: string }; desc: boolean }>;
+      limit: number;
+    };
+    expect(body.dimensions).toEqual([{ name: 'pagePath' }]);
+    expect(body.orderBys).toEqual([{ metric: { metricName: 'screenPageViews' }, desc: true }]);
+    expect(body.limit).toBe(5);
+  });
+
+  it('should return an empty array when GA4 has no rows for the top pages report', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const pages = await service.getTopPages('token', ranges.current);
+
+    expect(pages).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the top pages report', async () => {
+    fetchSpy.mockResolvedValue({ ok: false, status: 500 });
+
+    await expect(service.getTopPages('token', ranges.current)).rejects.toThrow(/500/);
+  });
+
+  it("should return the top events with each one's share of the total event count", async () => {
+    fetchSpy.mockResolvedValueOnce(jsonResponse('1886')).mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: () =>
+        Promise.resolve({
+          rows: [
+            { dimensionValues: [{ value: 'page_view' }], metricValues: [{ value: '779' }] },
+            { dimensionValues: [{ value: 'click' }], metricValues: [{ value: '40' }] },
+          ],
+        }),
+    });
+
+    const events = await service.getTopEvents('token', ranges.current);
+
+    expect(events).toEqual([
+      { name: 'page_view', count: 779, percent: 41.3 },
+      { name: 'click', count: 40, percent: 2.1 },
+    ]);
+  });
+
+  it('should request the top events ordered by eventCount descending with a limit', async () => {
+    fetchSpy.mockResolvedValue({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    await service.getTopEvents('token', ranges.current, 5);
+
+    const [, init] = fetchSpy.mock.calls[1] as [string, RequestInit];
+    const body = JSON.parse(init.body as string) as {
+      dimensions: Array<{ name: string }>;
+      orderBys: Array<{ metric: { metricName: string }; desc: boolean }>;
+      limit: number;
+    };
+    expect(body.dimensions).toEqual([{ name: 'eventName' }]);
+    expect(body.orderBys).toEqual([{ metric: { metricName: 'eventCount' }, desc: true }]);
+    expect(body.limit).toBe(5);
+  });
+
+  it('should return an empty array when GA4 has no rows for the top events report', async () => {
+    fetchSpy
+      .mockResolvedValueOnce(jsonResponse('0'))
+      .mockResolvedValueOnce({ ok: true, status: 200, json: () => Promise.resolve({}) });
+
+    const events = await service.getTopEvents('token', ranges.current);
+
+    expect(events).toEqual([]);
+  });
+
+  it('should reject when GA4 responds with an error status for the top events report', async () => {
+    fetchSpy
+      .mockResolvedValueOnce(jsonResponse('100'))
+      .mockResolvedValueOnce({ ok: false, status: 500 });
+
+    await expect(service.getTopEvents('token', ranges.current)).rejects.toThrow(/500/);
+  });
+
+  describe('caching, deduplication, concurrency and rate limits', () => {
+    it('should cache a successful response and reuse it within the TTL window', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      const first = await service.getTopPages('token', ranges.current);
+      const second = await service.getTopPages('token', ranges.current);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(second).toEqual(first);
+    });
+
+    it('should not reuse the cache for a different date range', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      await service.getTopPages('token', ranges.current);
+      await service.getTopPages('token', ranges.previous);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('should dedupe two concurrent identical requests into a single network call', async () => {
+      fetchSpy.mockResolvedValue(jsonResponse('198'));
+
+      const [first, second] = await Promise.all([
+        service.getTopPages('token', ranges.current),
+        service.getTopPages('token', ranges.current),
+      ]);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(1);
+      expect(second).toEqual(first);
+    });
+
+    it('should share one request between getEventCount and getTopEvents for the same range', async () => {
+      // Both ask for the current-period eventCount total with an
+      // identical request body, so this should collapse to one call
+      // instead of two.
+      fetchSpy.mockResolvedValue(jsonResponse('500'));
+
+      await Promise.all([
+        service.getEventCount('token', ranges),
+        service.getTopEvents('token', ranges.current),
+      ]);
+
+      const eventCountCalls = fetchSpy.mock.calls.filter(([, init]) => {
+        const body = JSON.parse((init as RequestInit).body as string) as {
+          dimensions?: Array<{ name: string }>;
+          dateRanges: Array<{ startDate: string }>;
+        };
+        return !body.dimensions && body.dateRanges[0].startDate === ranges.current.startDate;
+      });
+      expect(eventCountCalls).toHaveLength(1);
+    });
+
+    it('should not run more than the configured max concurrent requests at once', async () => {
+      let active = 0;
+      let maxActive = 0;
+      fetchSpy.mockImplementation(async () => {
+        active++;
+        maxActive = Math.max(maxActive, active);
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        active--;
+        return jsonResponse('1');
+      });
+
+      const distinctRanges = Array.from({ length: 8 }, (_, i) => ({
+        startDate: `${i}daysAgo`,
+        endDate: 'yesterday',
+      }));
+
+      await Promise.all(
+        distinctRanges.map((range) => service.getActiveUsersByDay('token', range)),
+      );
+
+      expect(maxActive).toBeLessThanOrEqual(4);
+    });
+
+    it('should retry once after a 429 and then resolve successfully', async () => {
+      fetchSpy
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          headers: { get: () => '0' },
+        })
+        .mockResolvedValueOnce(jsonResponse('198'));
+
+      const pages = await service.getTopPages('token', ranges.current);
+
+      expect(fetchSpy).toHaveBeenCalledTimes(2);
+      expect(pages).toEqual([{ path: '(not set)', views: 198 }]);
+    });
+
+    it('should give up after repeated 429s with a clear error message', async () => {
+      fetchSpy.mockResolvedValue({ ok: false, status: 429, headers: { get: () => '0' } });
+
+      await expect(service.getTopPages('token', ranges.current)).rejects.toThrow(
+        /límite de solicitudes/,
+      );
+    });
+  });
+});
