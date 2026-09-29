@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 export interface TopEventRow {
   name: string;
@@ -8,6 +9,7 @@ export interface TopEventRow {
 
 @Component({
   selector: 'app-top-events',
+  imports: [LoadingSpinner],
   templateUrl: './top-events.html',
   styleUrl: './top-events.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

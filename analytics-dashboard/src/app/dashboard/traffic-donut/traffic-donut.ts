@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 export interface TrafficChannel {
   id: string;
@@ -21,6 +22,7 @@ const ARC_ORDER: readonly string[] = ['organic', 'direct', 'referral', 'other', 
 
 @Component({
   selector: 'app-traffic-donut',
+  imports: [LoadingSpinner],
   templateUrl: './traffic-donut.html',
   styleUrl: './traffic-donut.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

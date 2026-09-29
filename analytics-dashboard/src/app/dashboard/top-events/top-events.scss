@@ -26,10 +26,21 @@
   }
 }
 
-.panel-card__status {
-  margin: -8px 0 14px;
-  font-size: 12px;
+.panel-card__placeholder {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 140px;
+  font-size: 13px;
   color: var(--color-text-muted);
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
 }
 
 .panel-card__status--error {

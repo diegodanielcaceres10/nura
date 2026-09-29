@@ -68,23 +68,36 @@ describe('ActiveUsersChart', () => {
     expect(area?.getAttribute('d')).toContain('Z');
   });
 
-  it('should show no status message when ready (the default)', () => {
-    expect(element.querySelector('.chart-card__status')).toBeNull();
+  it('should render the chart and no placeholder when ready (the default)', () => {
+    expect(element.querySelector('.chart-card__plot svg')).not.toBeNull();
+    expect(element.querySelector('.chart-card__placeholder')).toBeNull();
   });
 
-  it('should show a loading message when status is "loading"', () => {
+  it('should show a spinner and no chart while loading', () => {
     fixture.componentRef.setInput('status', 'loading');
     fixture.detectChanges();
 
-    expect(element.querySelector('.chart-card__status')?.textContent).toContain('Cargando');
+    expect(element.querySelector('.chart-card__placeholder app-loading-spinner')).not.toBeNull();
+    expect(element.querySelector('.chart-card__placeholder')?.textContent).toContain('Cargando');
+    expect(element.querySelector('.chart-card__plot svg')).toBeNull();
   });
 
-  it('should show an error message when status is "error"', () => {
+  it('should show an error message and no chart when status is "error"', () => {
     fixture.componentRef.setInput('status', 'error');
     fixture.detectChanges();
 
-    const status = element.querySelector('.chart-card__status');
-    expect(status?.textContent).toContain('No se pudieron cargar');
-    expect(status?.classList.contains('chart-card__status--error')).toBe(true);
+    const error = element.querySelector('.chart-card__status--error');
+    expect(error?.textContent).toContain('No se pudieron cargar');
+    expect(element.querySelector('.chart-card__plot svg')).toBeNull();
+  });
+
+  it('should show an empty message when ready but there is no data', () => {
+    fixture.componentRef.setInput('data', []);
+    fixture.detectChanges();
+
+    expect(element.querySelector('.chart-card__placeholder')?.textContent).toContain(
+      'Sin datos para este período',
+    );
+    expect(element.querySelector('.chart-card__plot svg')).toBeNull();
   });
 });

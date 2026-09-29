@@ -35,7 +35,7 @@
       <div class="metric-card__body">
         <div class="metric-card__stats">
           @if (metric.status === 'loading') {
-            <p class="metric-card__value metric-card__value--muted">···</p>
+            <app-loading-spinner class="metric-card__loader" />
             <p class="metric-card__caption">Cargando…</p>
           } @else if (metric.status === 'error') {
             <p class="metric-card__value metric-card__value--muted">—</p>
@@ -54,10 +54,12 @@
           }
         </div>
 
-        <svg class="metric-card__sparkline" viewBox="0 0 96 40" preserveAspectRatio="none" aria-hidden="true">
-          <polygon class="metric-card__sparkline-area" [attr.points]="sparklineArea(metric.sparkline)" />
-          <polyline class="metric-card__sparkline-line" [attr.points]="sparklinePoints(metric.sparkline)" />
-        </svg>
+        @if (metric.status !== 'loading' && metric.status !== 'error') {
+          <svg class="metric-card__sparkline" viewBox="0 0 96 40" preserveAspectRatio="none" aria-hidden="true">
+            <polygon class="metric-card__sparkline-area" [attr.points]="sparklineArea(metric.sparkline)" />
+            <polyline class="metric-card__sparkline-line" [attr.points]="sparklinePoints(metric.sparkline)" />
+          </svg>
+        }
       </div>
     </article>
   }

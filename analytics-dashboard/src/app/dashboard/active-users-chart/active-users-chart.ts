@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 export interface ActiveUsersPoint {
   label: string;
@@ -36,6 +37,7 @@ function computeYAxis(maxDataValue: number): { ticks: readonly number[]; max: nu
 
 @Component({
   selector: 'app-active-users-chart',
+  imports: [LoadingSpinner],
   templateUrl: './active-users-chart.html',
   styleUrl: './active-users-chart.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

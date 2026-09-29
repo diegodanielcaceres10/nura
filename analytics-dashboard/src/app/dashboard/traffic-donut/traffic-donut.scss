@@ -26,10 +26,21 @@
   }
 }
 
-.traffic-card__status {
-  margin: -8px 0 16px;
-  font-size: 12px;
+.traffic-card__placeholder {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 200px;
+  font-size: 13px;
   color: var(--color-text-muted);
+  text-align: center;
+
+  p {
+    margin: 0;
+  }
 }
 
 .traffic-card__status--error {

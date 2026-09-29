@@ -67,7 +67,9 @@ describe('MetricCards', () => {
     fixture.detectChanges();
 
     const card = element.querySelector('.metric-card');
-    expect(card?.querySelector('.metric-card__value')?.textContent).toContain('···');
+    expect(card?.querySelector('app-loading-spinner')).not.toBeNull();
+    expect(card?.querySelector('.metric-card__value')).toBeNull();
+    expect(card?.querySelector('.metric-card__sparkline')).toBeNull();
     expect(card?.querySelector('.metric-card__caption')?.textContent).toContain('Cargando');
   });
 
@@ -77,6 +79,7 @@ describe('MetricCards', () => {
 
     const card = element.querySelector('.metric-card');
     expect(card?.querySelector('.metric-card__value')?.textContent).toContain('—');
+    expect(card?.querySelector('.metric-card__sparkline')).toBeNull();
     expect(card?.querySelector('.metric-card__caption')?.textContent).toContain(
       'No se pudo cargar',
     );

@@ -14,15 +14,20 @@
     </div>
   </header>
 
-  @if (status() !== 'ready') {
-    <p
-      class="chart-card__status"
-      [class.chart-card__status--error]="status() === 'error'"
-    >
-      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar los datos diarios' }}
-    </p>
-  }
-
+  @if (status() === 'loading') {
+    <div class="chart-card__placeholder">
+      <app-loading-spinner />
+      <p>Cargando datos…</p>
+    </div>
+  } @else if (status() === 'error') {
+    <div class="chart-card__placeholder">
+      <p class="chart-card__status--error">No se pudieron cargar los datos diarios</p>
+    </div>
+  } @else if (data().length === 0) {
+    <div class="chart-card__placeholder">
+      <p>Sin datos para este período</p>
+    </div>
+  } @else {
   <div class="chart-card__body">
     <ul class="chart-card__y-axis">
       @for (tick of yTicks(); track tick) {
@@ -58,4 +63,5 @@
       </ul>
     </div>
   </div>
+  }
 </article>

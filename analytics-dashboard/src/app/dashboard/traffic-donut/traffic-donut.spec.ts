@@ -52,23 +52,26 @@ describe('TrafficDonut', () => {
     expect(element.querySelectorAll('.traffic-card__arc').length).toBe(5);
   });
 
-  it('should show no status message when ready (the default)', () => {
-    expect(element.querySelector('.traffic-card__status')).toBeNull();
+  it('should render the donut and no placeholder when ready (the default)', () => {
+    expect(element.querySelector('.traffic-card__chart')).not.toBeNull();
+    expect(element.querySelector('.traffic-card__placeholder')).toBeNull();
   });
 
-  it('should show a loading message when status is "loading"', () => {
+  it('should show a spinner and no donut while loading', () => {
     fixture.componentRef.setInput('status', 'loading');
     fixture.detectChanges();
 
-    expect(element.querySelector('.traffic-card__status')?.textContent).toContain('Cargando');
+    expect(element.querySelector('.traffic-card__placeholder app-loading-spinner')).not.toBeNull();
+    expect(element.querySelector('.traffic-card__chart')).toBeNull();
+    expect(element.querySelector('.traffic-card__legend')).toBeNull();
   });
 
-  it('should show an error message when status is "error"', () => {
+  it('should show an error message and no donut when status is "error"', () => {
     fixture.componentRef.setInput('status', 'error');
     fixture.detectChanges();
 
-    const status = element.querySelector('.traffic-card__status');
-    expect(status?.textContent).toContain('No se pudieron cargar');
-    expect(status?.classList.contains('traffic-card__status--error')).toBe(true);
+    const error = element.querySelector('.traffic-card__status--error');
+    expect(error?.textContent).toContain('No se pudieron cargar');
+    expect(element.querySelector('.traffic-card__chart')).toBeNull();
   });
 });

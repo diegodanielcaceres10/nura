@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 export interface MetricCardData {
   id: string;
@@ -15,6 +16,7 @@ export interface MetricCardData {
 
 @Component({
   selector: 'app-metric-cards',
+  imports: [LoadingSpinner],
   templateUrl: './metric-cards.html',
   styleUrl: './metric-cards.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

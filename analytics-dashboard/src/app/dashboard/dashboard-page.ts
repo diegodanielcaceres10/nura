@@ -30,8 +30,8 @@ interface PeriodOption {
 const INITIAL_ACTIVE_USERS_CARD: MetricCardData = {
   id: 'users',
   label: 'Usuarios activos',
-  value: '198',
-  deltaPercent: 12.5,
+  value: '—',
+  deltaPercent: null,
   icon: 'users',
   accent: 'purple',
   sparkline: [6, 8, 7, 11, 9, 13, 12, 16, 15, 19],
@@ -40,8 +40,8 @@ const INITIAL_ACTIVE_USERS_CARD: MetricCardData = {
 const INITIAL_SESSIONS_CARD: MetricCardData = {
   id: 'sessions',
   label: 'Sesiones',
-  value: '257',
-  deltaPercent: 8.7,
+  value: '—',
+  deltaPercent: null,
   icon: 'sessions',
   accent: 'blue',
   sparkline: [10, 9, 13, 11, 15, 13, 17, 16, 20, 22],
@@ -50,8 +50,8 @@ const INITIAL_SESSIONS_CARD: MetricCardData = {
 const INITIAL_EVENTS_CARD: MetricCardData = {
   id: 'events',
   label: 'Eventos',
-  value: '1.886',
-  deltaPercent: 18.3,
+  value: '—',
+  deltaPercent: null,
   icon: 'events',
   accent: 'green',
   sparkline: [8, 11, 9, 14, 12, 17, 15, 21, 18, 25],
@@ -60,53 +60,12 @@ const INITIAL_EVENTS_CARD: MetricCardData = {
 const INITIAL_PAGE_VIEWS_CARD: MetricCardData = {
   id: 'pageviews',
   label: 'Visualizaciones de página',
-  value: '779',
-  deltaPercent: 14.2,
+  value: '—',
+  deltaPercent: null,
   icon: 'pageviews',
   accent: 'pink',
   sparkline: [9, 7, 12, 10, 14, 11, 16, 14, 19, 23],
 };
-
-// Shown immediately while the real daily series loads.
-const INITIAL_ACTIVE_USERS_SERIES: readonly ActiveUsersPoint[] = [
-  { label: '1 abr', value: 12 },
-  { label: '4 abr', value: 20 },
-  { label: '7 abr', value: 14 },
-  { label: '10 abr', value: 19 },
-  { label: '13 abr', value: 15 },
-  { label: '16 abr', value: 21 },
-  { label: '19 abr', value: 16 },
-  { label: '22 abr', value: 26 },
-  { label: '25 abr', value: 22 },
-  { label: '28 abr', value: 27 },
-];
-
-// Shown immediately while the real channel breakdown loads.
-const INITIAL_TRAFFIC_CHANNELS: readonly TrafficChannelBreakdown[] = [
-  { id: 'organic', label: 'Organic Search', percent: 62.3, color: 'purple' },
-  { id: 'direct', label: 'Direct', percent: 18.7, color: 'blue' },
-  { id: 'referral', label: 'Referral', percent: 10.5, color: 'green' },
-  { id: 'social', label: 'Social', percent: 5.4, color: 'pink' },
-  { id: 'other', label: 'Otros', percent: 2.1, color: 'orange' },
-];
-
-// Shown immediately while the real top pages load.
-const INITIAL_TOP_PAGES: readonly TopPageRow[] = [
-  { path: '/', views: 312 },
-  { path: '/proyectos', views: 198 },
-  { path: '/sobre-mi', views: 134 },
-  { path: '/contacto', views: 89 },
-  { path: '/blog', views: 46 },
-];
-
-// Shown immediately while the real top events load.
-const INITIAL_TOP_EVENTS: readonly TopEventRow[] = [
-  { name: 'page_view', count: 779, percent: 41.3 },
-  { name: 'user_engagement', count: 612, percent: 32.5 },
-  { name: 'session_start', count: 257, percent: 13.6 },
-  { name: 'first_visit', count: 198, percent: 10.5 },
-  { name: 'click', count: 40, percent: 2.1 },
-];
 
 @Component({
   selector: 'app-dashboard-page',
@@ -151,7 +110,7 @@ export class DashboardPage {
   private readonly activeUsersSeries = signal<{
     points: readonly ActiveUsersPoint[];
     status: 'loading' | 'ready' | 'error';
-  }>({ points: INITIAL_ACTIVE_USERS_SERIES, status: 'loading' });
+  }>({ points: [], status: 'loading' });
 
   protected readonly activeUsersPoints = computed(() => this.activeUsersSeries().points);
   protected readonly activeUsersSeriesStatus = computed(() => this.activeUsersSeries().status);
@@ -160,7 +119,7 @@ export class DashboardPage {
     channels: readonly TrafficChannelBreakdown[];
     totalSessions: number;
     status: 'loading' | 'ready' | 'error';
-  }>({ channels: INITIAL_TRAFFIC_CHANNELS, totalSessions: 257, status: 'loading' });
+  }>({ channels: [], totalSessions: 0, status: 'loading' });
 
   protected readonly trafficChannels = computed<readonly TrafficChannel[]>(
     () => this.trafficChannelsState().channels,
@@ -173,7 +132,7 @@ export class DashboardPage {
   private readonly topPagesState = signal<{
     pages: readonly TopPageRow[];
     status: 'loading' | 'ready' | 'error';
-  }>({ pages: INITIAL_TOP_PAGES, status: 'loading' });
+  }>({ pages: [], status: 'loading' });
 
   protected readonly topPages = computed(() => this.topPagesState().pages);
   protected readonly topPagesStatus = computed(() => this.topPagesState().status);
@@ -181,7 +140,7 @@ export class DashboardPage {
   private readonly topEventsState = signal<{
     events: readonly TopEventRow[];
     status: 'loading' | 'ready' | 'error';
-  }>({ events: INITIAL_TOP_EVENTS, status: 'loading' });
+  }>({ events: [], status: 'loading' });
 
   protected readonly topEvents = computed(() => this.topEventsState().events);
   protected readonly topEventsStatus = computed(() => this.topEventsState().status);
@@ -330,7 +289,7 @@ export class DashboardPage {
       const range = getDateRangesForPeriod(period).current;
       const points = await this.analyticsService.getActiveUsersByDay(accessToken, range);
       this.activeUsersSeries.set({
-        points: points.length > 0 ? points : INITIAL_ACTIVE_USERS_SERIES,
+        points,
         status: 'ready',
       });
     } catch (error) {
@@ -373,7 +332,7 @@ export class DashboardPage {
       const range = getDateRangesForPeriod(period).current;
       const pages = await this.analyticsService.getTopPages(accessToken, range);
       this.topPagesState.set({
-        pages: pages.length > 0 ? pages : INITIAL_TOP_PAGES,
+        pages,
         status: 'ready',
       });
     } catch (error) {
@@ -394,7 +353,7 @@ export class DashboardPage {
       const range = getDateRangesForPeriod(period).current;
       const events = await this.analyticsService.getTopEvents(accessToken, range);
       this.topEventsState.set({
-        events: events.length > 0 ? events : INITIAL_TOP_EVENTS,
+        events,
         status: 'ready',
       });
     } catch (error) {

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { LoadingSpinner } from '../../shared/loading-spinner/loading-spinner';
 
 export interface TopPageRow {
   path: string;
@@ -7,6 +8,7 @@ export interface TopPageRow {
 
 @Component({
   selector: 'app-top-pages',
+  imports: [LoadingSpinner],
   templateUrl: './top-pages.html',
   styleUrl: './top-pages.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

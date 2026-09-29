@@ -8,21 +8,30 @@
     <h2>Páginas más vistas</h2>
   </header>
 
-  @if (status() !== 'ready') {
-    <p class="panel-card__status" [class.panel-card__status--error]="status() === 'error'">
-      {{ status() === 'loading' ? 'Cargando datos…' : 'No se pudieron cargar las páginas' }}
-    </p>
+  @if (status() === 'loading') {
+    <div class="panel-card__placeholder">
+      <app-loading-spinner />
+      <p>Cargando datos…</p>
+    </div>
+  } @else if (status() === 'error') {
+    <div class="panel-card__placeholder">
+      <p class="panel-card__status--error">No se pudieron cargar las páginas</p>
+    </div>
+  } @else if (pages().length === 0) {
+    <div class="panel-card__placeholder">
+      <p>Sin datos para este período</p>
+    </div>
+  } @else {
+    <ul class="top-pages__list">
+      @for (page of pages(); track page.path) {
+        <li class="top-pages__row">
+          <span class="top-pages__path">{{ page.path }}</span>
+          <span class="top-pages__bar-track">
+            <span class="top-pages__bar" [style.width.%]="barWidth(page.views)"></span>
+          </span>
+          <span class="top-pages__value">{{ page.views }}</span>
+        </li>
+      }
+    </ul>
   }
-
-  <ul class="top-pages__list">
-    @for (page of pages(); track page.path) {
-      <li class="top-pages__row">
-        <span class="top-pages__path">{{ page.path }}</span>
-        <span class="top-pages__bar-track">
-          <span class="top-pages__bar" [style.width.%]="barWidth(page.views)"></span>
-        </span>
-        <span class="top-pages__value">{{ page.views }}</span>
-      </li>
-    }
-  </ul>
 </article>
