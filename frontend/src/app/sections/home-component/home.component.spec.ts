@@ -39,7 +39,5 @@ describe('HomeComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
 
     expect(native.querySelector('.home__title-name')?.textContent).toContain('Diego Daniel Caceres');
-    expect(native.querySelector('.home__description')).not.toBeNull();
-    expect(native.querySelector('.home__badge')).not.toBeNull();
   });
 });

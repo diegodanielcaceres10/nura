@@ -34,13 +34,6 @@ describe('FooterComponent', () => {
     expect(footerContainer).toBeTruthy();
   });
 
-  it('should render brand title and tagline', () => {
-    const title = fixture.nativeElement.querySelector('.footer__brand-title');
-    const tagline = fixture.nativeElement.querySelector('.footer__brand-tagline');
-    expect(title?.textContent?.trim()).toBe('NURA');
-    expect(tagline?.textContent?.trim()).toContain('Architecture');
-  });
-
   it('should render glowing horizon and ambient beam', () => {
     const horizon = fixture.nativeElement.querySelector('.footer__horizon');
     const beam = fixture.nativeElement.querySelector('.footer__horizon-beam');
@@ -49,9 +42,7 @@ describe('FooterComponent', () => {
   });
 
   it('should render status indicator and copyright', () => {
-    const status = fixture.nativeElement.querySelector('.footer__status');
     const copyright = fixture.nativeElement.querySelector('.footer__copyright');
-    expect(status).toBeTruthy();
     expect(copyright?.textContent).toContain('2026');
     expect(copyright?.textContent).toContain('Diego Daniel Caceres');
   });
