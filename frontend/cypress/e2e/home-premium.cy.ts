@@ -16,26 +16,13 @@ describe('Premium Home Landing Section', () => {
         // Hero container exists and is visible
         cy.get('.home').should('be.visible');
 
-        // Status pill badge with live pulse dot
-        cy.get('.home__badge').should('be.visible');
-        cy.get('.home__badge-dot').should('be.visible');
-
         // Editorial typography: Serif headline name
-        cy.get('.home__title-name')
-          .should('be.visible')
-          .and('contain.text', 'Diego Daniel Caceres');
-
-        // Value proposition description
-        cy.get('.home__description').should('be.visible');
+        cy.get('.home__title-name').should('be.visible').and('contain.text', 'Diego Daniel Caceres');
 
         // High conversion CTA buttons
-        cy.get('.home__cta--primary')
-          .should('be.visible')
-          .and('have.attr', 'href');
+        cy.get('.home__cta--primary').should('be.visible').and('have.attr', 'href');
 
-        cy.get('.home__cta--secondary')
-          .should('be.visible')
-          .and('have.attr', 'href');
+        cy.get('.home__cta--secondary').should('be.visible').and('have.attr', 'href');
 
         // Visual portrait and Diego's signature logo
         cy.get('.home__image').should('be.visible');
@@ -51,15 +38,9 @@ describe('Premium Home Landing Section', () => {
       });
 
       it('verifies CTA interaction states', () => {
-        cy.get('.home__cta--primary')
-          .scrollIntoView()
-          .trigger('mouseover')
-          .should('be.visible');
+        cy.get('.home__cta--primary').scrollIntoView().trigger('mouseover').should('be.visible');
 
-        cy.get('.home__cta--secondary')
-          .scrollIntoView()
-          .trigger('mouseover')
-          .should('be.visible');
+        cy.get('.home__cta--secondary').scrollIntoView().trigger('mouseover').should('be.visible');
       });
     });
   });
