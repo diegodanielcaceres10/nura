@@ -33,4 +33,22 @@ describe('FooterComponent', () => {
     const footerContainer = fixture.nativeElement.querySelector('.footer');
     expect(footerContainer).toBeTruthy();
   });
+
+  it('should render glowing horizon and ambient beam', () => {
+    const horizon = fixture.nativeElement.querySelector('.footer__horizon');
+    const beam = fixture.nativeElement.querySelector('.footer__horizon-beam');
+    expect(horizon).toBeTruthy();
+    expect(beam).toBeTruthy();
+  });
+
+  it('should render status indicator and copyright', () => {
+    const copyright = fixture.nativeElement.querySelector('.footer__copyright');
+    expect(copyright?.textContent).toContain('2026');
+    expect(copyright?.textContent).toContain('Diego Daniel Caceres');
+  });
+
+  it('should maintain backward compatibility for footer_copyright selector', () => {
+    const legacyCopyright = fixture.nativeElement.querySelector('.footer_copyright');
+    expect(legacyCopyright).toBeTruthy();
+  });
 });

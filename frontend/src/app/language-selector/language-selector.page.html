@@ -1,15 +1,11 @@
-<section class="language">
-  <span class="language__wave language__wave--left" aria-hidden="true"></span>
-  <span class="language__wave language__wave--right" aria-hidden="true"></span>
+<section class="language" [class.language--redirecting]="redirecting()">
+  @if (redirecting()) {
+    <app-loading-page class="language__loading-view" />
+  } @else {
+    <span class="language__wave language__wave--left" aria-hidden="true"></span>
+    <span class="language__wave language__wave--right" aria-hidden="true"></span>
 
-  <div class="language__container">
-    @if (redirecting()) {
-      <div class="language__spinner">
-        <span></span>
-        <img src="assets/diegodanielcaceres/isologo.png" alt="Diego Daniel Caceres Iso Logo" width="300" height="300" decoding="async" />
-      </div>
-      <span>Nura • Portfolio</span>
-    } @else {
+    <div class="language__container">
       <div class="language__logo">
         <img src="favicon-32x32.png" alt="Nura Logo" width="32" height="32" decoding="async" />
         <span>Nura • Portfolio</span>
@@ -43,6 +39,6 @@
           </a>
         }
       </div>
-    }
-  </div>
+    </div>
+  }
 </section>

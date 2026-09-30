@@ -1,16 +1,142 @@
 @use 'index' as ds;
 
-.footer {
-  border: 1px solid var(--border-color-deep);
-  display: flex;
-  justify-content: center;
+// =============================================================================
+// HIGH-END LUXURY FOOTER
+// Architectural Design System with BEM Methodology
+// =============================================================================
 
-  &_copyright {
-    font-size: var(--font-size-xs);
-    color: var(--text-muted);
+.footer {
+  position: relative;
+  width: 100%;
+  background: var(--bg-primary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid transparent;
+
+  // ---------------------------------------------------------------------------
+  // Glowing Horizon Line & Ambient Light Layer
+  // ---------------------------------------------------------------------------
+  &__horizon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    pointer-events: none;
+    z-index: 1;
+
+    &-glow {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(320px, 65vw, 750px);
+      height: 80px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(10, 141, 171, 0.2) 0%, rgba(246, 113, 22, 0.08) 40%, transparent 75%);
+      filter: blur(22px);
+      pointer-events: none;
+    }
+
+    &-beam {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.05) 15%, rgba(10, 141, 171, 0.5) 45%, rgba(246, 113, 22, 0.6) 50%, rgba(10, 141, 171, 0.5) 55%, rgba(255, 255, 255, 0.05) 85%, transparent 100%);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Central Bounded Container
+  // ---------------------------------------------------------------------------
+  &__container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: clamp(3rem, 5vw, 4.5rem) var(--spacing-lg) clamp(2.5rem, 4vw, 3.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.75rem, 3vw, 2.5rem);
+    animation: footerFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    @include ds.md {
+      padding: clamp(2.5rem, 4vw, 3.5rem) var(--spacing-md);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Bottom Bar: Metadata & Copyright
+  // ---------------------------------------------------------------------------
+  &__bottom {
+    width: 100%;
     display: flex;
     align-items: center;
-    gap: var(--spacing-xs);
-    margin: var(--spacing-xl) 0;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-xs);
+    color: var(--muted-color);
+
+    @include ds.md {
+      flex-direction: column-reverse;
+      text-align: center;
+      gap: var(--spacing-md);
+    }
+  }
+
+  &__copyright,
+  .footer_copyright {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size-xs);
+    color: var(--muted-color);
+    letter-spacing: 0.04em;
+    margin: 0;
+    transition: color var(--transition-fast);
+
+    i {
+      color: var(--primary-color);
+      font-size: 0.875rem;
+      opacity: 0.9;
+    }
+
+    &:hover {
+      color: var(--light-color);
+    }
+  }
+}
+
+// =============================================================================
+// KEYFRAME ANIMATIONS
+// =============================================================================
+
+@keyframes footerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =============================================================================
+// ACCESSIBILITY: REDUCED MOTION SUPPORT
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__container,
+  .footer__status-ping {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }

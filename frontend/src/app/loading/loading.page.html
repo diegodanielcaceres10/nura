@@ -1,0 +1,79 @@
+<section class="loading" aria-label="Loading Experience" role="status" aria-live="polite">
+  <!-- Cinematic Ambient Backdrop (Glow Layers & Architectural Micro-Grid) -->
+  <div class="loading__backdrop" aria-hidden="true">
+    <div class="loading__ambient-glow loading__ambient-glow--cyan"></div>
+    <div class="loading__ambient-glow loading__ambient-glow--accent"></div>
+    <div class="loading__ambient-glow loading__ambient-glow--deep"></div>
+    <svg class="loading__grid" viewBox="0 0 100 100" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="loading-grid-pattern" width="8" height="8" patternUnits="userSpaceOnUse">
+          <circle cx="4" cy="4" r="0.5" fill="rgba(255, 255, 255, 0.04)" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#loading-grid-pattern)" />
+    </svg>
+  </div>
+
+  <div class="loading__container">
+    <!-- Centerpiece: Orbital Indicator & Iso Logo Core -->
+    <div class="loading__visual">
+      <!-- Breathing Atmospheric Core Aura -->
+      <div class="loading__pulse-aura" aria-hidden="true"></div>
+
+      <!-- Orbital Precision SVG Rings -->
+      <svg class="loading__orbit-svg" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="orbit-grad-primary" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0a8dab" stop-opacity="0.95" />
+            <stop offset="40%" stop-color="#212e3e" stop-opacity="0.4" />
+            <stop offset="70%" stop-color="#f67116" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#0a8dab" stop-opacity="0.15" />
+          </linearGradient>
+          <linearGradient id="orbit-grad-secondary" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#4a5567" stop-opacity="0.25" />
+            <stop offset="50%" stop-color="#0a8dab" stop-opacity="0.65" />
+            <stop offset="100%" stop-color="#e1eaf1" stop-opacity="0.35" />
+          </linearGradient>
+        </defs>
+
+        <!-- Static Background Reference Track -->
+        <circle class="loading__orbit-track" cx="140" cy="140" r="118" stroke="rgba(255, 255, 255, 0.05)" stroke-width="1" />
+
+        <!-- Outer Dynamic Orbital Ring (Clockwise) -->
+        <g class="loading__orbit loading__orbit--outer">
+          <circle cx="140" cy="140" r="118" stroke="url(#orbit-grad-primary)" stroke-width="1.75" stroke-dasharray="28 42 70 30" stroke-linecap="round" />
+          <!-- Chrono Satellite Marker -->
+          <circle cx="258" cy="140" r="3" fill="#f67116" />
+          <circle cx="258" cy="140" r="6" fill="#f67116" opacity="0.3" />
+        </g>
+
+        <!-- Inner Delicate Precision Ring (Counter-Clockwise) -->
+        <g class="loading__orbit loading__orbit--inner">
+          <circle cx="140" cy="140" r="94" stroke="url(#orbit-grad-secondary)" stroke-width="1.25" stroke-dasharray="14 18 36 24" stroke-linecap="round" />
+          <circle cx="46" cy="140" r="2" fill="#0a8dab" />
+        </g>
+      </svg>
+
+      <!-- Center Iso Logo Frame with Compatibility Class -->
+      <div class="loading__logo-wrapper language__spinner">
+        <div class="loading__logo-glass"></div>
+        <img class="loading__logo" src="assets/diegodanielcaceres/isologo.png" alt="Diego Daniel Caceres Iso Logo" width="300" height="300" decoding="async" />
+      </div>
+    </div>
+
+    <!-- Editorial Brand & Hierarchy -->
+    <div class="loading__brand">
+      <h1 class="loading__title">NURA</h1>
+      <div class="loading__divider" aria-hidden="true"></div>
+      <p class="loading__subtitle">PORTFOLIO & ARCHITECTURE</p>
+    </div>
+
+    <!-- Status Indicator & Minimalist Progress Shimmer -->
+    <div class="loading__status">
+      <div class="loading__progress-track" aria-hidden="true">
+        <div class="loading__progress-beam"></div>
+      </div>
+      <span class="loading__status-text">INITIALIZING EXPERIENCE</span>
+    </div>
+  </div>
+</section>
