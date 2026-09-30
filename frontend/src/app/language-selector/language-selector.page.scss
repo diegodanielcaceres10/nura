@@ -11,6 +11,18 @@
   background: var(--bg-primary);
   overflow: hidden;
 
+  &--redirecting {
+    padding: 0;
+  }
+
+  &__loading-view {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   &__spinner {
     position: relative;
     display: flex;

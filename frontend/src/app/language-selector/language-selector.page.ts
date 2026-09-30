@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
+import { LoadingPage } from '../loading/loading.page';
 
 const REDIRECT_DELAY_MS = 1500;
 
@@ -19,7 +20,7 @@ export interface QuickLink {
 @Component({
   selector: 'app-language-selector-page',
   standalone: true,
-  imports: [],
+  imports: [LoadingPage],
   templateUrl: './language-selector.page.html',
   styleUrl: './language-selector.page.scss',
 })
