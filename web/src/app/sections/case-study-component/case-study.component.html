@@ -1,32 +1,41 @@
-<section class="case-study page-section">
+<section class="case-study page-section" aria-labelledby="case-study-title">
   <div class="case-study__container">
-    <app-title-component title="CASE_STUDY_TITLE" subtitle="CASE_STUDY_SUBTITLE" intro="CASE_STUDY_DESCRIPTION" />
+    <app-title-component id="case-study-title" title="CASE_STUDY_TITLE" subtitle="CASE_STUDY_SUBTITLE" intro="CASE_STUDY_DESCRIPTION" />
 
     <div class="case-study__grid">
       @for (item of caseStudies; track item.number) {
-        <article class="case-study__card">
-          <div class="case-study__glow"></div>
-          <div class="case-study__content">
-            <span class="case-study__icon">
+        <article class="case-study__card" [attr.data-case]="item.number">
+          <!-- Ambient Glow Background -->
+          <div class="case-study__glow" aria-hidden="true"></div>
+
+          <!-- Top Meta Bar: Category Pill & Serial Number -->
+          <div class="case-study__meta">
+            <span class="case-study__tag">{{ item.category }}</span>
+            <span class="case-study__number" aria-hidden="true">{{ item.number }}</span>
+          </div>
+
+          <!-- Brand Emblem & Titles Header -->
+          <div class="case-study__header">
+            <div class="case-study__icon" aria-hidden="true">
               <i [class]="item.icon"></i>
-            </span>
+            </div>
 
-            <div class="case-study__info">
-              <div class="case-study__header">
-                <span class="case-study__number">{{ item.number }}</span>
-                <span class="case-study__tag">{{ item.category }}</span>
-              </div>
-
+            <div class="case-study__headings">
               <h3 class="case-study__title">{{ item.title | translate }}</h3>
               <p class="case-study__subtitle">{{ item.subtitle }}</p>
             </div>
           </div>
+
+          <!-- Description Body -->
           <p class="case-study__card-description">{{ item.description | translate }}</p>
 
+          <!-- Executive KPI / Metrics Showcase -->
           <div class="case-study__metrics">
             @for (metric of item.metrics; track metric.label) {
               <div class="case-study__metric">
-                <i [class]="metric.icon"></i>
+                <div class="case-study__metric-icon" aria-hidden="true">
+                  <i [class]="metric.icon"></i>
+                </div>
                 <div class="case-study__metric-text">
                   <span class="case-study__metric-value">{{ metric.value }}</span>
                   <span class="case-study__metric-label">{{ metric.label | translate }}</span>
@@ -34,6 +43,9 @@
               </div>
             }
           </div>
+
+          <!-- Interactive Action Link (Preserves item.link redirection flow) -->
+          <div class="case-study__footer"></div>
         </article>
       }
     </div>
