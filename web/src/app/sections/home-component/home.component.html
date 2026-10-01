@@ -84,48 +84,81 @@
   </div>
 </section>
 
-<section class="stats">
+<section class="stats" aria-labelledby="stats-title">
+  <!-- Ambient Backdrop Glow -->
+  <div class="stats__ambient" aria-hidden="true">
+    <div class="stats__ambient-glow stats__ambient-glow--cyan"></div>
+    <div class="stats__ambient-glow stats__ambient-glow--accent"></div>
+  </div>
+
   <div class="stats__container">
     <div class="stats__heading">
-      <h2 class="stats__title">{{ 'HOME_STATS_TITLE' | translate }}</h2>
-      <span class="stats__underline"></span>
+      <span class="stats__eyebrow" aria-hidden="true">Key Metrics</span>
+      <h2 id="stats-title" class="stats__title">{{ 'HOME_STATS_TITLE' | translate }}</h2>
+      <div class="stats__divider" aria-hidden="true">
+        <span class="stats__divider-line"></span>
+        <span class="stats__divider-diamond"></span>
+        <span class="stats__divider-line"></span>
+      </div>
     </div>
 
     <div class="stats__grid">
       @for (stat of stats; track stat.label) {
         <div class="stats__item">
-          <span class="stats__icon">
-            <i [class]="stat.icon"></i>
-          </span>
-          <span class="stats__value">{{ stat.value }}</span>
-          <span class="stats__label">{{ stat.label | translate }}</span>
-          <span class="stats__description">{{ stat.description | translate }}</span>
+          <div class="stats__item-glow" aria-hidden="true"></div>
+          <div class="stats__icon">
+            <i [class]="stat.icon" aria-hidden="true"></i>
+          </div>
+          <div class="stats__content">
+            <span class="stats__value">{{ stat.value }}</span>
+            <span class="stats__label">{{ stat.label | translate }}</span>
+            <span class="stats__description">{{ stat.description | translate }}</span>
+          </div>
         </div>
       }
     </div>
   </div>
 </section>
 
-<section class="tech-stack">
+<section class="tech-stack" aria-labelledby="tech-stack-title">
+  <!-- Ambient Backdrop Glow -->
+  <div class="tech-stack__ambient" aria-hidden="true">
+    <div class="tech-stack__ambient-glow tech-stack__ambient-glow--cyan"></div>
+    <div class="tech-stack__ambient-glow tech-stack__ambient-glow--deep"></div>
+  </div>
+
   <div class="tech-stack__container">
     <div class="tech-stack__heading">
-      <h2 class="tech-stack__title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
-      <span class="tech-stack__underline"></span>
+      <span class="tech-stack__eyebrow" aria-hidden="true">Technology Ecosystem</span>
+      <h2 id="tech-stack-title" class="tech-stack__title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
+      <div class="tech-stack__divider" aria-hidden="true">
+        <span class="tech-stack__divider-line"></span>
+        <span class="tech-stack__divider-diamond"></span>
+        <span class="tech-stack__divider-line"></span>
+      </div>
     </div>
 
     <div class="tech-stack__grid">
       @for (category of categories; track category.label) {
         <div class="tech-stack__category">
+          <div class="tech-stack__category-glow" aria-hidden="true"></div>
+
           <div class="tech-stack__category-header">
-            <i [class]="category.headerIcon"></i>
-            <span>{{ category.label }}</span>
+            <div class="tech-stack__category-icon" aria-hidden="true">
+              <i [class]="category.headerIcon"></i>
+            </div>
+            <span class="tech-stack__category-label">{{ category.label }}</span>
           </div>
 
           <div class="tech-stack__icons">
             @for (tech of category.technologies; track tech.name) {
-              <img class="tech-stack__icon" [src]="tech.icon" [alt]="tech.name" />
+              <div class="tech-stack__icon-frame" [attr.title]="tech.name">
+                <img class="tech-stack__icon" [src]="tech.icon" [alt]="tech.name" loading="lazy" width="36" height="36" />
+              </div>
             }
           </div>
+
+          <div class="tech-stack__separator" aria-hidden="true"></div>
 
           <p class="tech-stack__caption">{{ category.caption }}</p>
         </div>
