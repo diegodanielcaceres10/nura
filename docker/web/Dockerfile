@@ -2,11 +2,11 @@ FROM node:20-bullseye
 
 WORKDIR /app
 
-COPY frontend/package*.json ./
+COPY web/package*.json ./
 
 RUN npm ci
 
-COPY frontend/ .
+COPY web/ .
 
 EXPOSE 4200
 

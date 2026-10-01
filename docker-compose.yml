@@ -1,13 +1,13 @@
 services:
-  frontend:
+  web:
     build:
       context: .
       dockerfile: docker/web/Dockerfile
-    container_name: nura-frontend
+    container_name: nura-web
     ports:
       - "4001:4200"
     volumes:
-      - ./frontend:/app
+      - ./web:/app
       - /app/node_modules
     stdin_open: true
     tty: true

@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: frontend
+        working-directory: web
 
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: web/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -55,7 +55,7 @@ jobs:
         if: always()
         with:
           name: Vitest Results
-          path: frontend/vitest/junit-report.xml
+          path: web/vitest/junit-report.xml
           reporter: java-junit
 
       - name: Publish Cypress test results
@@ -63,7 +63,7 @@ jobs:
         if: always()
         with:
           name: Cypress E2E Results
-          path: frontend/cypress/results/*.xml
+          path: web/cypress/results/*.xml
           reporter: java-junit
 
       - name: Upload coverage artifact
@@ -71,7 +71,7 @@ jobs:
         if: always()
         with:
           name: vitest-coverage
-          path: frontend/vitest/coverage
+          path: web/vitest/coverage
 
       - name: Upload Cypress artifacts
         uses: actions/upload-artifact@v4
@@ -79,9 +79,9 @@ jobs:
         with:
           name: cypress-artifacts
           path: |
-            frontend/cypress/results/*.xml
-            frontend/cypress/screenshots/**
-            frontend/cypress/videos/**
+            web/cypress/results/*.xml
+            web/cypress/screenshots/**
+            web/cypress/videos/**
           if-no-files-found: warn
 
       - name: Normalize coverage report path
@@ -113,7 +113,7 @@ jobs:
         uses: irongut/CodeCoverageSummary@v1.3.0
         if: always()
         with:
-          filename: frontend/vitest/coverage/coverage.xml
+          filename: web/vitest/coverage/coverage.xml
           badge: true
           format: markdown
           output: both
@@ -136,10 +136,10 @@ jobs:
           script: |
             const fs = require('fs');
             const xmlCandidates = [
-              'frontend/vitest/coverage/cobertura-coverage.xml',
-              'frontend/vitest/coverage/coverage.xml'
+              'web/vitest/coverage/cobertura-coverage.xml',
+              'web/vitest/coverage/coverage.xml'
             ];
-            const summaryCandidates = ['code-coverage-results.md', 'frontend/code-coverage-results.md'];
+            const summaryCandidates = ['code-coverage-results.md', 'web/code-coverage-results.md'];
 
             const percent = (rate) => `${Math.round(Number(rate || 0) * 100)}%`;
             let summary = `Coverage summary not found.\n\nCommit: ${context.sha}`;
@@ -209,7 +209,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist/frontend/browser
+          path: web/dist/web/browser
 
   deploy:
     name: Deploy
@@ -237,10 +237,10 @@ jobs:
         with:
           node-version: 20
           cache: "npm"
-          cache-dependency-path: frontend/package-lock.json
+          cache-dependency-path: web/package-lock.json
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: web
         run: npm ci
 
       - name: Run Lighthouse CI Desktop
@@ -248,7 +248,7 @@ jobs:
         continue-on-error: true
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: ./frontend/lighthouserc.desktop.json
+          configPath: ./web/lighthouserc.desktop.json
           uploadArtifacts: false
           temporaryPublicStorage: true
 
@@ -257,7 +257,7 @@ jobs:
         continue-on-error: true
         uses: treosh/lighthouse-ci-action@v12
         with:
-          configPath: ./frontend/lighthouserc.mobile.json
+          configPath: ./web/lighthouserc.mobile.json
           uploadArtifacts: false
           temporaryPublicStorage: true
 
@@ -327,7 +327,7 @@ jobs:
               if (!manifest.length) {
                 const candidates = [
                   '.lighthouseci/manifest.json',
-                  'frontend/.lighthouseci/manifest.json',
+                  'web/.lighthouseci/manifest.json',
                   'lhci_reports/manifest.json'
                 ];
                 for (const file of candidates) {
