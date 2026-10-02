@@ -3,6 +3,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectItem, ProjectsComponent } from './projects.component';
 import { Router } from '@angular/router';
 import { ProjectsService } from '../../services/projects/projects.service';
+import { LocaleService } from '../../services/locale/locale.service';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;
@@ -58,6 +59,15 @@ describe('ProjectsComponent', () => {
 
     expect(component['filteredProjects']().map((project) => project.id)).toEqual(['kora-roster']);
     expect(cards.length).toBe(1);
+  });
+
+  it('should match technologies declared only in the full technology stack', () => {
+    component['setActiveFilter']('docker');
+    fixture.detectChanges();
+
+    const projectIds = component['filteredProjects']().map((project) => project.id);
+
+    expect(projectIds).toContain('ionic-plugin-lab');
   });
 
   it('should mark the active quick filter as pressed', () => {
@@ -121,13 +131,16 @@ describe('ProjectsComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should render anchor tag with href to github repo', () => {
+  it('should render external project links with safe new-tab attributes', () => {
     fixture.detectChanges();
-    const githubLink = fixture.nativeElement.querySelector('.projects__action[href]') as HTMLAnchorElement;
+    const native = fixture.nativeElement as HTMLElement;
+    const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('.projects__action[href]'));
+    const androidLink = native.querySelector<HTMLAnchorElement>('.projects__action-android');
 
-    expect(githubLink).not.toBeNull();
-    expect(githubLink?.href).toContain('github.com');
-    expect(githubLink?.target).toBe('_blank');
+    expect(links.length).toBeGreaterThan(0);
+    expect(links.every((link) => link.target === '_blank' && link.rel === 'noopener')).toBe(true);
+    expect(links.some((link) => link.href.includes('github.com'))).toBe(true);
+    expect(androidLink?.href).toContain('app-release.apk');
   });
 
   it('should apply the filter when a filter button is clicked', () => {
@@ -156,6 +169,7 @@ describe('ProjectsComponent', () => {
     const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', coverImage: '/img/cover.png', techStackPreview: ['Ionic'] };
     const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', coverImage: '', techStackPreview: ['Angular'] };
     let navigate: ReturnType<typeof vi.fn>;
+    let getCurrentLocale: ReturnType<typeof vi.fn>;
 
     const clickFilter = (label: string): void => {
       const buttons = Array.from(fixture.nativeElement.querySelectorAll('.projects__filter') as NodeListOf<HTMLButtonElement>);
@@ -166,11 +180,13 @@ describe('ProjectsComponent', () => {
     beforeEach(async () => {
       await TestBed.resetTestingModule();
       navigate = vi.fn();
+      getCurrentLocale = vi.fn(() => 'pt');
       await TestBed.configureTestingModule({
         imports: [ProjectsComponent],
         providers: [
           { provide: Router, useValue: { navigate } },
           { provide: ProjectsService, useValue: { getAll: () => [withCover, withoutCover] } },
+          { provide: LocaleService, useValue: { getCurrentLocale } },
         ],
       }).compileComponents();
 
@@ -207,7 +223,8 @@ describe('ProjectsComponent', () => {
       buttons[1].click();
 
       expect(navigate).toHaveBeenCalledTimes(1);
-      expect(navigate).toHaveBeenCalledWith(['/', expect.any(String), 'work', 'without-cover']);
+      expect(getCurrentLocale).toHaveBeenCalledOnce();
+      expect(navigate).toHaveBeenCalledWith(['/', 'pt', 'work', 'without-cover']);
     });
   });
 });

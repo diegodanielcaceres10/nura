@@ -33,21 +33,44 @@ describe('AboutComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should have education item', () => {
-    const education = component['education'];
+  it('should render the four content cards', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const cards = native.querySelectorAll('article.about__card');
 
-    expect(education.degree).toBe('Analista de Sistemas');
+    expect(cards).toHaveLength(4);
   });
 
-  it('should have languages in array', () => {
-    const languages = component['languages'];
+  it('should render the education details and signature with alternative text', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const signature = native.querySelector<HTMLImageElement>('.about__signature img');
 
-    expect(languages.length).toBeGreaterThan(0);
+    expect(native.querySelector('.about__education-degree')?.textContent?.trim()).toBe('Analista de Sistemas');
+    expect(native.querySelector('.about__education-institution')?.textContent?.trim()).toBe('Instituto Cervantes');
+    expect(native.querySelector('.about__education-meta')?.textContent?.trim()).toBe('Argentina · 2020');
+    expect(signature?.getAttribute('alt')).toBe('Diego Daniel Caceres Logo');
   });
 
-  it('should have beyond work items in array', () => {
-    const beyondWork = component['beyondWork'];
+  it('should render the three interests beyond work', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const titles = Array.from(native.querySelectorAll('.about__beyond-title')).map((title) => title.textContent?.trim());
 
-    expect(beyondWork.length).toBeGreaterThan(0);
+    expect(titles).toEqual(['I love to travel', 'Photography', 'Good coffee']);
+    expect(native.querySelectorAll('.about__beyond-description')).toHaveLength(3);
+  });
+
+  it('should render all supported languages with their levels', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const languages = native.querySelectorAll('.about__language');
+    const levels = Array.from(native.querySelectorAll('.about__language-level')).map((level) => level.textContent?.trim());
+
+    expect(languages).toHaveLength(3);
+    expect(levels.every((level) => (level?.length ?? 0) > 0)).toBe(true);
+  });
+
+  it('should hide decorative dots and icons from assistive technologies', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelectorAll('.about__dot[aria-hidden="true"]')).toHaveLength(4);
+    expect(native.querySelectorAll('.about__icon i[aria-hidden="true"]')).toHaveLength(4);
   });
 });

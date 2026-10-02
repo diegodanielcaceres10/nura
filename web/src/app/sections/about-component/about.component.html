@@ -5,7 +5,7 @@
     <div class="about__details">
       <article class="about__card about__card-story">
         <h3 class="about__title">
-          <span class="about__dot"></span>
+          <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_STORY_TITLE' | translate }}
         </h3>
 
@@ -17,13 +17,13 @@
 
       <article class="about__card about__card-education">
         <h3 class="about__title">
-          <span class="about__dot"></span>
+          <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_EDUCATION_TITLE' | translate }}
         </h3>
 
         <div class="about__education">
           <span class="about__icon">
-            <i [class]="education.icon"></i>
+            <i [class]="education.icon" aria-hidden="true"></i>
           </span>
           <div class="about__education-text">
             <span class="about__education-degree">{{ education.degree }}</span>
@@ -35,7 +35,7 @@
 
       <article class="about__card about__card-beyond">
         <h3 class="about__title">
-          <span class="about__dot"></span>
+          <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_BEYOND_TITLE' | translate }}
         </h3>
 
@@ -43,7 +43,7 @@
           @for (item of beyondWork; track item.title) {
             <div class="about__beyond-item">
               <span class="about__icon">
-                <i [class]="item.icon"></i>
+                <i [class]="item.icon" aria-hidden="true"></i>
               </span>
               <div class="about__beyond-text">
                 <span class="about__beyond-title">{{ item.title | translate }}</span>
@@ -56,7 +56,7 @@
 
       <article class="about__card about__card-languages">
         <h3 class="about__title">
-          <span class="about__dot"></span>
+          <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_LANGUAGES_TITLE' | translate }}
         </h3>
 

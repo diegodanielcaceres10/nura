@@ -13,13 +13,13 @@
       </span>
     </div>
 
-    <button type="button" (click)="toogleMenu()" class="header__button" aria-label="Toggle menu">
-      <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars"></i>
-      <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark"></i>
+    <button type="button" (click)="toogleMenu()" class="header__button" aria-label="Toggle menu" [attr.aria-expanded]="isMenuOpen()" aria-controls="primary-navigation">
+      <i [class.hide]="isMenuOpen()" class="fa-solid fa-bars" aria-hidden="true"></i>
+      <i [class.hide]="!isMenuOpen()" class="fa-solid fa-xmark" aria-hidden="true"></i>
     </button>
 
     <div [class.header__container-open]="isMenuOpen()" class="header__container">
-      <nav class="header__nav">
+      <nav id="primary-navigation" class="header__nav" aria-label="Primary navigation">
         <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="experiences">{{ 'MENU_EXPERIENCE' | translate }}</a>
         <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="projects">{{ 'MENU_PROJECTS' | translate }}</a>
         <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="recommendations">{{ 'MENU_RECOMMENDATIONS' | translate }}</a>
@@ -28,7 +28,7 @@
       </nav>
       <div class="header__langs">
         @for (lang of langs; track lang.code) {
-          <button class="header__lang" [class.active]="currentLang() === lang.code" (click)="changeLang(lang.code)">
+          <button class="header__lang" [class.active]="currentLang() === lang.code" [attr.aria-pressed]="currentLang() === lang.code" (click)="changeLang(lang.code)">
             {{ lang.flag }}
           </button>
         }

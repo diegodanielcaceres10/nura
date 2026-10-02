@@ -33,11 +33,11 @@ describe('RecommendationsComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should have testimonials in array', () => {
-    const testimonials = component['testimonials'];
+  it('should render the three published recommendations', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const names = Array.from(native.querySelectorAll('.recommendations__name')).map((name) => name.textContent?.trim());
 
-    expect(testimonials.length).toBeGreaterThan(0);
-    expect(testimonials[0].name).toBe('Bruno Zanon');
+    expect(names).toEqual(['Bruno Zanon', 'Paulo César Rodrigues', 'Marisa Rosana Paredes']);
   });
 
   describe('with controlled testimonials', () => {
@@ -92,7 +92,14 @@ describe('RecommendationsComponent', () => {
       expect(link.getAttribute('href')).toBe('https://www.linkedin.com/in/ana-test/');
       expect(link.getAttribute('target')).toBe('_blank');
       expect(link.getAttribute('rel')).toBe('noopener');
+      expect(link.getAttribute('aria-label')).toBe('View Ana Test on LinkedIn');
       expect(cards[1].querySelector('.recommendations__linkedin')).toBeNull();
+    });
+
+    it('should hide decorative icons from assistive technologies', () => {
+      const native = render([withLinkedin, withoutLinkedin]);
+
+      expect(native.querySelectorAll('i[aria-hidden="true"]')).toHaveLength(7);
     });
   });
 });

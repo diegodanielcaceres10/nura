@@ -58,23 +58,59 @@ describe('ProjectCardComponent', () => {
     expect(component.fullDescription()).toBe(false);
   });
 
-  it('should render card with project title', () => {
+  it('should render the project title, year, type and translated status', () => {
     const native = fixture.nativeElement as HTMLElement;
+    const tags = Array.from(native.querySelectorAll('.project-card__tags small')).map((tag) => tag.textContent?.trim());
 
-    expect(native.querySelector('.project-card')).not.toBeNull();
+    expect(native.querySelector('.project-card__title')?.textContent?.trim()).toBe('Test Project');
+    expect(native.querySelector('.project-card__heading small')?.textContent?.trim()).toBe('2026');
+    expect(tags[0]).toBe('Web');
+    expect(tags[1]).toContain('Completed');
   });
 
-  it('should render project status badge', () => {
+  it('should render the short description by default', () => {
     const native = fixture.nativeElement as HTMLElement;
-    const statusElement = native.querySelector('[class*="status"]') || native.querySelector('[class*="badge"]');
 
-    expect(statusElement || native.textContent).toBeTruthy();
+    expect(native.querySelector('.project-card__description')?.textContent?.trim()).toBe('TEST_DESC');
   });
 
-  it('should render tech stack preview', () => {
+  it('should render the full description when requested', () => {
+    fixture.componentRef.setInput('fullDescription', true);
     fixture.detectChanges();
-    const techItems = fixture.nativeElement.querySelectorAll('.project-card__tech');
 
-    expect(techItems.length).toBeGreaterThan(0);
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelector('.project-card__description')?.textContent?.trim()).toBe('TEST_FULL_DESC');
+  });
+
+  it('should render every technology in the preview stack', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const techItems = Array.from(native.querySelectorAll('.project-card__tech')).map((tech) => tech.textContent?.trim());
+
+    expect(techItems).toEqual(['Angular', 'TypeScript']);
+  });
+
+  it('should render the avatar with the project title as alternative text', () => {
+    fixture.componentRef.setInput('project', { ...mockProject, avatar: 'assets/projects/test/avatar.png', icon: 'fa-solid fa-bolt' });
+    fixture.detectChanges();
+
+    const native = fixture.nativeElement as HTMLElement;
+    const avatar = native.querySelector<HTMLImageElement>('.project-card__avatar');
+
+    expect(avatar?.getAttribute('src')).toBe('assets/projects/test/avatar.png');
+    expect(avatar?.getAttribute('alt')).toBe('Test Project');
+    expect(native.querySelector('.project-card__logo i')).toBeNull();
+  });
+
+  it('should render the icon when the project has no avatar', () => {
+    fixture.componentRef.setInput('project', { ...mockProject, icon: 'fa-solid fa-bolt' });
+    fixture.detectChanges();
+
+    const native = fixture.nativeElement as HTMLElement;
+    const icon = native.querySelector<HTMLElement>('.project-card__logo i');
+
+    expect(native.querySelector('.project-card__avatar')).toBeNull();
+    expect(icon?.classList.contains('fa-solid')).toBe(true);
+    expect(icon?.classList.contains('fa-bolt')).toBe(true);
   });
 });

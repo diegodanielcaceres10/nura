@@ -33,21 +33,44 @@ describe('ContactComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should have contact channels with default values', () => {
-    const channels = component['channels']();
+  it('should render the four configured contact channels', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const labels = Array.from(native.querySelectorAll('.contact__channel-label')).map((label) => label.textContent?.trim());
 
-    expect(channels.length).toBe(4);
-    expect(channels[0].label).toBe('Email');
-    expect(channels[1].label).toBe('LinkedIn');
-    expect(channels[2].label).toBe('GitHub');
-    expect(channels[3].label).toBe('npm');
+    expect(labels).toEqual(['Email', 'LinkedIn', 'GitHub', 'npm']);
   });
 
-  it('should have availability meta information', () => {
-    const meta = component['availabilityMeta']();
+  it('should render the email address as a mailto link', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const emailLink = native.querySelector<HTMLAnchorElement>('.contact__channel-value');
 
-    expect(meta.length).toBe(2);
-    expect(meta[0].title).toBe('CONTACT_AVAILABILITY_GLOBE_TITLE');
-    expect(meta[1].title).toBe('CONTACT_AVAILABILITY_CLOCK_TITLE');
+    expect(emailLink?.textContent?.trim()).toBe('diegodanielcaceres10@gmail.com');
+    expect(emailLink?.getAttribute('href')).toBe('mailto:diegodanielcaceres10@gmail.com');
+  });
+
+  it('should render secure external action links for professional profiles', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('.contact__channel-action'));
+
+    expect(links).toHaveLength(3);
+    expect(links.every((link) => link.target === '_blank' && link.rel === 'noopener')).toBe(true);
+    expect(links.map((link) => link.href)).toEqual([
+      'https://www.linkedin.com/in/diego-daniel-caceres-1328991aa',
+      'https://github.com/diegodanielcaceres10',
+      'https://npmjs.com/~diegodanielcaceres10',
+    ]);
+  });
+
+  it('should render the availability metadata items', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelectorAll('.contact__meta-item')).toHaveLength(2);
+    expect(native.querySelector('.contact__availability-highlight')).not.toBeNull();
+  });
+
+  it('should hide decorative icons from assistive technologies', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelectorAll('i[aria-hidden="true"]')).toHaveLength(10);
   });
 });

@@ -12,19 +12,19 @@
               <div class="recommendations__profile">
                 <span class="recommendations__name">{{ testimonial.name }}</span>
                 @if (testimonial.linkedinUrl) {
-                  <a class="recommendations__linkedin" [href]="testimonial.linkedinUrl" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-linkedin-in"></i>
+                  <a class="recommendations__linkedin" [href]="testimonial.linkedinUrl" target="_blank" rel="noopener" [attr.aria-label]="'View ' + testimonial.name + ' on LinkedIn'">
+                    <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
                   </a>
                 }
               </div>
               <span class="recommendations__role">{{ testimonial.role }}</span>
             </div>
           </header>
-          <small class="recommendations__lang"><i class="fa-solid fa-earth-americas"></i> {{ testimonial.location }} · {{ testimonial.lang }}</small>
+          <small class="recommendations__lang"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i> {{ testimonial.location }} · {{ testimonial.lang }}</small>
 
-          <i class="recommendations__icon fa-solid fa-quote-left"></i>
+          <i class="recommendations__icon fa-solid fa-quote-left" aria-hidden="true"></i>
           <p class="recommendations__quote">{{ testimonial.quote }}</p>
-          <i class="recommendations__icon fa-solid fa-quote-right"></i>
+          <i class="recommendations__icon fa-solid fa-quote-right" aria-hidden="true"></i>
 
           <small class="recommendations__footer">{{ 'RECOMMENDATIONS_WORK_DURATION' | translate }} {{ testimonial.duration }} {{ 'RECOMMENDATIONS_WORK_YEARS' | translate }}</small>
         </article>
