@@ -27,6 +27,33 @@ const createService = (doc: unknown = document): LocaleService => {
   return TestBed.inject(LocaleService);
 };
 
+/**
+ * LocaleService spec.
+ *
+ * In short: it guarantees that the app opens in the right language and that the URL
+ * always carries the right locale segment, in the browser, under a base href and in SSR.
+ *
+ * Guarantees
+ * - Startup locale: path (/pt) > ?lang= > browser languages > default 'es'. Unsupported
+ *   values are skipped instead of blocking later sources; regional codes and casing are
+ *   normalized (pt-BR, EN, PT-br).
+ * - getCurrentLocale: reads <html lang> and normalizes it; falls back to 'es' for invalid
+ *   or empty values and for a document without documentElement.
+ * - changeLocale: redirects to the right URL. It adds or replaces the locale segment, keeps
+ *   the rest of the path, the other params and the hash, and drops `lang`. Unsupported
+ *   locales become 'es'.
+ * - syncLocalePath: fixes the URL without reloading; leaves it alone when it is already
+ *   correct or when it is the landing page without a locale.
+ * - Base href (/nura/): every method respects the base; URLs outside it are not rewritten.
+ * - SSR: without window it does not read the URL, touch the history or throw.
+ *
+ * Not covered
+ * - Real browser navigation: location is stubbed because jsdom cannot navigate.
+ * - Integration with the router, main.ts and the language selector (their specs mock this
+ *   service) and the Cypress e2e specs, which do not check locale behavior.
+ * - An upper-case locale in the path (/PT), which the service does not recognize.
+ * - Translation loading.
+ */
 describe('LocaleService', () => {
   beforeEach(() => {
     setUrl('/');
