@@ -5,7 +5,6 @@ const SUPPORTED_LOCALES = ['en', 'es', 'pt'] as const;
 export type AppLocale = (typeof SUPPORTED_LOCALES)[number];
 const DEFAULT_LOCALE: AppLocale = 'es';
 const LOCALE_PARAM = 'lang';
-const LOCALE_STORAGE_KEY = 'app_locale';
 
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
@@ -39,7 +38,6 @@ export class LocaleService {
     if (!isBrowser) return;
 
     const normalized = this.normalizeLocale(locale);
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, normalized);
     const targetUrl = LocaleService.buildLocaleUrl(normalized);
     window.location.assign(targetUrl.toString());
   }
@@ -53,7 +51,7 @@ export class LocaleService {
   }
 
   private static toSupportedLocale(locale: string): AppLocale | null {
-    const short = locale.split('-')[0] as AppLocale;
+    const short = locale.trim().toLowerCase().split('-')[0] as AppLocale;
     return SUPPORTED_LOCALES.includes(short) ? short : null;
   }
 
@@ -69,10 +67,7 @@ export class LocaleService {
 
   private static readQueryLocale(): AppLocale | null {
     const params = new URLSearchParams(window.location.search);
-    const fromQuery = params.get(LOCALE_PARAM);
-    if (!fromQuery) return null;
-
-    return this.normalizeStatic(fromQuery);
+    return this.toSupportedLocale(params.get(LOCALE_PARAM) ?? '');
   }
 
   static syncLocalePath(locale: AppLocale): void {
@@ -127,7 +122,7 @@ export class LocaleService {
 
     const sameBase = baseSegments.every((segment, index) => pathSegments[index] === segment);
 
-    return sameBase ? pathSegments.slice(baseSegments.length) : pathSegments;
+    return sameBase ? pathSegments.slice(baseSegments.length) : [];
   }
 
   private static getBasePathSegments(): string[] {
