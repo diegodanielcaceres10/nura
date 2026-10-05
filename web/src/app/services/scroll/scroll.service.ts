@@ -15,10 +15,15 @@ export class ScrollService {
       return;
     }
 
+    // The page can already be scrolled when the service is created (reload, anchor link).
+    this.updateSticky();
+
     fromEvent(window, 'scroll')
       .pipe(takeUntilDestroyed())
-      .subscribe(() => {
-        this.isSticky.set(window.scrollY > 50);
-      });
+      .subscribe(() => this.updateSticky());
+  }
+
+  private updateSticky(): void {
+    this.isSticky.set(window.scrollY > 50);
   }
 }
