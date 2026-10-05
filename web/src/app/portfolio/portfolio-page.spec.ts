@@ -13,6 +13,9 @@ class HeaderStubComponent {}
 @Component({ selector: 'app-home-component', standalone: true, template: '' })
 class HomeStubComponent {}
 
+@Component({ selector: 'app-case-study-component', standalone: true, template: '' })
+class CaseStudyStubComponent {}
+
 @Component({ selector: 'app-experiences-component', standalone: true, template: '' })
 class ExperiencesStubComponent {}
 
@@ -56,6 +59,7 @@ describe('PortfolioPage', () => {
             RouterLink,
             HeaderStubComponent,
             HomeStubComponent,
+            CaseStudyStubComponent,
             ExperiencesStubComponent,
             ProjectsStubComponent,
             RecommendationsStubComponent,
@@ -105,12 +109,20 @@ describe('PortfolioPage', () => {
 
     expect(native.querySelector('app-header-component')).not.toBeNull();
     expect(native.querySelector('app-home-component')).not.toBeNull();
+    expect(native.querySelector('app-case-study-component')).not.toBeNull();
     expect(native.querySelector('app-experiences-component')).not.toBeNull();
     expect(native.querySelector('app-projects-component')).not.toBeNull();
     expect(native.querySelector('app-recommendations-component')).not.toBeNull();
     expect(native.querySelector('app-about-component')).not.toBeNull();
     expect(native.querySelector('app-contact-component')).not.toBeNull();
     expect(native.querySelector('app-footer-component')).not.toBeNull();
+  });
+
+  it('should render the case studies right after the home section', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const sections = Array.from(native.querySelectorAll('main > *')).map((element) => element.tagName.toLowerCase());
+
+    expect(sections).toEqual(['app-home-component', 'app-case-study-component', 'app-experiences-component', 'app-projects-component', 'app-recommendations-component', 'app-about-component', 'app-contact-component']);
   });
 
   it('should link back to the localized home section', () => {

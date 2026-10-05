@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { HomeComponent } from '../sections/home-component/home.component';
+import { CaseStudyComponent } from '../sections/case-study-component/case-study.component';
 import { ExperiencesComponent } from '../sections/experiences-component/experiences.component';
 import { ProjectsComponent } from '../sections/projects-component/projects.component';
 import { RecommendationsComponent } from '../sections/recommendations-component/recommendations.component';
@@ -13,7 +14,7 @@ import { ScrollService } from '../services/scroll/scroll.service';
 
 @Component({
   selector: 'app-portfolio-page',
-  imports: [RouterLink, HeaderComponent, HomeComponent, ExperiencesComponent, ProjectsComponent, RecommendationsComponent, AboutComponent, ContactComponent, FooterComponent],
+  imports: [RouterLink, HeaderComponent, HomeComponent, CaseStudyComponent, ExperiencesComponent, ProjectsComponent, RecommendationsComponent, AboutComponent, ContactComponent, FooterComponent],
   templateUrl: './portfolio-page.html',
   styleUrl: './portfolio-page.scss',
 })

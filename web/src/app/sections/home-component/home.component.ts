@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
-import { CaseStudyComponent } from '../case-study-component/case-study.component';
 
 export type TechBadgePosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
@@ -34,7 +33,7 @@ export interface TechCategory {
 @Component({
   selector: 'app-home-component',
   standalone: true,
-  imports: [RouterLink, TranslateKeyPipe, CaseStudyComponent],
+  imports: [RouterLink, TranslateKeyPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

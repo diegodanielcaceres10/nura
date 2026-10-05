@@ -37,12 +37,12 @@
     <div class="home__content">
       <h1 class="home__title">
         <span class="home__title-name">Diego Daniel Caceres</span>
-        <small class="home__title-subtitle">Senior Frontend Engineer</small>
+        <small class="home__title-subtitle">Senior Frontend Developer</small>
         <small class="home__title-subtitle">Angular & TypeScript Specialist</small>
       </h1>
 
       <div class="home__actions">
-        <a class="home__cta home__cta--primary home__cta-primary" [routerLink]="['/', currentLang]" fragment="case-study">
+        <a class="home__cta home__cta--primary home__cta-primary" [routerLink]="['/', currentLang]" fragment="projects">
           <i class="fa-solid fa-rocket home__cta-icon"></i>
           <span>{{ 'HOME_MY_WORK' | translate }}</span>
         </a>
@@ -166,5 +166,3 @@
     </div>
   </div>
 </section>
-
-<app-case-study-component id="case-study" />

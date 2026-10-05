@@ -41,13 +41,19 @@ describe('HomeComponent', () => {
     expect(native.querySelector('.home__title-name')?.textContent).toContain('Diego Daniel Caceres');
   });
 
+  it('should not render the case studies, they belong to the portfolio page', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelector('app-case-study-component')).toBeNull();
+  });
+
   it('should render one level-one heading with the professional role', () => {
     const native = fixture.nativeElement as HTMLElement;
     const heading = native.querySelector('h1.home__title');
 
     expect(heading).not.toBeNull();
     expect(heading?.textContent).toContain('Diego Daniel Caceres');
-    expect(heading?.textContent).toContain('Senior Frontend Engineer');
+    expect(heading?.textContent).toContain('Senior Frontend Developer');
     expect(heading?.textContent).toContain('Angular & TypeScript Specialist');
   });
 
@@ -57,7 +63,7 @@ describe('HomeComponent', () => {
     const secondaryCta = native.querySelector<HTMLAnchorElement>('.home__cta--secondary');
 
     expect(localeService.getCurrentLocale).toHaveBeenCalledOnce();
-    expect(primaryCta?.getAttribute('href')).toBe('/en#case-study');
+    expect(primaryCta?.getAttribute('href')).toBe('/en#projects');
     expect(secondaryCta?.getAttribute('href')).toBe('/en#contact');
   });
 
