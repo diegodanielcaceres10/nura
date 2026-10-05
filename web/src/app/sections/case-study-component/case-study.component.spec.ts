@@ -47,8 +47,19 @@ describe('CaseStudyComponent', () => {
     const categories = Array.from(native.querySelectorAll('.case-study__tag')).map((tag) => tag.textContent?.trim());
     const subtitles = Array.from(native.querySelectorAll('.case-study__subtitle')).map((subtitle) => subtitle.textContent?.trim());
 
-    expect(categories).toEqual(['Mobile', 'Infrastructure', 'Infrastructure', 'Web / Backend']);
-    expect(subtitles).toEqual(['Ionic 3 + Cordova → Ionic 8 + Capacitor', '1h → 5m', 'Azure Blob Storage → Cloudflare R2', 'Refactor']);
+    expect(categories).toEqual(['Web / Backend', 'Infrastructure', 'Mobile', 'Infrastructure']);
+    expect(subtitles).toEqual(['US workflow → Brazil workflow', '1h → 5m', 'Ionic 3 + Cordova → Ionic 8 + Capacitor', 'Azure Blob Storage → Cloudflare R2']);
+  });
+
+  it('should list the case studies from most to least important', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const titles = Array.from(native.querySelectorAll('h3.case-study__title')).map((title) => title.textContent?.trim() ?? '');
+    const expectedOrder = ['Adapting a Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Migrating a Mobile App to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
+
+    expect(titles).toHaveLength(expectedOrder.length);
+    expectedOrder.forEach((expectedTitle, index) => {
+      expect(titles[index]).toContain(expectedTitle);
+    });
   });
 
   it('should render a title and description for every case study', () => {
@@ -67,7 +78,7 @@ describe('CaseStudyComponent', () => {
     const metricValues = Array.from(native.querySelectorAll('.case-study__metric-value')).map((value) => value.textContent?.trim());
 
     expect(metrics).toHaveLength(6);
-    expect(metricValues).toEqual(['Ionic 3 → 8', 'Cordova → Capacitor', '60 min → 5 min', '4–6', '50%', '-60%']);
+    expect(metricValues).toEqual(['-60%', '60 min → 5 min', '4–6', 'Ionic 3 → 8', 'Cordova → Capacitor', '50%']);
   });
 
   it('should keep decorative elements hidden from assistive technologies', () => {

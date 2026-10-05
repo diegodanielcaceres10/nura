@@ -30,16 +30,13 @@ export class CaseStudyComponent {
   protected readonly caseStudies: CaseStudyItem[] = [
     {
       number: '01',
-      category: 'Mobile',
-      icon: 'fa-solid fa-mobile-screen-button',
-      title: 'CASE_STUDY_01_TITLE',
-      subtitle: 'Ionic 3 + Cordova → Ionic 8 + Capacitor',
-      description: 'CASE_STUDY_01_DESCRIPTION',
-      metrics: [
-        { icon: 'fa-solid fa-arrow-trend-up', value: 'Ionic 3 → 8', label: 'CASE_STUDY_01_METRIC_01_LABEL' },
-        { icon: 'fa-solid fa-arrows-rotate', value: 'Cordova → Capacitor', label: 'CASE_STUDY_01_METRIC_02_LABEL' },
-      ],
-      link: '/case-studies/legacy-mobile-migration',
+      category: 'Web / Backend',
+      icon: 'fa-solid fa-code',
+      title: 'CASE_STUDY_04_TITLE',
+      subtitle: 'US workflow → Brazil workflow',
+      description: 'CASE_STUDY_04_DESCRIPTION',
+      metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_METRIC_01_LABEL' }],
+      link: '/case-studies/legacy-codebase-modernization',
     },
     {
       number: '02',
@@ -56,6 +53,19 @@ export class CaseStudyComponent {
     },
     {
       number: '03',
+      category: 'Mobile',
+      icon: 'fa-solid fa-mobile-screen-button',
+      title: 'CASE_STUDY_01_TITLE',
+      subtitle: 'Ionic 3 + Cordova → Ionic 8 + Capacitor',
+      description: 'CASE_STUDY_01_DESCRIPTION',
+      metrics: [
+        { icon: 'fa-solid fa-arrow-trend-up', value: 'Ionic 3 → 8', label: 'CASE_STUDY_01_METRIC_01_LABEL' },
+        { icon: 'fa-solid fa-arrows-rotate', value: 'Cordova → Capacitor', label: 'CASE_STUDY_01_METRIC_02_LABEL' },
+      ],
+      link: '/case-studies/legacy-mobile-migration',
+    },
+    {
+      number: '04',
       category: 'Infrastructure',
       icon: 'fa-solid fa-cloud-arrow-up',
       title: 'CASE_STUDY_03_TITLE',
@@ -63,16 +73,6 @@ export class CaseStudyComponent {
       description: 'CASE_STUDY_03_DESCRIPTION',
       metrics: [{ icon: 'fa-solid fa-percent', value: '50%', label: 'CASE_STUDY_03_METRIC_01_LABEL' }],
       link: '/case-studies/cloud-storage-migration',
-    },
-    {
-      number: '04',
-      category: 'Web / Backend',
-      icon: 'fa-solid fa-code',
-      title: 'CASE_STUDY_04_TITLE',
-      subtitle: 'Refactor',
-      description: 'CASE_STUDY_04_DESCRIPTION',
-      metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_METRIC_01_LABEL' }],
-      link: '/case-studies/legacy-codebase-modernization',
     },
   ];
 }
