@@ -57,7 +57,7 @@ describe('HomeComponent', () => {
     const secondaryCta = native.querySelector<HTMLAnchorElement>('.home__cta--secondary');
 
     expect(localeService.getCurrentLocale).toHaveBeenCalledOnce();
-    expect(primaryCta?.getAttribute('href')).toBe('/en#projects');
+    expect(primaryCta?.getAttribute('href')).toBe('/en#case-study');
     expect(secondaryCta?.getAttribute('href')).toBe('/en#contact');
   });
 

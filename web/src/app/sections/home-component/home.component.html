@@ -42,7 +42,7 @@
       </h1>
 
       <div class="home__actions">
-        <a class="home__cta home__cta--primary home__cta-primary" [routerLink]="['/', currentLang]" fragment="projects">
+        <a class="home__cta home__cta--primary home__cta-primary" [routerLink]="['/', currentLang]" fragment="case-study">
           <i class="fa-solid fa-rocket home__cta-icon"></i>
           <span>{{ 'HOME_MY_WORK' | translate }}</span>
         </a>
@@ -167,4 +167,4 @@
   </div>
 </section>
 
-<app-case-study-component />
+<app-case-study-component id="case-study" />
