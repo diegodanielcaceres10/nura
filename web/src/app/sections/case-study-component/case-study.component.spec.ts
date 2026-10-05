@@ -34,6 +34,14 @@ describe('CaseStudyComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
+  it('should introduce the section around the latest challenges', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelector('h2.title__text')?.textContent).toContain('Latest Challenges');
+    expect(native.querySelector('.title__subtitle')?.textContent).toContain('What I faced and what I did');
+    expect(native.querySelector('.title__intro')?.textContent).toContain('Four recent problems from my work');
+  });
+
   it('should render four case study articles with stable case identifiers', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = Array.from(native.querySelectorAll<HTMLElement>('article.case-study__card'));

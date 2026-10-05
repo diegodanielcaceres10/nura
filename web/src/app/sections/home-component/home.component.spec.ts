@@ -57,13 +57,13 @@ describe('HomeComponent', () => {
     expect(heading?.textContent).toContain('Angular & TypeScript Specialist');
   });
 
-  it('should link the primary and secondary CTAs to the localized projects and contact sections', () => {
+  it('should link the primary and secondary CTAs to the localized case-study and contact sections', () => {
     const native = fixture.nativeElement as HTMLElement;
     const primaryCta = native.querySelector<HTMLAnchorElement>('.home__cta--primary');
     const secondaryCta = native.querySelector<HTMLAnchorElement>('.home__cta--secondary');
 
     expect(localeService.getCurrentLocale).toHaveBeenCalledOnce();
-    expect(primaryCta?.getAttribute('href')).toBe('/en#projects');
+    expect(primaryCta?.getAttribute('href')).toBe('/en#case-study');
     expect(secondaryCta?.getAttribute('href')).toBe('/en#contact');
   });
 
