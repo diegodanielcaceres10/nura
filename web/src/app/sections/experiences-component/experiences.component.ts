@@ -34,19 +34,6 @@ export interface ExperienceEntry {
 export class ExperiencesComponent {
   protected readonly entries: ExperienceEntry[] = [
     {
-      id: 'apex',
-      logoText: 'APEX',
-      logoVariant: 'apex',
-      company: 'Apex America · Cognitive',
-      roleKey: 'EXPERIENCE_APEX_FRONTEND_ROLE',
-      durationLabel: '1.2 years',
-      startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
-      endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
-      descriptionKeys: ['EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_3', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_4', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_5', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_6', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_7'],
-      techStack: ['AngularJS', 'JavaScript', 'HTML5', 'CSS3', 'MongoDB', 'AWS'],
-      stats: [],
-    },
-    {
       id: 'cesla',
       logoText: 'CESLA',
       logoVariant: 'cesla',
@@ -79,6 +66,19 @@ export class ExperiencesComponent {
         { icon: 'fa-solid fa-plug', value: '5', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_APIS' },
         { icon: 'fa-solid fa-arrow-trend-down', value: '50%', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_INCIDENTS' },
       ],
+    },
+    {
+      id: 'apex',
+      logoText: 'APEX',
+      logoVariant: 'apex',
+      company: 'Apex America · Cognitive',
+      roleKey: 'EXPERIENCE_APEX_FRONTEND_ROLE',
+      durationLabel: '1.2 years',
+      startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
+      endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
+      descriptionKeys: ['EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_3', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_4', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_5', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_6', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_7'],
+      techStack: ['AngularJS', 'JavaScript', 'HTML5', 'CSS3', 'MongoDB', 'AWS'],
+      stats: [],
     },
   ];
 }

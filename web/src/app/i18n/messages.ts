@@ -41,7 +41,7 @@ export const MESSAGES: Record<string, string> = {
   EXPERIENCE_INTRO: $localize`:@@EXPERIENCE_INTRO:A path of growth, challenges and learning. From frontend development to building and modernizing scalable production systems.`,
   EXPERIENCE_CESLA_FULLSTACK_ROLE: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_ROLE:Full Stack Developer`,
   EXPERIENCE_CESLA_FULLSTACK_START_PERIOD: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_START_PERIOD:May 2021`,
-  EXPERIENCE_CESLA_FULLSTACK_END_PERIOD: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_END_PERIOD:Nov 2024`,
+  EXPERIENCE_CESLA_FULLSTACK_END_PERIOD: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_END_PERIOD:Feb 2026`,
   EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1:Development and maintenance of web applications using Angular and React, working primarily on frontend and evolution of existing architectures`,
   EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2:Development and maintenance of 5 cross-platform mobile applications using Ionic, Angular, Cordova and Capacitor`,
   EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3: $localize`:@@EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3:Development and integration of REST APIs used by over 40 clients and thousands of users`,
