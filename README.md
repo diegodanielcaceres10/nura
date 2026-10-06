@@ -29,16 +29,16 @@ I chose Angular as my primary frontend framework because it provides:
 
 ## Stack
 
-| Layer     | Technology                  |
-| --------- | --------------------------- |
-| Framework | Angular 21                  |
-| Language  | TypeScript                  |
-| Styling   | SCSS                        |
-| Rendering | CSR & SSG                   |
-| i18n      | @ngx-translate (EN, ES, PT) |
-| Testing   | Vitest                      |
-| CI/CD     | GitHub Actions              |
-| Hosting   | GitHub Pages                |
+| Layer     | Technology                     |
+| --------- | ------------------------------ |
+| Framework | Angular 21                     |
+| Language  | TypeScript                     |
+| Styling   | SCSS                           |
+| Rendering | SSR (Local) & SSG (Production) |
+| i18n      | @ngx-translate (EN, ES, PT)    |
+| Testing   | Vitest & Cypress               |
+| CI/CD     | GitHub Actions                 |
+| Hosting   | GitHub Pages                   |
 
 ---
 
