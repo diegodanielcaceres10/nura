@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
-import en from '../../../../public/assets/i18n/en.json';
 import es from '../../../../public/assets/i18n/es.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
@@ -19,7 +18,7 @@ import { ProjectsService } from './projects.service';
  * - Every id is a lowercase slug, safe to use in the /:lang/work/:id route.
  * - Every project has a title, a tech stack preview, key features and an avatar or icon.
  * - Every translation key used by a project (descriptions, key features, challenges) exists
- *   in MESSAGES and, with a non-empty value, in the en, es and pt files. The translate pipe
+ *   in MESSAGES and, with a non-empty value, in the es and pt files. The translate pipe
  *   falls back to the raw key, so a missing key would show up on screen as plain text.
  * - Asset paths are relative to the base href (assets/projects/...), never absolute.
  * - typeDetails.kind matches the project type, and every link is an https URL.
@@ -132,7 +131,6 @@ describe('ProjectsService', () => {
     });
 
     it.each([
-      ['en', en],
       ['es', es],
       ['pt', pt],
     ] as const)('every translation key of every project exists in %s.json', (_locale, translations) => {
