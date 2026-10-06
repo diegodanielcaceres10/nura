@@ -12,8 +12,8 @@ describe('Premium Home Landing Section', () => {
         cy.visit('/');
       });
 
-      it('renders the luxury Hero section with key elements and Serif headline', () => {
-        // Hero container exists and is visible
+      it('renders the luxury home section with key elements and Serif headline', () => {
+        // Home container exists and is visible
         cy.get('.home').should('be.visible');
 
         // Editorial typography: Serif headline name

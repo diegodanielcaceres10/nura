@@ -4,6 +4,7 @@ export const MESSAGES: Record<string, string> = {
   MENU_RECOMMENDATIONS: $localize`:@@MENU_RECOMMENDATIONS:Recommendations`,
   MENU_PROJECTS: $localize`:@@MENU_PROJECTS:Projects`,
   MENU_CONTACT: $localize`:@@MENU_CONTACT:Contact`,
+  HOME_DESCRIPTION: $localize`:@@HOME_DESCRIPTION:Frontend engineer specialized in Angular and TypeScript, with 6+ years building web and mobile apps. I work with Angular 21 and focus on architecture, reusable components, performance and code quality. I have worked with Angular from version 11 to 21.`,
   HOME_MY_WORK: $localize`:@@HOME_MY_WORK:View My Work`,
   HOME_CONTACT_ME: $localize`:@@HOME_CONTACT_ME:Get In Touch`,
   HOME_STATS_TITLE: $localize`:@@HOME_STATS_TITLE:Last project statistics`,

@@ -53,7 +53,7 @@ describe('HomeComponent', () => {
 
     expect(heading).not.toBeNull();
     expect(heading?.textContent).toContain('Diego Daniel Caceres');
-    expect(heading?.textContent).toContain('Senior Frontend Developer');
+    expect(heading?.textContent).toContain('Senior Frontend Engineer');
     expect(heading?.textContent).toContain('Angular & TypeScript Specialist');
   });
 
