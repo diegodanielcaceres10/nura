@@ -174,15 +174,6 @@
     color: var(--text-primary);
   }
 
-  &__duration {
-    padding: 2px var(--spacing-xs);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-2xs);
-    font-weight: var(--font-weight-semibold);
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-  }
-
   &__role {
     margin: 0;
     font-size: var(--font-size-sm);

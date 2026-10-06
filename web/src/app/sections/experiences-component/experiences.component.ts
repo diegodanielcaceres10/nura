@@ -16,7 +16,6 @@ export interface ExperienceEntry {
   logoVariant: ExperienceLogoVariant;
   company: string;
   roleKey: string;
-  durationLabel: string;
   startPeriodKey: string;
   endPeriodKey: string;
   descriptionKeys: string[];
@@ -39,7 +38,6 @@ export class ExperiencesComponent {
       logoVariant: 'cesla',
       company: 'WS Solutions · Cesla',
       roleKey: 'EXPERIENCE_CESLA_FULLSTACK_ROLE',
-      durationLabel: '4.8 years',
       startPeriodKey: 'EXPERIENCE_CESLA_FULLSTACK_START_PERIOD',
       endPeriodKey: 'EXPERIENCE_CESLA_FULLSTACK_END_PERIOD',
       descriptionKeys: [
@@ -73,7 +71,6 @@ export class ExperiencesComponent {
       logoVariant: 'apex',
       company: 'Apex America · Cognitive',
       roleKey: 'EXPERIENCE_APEX_FRONTEND_ROLE',
-      durationLabel: '1.2 years',
       startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
       endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
       descriptionKeys: ['EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_3', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_4', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_5', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_6', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_7'],
