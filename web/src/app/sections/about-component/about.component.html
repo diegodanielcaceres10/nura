@@ -1,9 +1,15 @@
-﻿<section class="about page-section">
+<section class="about page-section" aria-labelledby="about-title">
   <div class="about__container">
-    <app-title-component title="ABOUT_TITLE" subtitle="ABOUT_SUBTITLE" intro="ABOUT_DESCRIPTION" />
+    <!-- Atmospheric Ambient Lighting -->
+    <div class="about__glow about__glow--top" aria-hidden="true"></div>
+    <div class="about__glow about__glow--bottom" aria-hidden="true"></div>
+
+    <app-title-component id="about-title" title="ABOUT_TITLE" subtitle="ABOUT_SUBTITLE" intro="ABOUT_DESCRIPTION" />
 
     <div class="about__details">
+      <!-- Story Card (Featured Longform) -->
       <article class="about__card about__card-story">
+        <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_STORY_TITLE' | translate }}
@@ -15,7 +21,9 @@
         </div>
       </article>
 
+      <!-- Education Card (Credentials) -->
       <article class="about__card about__card-education">
+        <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_EDUCATION_TITLE' | translate }}
@@ -33,7 +41,9 @@
         </div>
       </article>
 
+      <!-- Beyond Work Card (Passions & Lifestyle) -->
       <article class="about__card about__card-beyond">
+        <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_BEYOND_TITLE' | translate }}
@@ -54,7 +64,9 @@
         </div>
       </article>
 
+      <!-- Languages Card (Proficiency Showcase) -->
       <article class="about__card about__card-languages">
+        <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
           {{ 'ABOUT_LANGUAGES_TITLE' | translate }}
@@ -66,6 +78,9 @@
               <span class="about__language-name">
                 {{ language.name | translate }}
               </span>
+              <div class="about__language-bar" aria-hidden="true">
+                <span class="about__language-progress"></span>
+              </div>
               <small class="about__language-level">{{ language.level | translate }}</small>
             </div>
           }
