@@ -2,14 +2,18 @@
 
 <main class="work">
   <div class="work__container">
+    <!-- Atmospheric Ambient Lighting -->
+    <div class="work__glow work__glow--top" aria-hidden="true"></div>
+    <div class="work__glow work__glow--bottom" aria-hidden="true"></div>
+
     <button class="work__back" type="button" (click)="goBack()">
-      <i class="fa-solid fa-arrow-left-long"></i>
+      <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
       {{ 'WORK_BACK' | translate }}
     </button>
 
     @if (notFound()) {
       <div class="work__not-found">
-        <i class="fa-solid fa-triangle-exclamation"></i>
+        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
         <p>{{ 'WORK_NOT_FOUND' | translate }}</p>
       </div>
     }
@@ -17,34 +21,35 @@
     @if (project(); as p) {
       <div class="work__content">
         <div class="work__aside">
+          <div class="work__aside-glow" aria-hidden="true"></div>
           <app-project-card-component [project]="p" [fullDescription]="true" />
 
           <div class="work__actions">
             @if (p.links?.repo) {
               <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
-                <i class="fa-brands fa-github"></i>
+                <i class="fa-brands fa-github" aria-hidden="true"></i>
                 Repo
-                <i class="fa-solid fa-up-right-from-square"></i>
+                <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
               </a>
             }
             @if (p.links?.demo) {
               <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
                 Demo
-                <i class="fa-solid fa-up-right-from-square"></i>
+                <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
               </a>
             }
             @if (p.links?.npm) {
               <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
-                <i class="fa-brands fa-npm"></i>
+                <i class="fa-brands fa-npm" aria-hidden="true"></i>
                 npm
-                <i class="fa-solid fa-up-right-from-square"></i>
+                <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
               </a>
             }
             @if (p.links?.androidAPK) {
               <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
-                <i class="fa-brands fa-android"></i>
+                <i class="fa-brands fa-android" aria-hidden="true"></i>
                 Android APK
-                <i class="fa-solid fa-download"></i>
+                <i class="fa-solid fa-download" aria-hidden="true"></i>
               </a>
             }
           </div>
