@@ -15,10 +15,9 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-
-    @include ds.md {
-      font-size: var(--font-size-2xl);
-    }
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__subtitle {

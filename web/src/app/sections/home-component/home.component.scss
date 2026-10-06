@@ -116,6 +116,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      width: fit-content;
       margin: 0.2rem 0 0.65rem 0;
       filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.35));
     }
@@ -127,6 +128,11 @@
       line-height: 1.45;
       color: rgba(225, 234, 241, 0.88);
       letter-spacing: -0.01em;
+      background: var(--gradient-secondary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      width: fit-content;
     }
   }
 
@@ -853,6 +859,10 @@
   .home {
     padding: clamp(4.5rem, 8vw, 6rem) var(--spacing-md) clamp(3rem, 5vw, 4rem);
     min-height: auto;
+
+    &__title {
+      margin-top: var(--spacing-sm);
+    }
   }
 
   .home__image-wrapper {
