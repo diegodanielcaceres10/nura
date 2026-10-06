@@ -33,15 +33,14 @@ describe('ExperiencesComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should render the two experience cards with their companies and durations', () => {
+  it('should render the two experience cards with their companies and no duration label', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
     const companies = cards.map((card) => card.querySelector('.experiences__company')?.textContent?.trim());
-    const durations = cards.map((card) => card.querySelector('.experiences__duration')?.textContent?.trim());
 
     expect(cards).toHaveLength(2);
     expect(companies).toEqual(['WS Solutions · Cesla', 'Apex America · Cognitive']);
-    expect(durations).toEqual(['4.8 years', '1.2 years']);
+    expect(native.querySelector('.experiences__duration')).toBeNull();
   });
 
   it('should render all experience responsibilities without empty descriptions', () => {
@@ -63,6 +62,17 @@ describe('ExperiencesComponent', () => {
     expect(technologyCounts).toEqual([12, 6]);
     expect(technologies).toContain('Angular');
     expect(technologies).toContain('Ionic');
+  });
+
+  it('should present the Cesla experience as Frontend Engineer from May 2021 to Feb 2026', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
+    const role = firstCard?.querySelector('.experiences__role')?.textContent?.trim() ?? '';
+    const period = firstCard?.querySelector('.experiences__period')?.textContent ?? '';
+
+    expect(role).toBe('Frontend Engineer');
+    expect(period).toContain('May 2021');
+    expect(period).toContain('Feb 2026');
   });
 
   it('should hide decorative timeline and metric icons from assistive technologies', () => {
