@@ -1,12 +1,20 @@
-<section class="recommendations page-section">
+<section class="recommendations page-section" aria-labelledby="recommendations-title">
   <div class="recommendations__container">
-    <app-title-component title="RECOMMENDATIONS_TITLE" subtitle="RECOMMENDATIONS_SUBTITLE" intro="RECOMMENDATIONS_DESCRIPTION" />
+    <!-- Atmospheric Ambient Lighting -->
+    <div class="recommendations__glow recommendations__glow--top" aria-hidden="true"></div>
+    <div class="recommendations__glow recommendations__glow--bottom" aria-hidden="true"></div>
+
+    <app-title-component id="recommendations-title" title="RECOMMENDATIONS_TITLE" subtitle="RECOMMENDATIONS_SUBTITLE" intro="RECOMMENDATIONS_DESCRIPTION" />
 
     <div class="recommendations__grid">
       @for (testimonial of testimonials; track testimonial.name) {
         <article class="recommendations__card">
+          <div class="recommendations__card-glow" aria-hidden="true"></div>
+
           <header class="recommendations__header">
-            <img class="recommendations__avatar" [src]="testimonial.avatar" loading="lazy" width="200" height="200" decoding="async" [alt]="testimonial.name" />
+            <div class="recommendations__avatar-frame">
+              <img class="recommendations__avatar" [src]="testimonial.avatar" loading="lazy" width="200" height="200" decoding="async" [alt]="testimonial.name" />
+            </div>
 
             <div class="recommendations__identity">
               <div class="recommendations__profile">
@@ -20,13 +28,23 @@
               <span class="recommendations__role">{{ testimonial.role }}</span>
             </div>
           </header>
-          <small class="recommendations__lang"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i> {{ testimonial.location }} · {{ testimonial.lang }}</small>
 
-          <i class="recommendations__icon fa-solid fa-quote-left" aria-hidden="true"></i>
-          <p class="recommendations__quote">{{ testimonial.quote }}</p>
-          <i class="recommendations__icon fa-solid fa-quote-right" aria-hidden="true"></i>
+          <small class="recommendations__lang">
+            <i class="fa-solid fa-earth-americas" aria-hidden="true"></i>
+            {{ testimonial.location }} · {{ testimonial.lang }}
+          </small>
 
-          <small class="recommendations__footer">{{ 'RECOMMENDATIONS_WORK_DURATION' | translate }} {{ testimonial.duration }} {{ 'RECOMMENDATIONS_WORK_YEARS' | translate }}</small>
+          <div class="recommendations__quote-wrapper">
+            <i class="recommendations__icon recommendations__icon--start fa-solid fa-quote-left" aria-hidden="true"></i>
+            <p class="recommendations__quote">{{ testimonial.quote }}</p>
+            <i class="recommendations__icon recommendations__icon--end fa-solid fa-quote-right" aria-hidden="true"></i>
+          </div>
+
+          <small class="recommendations__footer">
+            <span class="recommendations__duration">
+              {{ 'RECOMMENDATIONS_WORK_DURATION' | translate }} {{ testimonial.duration }} {{ 'RECOMMENDATIONS_WORK_YEARS' | translate }}
+            </span>
+          </small>
         </article>
       }
     </div>
