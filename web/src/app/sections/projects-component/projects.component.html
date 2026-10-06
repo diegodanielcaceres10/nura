@@ -1,6 +1,10 @@
-<section class="projects page-section">
+<section class="projects page-section" aria-labelledby="projects-title">
   <div class="projects__container">
-    <app-title-component title="PROJECTS_TITLE" subtitle="PROJECTS_SUBTITLE" intro="PROJECTS_DESCRIPTION" />
+    <!-- Atmospheric Ambient Lighting -->
+    <div class="projects__glow projects__glow--top" aria-hidden="true"></div>
+    <div class="projects__glow projects__glow--bottom" aria-hidden="true"></div>
+
+    <app-title-component id="projects-title" title="PROJECTS_TITLE" subtitle="PROJECTS_SUBTITLE" intro="PROJECTS_DESCRIPTION" />
 
     <div class="projects__filters" aria-label="Filtros rapidos de proyectos">
       @for (filter of projectFilters; track filter.value) {
@@ -13,6 +17,8 @@
     <div class="projects__grid">
       @for (project of filteredProjects(); track project.id) {
         <article class="projects__card" role="button" tabindex="0">
+          <div class="projects__card-glow" aria-hidden="true"></div>
+
           @if (project.coverImage) {
             <div class="projects__cover">
               <img [src]="project.coverImage" loading="lazy" width="200" height="200" decoding="async" [alt]="project.title" />
