@@ -49,21 +49,31 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([6, 7]);
+    expect(descriptionCounts).toEqual([10, 7]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
   });
 
-  it('should list the Cesla achievements in order, without incident or traffic claims', () => {
+  it('should list the Cesla achievements in order, without the discarded claims', () => {
     const native = fixture.nativeElement as HTMLElement;
     const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
     const descriptions = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []).map((description) => description.textContent?.trim() ?? '');
-    const expectedTopics = ['LOTO', 'CI/CD', 'Tech Lead', 'Ionic 8', 'Cloudflare R2', 'Storybook'];
+    const expectedTopics = ['Angular and React', 'five cross-platform', 'LOTO', 'CI/CD', 'Tech Lead', 'Ionic 8', 'Cloudflare R2', 'Storybook', 'DevOps', 'AI-assisted'];
 
     expect(descriptions).toHaveLength(expectedTopics.length);
     expectedTopics.forEach((topic, index) => {
       expect(descriptions[index]).toContain(topic);
     });
-    expect(descriptions.join(' ')).not.toMatch(/incidents|traffic/i);
+    expect(descriptions.join(' ')).not.toMatch(/traffic|reduction in production incidents|availability/i);
+  });
+
+  it('should show the Cesla stats aligned with the achievements', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
+    const values = Array.from(firstCard?.querySelectorAll('.experiences__stat-value') ?? []).map((value) => value.textContent?.trim());
+    const labels = Array.from(firstCard?.querySelectorAll('.experiences__stat-label') ?? []).map((label) => label.textContent?.trim());
+
+    expect(values).toEqual(['40+', '+1000', '60%', '5', '5', '50%']);
+    expect(labels).toEqual(['Clients', 'Users', 'Less Code', 'Mobile Apps', 'APIs', 'Fewer Recurring Bugs']);
   });
 
   it('should render the technology stack for each experience', () => {
