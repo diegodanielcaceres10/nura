@@ -279,7 +279,8 @@ export class ProjectsService {
   ];
 
   getAll(): ProjectItem[] {
-    return this.projects;
+    // Return a copy so callers cannot reorder or empty the catalog.
+    return [...this.projects];
   }
 
   getById(id: string): ProjectItem | undefined {

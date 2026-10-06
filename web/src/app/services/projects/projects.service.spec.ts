@@ -23,6 +23,8 @@ import { ProjectsService } from './projects.service';
  *   falls back to the raw key, so a missing key would show up on screen as plain text.
  * - Asset paths are relative to the base href (assets/projects/...), never absolute.
  * - typeDetails.kind matches the project type, and every link is an https URL.
+ * - getAll returns a copy of the list: reordering or emptying the result does not alter the
+ *   catalog or what getById finds.
  * - getById finds every project of the catalog and returns undefined for unknown or empty ids.
  *
  * Not covered
@@ -30,7 +32,8 @@ import { ProjectsService } from './projects.service';
  *   format is checked.
  * - The quality of the es and pt texts, or the catalog size and content (adding or removing
  *   a project does not break this spec on purpose).
- * - Known gap: getAll returns the internal array, so a caller could mutate the catalog.
+ * - The copy is shallow: the project objects themselves are shared, so editing one of them
+ *   would still change the catalog.
  * - Hardcoded Spanish text in typeDetails (deployment, platform, buildTool, topics) is not
  *   translated per locale.
  */
@@ -76,6 +79,24 @@ describe('ProjectsService', () => {
       const ids = service.getAll().map((project) => project.id);
 
       expect(new Set(ids).size).toBe(ids.length);
+    });
+
+    it('returns a copy, so reordering or removing items does not alter the catalog', () => {
+      const idsBefore = service.getAll().map((project) => project.id);
+      const received = service.getAll();
+
+      received.reverse();
+      received.pop();
+
+      expect(service.getAll().map((project) => project.id)).toEqual(idsBefore);
+    });
+
+    it('keeps getById working after the returned list was emptied', () => {
+      const [first] = service.getAll();
+
+      service.getAll().splice(0);
+
+      expect(service.getById(first.id)).toBe(first);
     });
   });
 
