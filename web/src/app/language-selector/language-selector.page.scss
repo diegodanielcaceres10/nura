@@ -98,7 +98,7 @@
 
     &-name {
       font-size: var(--font-size-5xl);
-      background: var(--gradient-primary);
+      background: var(--gradient-secondary);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -164,7 +164,7 @@
     & strong {
       color: var(--secondary-color);
       font-size: var(--font-size-4xl);
-      background: var(--gradient-primary);
+      background: var(--gradient-secondary);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -220,7 +220,7 @@
     & i {
       font-size: var(--font-size-md);
       color: var(--secondary-color);
-      background: var(--gradient-primary);
+      background: var(--gradient-secondary);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;

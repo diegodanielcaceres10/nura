@@ -21,7 +21,8 @@ $border-color: rgba(255, 255, 255, 0.12);
 $border-color-accent: rgba(44, 171, 179, 0.4);
 $border-color-deep: #212234;
 
-$gradient-primary: linear-gradient(90deg, $primary-color 50%, $alternative-color 100%);
+$gradient-primary: linear-gradient(135deg, #ffffff 40%, var(--light-color) 50%, var(--primary-color) 100%);
+$gradient-secondary: linear-gradient(90deg, $primary-color 50%, $alternative-color 100%);
 
 $shadow-brand: 0 4px 14px $terciary-color;
 $shadow-glow: 0 8px 24px $secondary-color;

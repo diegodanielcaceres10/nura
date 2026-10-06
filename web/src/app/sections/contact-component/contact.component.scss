@@ -42,7 +42,7 @@
 
     & i {
       font-size: var(--font-size-5xl);
-      background: var(--gradient-primary);
+      background: var(--gradient-secondary);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -135,7 +135,7 @@
   }
 
   &__availability-highlight {
-    background: var(--gradient-primary);
+    background: var(--gradient-secondary);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

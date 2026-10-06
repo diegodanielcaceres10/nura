@@ -9,6 +9,12 @@
     margin: 0;
     font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+    width: fit-content;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 
     @include ds.md {
       font-size: var(--font-size-2xl);
@@ -19,7 +25,7 @@
     margin: var(--spacing-2xs) 0 0;
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    background: var(--gradient-primary);
+    background: var(--gradient-secondary);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
