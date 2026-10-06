@@ -23,13 +23,13 @@ import { PortfolioPage } from './portfolio-page';
  *   /es#home, /pt#home) and has an accessible name.
  * - The button is hidden at the top of the page, shows after scrolling, and shows right away
  *   if the page is already scrolled when it is created.
+ * - While hidden the button is inert, so it cannot be focused with the keyboard or clicked, and
+ *   it becomes interactive when it shows.
  *
  * Not covered
  * - The content of each section: they are replaced by empty stubs here and have their own specs.
  * - Real scrolling to the anchor: it depends on the router configuration in app.config.
  * - The look of the button: styles do not run in this spec.
- * - Known gap: while the button is hidden it is only transparent, so keyboard users can still
- *   focus it and the invisible area can still be clicked.
  * - Known gap: the aria-label is a fixed English text and is not translated.
  */
 
@@ -145,6 +145,27 @@ describe('PortfolioPage', () => {
       isSticky.set(false);
       fixture.detectChanges();
       expect(backToTop(page)?.classList.contains('show')).toBe(false);
+    });
+
+    it('is inert while hidden and interactive once shown', () => {
+      const fixture = TestBed.createComponent(PortfolioPage);
+      const page = fixture.nativeElement as HTMLElement;
+      fixture.detectChanges();
+      expect(backToTop(page)?.hasAttribute('inert')).toBe(true);
+
+      isSticky.set(true);
+      fixture.detectChanges();
+      expect(backToTop(page)?.hasAttribute('inert')).toBe(false);
+
+      isSticky.set(false);
+      fixture.detectChanges();
+      expect(backToTop(page)?.hasAttribute('inert')).toBe(true);
+    });
+
+    it('is not inert when the page is already scrolled', () => {
+      isSticky.set(true);
+
+      expect(backToTop(createPage())?.hasAttribute('inert')).toBe(false);
     });
 
     it('shows right away when the page is already scrolled', () => {

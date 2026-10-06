@@ -8,7 +8,7 @@
   <app-about-component id="about" />
   <app-contact-component id="contact" />
 </main>
-<div [class.show]="isSticky()" class="scroll_to_top">
+<div [class.show]="isSticky()" [attr.inert]="isSticky() ? null : ''" class="scroll_to_top">
   <a [routerLink]="['/', currentLang]" fragment="home" aria-label="Back to top"><i class="fa-solid fa-circle-up"></i></a>
 </div>
 <app-footer-component />
