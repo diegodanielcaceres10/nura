@@ -49,8 +49,21 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([13, 7]);
+    expect(descriptionCounts).toEqual([6, 7]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
+  });
+
+  it('should list the Cesla achievements in order, without incident or traffic claims', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
+    const descriptions = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []).map((description) => description.textContent?.trim() ?? '');
+    const expectedTopics = ['LOTO', 'CI/CD', 'Tech Lead', 'Ionic 8', 'Cloudflare R2', 'Storybook'];
+
+    expect(descriptions).toHaveLength(expectedTopics.length);
+    expectedTopics.forEach((topic, index) => {
+      expect(descriptions[index]).toContain(topic);
+    });
+    expect(descriptions.join(' ')).not.toMatch(/incidents|traffic/i);
   });
 
   it('should render the technology stack for each experience', () => {
