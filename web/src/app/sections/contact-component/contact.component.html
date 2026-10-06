@@ -1,10 +1,15 @@
-﻿<section class="contact page-section">
+<section class="contact page-section" aria-labelledby="contact-title">
   <div class="contact__container">
-    <app-title-component title="CONTACT_TITLE" subtitle="CONTACT_SUBTITLE" intro="CONTACT_DESCRIPTION" />
+    <!-- Atmospheric Ambient Lighting -->
+    <div class="contact__glow contact__glow--top" aria-hidden="true"></div>
+    <div class="contact__glow contact__glow--bottom" aria-hidden="true"></div>
+
+    <app-title-component id="contact-title" title="CONTACT_TITLE" subtitle="CONTACT_SUBTITLE" intro="CONTACT_DESCRIPTION" />
 
     <div class="contact__channels">
       @for (channel of channels(); track channel.label) {
         <div class="contact__channel">
+          <div class="contact__channel-glow" aria-hidden="true"></div>
           <span class="contact__channel-icon">
             <i [class]="channel.icon" aria-hidden="true"></i>
           </span>
@@ -31,6 +36,7 @@
     </div>
 
     <div class="contact__availability">
+      <div class="contact__availability-glow" aria-hidden="true"></div>
       <div class="contact__availability-info">
         <span class="contact__availability-icon">
           <i class="fa-solid fa-rocket" aria-hidden="true"></i>

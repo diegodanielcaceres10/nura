@@ -1,51 +1,170 @@
 @use 'index' as ds;
 
 .contact {
+  position: relative;
+  overflow: hidden;
+
   &__container {
     position: relative;
     max-width: var(--container-max-width);
     margin: 0 auto;
   }
 
+  &__glow {
+    position: absolute;
+    border-radius: var(--radius-full);
+    filter: blur(80px);
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+
+    &--top {
+      top: -80px;
+      right: -60px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(10, 141, 171, 0.28) 0%, rgba(33, 46, 62, 0.1) 60%, transparent 80%);
+    }
+
+    &--bottom {
+      bottom: -80px;
+      left: -40px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(246, 113, 22, 0.12) 0%, rgba(17, 29, 44, 0.08) 60%, transparent 80%);
+    }
+  }
+
   &__channels {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-xl);
-    margin-bottom: var(--spacing-xl);
+    gap: clamp(var(--spacing-md), 2.5vw, var(--spacing-xl));
+    margin-bottom: clamp(var(--spacing-xl), 3vw, var(--spacing-2xl));
+    z-index: 1;
 
-    @include ds.lg {
+    @include ds.md {
       grid-template-columns: 1fr;
+      gap: var(--spacing-md);
     }
   }
 
   &__channel {
+    position: relative;
     display: flex;
     align-items: flex-start;
-    gap: var(--spacing-md);
-    padding: var(--spacing-md) var(--spacing-xl);
-    border: 1px solid var(--border-color-deep);
-    border-radius: var(--radius-md);
-    background: linear-gradient(0deg, var(--bg-primary) 0%, var(--bg-surface) 100%);
+    gap: var(--spacing-lg);
+    padding: clamp(var(--spacing-md), 2.5vw, var(--spacing-xl));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(145deg, rgba(17, 29, 44, 0.72) 0%, rgba(11, 20, 31, 0.94) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-brand);
+    overflow: hidden;
 
-    @include ds.md {
-      padding: var(--spacing-sm) var(--spacing-md);
-      flex-direction: column;
+    translate: 0 0;
+    scale: 1;
+    animation: contactFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition:
+      translate var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      background var(--transition-base);
+
+    @for $i from 1 through 4 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{$i * 100}ms;
+      }
     }
+
+    &:hover {
+      translate: 0 -6px;
+      border-color: var(--border-color-accent);
+      box-shadow:
+        0 20px 40px -12px rgba(10, 141, 171, 0.22),
+        0 0 0 1px var(--border-color-accent);
+
+      .contact__channel-glow {
+        opacity: 0.55;
+        transform: scale(1.2);
+      }
+
+      .contact__channel-icon {
+        border-color: var(--border-color-accent);
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(10, 141, 171, 0.25);
+      }
+
+      .contact__channel-action {
+        border-color: var(--accent-color);
+        background: rgba(246, 113, 22, 0.16);
+
+        i {
+          translate: 4px 0;
+        }
+      }
+
+      .contact__channel-value {
+        color: var(--white-color);
+      }
+    }
+
+    @include ds.sm {
+      padding: var(--spacing-md);
+      gap: var(--spacing-md);
+    }
+  }
+
+  &__channel-glow {
+    position: absolute;
+    top: -30px;
+    right: -30px;
+    width: 140px;
+    height: 140px;
+    border-radius: var(--radius-full);
+    background: radial-gradient(circle, rgba(10, 141, 171, 0.3) 0%, rgba(33, 46, 62, 0.1) 60%, transparent 80%);
+    filter: blur(30px);
+    opacity: 0.2;
+    pointer-events: none;
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
   }
 
   &__channel-icon {
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: var(--radius-md);
     flex-shrink: 0;
-    color: var(--terciary-color);
-    width: 70px;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(135deg, rgba(10, 141, 171, 0.14) 0%, rgba(17, 29, 44, 0.6) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 4px 12px rgba(11, 20, 31, 0.4);
+    transition:
+      border-color var(--transition-base),
+      transform var(--transition-base),
+      box-shadow var(--transition-base);
 
-    & i {
-      font-size: var(--font-size-5xl);
+    i {
+      font-size: var(--font-size-2xl);
       background: var(--gradient-secondary);
-      background-clip: text;
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    @include ds.sm {
+      width: 48px;
+      height: 48px;
+
+      i {
+        font-size: var(--font-size-xl);
+      }
     }
   }
 
@@ -53,136 +172,349 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2xs);
+    flex: 1;
+    min-width: 0;
   }
 
   &__channel-label {
-    font-size: var(--font-size-md);
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
+    color: var(--white-color);
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+
+    @include ds.sm {
+      font-size: var(--font-size-lg);
+    }
   }
 
   &__channel-value {
-    color: var(--primary-color);
+    font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--light-color);
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    word-break: break-all;
+    transition: color var(--transition-fast);
+
+    &:hover {
+      color: var(--primary-color);
+    }
   }
 
   &__channel-note {
+    font-family: var(--font-family-sans);
     font-size: var(--font-size-xs);
+    color: var(--muted-color);
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    margin-top: 2px;
   }
 
   &__channel-action {
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-2xs);
-    color: var(--primary-color);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-2xs) var(--spacing-sm);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(246, 113, 22, 0.35);
+    background: rgba(246, 113, 22, 0.08);
+    color: var(--accent-color);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     text-decoration: none;
-    transition: gap var(--transition-fast);
+    width: fit-content;
+    margin-top: var(--spacing-2xs);
+    line-height: 1.2;
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    i {
+      font-size: var(--font-size-2xs);
+      transition: translate var(--transition-fast);
+    }
 
     &:hover {
-      gap: var(--spacing-xs);
+      border-color: var(--accent-color);
+      background: rgba(246, 113, 22, 0.16);
+      box-shadow: 0 2px 10px rgba(246, 113, 22, 0.2);
+
+      i {
+        translate: 4px 0;
+      }
     }
   }
 
   &__availability {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--spacing-xl);
-    padding: var(--spacing-lg) var(--spacing-xl);
-    border-radius: var(--radius-md);
-    background: radial-gradient(circle at 30% 25%, rgba(82, 31, 87, 0.2), transparent 85%), radial-gradient(circle at 70% 75%, rgba(44, 171, 179, 0.1), transparent 85%);
+    padding: clamp(var(--spacing-lg), 3vw, var(--spacing-xl));
+    border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
+    background: linear-gradient(145deg, rgba(17, 29, 44, 0.8) 0%, rgba(11, 20, 31, 0.96) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-brand);
+    overflow: hidden;
+    z-index: 1;
+
+    translate: 0 0;
+    animation: contactFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) 450ms both;
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      translate var(--transition-base);
+
+    &:hover {
+      border-color: var(--border-color-accent);
+      box-shadow:
+        0 20px 40px -12px rgba(10, 141, 171, 0.2),
+        0 0 0 1px var(--border-color-accent);
+
+      .contact__availability-glow {
+        opacity: 0.45;
+        transform: scale(1.15);
+      }
+
+      .contact__availability-icon {
+        border-color: var(--border-color-accent);
+        box-shadow: 0 0 24px rgba(10, 141, 171, 0.35);
+      }
+    }
 
     @include ds.lg {
       flex-direction: column;
       align-items: stretch;
+      gap: var(--spacing-lg);
+    }
+
+    @include ds.sm {
       padding: var(--spacing-md);
     }
+  }
+
+  &__availability-glow {
+    position: absolute;
+    top: -60px;
+    left: 20%;
+    width: 260px;
+    height: 260px;
+    border-radius: var(--radius-full);
+    background: radial-gradient(circle, rgba(10, 141, 171, 0.25) 0%, rgba(17, 29, 44, 0.1) 60%, transparent 80%);
+    filter: blur(50px);
+    opacity: 0.25;
+    pointer-events: none;
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
   }
 
   &__availability-info {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
+    flex: 1;
+    min-width: 0;
+
+    @include ds.sm {
+      gap: var(--spacing-md);
+    }
   }
 
   &__availability-icon {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 58px;
+    height: 58px;
     border-radius: var(--radius-full);
-    font-size: var(--font-size-xl);
-    background: var(--primary-color-rgba);
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
+    background: radial-gradient(circle, rgba(10, 141, 171, 0.2) 0%, rgba(17, 29, 44, 0.6) 100%);
+    border: 1px solid var(--border-color-accent);
+    box-shadow: 0 0 16px rgba(10, 141, 171, 0.2);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--primary-color);
+      opacity: 0.4;
+      animation: contactRadarPing 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    i {
+      font-size: var(--font-size-xl);
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @include ds.sm {
+      width: 48px;
+      height: 48px;
+
+      i {
+        font-size: var(--font-size-lg);
+      }
+    }
   }
 
   &__availability-text {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-2xs);
+    min-width: 0;
   }
 
   &__availability-title {
     margin: 0;
-    color: var(--text-primary);
-    font-size: var(--font-size-lg);
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
+    color: var(--white-color);
+    line-height: 1.3;
+    letter-spacing: -0.015em;
+
+    @include ds.sm {
+      font-size: var(--font-size-lg);
+    }
   }
 
   &__availability-highlight {
-    background: var(--gradient-secondary);
-    background-clip: text;
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: var(--font-weight-bold);
+    letter-spacing: -0.01em;
   }
 
   &__availability-description {
-    color: var(--text-muted);
+    font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
+    color: var(--muted-color);
+    line-height: 1.5;
   }
 
   &__availability-meta {
     display: flex;
     align-items: center;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
+    padding-left: var(--spacing-xl);
+    border-left: 1px solid var(--border-color);
+    flex-shrink: 0;
 
-    @include ds.md {
-      flex-wrap: wrap;
-      gap: var(--spacing-lg);
+    @include ds.lg {
+      border-left: none;
+      border-top: 1px solid var(--border-color);
+      padding-left: 0;
+      padding-top: var(--spacing-md);
+      justify-content: flex-start;
+    }
+
+    @include ds.sm {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--spacing-sm);
     }
   }
 
   &__meta-item {
     display: flex;
     align-items: center;
-    gap: var(--spacing-md);
-    white-space: nowrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition:
+      background var(--transition-fast),
+      border-color var(--transition-fast);
+
+    &:hover {
+      background: var(--primary-color-rgba);
+      border-color: rgba(10, 141, 171, 0.25);
+    }
 
     i {
-      color: var(--primary-color);
-      font-size: var(--font-size-xl);
+      font-size: var(--font-size-lg);
+      color: var(--accent-color);
+      flex-shrink: 0;
     }
   }
 
   &__meta-text {
     display: flex;
     flex-direction: column;
+    gap: 2px;
+    min-width: 0;
   }
 
   &__meta-title {
-    color: var(--text-primary);
+    font-family: var(--font-family-sans);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
+    color: var(--white-color);
+    letter-spacing: 0.02em;
+    line-height: 1.25;
+    white-space: nowrap;
   }
 
   &__meta-description {
-    color: var(--text-muted);
+    font-family: var(--font-family-sans);
     font-size: var(--font-size-2xs);
+    color: var(--muted-color);
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+}
+
+@keyframes contactFadeInUp {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes contactRadarPing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  70%, 100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__channel,
+  .contact__availability {
+    animation: none;
+    transition: none;
+  }
+
+  .contact__availability-icon::before {
+    animation: none;
   }
 }
