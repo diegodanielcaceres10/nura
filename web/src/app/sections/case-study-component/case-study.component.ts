@@ -53,6 +53,16 @@ export class CaseStudyComponent {
     },
     {
       number: '03',
+      category: 'Team / Process',
+      icon: 'fa-solid fa-users',
+      title: 'CASE_STUDY_05_TITLE',
+      subtitle: 'Semester → semester',
+      description: 'CASE_STUDY_05_DESCRIPTION',
+      metrics: [{ icon: 'fa-solid fa-bug', value: '-50%', label: 'CASE_STUDY_05_METRIC_01_LABEL' }],
+      link: '/case-studies/recurring-bugs-reduction',
+    },
+    {
+      number: '04',
       category: 'Mobile',
       icon: 'fa-solid fa-mobile-screen-button',
       title: 'CASE_STUDY_01_TITLE',
@@ -65,7 +75,7 @@ export class CaseStudyComponent {
       link: '/case-studies/legacy-mobile-migration',
     },
     {
-      number: '04',
+      number: '05',
       category: 'Infrastructure',
       icon: 'fa-solid fa-cloud-arrow-up',
       title: 'CASE_STUDY_03_TITLE',
