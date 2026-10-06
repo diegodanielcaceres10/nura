@@ -11,6 +11,7 @@ export class TranslateKeyPipe implements PipeTransform {
       return '';
     }
 
-    return MESSAGES[key] ?? key;
+    // Own keys only: names inherited from Object.prototype (constructor, toString) are not messages.
+    return Object.hasOwn(MESSAGES, key) ? MESSAGES[key] : key;
   }
 }

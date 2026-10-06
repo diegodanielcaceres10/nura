@@ -15,6 +15,8 @@ import { TranslateKeyPipe } from './translate-key.pipe';
  * - Every key of MESSAGES resolves to its own message.
  * - A key without a message is returned unchanged. The lookup is exact: it is
  *   case-sensitive and does not trim spaces.
+ * - Names inherited from Object.prototype (constructor, toString, __proto__) are not
+ *   messages: they are treated as missing keys, so the result is always a string.
  * - null, undefined and an empty string return an empty string.
  * - In a template the pipe is registered as `translate` and follows changes of the key.
  *
@@ -23,8 +25,6 @@ import { TranslateKeyPipe } from './translate-key.pipe';
  *   key-to-message lookup is checked here, not the translation files.
  * - That MESSAGES and the en, es and pt JSON files have the same keys (i18n/messages.ts has
  *   no spec of its own yet).
- * - Known gap: keys that exist on Object.prototype (constructor, toString, __proto__) return
- *   a function or an object instead of a string.
  */
 
 @Component({
@@ -55,6 +55,10 @@ describe('TranslateKeyPipe', () => {
     });
 
     it.each(['MISSING_KEY', 'menu_projects', ' MENU_PROJECTS '])('returns the key unchanged when there is no message for %j', (key) => {
+      expect(pipe.transform(key)).toBe(key);
+    });
+
+    it.each(['constructor', 'toString', 'hasOwnProperty', 'valueOf', '__proto__'])('treats the inherited property "%s" as a missing key', (key) => {
       expect(pipe.transform(key)).toBe(key);
     });
 
