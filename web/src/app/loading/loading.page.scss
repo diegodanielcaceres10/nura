@@ -252,16 +252,6 @@
     border-radius: inherit;
     animation: progressBeam 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   }
-
-  &__status-text {
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-2xs);
-    font-weight: 500;
-    letter-spacing: 0.24em;
-    text-indent: 0.24em;
-    text-transform: uppercase;
-    color: rgba(225, 234, 241, 0.6);
-  }
 }
 
 // =============================================================================
