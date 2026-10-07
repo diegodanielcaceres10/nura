@@ -1,74 +1,106 @@
 <section class="experiences page-section">
+  <div class="experiences__glow experiences__glow--top" aria-hidden="true"></div>
+  <div class="experiences__glow experiences__glow--bottom" aria-hidden="true"></div>
+
   <div class="experiences__container">
     <app-title-component title="EXPERIENCE_TITLE" subtitle="EXPERIENCE_SUBTITLE" intro="EXPERIENCE_INTRO" />
 
     <div class="experiences__body">
-      <span class="experiences__line"></span>
-      <ol class="experiences__timeline">
-        <li class="experiences__timeline-item">
-          <i class="fa-regular fa-circle"></i>
-          <span class="experiences__timeline-year"></span>
-        </li>
-        <li class="experiences__timeline-item">
-          <i class="fa-regular fa-circle-dot"></i>
-          <span class="experiences__timeline-year">2026</span>
-        </li>
-        <li class="experiences__timeline-item experiences__timeline-item-expanded"></li>
-        <li class="experiences__timeline-item">
-          <i class="fa-regular fa-circle-dot"></i>
-          <span class="experiences__timeline-year">2021</span>
-        </li>
-        <li class="experiences__timeline-item">
-          <i class="fa-regular fa-circle-dot"></i>
-          <span class="experiences__timeline-year">2020</span>
-        </li>
-      </ol>
+      <aside class="experiences__timeline-wrapper" aria-hidden="true">
+        <span class="experiences__line"></span>
+        <ol class="experiences__timeline">
+          <li class="experiences__timeline-item">
+            <span class="experiences__timeline-marker">
+              <i class="fa-regular fa-circle"></i>
+            </span>
+            <span class="experiences__timeline-year"></span>
+          </li>
+          <li class="experiences__timeline-item experiences__timeline-item--active">
+            <span class="experiences__timeline-marker">
+              <i class="fa-regular fa-circle-dot"></i>
+            </span>
+            <span class="experiences__timeline-year">2026</span>
+          </li>
+          <li class="experiences__timeline-item experiences__timeline-item-expanded"></li>
+          <li class="experiences__timeline-item">
+            <span class="experiences__timeline-marker">
+              <i class="fa-regular fa-circle-dot"></i>
+            </span>
+            <span class="experiences__timeline-year">2021</span>
+          </li>
+          <li class="experiences__timeline-item">
+            <span class="experiences__timeline-marker">
+              <i class="fa-regular fa-circle-dot"></i>
+            </span>
+            <span class="experiences__timeline-year">2020</span>
+          </li>
+        </ol>
+      </aside>
 
       <div class="experiences__entries">
         @for (entry of entries; track entry.id) {
-          <article class="experiences__card">
-            <div class="experiences__card-main">
-              <div class="experiences__card-header">
-                <div class="experiences__logo" [class]="'experiences__logo--' + entry.logoVariant">
-                  {{ entry.logoText }}
+          <article class="experiences__card" [class]="'experiences__card--' + entry.id">
+            <div class="experiences__card-glow" aria-hidden="true"></div>
+
+            <div class="experiences__card-content">
+              <div class="experiences__card-main">
+                <header class="experiences__card-header">
+                  <div class="experiences__logo" [class]="'experiences__logo--' + entry.logoVariant" aria-hidden="true">
+                    {{ entry.logoText }}
+                  </div>
+
+                  <div class="experiences__card-meta">
+                    <div class="experiences__card-meta-top">
+                      <h3 class="experiences__company">{{ entry.company }}</h3>
+                    </div>
+                    <div class="experiences__card-meta-sub">
+                      <p class="experiences__role">{{ entry.roleKey | translate }}</p>
+                      <p class="experiences__period">
+                        <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+                        {{ entry.startPeriodKey | translate }} – {{ entry.endPeriodKey | translate }}
+                      </p>
+                    </div>
+                  </div>
+                </header>
+
+                <div class="experiences__responsibilities">
+                  @for (descriptionKey of entry.descriptionKeys; track descriptionKey) {
+                    <div class="experiences__responsibility">
+                      <span class="experiences__responsibility-bullet" aria-hidden="true"></span>
+                      <p class="experiences__description">{{ descriptionKey | translate }}</p>
+                    </div>
+                  }
                 </div>
 
-                <div class="experiences__card-meta">
-                  <div class="experiences__card-meta-top">
-                    <h3 class="experiences__company">{{ entry.company }}</h3>
-                  </div>
-                  <p class="experiences__role">{{ entry.roleKey | translate }}</p>
-                  <p class="experiences__period">
-                    <i class="fa-regular fa-calendar" aria-hidden="true"></i>
-                    {{ entry.startPeriodKey | translate }} – {{ entry.endPeriodKey | translate }}
-                  </p>
+                <div class="experiences__tech-wrapper">
+                  <span class="experiences__tech-title">Stack</span>
+                  <ul class="experiences__tech-list" aria-label="Technologies used">
+                    @for (tech of entry.techStack; track tech) {
+                      <li class="experiences__tech-tag">{{ tech }}</li>
+                    }
+                  </ul>
                 </div>
               </div>
 
-              @for (descriptionKey of entry.descriptionKeys; track descriptionKey) {
-                <p class="experiences__description">- {{ descriptionKey | translate }}</p>
+              @if (entry.stats.length) {
+                <div class="experiences__stats-panel">
+                  <h4 class="experiences__stats-title">Key Impact & Metrics</h4>
+                  <ul class="experiences__stats">
+                    @for (stat of entry.stats; track stat.labelKey) {
+                      <li class="experiences__stat" [class.experiences__stat--kpi]="stat.value">
+                        <div class="experiences__stat-icon-box" aria-hidden="true">
+                          <i class="fa-solid fa-{{ stat.icon }} experiences__stat-icon" aria-hidden="true"></i>
+                        </div>
+                        <span class="experiences__stat-text">
+                          <span class="experiences__stat-value">{{ stat.value }}</span>
+                          <span class="experiences__stat-label">{{ stat.labelKey | translate }}</span>
+                        </span>
+                      </li>
+                    }
+                  </ul>
+                </div>
               }
-
-              <ul class="experiences__tech-list">
-                @for (tech of entry.techStack; track tech) {
-                  <li class="experiences__tech-tag">{{ tech }}</li>
-                }
-              </ul>
             </div>
-
-            @if (entry.stats.length) {
-              <ul class="experiences__stats">
-                @for (stat of entry.stats; track stat.labelKey) {
-                  <li class="experiences__stat" [class.experiences__stat--kpi]="stat.value">
-                    <i class="fa-solid fa-{{ stat.icon }} experiences__stat-icon" aria-hidden="true"></i>
-                    <span class="experiences__stat-text">
-                      <span class="experiences__stat-value">{{ stat.value }}</span>
-                      <span class="experiences__stat-label">{{ stat.labelKey | translate }}</span>
-                    </span>
-                  </li>
-                }
-              </ul>
-            }
           </article>
         }
       </div>
