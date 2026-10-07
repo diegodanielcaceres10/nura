@@ -1,6 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter, RouterLink } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from '../services/locale/locale.service';
 import { ScrollService } from '../services/scroll/scroll.service';
@@ -27,38 +27,12 @@ import { PortfolioPage } from './portfolio-page';
  *   it becomes interactive when it shows.
  *
  * Not covered
- * - The content of each section: they are replaced by empty stubs here and have their own specs.
+ * - The content of each section: the real components are rendered, but only their tag and id
+ *   are checked here. Each one has its own spec.
  * - Real scrolling to the anchor: it depends on the router configuration in app.config.
  * - The look of the button: styles do not run in this spec.
  * - Known gap: the aria-label is a fixed English text and is not translated.
  */
-
-@Component({ selector: 'app-header-component', template: '' })
-class HeaderStubComponent {}
-
-@Component({ selector: 'app-home-component', template: '' })
-class HomeStubComponent {}
-
-@Component({ selector: 'app-case-study-component', template: '' })
-class CaseStudyStubComponent {}
-
-@Component({ selector: 'app-experiences-component', template: '' })
-class ExperiencesStubComponent {}
-
-@Component({ selector: 'app-projects-component', template: '' })
-class ProjectsStubComponent {}
-
-@Component({ selector: 'app-recommendations-component', template: '' })
-class RecommendationsStubComponent {}
-
-@Component({ selector: 'app-about-component', template: '' })
-class AboutStubComponent {}
-
-@Component({ selector: 'app-contact-component', template: '' })
-class ContactStubComponent {}
-
-@Component({ selector: 'app-footer-component', template: '' })
-class FooterStubComponent {}
 
 // Tag and id of each section, in the order they must appear.
 const SECTIONS = [
@@ -87,16 +61,12 @@ describe('PortfolioPage', () => {
     isSticky.set(false);
     localeService.getCurrentLocale.mockReturnValue('en');
 
+    // The child components are rendered for real on purpose: overrideComponent would recompile
+    // the page template at runtime and hide it from the coverage report.
     await TestBed.configureTestingModule({
       imports: [PortfolioPage],
       providers: [provideRouter([]), { provide: LocaleService, useValue: localeService }, { provide: ScrollService, useValue: { isSticky } }],
-    })
-      .overrideComponent(PortfolioPage, {
-        set: {
-          imports: [RouterLink, HeaderStubComponent, HomeStubComponent, CaseStudyStubComponent, ExperiencesStubComponent, ProjectsStubComponent, RecommendationsStubComponent, AboutStubComponent, ContactStubComponent, FooterStubComponent],
-        },
-      })
-      .compileComponents();
+    }).compileComponents();
   });
 
   it('renders the sections in order, each with the id the navigation links to', () => {
