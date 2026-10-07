@@ -289,6 +289,12 @@
     }
   }
 
+  &__education-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+
   &__education {
     display: flex;
     align-items: center;

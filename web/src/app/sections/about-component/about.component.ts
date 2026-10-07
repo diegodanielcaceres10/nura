@@ -29,13 +29,29 @@ export interface BeyondWorkItem {
   styleUrl: './about.component.scss',
 })
 export class AboutComponent {
-  protected readonly education: EducationItem = {
-    icon: 'fa-solid fa-graduation-cap',
-    degree: 'Analista de Sistemas',
-    institution: 'Instituto Cervantes',
-    location: 'Argentina',
-    year: '2020',
-  };
+  protected readonly education: EducationItem[] = [
+    {
+      icon: 'fa-solid fa-graduation-cap',
+      degree: 'ABOUT_EDUCATION_SYSTEMS_ANALYST_DEGREE',
+      institution: 'Institución Cervantes',
+      location: 'Argentina',
+      year: '2020',
+    },
+    {
+      icon: 'fa-solid fa-graduation-cap',
+      degree: 'ABOUT_EDUCATION_PROGRAMMER_ANALYST_DEGREE',
+      institution: 'Institución Cervantes',
+      location: 'Argentina',
+      year: '2016',
+    },
+    {
+      icon: 'fa-solid fa-graduation-cap',
+      degree: 'ABOUT_EDUCATION_IT_TECHNICIAN_DEGREE',
+      institution: 'Institución Cervantes',
+      location: 'Argentina',
+      year: '2015',
+    },
+  ];
 
   protected readonly languages: LanguageItem[] = [
     { name: 'ABOUT_LANGUAGES_ES', level: 'ABOUT_LANGUAGES_NATIVE' },
@@ -46,18 +62,18 @@ export class AboutComponent {
   protected readonly beyondWork: BeyondWorkItem[] = [
     {
       icon: 'fa-solid fa-plane',
-      title: 'I love to travel',
-      description: 'Exploring new places and experiencing different cultures.',
+      title: 'ABOUT_BEYOND_TRAVEL_TITLE',
+      description: 'ABOUT_BEYOND_TRAVEL_DESCRIPTION',
     },
     {
       icon: 'fa-solid fa-camera',
-      title: 'Photography',
-      description: 'Capturing moments and seeing the world differently.',
+      title: 'ABOUT_BEYOND_PHOTO_TITLE',
+      description: 'ABOUT_BEYOND_PHOTO_DESCRIPTION',
     },
     {
       icon: 'fa-solid fa-mug-hot',
-      title: 'Good coffee',
-      description: 'Fuel for focused work and great ideas.',
+      title: 'ABOUT_BEYOND_COOFEE_TITLE',
+      description: 'ABOUT_BEYOND_COOFEE_DESCRIPTION',
     },
   ];
 }

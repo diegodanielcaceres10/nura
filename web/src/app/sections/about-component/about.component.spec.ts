@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { MESSAGES } from '../../i18n/messages';
 import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {
@@ -40,13 +41,21 @@ describe('AboutComponent', () => {
     expect(cards).toHaveLength(4);
   });
 
-  it('should render the education details and signature with alternative text', () => {
+  it('should render the three degrees, newest first, with institution and year', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const degrees = Array.from(native.querySelectorAll('.about__education-degree')).map((degree) => degree.textContent?.trim());
+    const institutions = Array.from(native.querySelectorAll('.about__education-institution')).map((institution) => institution.textContent?.trim());
+    const meta = Array.from(native.querySelectorAll('.about__education-meta')).map((item) => item.textContent?.trim());
+
+    expect(degrees).toEqual(['Computer Systems Analyst', 'Programmer Analyst', 'IT Technician']);
+    expect(institutions).toEqual(['Institución Cervantes', 'Institución Cervantes', 'Institución Cervantes']);
+    expect(meta).toEqual(['Argentina · 2020', 'Argentina · 2016', 'Argentina · 2015']);
+  });
+
+  it('should render the signature with alternative text', () => {
     const native = fixture.nativeElement as HTMLElement;
     const signature = native.querySelector<HTMLImageElement>('.about__signature img');
 
-    expect(native.querySelector('.about__education-degree')?.textContent?.trim()).toBe('Analista de Sistemas');
-    expect(native.querySelector('.about__education-institution')?.textContent?.trim()).toBe('Instituto Cervantes');
-    expect(native.querySelector('.about__education-meta')?.textContent?.trim()).toBe('Argentina · 2020');
     expect(signature?.getAttribute('alt')).toBe('Diego Daniel Caceres Logo');
   });
 
@@ -56,6 +65,32 @@ describe('AboutComponent', () => {
 
     expect(titles).toEqual(['I love to travel', 'Photography', 'Good coffee']);
     expect(native.querySelectorAll('.about__beyond-description')).toHaveLength(3);
+  });
+
+  it('should render the beyond work texts from the translation table', () => {
+    const keys = {
+      ABOUT_BEYOND_TRAVEL_TITLE: 'travel-title',
+      ABOUT_BEYOND_TRAVEL_DESCRIPTION: 'travel-description',
+      ABOUT_BEYOND_PHOTO_TITLE: 'photo-title',
+      ABOUT_BEYOND_PHOTO_DESCRIPTION: 'photo-description',
+      ABOUT_BEYOND_COOFEE_TITLE: 'coffee-title',
+      ABOUT_BEYOND_COOFEE_DESCRIPTION: 'coffee-description',
+    };
+    const original = Object.fromEntries(Object.keys(keys).map((key) => [key, MESSAGES[key]]));
+    Object.assign(MESSAGES, keys);
+
+    try {
+      const translated = TestBed.createComponent(AboutComponent);
+      translated.detectChanges();
+      const native = translated.nativeElement as HTMLElement;
+      const titles = Array.from(native.querySelectorAll('.about__beyond-title')).map((title) => title.textContent?.trim());
+      const descriptions = Array.from(native.querySelectorAll('.about__beyond-description')).map((description) => description.textContent?.trim());
+
+      expect(titles).toEqual(['travel-title', 'photo-title', 'coffee-title']);
+      expect(descriptions).toEqual(['travel-description', 'photo-description', 'coffee-description']);
+    } finally {
+      Object.assign(MESSAGES, original);
+    }
   });
 
   it('should render all supported languages with their levels', () => {
@@ -71,6 +106,6 @@ describe('AboutComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
 
     expect(native.querySelectorAll('.about__dot[aria-hidden="true"]')).toHaveLength(4);
-    expect(native.querySelectorAll('.about__icon i[aria-hidden="true"]')).toHaveLength(4);
+    expect(native.querySelectorAll('.about__icon i[aria-hidden="true"]')).toHaveLength(6);
   });
 });

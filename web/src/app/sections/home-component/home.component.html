@@ -104,8 +104,8 @@
     </div>
 
     <div class="stats__grid">
-      @for (stat of stats; track stat.label) {
-        <div class="stats__item">
+      @for (stat of stats; track stat.label; let i = $index) {
+        <div class="stats__item" [style.--stat-index]="i">
           <div class="stats__item-glow" aria-hidden="true"></div>
           <div class="stats__icon">
             <i [class]="stat.icon" aria-hidden="true"></i>
