@@ -94,13 +94,19 @@ describe('HomeComponent', () => {
     expect(items).toHaveLength(5);
   });
 
-  it('should render the technology categories and name every technology icon', () => {
+  it('should render the technology categories with text chips and no icons', () => {
     const native = fixture.nativeElement as HTMLElement;
     const categoryLabels = Array.from(native.querySelectorAll('.tech-stack__category-label')).map((label) => label.textContent?.trim());
-    const technologyIcons = Array.from(native.querySelectorAll<HTMLImageElement>('.tech-stack__icon'));
+    const chips = Array.from(native.querySelectorAll('.tech-stack__chip')).map((chip) => chip.textContent?.trim());
+    const categoryIcons = native.querySelectorAll('.tech-stack__category img, .tech-stack__category i');
 
     expect(categoryLabels).toEqual(['Frontend', 'Mobile', 'Backend', 'Cloud & DevOps']);
-    expect(technologyIcons).toHaveLength(11);
-    expect(technologyIcons.every((icon) => icon.alt.length > 0)).toBe(true);
+    expect(categoryLabels[0]).toBe('Frontend');
+    expect(chips).toContain('Angular (v11 a v21)');
+    expect(chips).toContain('Flutter');
+    expect(chips).toContain('Node.js');
+    expect(chips).toContain('Cloudflare R2');
+    expect(chips).not.toContain('AWS');
+    expect(categoryIcons).toHaveLength(0);
   });
 });

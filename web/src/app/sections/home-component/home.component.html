@@ -145,23 +145,14 @@
           <div class="tech-stack__category-glow" aria-hidden="true"></div>
 
           <div class="tech-stack__category-header">
-            <div class="tech-stack__category-icon" aria-hidden="true">
-              <i [class]="category.headerIcon"></i>
-            </div>
-            <span class="tech-stack__category-label">{{ category.label }}</span>
+            <h3 class="tech-stack__category-label">{{ category.label }}</h3>
           </div>
 
-          <div class="tech-stack__icons">
-            @for (tech of category.technologies; track tech.name) {
-              <div class="tech-stack__icon-frame" [attr.title]="tech.name">
-                <img class="tech-stack__icon" [src]="tech.icon" [alt]="tech.name" loading="lazy" width="36" height="36" />
-              </div>
+          <div class="tech-stack__chips">
+            @for (tech of category.technologies; track tech) {
+              <span class="tech-stack__chip">{{ tech }}</span>
             }
           </div>
-
-          <div class="tech-stack__separator" aria-hidden="true"></div>
-
-          <p class="tech-stack__caption">{{ category.caption }}</p>
         </div>
       }
     </div>

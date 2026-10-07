@@ -18,16 +18,9 @@ export interface StatItem {
   description: string;
 }
 
-export interface TechIcon {
-  icon: string;
-  name: string;
-}
-
 export interface TechCategory {
-  headerIcon: string;
   label: string;
-  technologies: TechIcon[];
-  caption: string;
+  technologies: string[];
 }
 
 @Component({
@@ -66,43 +59,34 @@ export class HomeComponent {
 
   protected readonly categories: TechCategory[] = [
     {
-      headerIcon: 'fa-solid fa-desktop',
       label: 'Frontend',
       technologies: [
-        { icon: 'assets/logos/angular.png', name: 'Angular' },
-        { icon: 'assets/logos/react.png', name: 'React' },
+        'Angular (v11 a v21)',
+        'AngularJS',
+        'TypeScript',
+        'JavaScript',
+        'RxJS',
+        'Signals',
+        'React',
+        'HTML5',
+        'CSS3/SCSS',
+        'Angular Material',
+        'Vitest',
+        'Cypress',
+        'Storybook',
       ],
-      caption: 'Angular (AngularJS · v21) · React · TypeScript · JavaScript · HTML5 · CSS3',
     },
     {
-      headerIcon: 'fa-solid fa-mobile-screen',
       label: 'Mobile',
-      technologies: [
-        { icon: 'assets/logos/ionic.png', name: 'Ionic' },
-        { icon: 'assets/logos/capacitor.png', name: 'Capacitor' },
-        { icon: 'assets/logos/cordova.png', name: 'Cordova' },
-      ],
-      caption: 'Ionic · Capacitor · Cordova',
+      technologies: ['Ionic', 'Capacitor', 'Cordova', 'Flutter'],
     },
     {
-      headerIcon: 'fa-solid fa-server',
       label: 'Backend',
-      technologies: [
-        { icon: 'assets/logos/node.png', name: 'Node.js' },
-        { icon: 'assets/logos/php.png', name: 'PHP' },
-        { icon: 'assets/logos/mysql.png', name: 'MySQL' },
-      ],
-      caption: 'Node.js · PHP · MySQL · REST APIs',
+      technologies: ['Node.js', 'Express', 'PHP', 'MySQL', 'REST APIs'],
     },
     {
-      headerIcon: 'fa-solid fa-cloud',
       label: 'Cloud & DevOps',
-      technologies: [
-        { icon: 'assets/logos/docker.png', name: 'Docker' },
-        { icon: 'assets/logos/azure.png', name: 'Azure' },
-        { icon: 'assets/logos/aws.png', name: 'AWS' },
-      ],
-      caption: 'Docker · Azure · AWS · CI/CD · Cloudflare R2 · Firebase',
+      technologies: ['Azure', 'Azure DevOps', 'Docker', 'CI/CD', 'Cloudflare R2', 'Firebase'],
     },
   ];
 
