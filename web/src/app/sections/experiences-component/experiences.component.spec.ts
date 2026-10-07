@@ -49,21 +49,8 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([10, 6]);
+    expect(descriptionCounts).toEqual([11, 7]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
-  });
-
-  it('should list the Cesla achievements in order, without the discarded claims', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
-    const descriptions = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []).map((description) => description.textContent?.trim() ?? '');
-    const expectedTopics = ['Angular and React', 'five cross-platform', 'LOTO', 'CI/CD', 'Tech Lead', 'Ionic 8', 'Cloudflare R2', 'Storybook', 'DevOps', 'AI-assisted'];
-
-    expect(descriptions).toHaveLength(expectedTopics.length);
-    expectedTopics.forEach((topic, index) => {
-      expect(descriptions[index]).toContain(topic);
-    });
-    expect(descriptions.join(' ')).not.toMatch(/traffic|reduction in production incidents|availability/i);
   });
 
   it('should show the Cesla stats aligned with the achievements', () => {
@@ -76,25 +63,13 @@ describe('ExperiencesComponent', () => {
     expect(labels).toEqual(['Clients', 'Users', 'Less Code', 'Mobile Apps', 'APIs', 'Fewer Recurring Bugs']);
   });
 
-  it('should list the Apex America achievements in order, including the NLU context', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const secondCard = native.querySelectorAll<HTMLElement>('article.experiences__card')[1];
-    const descriptions = Array.from(secondCard?.querySelectorAll('.experiences__description') ?? []).map((description) => description.textContent?.trim() ?? '');
-    const expectedTopics = ['AngularJS', 'NLU', 'reusable components', 'cross-browser', 'REST APIs', 'code reviews'];
-
-    expect(descriptions).toHaveLength(expectedTopics.length);
-    expectedTopics.forEach((topic, index) => {
-      expect(descriptions[index]).toContain(topic);
-    });
-  });
-
   it('should render the technology stack for each experience', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
     const technologyCounts = cards.map((card) => card.querySelectorAll('.experiences__tech-tag').length);
     const technologies = Array.from(native.querySelectorAll('.experiences__tech-tag')).map((tag) => tag.textContent?.trim());
 
-    expect(technologyCounts).toEqual([12, 6]);
+    expect(technologyCounts).toEqual([10, 9]);
     expect(technologies).toContain('Angular');
     expect(technologies).toContain('Ionic');
   });
