@@ -39,7 +39,7 @@ describe('ExperiencesComponent', () => {
     const companies = cards.map((card) => card.querySelector('.experiences__company')?.textContent?.trim());
 
     expect(cards).toHaveLength(2);
-    expect(companies).toEqual(['WS Solutions · Cesla', 'Apex America · Cognitive']);
+    expect(companies).toEqual(['WS Solutions · Cesla', 'Apex America']);
     expect(native.querySelector('.experiences__duration')).toBeNull();
   });
 

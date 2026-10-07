@@ -55,7 +55,7 @@ export class ExperiencesComponent {
       id: 'apex',
       logoText: 'APEX',
       logoVariant: 'apex',
-      company: 'Apex America · Cognitive',
+      company: 'Apex America',
       roleKey: 'EXPERIENCE_APEX_FRONTEND_ROLE',
       startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
       endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
