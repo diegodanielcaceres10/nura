@@ -38,7 +38,8 @@ h2 {
 }
 
 @keyframes heroFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -47,7 +48,8 @@ h2 {
 }
 
 @keyframes radarPing {
-  70%, 100% {
+  70%,
+  100% {
     transform: scale(2.3);
     opacity: 0;
   }
@@ -96,29 +98,5 @@ button:hover {
 
   @include ds.md {
     padding: var(--spacing-xl) var(--spacing-lg);
-  }
-}
-
-.custom-scroll {
-  overflow-y: auto;
-
-  scrollbar-width: thin;
-  scrollbar-color: var(--bg-surface) transparent;
-
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--bg-surface);
-    border-radius: 10px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: var(--bg-surface);
   }
 }
