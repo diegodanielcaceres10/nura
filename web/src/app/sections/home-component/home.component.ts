@@ -44,24 +44,5 @@ export class HomeComponent {
     },
   ];
 
-  protected readonly categories: TechCategory[] = [
-    {
-      label: 'Frontend',
-      technologies: ['Angular (v11 a v21)', 'AngularJS', 'TypeScript', 'JavaScript', 'RxJS', 'Signals', 'React', 'HTML5', 'CSS3/SCSS', 'Angular Material', 'Vitest', 'Cypress', 'Storybook'],
-    },
-    {
-      label: 'Mobile',
-      technologies: ['Ionic', 'Capacitor', 'Cordova', 'Flutter'],
-    },
-    {
-      label: 'Backend',
-      technologies: ['Node.js', 'Express', 'PHP', 'MySQL', 'REST APIs'],
-    },
-    {
-      label: 'Cloud & DevOps',
-      technologies: ['Azure', 'Azure DevOps', 'Docker', 'CI/CD', 'Cloudflare R2', 'Firebase'],
-    },
-  ];
-
   protected currentLang = this.localeService.getCurrentLocale();
 }

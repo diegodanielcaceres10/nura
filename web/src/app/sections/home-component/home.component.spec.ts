@@ -82,20 +82,4 @@ describe('HomeComponent', () => {
 
     expect(badges.map((badge) => badge.alt)).toEqual(['Angular', 'Ionic', 'Typescript', 'Cloud']);
   });
-
-  it('should render the technology categories with text chips and no icons', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const categoryLabels = Array.from(native.querySelectorAll('.tech-stack__category-label')).map((label) => label.textContent?.trim());
-    const chips = Array.from(native.querySelectorAll('.tech-stack__chip')).map((chip) => chip.textContent?.trim());
-    const categoryIcons = native.querySelectorAll('.tech-stack__category img, .tech-stack__category i');
-
-    expect(categoryLabels).toEqual(['Frontend', 'Mobile', 'Backend', 'Cloud & DevOps']);
-    expect(categoryLabels[0]).toBe('Frontend');
-    expect(chips).toContain('Angular (v11 a v21)');
-    expect(chips).toContain('Flutter');
-    expect(chips).toContain('Node.js');
-    expect(chips).toContain('Cloudflare R2');
-    expect(chips).not.toContain('AWS');
-    expect(categoryIcons).toHaveLength(0);
-  });
 });
