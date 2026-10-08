@@ -29,13 +29,6 @@ export class ProjectsService {
         repo: 'https://github.com/diegodanielcaceres10/luma',
         demo: 'https://diegodanielcaceres10.github.io/luma/',
       },
-      typeDetails: {
-        kind: 'fullstack',
-        backendStack: ['Supabase (Auth, Storage, PostgREST)', 'Supabase Edge Functions (Deno + TypeScript)', 'Google Gemini API'],
-        databases: ['PostgreSQL (Supabase)'],
-        apiType: 'REST',
-        deployment: 'CI/CD con GitHub Actions: landing Angular a GitHub Pages, backend en Supabase Cloud, APK Android firmado distribuido por Firebase App Distribution (uso personal)',
-      },
     },
     {
       id: 'kora-core',
@@ -57,13 +50,6 @@ export class ProjectsService {
       ],
       keyFeatures: ['PROJECTS_CARD_KORA_CORE_FEATURE_1', 'PROJECTS_CARD_KORA_CORE_FEATURE_2', 'PROJECTS_CARD_KORA_CORE_FEATURE_3', 'PROJECTS_CARD_KORA_CORE_FEATURE_4', 'PROJECTS_CARD_KORA_CORE_FEATURE_5', 'PROJECTS_CARD_KORA_CORE_FEATURE_6', 'PROJECTS_CARD_KORA_CORE_FEATURE_7'],
       challenges: ['PROJECTS_CARD_KORA_CORE_CHALLENGE_1', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_2', 'PROJECTS_CARD_KORA_CORE_CHALLENGE_3'],
-      typeDetails: {
-        kind: 'fullstack',
-        backendStack: ['Node.js', 'Express', 'TypeScript'],
-        databases: ['PostgreSQL'],
-        apiType: 'REST',
-        deployment: 'Render (API) · Supabase (PostgreSQL)',
-      },
     },
     {
       id: 'kora-roster',
@@ -87,12 +73,6 @@ export class ProjectsService {
       links: {
         repo: 'https://github.com/diegodanielcaceres10/kora-roster',
         demo: 'https://diegodanielcaceres10.github.io/kora-roster/',
-      },
-      typeDetails: {
-        kind: 'web',
-        deployUrl: 'https://diegodanielcaceres10.github.io/kora-roster/',
-        pwa: false,
-        responsive: true,
       },
     },
     {
@@ -118,12 +98,6 @@ export class ProjectsService {
         repo: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab',
         androidAPK: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab/releases/latest/download/app-release.apk',
       },
-      typeDetails: {
-        kind: 'mobile',
-        platforms: ['android', 'ios', 'web'],
-        nativePlugins: ['Camera', 'Barcode Scanner', 'Geolocation', 'Bluetooth LE', 'NFC', 'Biometric Auth', 'SQLite', 'Filesystem', 'Local Notifications', 'Motion', 'Haptics', 'Network', 'Clipboard', 'Share', 'Device', 'StatusBar', 'Browser'],
-        buildTool: 'Capacitor + Docker (build de APK)',
-      },
     },
     {
       id: 'riu-frontend-diego-daniel-caceres',
@@ -148,12 +122,6 @@ export class ProjectsService {
         repo: 'https://github.com/diegodanielcaceres10/RIU-Frontend-diego-daniel-caceres',
         demo: 'https://diegodanielcaceres10.github.io/RIU-Frontend-diego-daniel-caceres/',
       },
-      typeDetails: {
-        kind: 'challenge',
-        platform: 'RIU',
-        difficulty: 'medium',
-        topics: ['Angular Signals', 'RxJS', 'CRUD', 'Reactive Forms', 'Angular Material', 'Unit Testing', 'Docker'],
-      },
     },
     {
       id: 'nura',
@@ -175,12 +143,6 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_NURA_FEATURE_1', 'PROJECTS_CARD_NURA_FEATURE_2', 'PROJECTS_CARD_NURA_FEATURE_3', 'PROJECTS_CARD_NURA_FEATURE_4', 'PROJECTS_CARD_NURA_FEATURE_5'],
       challenges: ['PROJECTS_CARD_NURA_CHALLENGE_1', 'PROJECTS_CARD_NURA_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/nura' },
-      typeDetails: {
-        kind: 'web',
-        deployUrl: 'https://diegodanielcaceres10.github.io/nura/',
-        pwa: false,
-        responsive: true,
-      },
     },
     {
       id: 'oilgroup',
@@ -203,13 +165,6 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_OILGROUP_FEATURE_1', 'PROJECTS_CARD_OILGROUP_FEATURE_2', 'PROJECTS_CARD_OILGROUP_FEATURE_3', 'PROJECTS_CARD_OILGROUP_FEATURE_4', 'PROJECTS_CARD_OILGROUP_FEATURE_5', 'PROJECTS_CARD_OILGROUP_FEATURE_6', 'PROJECTS_CARD_OILGROUP_FEATURE_7'],
       challenges: ['PROJECTS_CARD_OILGROUP_CHALLENGE_1', 'PROJECTS_CARD_OILGROUP_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/oilgroup' },
-      typeDetails: {
-        kind: 'fullstack',
-        backendStack: ['Node.js', 'Express'],
-        databases: ['MySQL'],
-        apiType: 'REST',
-        deployment: 'Multi-entorno (dev/qua/hom/prd), detalle de infraestructura a confirmar',
-      },
     },
     {
       id: 'angularjsonform',
@@ -234,12 +189,6 @@ export class ProjectsService {
         npm: 'https://www.npmjs.com/package/angular-json-form',
       },
       metrics: { npmDownloads: undefined },
-      typeDetails: {
-        kind: 'library',
-        packageName: 'angular-json-form',
-        installCommand: 'npm install angular-json-form',
-        registry: 'npm',
-      },
     },
     {
       id: 'octoautodrive',
@@ -262,13 +211,6 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_1', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_2', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_3', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_4', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_5', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_6', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_7', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_8'],
       challenges: ['PROJECTS_CARD_OCTOAUTODRIVE_CHALLENGE_1', 'PROJECTS_CARD_OCTOAUTODRIVE_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/octoautodrive' },
-      typeDetails: {
-        kind: 'fullstack',
-        backendStack: ['Node.js', 'Express', 'Socket.IO'],
-        databases: ['MySQL'],
-        apiType: 'REST',
-        deployment: 'Forever (proceso Node), builds separados prod/dev/cloud - infraestructura exacta a confirmar',
-      },
     },
     {
       id: 'boleto',
@@ -284,12 +226,6 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_BOLETO_FEATURE_1', 'PROJECTS_CARD_BOLETO_FEATURE_2', 'PROJECTS_CARD_BOLETO_FEATURE_3', 'PROJECTS_CARD_BOLETO_FEATURE_4'],
       challenges: ['PROJECTS_CARD_BOLETO_CHALLENGE_1', 'PROJECTS_CARD_BOLETO_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/boleto' },
-      typeDetails: {
-        kind: 'challenge',
-        platform: 'Challenge técnico (backend / lógica de negocio bancaria)',
-        difficulty: 'medium',
-        topics: ['Node.js', 'Express', 'REST API', 'Validación de datos', 'Algoritmos'],
-      },
     },
   ];
 

@@ -24,7 +24,6 @@ export interface ProjectItem {
   gallery?: string[];
   links?: ProjectLinks;
   metrics?: ProjectMetrics;
-  typeDetails?: MobileDetails | WebDetails | FullstackDetails | LibraryDetails | ChallengeDetails;
 }
 
 export interface TechCategory {
@@ -43,42 +42,6 @@ export interface ProjectMetrics {
   npmDownloads?: number;
   githubStars?: number;
   testCoverage?: string;
-}
-
-export interface MobileDetails {
-  kind: 'mobile';
-  platforms: ('android' | 'ios' | 'web')[];
-  nativePlugins: string[];
-  buildTool: string;
-}
-
-export interface WebDetails {
-  kind: 'web';
-  deployUrl: string;
-  pwa?: boolean;
-  responsive: boolean;
-}
-
-export interface FullstackDetails {
-  kind: 'fullstack';
-  backendStack: string[];
-  databases: string[];
-  apiType: 'REST' | 'GraphQL' | 'gRPC';
-  deployment: string;
-}
-
-export interface LibraryDetails {
-  kind: 'library';
-  packageName: string;
-  installCommand: string;
-  registry: 'npm' | 'other';
-}
-
-export interface ChallengeDetails {
-  kind: 'challenge';
-  platform: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-  topics: string[];
 }
 
 const ALL_FILTER = 'all';

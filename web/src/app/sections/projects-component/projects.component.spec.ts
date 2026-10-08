@@ -48,7 +48,7 @@ describe('ProjectsComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
     const filters = Array.from(native.querySelectorAll<HTMLButtonElement>('.projects__filter')).map((filter) => filter.textContent?.trim());
 
-    expect(filters).toEqual(['Todos', 'Angular', 'TypeScript', 'Express', 'Node.js', 'MySQL', 'Capacitor', 'Docker', 'Flutter', 'Ionic', 'npm', 'PostgreSQL', 'Prisma', 'React', 'RxJS', 'SCSS', 'Socket.IO', 'SSG', 'Supabase', 'Vitest']);
+    expect(filters).toEqual(['Todos', 'Angular', 'TypeScript', 'Express', 'Node.js', 'Capacitor', 'Docker', 'Flutter', 'Ionic', 'MySQL', 'PostgreSQL', 'React', 'RxJS', 'SCSS', 'Vitest']);
   });
 
   it('should expose one filter for every distinct techStackMain entry', () => {

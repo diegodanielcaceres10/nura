@@ -17,17 +17,13 @@ describe('ProjectCardComponent', () => {
       type: 'Web',
       shortDescription: 'TEST_DESC',
       techStackMain: ['Angular', 'TypeScript'],
+      techStackExtended: ['Angular 21', 'TypeScript', 'SCSS'],
       status: 'COMPLETED',
       year: 2026,
       fullDescription: 'TEST_FULL_DESC',
       keyFeatures: ['FEATURE_1'],
       links: {
         repo: 'https://github.com/test/test',
-      },
-      typeDetails: {
-        kind: 'web',
-        deployUrl: 'https://test.com',
-        responsive: true,
       },
     };
 
@@ -82,7 +78,17 @@ describe('ProjectCardComponent', () => {
     expect(native.querySelector('.project-card__description')?.textContent?.trim()).toBe('TEST_FULL_DESC');
   });
 
-  it('should render every technology in the preview stack', () => {
+  it('should render every technology of the extended stack', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const techItems = Array.from(native.querySelectorAll('.project-card__tech')).map((tech) => tech.textContent?.trim());
+
+    expect(techItems).toEqual(['Angular 21', 'TypeScript', 'SCSS']);
+  });
+
+  it('should fall back to the main stack when the project has no extended stack', () => {
+    fixture.componentRef.setInput('project', { ...mockProject, techStackExtended: undefined });
+    fixture.detectChanges();
+
     const native = fixture.nativeElement as HTMLElement;
     const techItems = Array.from(native.querySelectorAll('.project-card__tech')).map((tech) => tech.textContent?.trim());
 
