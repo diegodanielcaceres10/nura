@@ -104,6 +104,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-2xs);
+    margin-bottom: var(--spacing-md);
   }
 
   &__tech {
