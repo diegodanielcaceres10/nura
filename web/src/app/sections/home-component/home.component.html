@@ -35,6 +35,7 @@
 
   <div class="home__container">
     <div class="home__content">
+      <span class="home__rule" aria-hidden="true"></span>
       <h1 class="home__title">
         <span class="home__title-name">Diego Daniel Caceres</span>
         <small class="home__title-subtitle">Senior Frontend Engineer | Angular & TypeScript Specialist</small>
@@ -82,5 +83,14 @@
         </div>
       </div>
     </div>
+
+    <ul class="home__metrics">
+      @for (metric of metrics; track metric.label) {
+        <li class="home__metric">
+          <span class="home__metric-value">{{ metric.value }}</span>
+          <span class="home__metric-label">{{ metric.label | translate }}</span>
+        </li>
+      }
+    </ul>
   </div>
 </section>

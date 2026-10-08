@@ -94,7 +94,17 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: clamp(0.9rem, 1.5vw, 1.4rem);
+    gap: clamp(1.1rem, 1.8vw, 1.75rem);
+  }
+
+  // Hairline ornament above the title
+  &__rule {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
+    transform-origin: left center;
+    animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.1s;
   }
 
   // Editorial Title (Serif + Sans Hierarchy)
@@ -106,12 +116,12 @@
     animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.2s;
 
     &-name {
-      font-family: var(--font-family-serif);
-      font-size: clamp(2.75rem, 5.2vw, 4.5rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.06;
-      white-space: nowrap;
+      font-family: var(--font-family-display);
+      font-size: clamp(3rem, 5.6vw, 5rem);
+      font-weight: var(--font-weight-semibold);
+      letter-spacing: -0.015em;
+      line-height: 1.02;
+      text-wrap: balance;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
       background-clip: text;
@@ -122,27 +132,25 @@
     }
 
     &-subtitle {
-      font-family: var(--font-family-sans);
-      font-size: clamp(1rem, 1.35vw, 1.25rem);
-      font-weight: var(--font-weight-regular);
-      line-height: 1.45;
-      color: rgba(225, 234, 241, 0.88);
-      letter-spacing: -0.01em;
-      background: var(--gradient-secondary);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      font-family: var(--font-family-geometric);
+      font-size: clamp(0.75rem, 0.95vw, 0.875rem);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.6;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--primary-color);
       width: fit-content;
     }
   }
 
   // Description Paragraph (Sans Serif)
   &__description {
-    font-family: var(--font-family-sans);
-    max-width: 50ch;
-    margin: 0.4rem 0;
-    font-size: clamp(0.95rem, 1.15vw, 1.125rem);
-    line-height: 1.75;
+    font-family: var(--font-family-geometric);
+    max-width: 46ch;
+    margin: 0.5rem 0;
+    font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
+    font-weight: var(--font-weight-regular);
+    line-height: 1.85;
     color: rgba(225, 234, 241, 0.75);
     animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.35s;
   }
@@ -152,7 +160,7 @@
     display: flex;
     align-items: center;
     gap: 1.25rem;
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both 0.5s;
   }
 
@@ -165,10 +173,10 @@
     min-height: 52px;
     padding: 0.95rem 2.25rem;
     border-radius: var(--radius-full);
-    font-family: var(--font-family-sans);
+    font-family: var(--font-family-geometric);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    letter-spacing: 0.02em;
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.06em;
     text-decoration: none;
     cursor: pointer;
     overflow: hidden;
@@ -436,12 +444,81 @@
     }
 
     &-name {
-      font-family: var(--font-family-sans);
+      font-family: var(--font-family-geometric);
       font-size: var(--font-size-xs);
-      font-weight: var(--font-weight-semibold);
-      letter-spacing: 0.02em;
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.06em;
       color: #ffffff;
       white-space: nowrap;
+    }
+  }
+
+  // Case-study figures (editorial strip)
+  &__metrics {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: clamp(1.5rem, 3vw, 3rem) 0 0;
+    padding: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+    list-style: none;
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__metric {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 0 var(--spacing-lg);
+    animation: heroFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:not(:first-child)::before {
+      content: '';
+      position: absolute;
+      top: 0.35rem;
+      bottom: 0.35rem;
+      left: 0;
+      width: 1px;
+      background: var(--border-color);
+    }
+
+    &:nth-child(1) {
+      animation-delay: 0.65s;
+    }
+
+    &:nth-child(2) {
+      animation-delay: 0.78s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 0.91s;
+    }
+
+    &:nth-child(4) {
+      animation-delay: 1.04s;
+    }
+
+    &-value {
+      font-family: var(--font-family-display);
+      font-size: clamp(1.75rem, 2.9vw, 2.6rem);
+      font-weight: var(--font-weight-semibold);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    &-label {
+      font-family: var(--font-family-geometric);
+      font-size: var(--font-size-2xs);
+      font-weight: var(--font-weight-medium);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
     }
   }
 }
@@ -477,6 +554,30 @@
   .home__image-wrapper {
     max-width: 400px;
     height: 480px;
+  }
+
+  .home__rule {
+    transform-origin: center;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  }
+
+  .home__metrics {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: var(--spacing-xl);
+    text-align: center;
+  }
+
+  .home__metric {
+    align-items: center;
+    padding: 0 var(--spacing-md);
+
+    &:first-child {
+      padding-left: var(--spacing-md);
+    }
+
+    &:nth-child(odd)::before {
+      display: none;
+    }
   }
 }
 
@@ -526,6 +627,10 @@
     width: 100%;
     padding: 0.95rem 1.5rem;
   }
+
+  .home__metric-value {
+    white-space: normal;
+  }
 }
 
 // =============================================================================
@@ -533,6 +638,8 @@
 // =============================================================================
 @media (prefers-reduced-motion: reduce) {
   .home__orbital,
+  .home__rule,
+  .home__metric,
   .home__title,
   .home__actions,
   .home__visual,

@@ -1,3 +1,10 @@
+/**
+ * HomeComponent spec.
+ *
+ * Guarantees: the hero keeps its heading, localized CTA links, images and tech badges,
+ * and shows the headline case-study figures without rendering the case studies themselves.
+ * Validates: DOM output only (headings, hrefs, alt texts, metric values and labels).
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -74,6 +81,14 @@ describe('HomeComponent', () => {
 
     expect(profileImage?.getAttribute('alt')).toBe('Diego Daniel Caceres Photo');
     expect(signatureImage?.getAttribute('alt')).toBe('Diego Daniel Caceres Logo');
+  });
+
+  it('should render the headline metrics with their value and label', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const items = Array.from(native.querySelectorAll('.home__metric'));
+
+    expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['60 min → 5 min', '50%', '-50%', '-60%']);
+    expect(items.every((item) => (item.querySelector('.home__metric-label')?.textContent ?? '').trim().length > 0)).toBe(true);
   });
 
   it('should render the technology badges with their accessible names', () => {

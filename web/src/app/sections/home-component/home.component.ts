@@ -11,6 +11,11 @@ export interface TechBadge {
   position: TechBadgePosition;
 }
 
+export interface HomeMetric {
+  value: string;
+  label: string;
+}
+
 export interface StatItem {
   icon: string;
   value: string;
@@ -42,6 +47,14 @@ export class HomeComponent {
       name: 'Cloud',
       position: 'bottom-right',
     },
+  ];
+
+  // Headline figures condensed from the case studies; labels reuse the case-study i18n keys.
+  protected readonly metrics: HomeMetric[] = [
+    { value: '60 min → 5 min', label: 'CASE_STUDY_02_METRIC_01_LABEL' },
+    { value: '50%', label: 'CASE_STUDY_03_METRIC_01_LABEL' },
+    { value: '-50%', label: 'CASE_STUDY_05_METRIC_01_LABEL' },
+    { value: '-60%', label: 'CASE_STUDY_04_METRIC_01_LABEL' },
   ];
 
   protected currentLang = this.localeService.getCurrentLocale();
