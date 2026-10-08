@@ -10,13 +10,15 @@
       }
     </div>
 
-    <div class="project-card__heading">
-      <h3 class="project-card__title">{{ project().title }}</h3>
-      <small>{{ project().year }}</small>
-    </div>
-    <div class="project-card__tags">
-      <small>{{ project().type }}</small>
-      <small>{{ `PROJECTS_STATUS_${project().status}` | translate }}</small>
+    <div class="project-card__info">
+      <div class="project-card__heading">
+        <h3 class="project-card__title">{{ project().title }}</h3>
+        <small>{{ project().year }}</small>
+      </div>
+      <div class="project-card__tags">
+        <small>{{ project().type }}</small>
+        <small>{{ `PROJECTS_STATUS_${project().status}` | translate }}</small>
+      </div>
     </div>
   </div>
 
