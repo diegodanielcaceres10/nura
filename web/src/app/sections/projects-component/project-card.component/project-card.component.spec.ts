@@ -16,7 +16,6 @@ describe('ProjectCardComponent', () => {
       title: 'Test Project',
       type: 'Web',
       shortDescription: 'TEST_DESC',
-      coverImage: 'test-cover.png',
       techStackPreview: ['Angular', 'TypeScript'],
       status: 'COMPLETED',
       year: 2026,
@@ -88,18 +87,6 @@ describe('ProjectCardComponent', () => {
     const techItems = Array.from(native.querySelectorAll('.project-card__tech')).map((tech) => tech.textContent?.trim());
 
     expect(techItems).toEqual(['Angular', 'TypeScript']);
-  });
-
-  it('should render the avatar with the project title as alternative text', () => {
-    fixture.componentRef.setInput('project', { ...mockProject, avatar: 'assets/projects/test/avatar.png', icon: 'fa-solid fa-bolt' });
-    fixture.detectChanges();
-
-    const native = fixture.nativeElement as HTMLElement;
-    const avatar = native.querySelector<HTMLImageElement>('.project-card__avatar');
-
-    expect(avatar?.getAttribute('src')).toBe('assets/projects/test/avatar.png');
-    expect(avatar?.getAttribute('alt')).toBe('Test Project');
-    expect(native.querySelector('.project-card__logo i')).toBeNull();
   });
 
   it('should render the icon when the project has no avatar', () => {

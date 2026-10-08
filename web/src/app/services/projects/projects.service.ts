@@ -6,11 +6,10 @@ export class ProjectsService {
   private readonly projects: ProjectItem[] = [
     {
       id: 'luma',
-      avatar: 'assets/projects/luma/logo.png',
+      logo: 'assets/projects/luma/logo.png',
       title: 'Luma',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_LUMA_SHORT_DESC',
-      // coverImage: 'assets/projects/luma/cover.png',
       techStackPreview: ['Flutter', 'Supabase', 'Angular'],
       status: 'COMPLETED',
       year: 2026,
@@ -39,7 +38,8 @@ export class ProjectsService {
     },
     {
       id: 'kora-core',
-      avatar: 'assets/projects/kora-core/logo.png',
+      favicon: 'assets/projects/kora-core/favicon.png',
+      logo: 'assets/projects/kora-core/logo.png',
       title: 'Kora Core',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_KORA_CORE_SHORT_DESC',
@@ -65,7 +65,8 @@ export class ProjectsService {
     },
     {
       id: 'kora-roster',
-      avatar: 'assets/projects/kora-roster/logo.png',
+      favicon: 'assets/projects/kora-roster/favicon.png',
+      logo: 'assets/projects/kora-roster/logo.png',
       title: 'Kora Roster',
       type: 'Web',
       shortDescription: 'PROJECTS_CARD_KORA_ROSTER_SHORT_DESC',
@@ -93,7 +94,7 @@ export class ProjectsService {
     },
     {
       id: 'ionic-plugin-lab',
-      avatar: 'assets/projects/ionic-plugin-lab/logo.png',
+      logo: 'assets/projects/ionic-plugin-lab/logo.png',
       title: 'Ionic Plugin Lab',
       type: 'Mobile',
       shortDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_SHORT_DESC',
@@ -151,7 +152,8 @@ export class ProjectsService {
     },
     {
       id: 'nura',
-      avatar: 'assets/projects/nura/logo.png',
+      favicon: 'assets/projects/nura/favicon.png',
+      logo: 'assets/projects/nura/logo.png',
       title: 'Nura - Portfolio',
       type: 'Web',
       shortDescription: 'PROJECTS_CARD_NURA_SHORT_DESC',
@@ -176,7 +178,8 @@ export class ProjectsService {
     },
     {
       id: 'oilgroup',
-      avatar: 'assets/projects/oilgroup/logo.png',
+      favicon: 'assets/projects/oilgroup/favicon.png',
+      logo: 'assets/projects/oilgroup/logo.png',
       title: 'Oilgroup',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_OILGROUP_SHORT_DESC',
@@ -203,7 +206,8 @@ export class ProjectsService {
     },
     {
       id: 'angularjsonform',
-      avatar: 'assets/projects/angularjsonform/logo.png',
+      favicon: 'assets/projects/angularjsonform/favicon.png',
+      logo: 'assets/projects/angularjsonform/logo.png',
       title: 'Angular JSON Form',
       type: 'Library',
       shortDescription: 'PROJECTS_CARD_ANGULARJSONFORM_SHORT_DESC',
@@ -231,7 +235,8 @@ export class ProjectsService {
     },
     {
       id: 'octoautodrive',
-      avatar: 'assets/projects/octoautodrive/logo.png',
+      favicon: 'assets/projects/octoautodrive/favicon.png',
+      logo: 'assets/projects/octoautodrive/logo.png',
       title: 'Octo Auto Drive',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_SHORT_DESC',

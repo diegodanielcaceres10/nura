@@ -11,7 +11,6 @@ const mockProject: ProjectItem = {
   title: 'Ionic Plugin Lab',
   type: 'Mobile',
   shortDescription: 'Short desc',
-  coverImage: '',
   techStackPreview: ['Ionic', 'Angular'],
   status: 'IN_PROGRESS',
   year: 2026,

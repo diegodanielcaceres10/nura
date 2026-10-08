@@ -7,12 +7,12 @@ import { LocaleService } from '../../services/locale/locale.service';
 
 export interface ProjectItem {
   id: string;
-  avatar?: string;
   icon?: string;
+  favicon?: string;
+  logo?: string;
   title: string;
   type: 'Mobile' | 'Web' | 'Fullstack' | 'Library' | 'Challenge';
   shortDescription: string;
-  coverImage?: string;
   techStackPreview: string[];
   status: 'COMPLETED' | 'IN_PROGRESS' | 'ARCHIVED';
   year: number;

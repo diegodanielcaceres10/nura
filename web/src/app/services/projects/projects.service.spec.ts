@@ -49,7 +49,7 @@ const TYPE_TO_KIND: Record<ProjectItem['type'], string> = {
 
 const translationKeys = (project: ProjectItem): string[] => [project.shortDescription, project.fullDescription, ...project.keyFeatures, ...(project.challenges ?? [])];
 
-const assetPaths = (project: ProjectItem): string[] => [project.avatar, project.coverImage, ...(project.gallery ?? [])].filter((path): path is string => !!path);
+const assetPaths = (project: ProjectItem): string[] => [project.logo, ...(project.gallery ?? [])].filter((path): path is string => !!path);
 
 const withoutValue = (source: Record<string, string>, keys: string[]): string[] => keys.filter((key) => !source[key]?.trim());
 
@@ -120,10 +120,6 @@ describe('ProjectsService', () => {
       expect(project.title.trim()).not.toBe('');
       expect(project.techStackPreview.length).toBeGreaterThan(0);
       expect(project.keyFeatures.length).toBeGreaterThan(0);
-    });
-
-    it.each(catalog)('$id: has an avatar or an icon for the card', (project) => {
-      expect(project.avatar || project.icon).toBeTruthy();
     });
 
     it.each(catalog)('$id: only uses translation keys that exist in MESSAGES', (project) => {

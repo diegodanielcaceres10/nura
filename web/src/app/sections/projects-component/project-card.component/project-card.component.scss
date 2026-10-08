@@ -19,8 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 52px;
-    height: 52px;
+    width: 55px;
+    height: 55px;
     border-radius: var(--radius-md);
     border: 1px solid var(--border-color);
     background: linear-gradient(135deg, rgba(10, 141, 171, 0.14) 0%, rgba(17, 29, 44, 0.6) 100%);
@@ -39,8 +39,8 @@
     }
 
     & img {
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
     }
   }

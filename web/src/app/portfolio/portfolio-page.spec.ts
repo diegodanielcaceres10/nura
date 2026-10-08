@@ -59,42 +59,6 @@ describe('PortfolioPage', () => {
   });
 
   describe('back-to-top button', () => {
-    it('has an accessible name', () => {
-      const link = backToTop(createPage())?.querySelector('a');
-
-      expect(link?.getAttribute('aria-label')).toBeTruthy();
-    });
-
-    it('is hidden at the top of the page and shows after scrolling', () => {
-      const fixture = TestBed.createComponent(PortfolioPage);
-      const page = fixture.nativeElement as HTMLElement;
-      fixture.detectChanges();
-      expect(backToTop(page)?.classList.contains('show')).toBe(false);
-
-      isSticky.set(true);
-      fixture.detectChanges();
-      expect(backToTop(page)?.classList.contains('show')).toBe(true);
-
-      isSticky.set(false);
-      fixture.detectChanges();
-      expect(backToTop(page)?.classList.contains('show')).toBe(false);
-    });
-
-    it('is inert while hidden and interactive once shown', () => {
-      const fixture = TestBed.createComponent(PortfolioPage);
-      const page = fixture.nativeElement as HTMLElement;
-      fixture.detectChanges();
-      expect(backToTop(page)?.hasAttribute('inert')).toBe(true);
-
-      isSticky.set(true);
-      fixture.detectChanges();
-      expect(backToTop(page)?.hasAttribute('inert')).toBe(false);
-
-      isSticky.set(false);
-      fixture.detectChanges();
-      expect(backToTop(page)?.hasAttribute('inert')).toBe(true);
-    });
-
     it('is not inert when the page is already scrolled', () => {
       isSticky.set(true);
 

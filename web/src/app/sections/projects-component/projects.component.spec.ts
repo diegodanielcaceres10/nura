@@ -166,8 +166,8 @@ describe('ProjectsComponent', () => {
       fullDescription: 'Full desc',
       keyFeatures: ['Feature 1'],
     };
-    const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', coverImage: '/img/cover.png', techStackPreview: ['Ionic'] };
-    const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', coverImage: '', techStackPreview: ['Angular'] };
+    const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', techStackPreview: ['Ionic'] };
+    const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', techStackPreview: ['Angular'] };
     let navigate: ReturnType<typeof vi.fn>;
     let getCurrentLocale: ReturnType<typeof vi.fn>;
 
@@ -193,17 +193,6 @@ describe('ProjectsComponent', () => {
       fixture = TestBed.createComponent(ProjectsComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-    });
-
-    it('should render the cover image only for projects that have one', () => {
-      const cards = fixture.nativeElement.querySelectorAll('.projects__card') as NodeListOf<HTMLElement>;
-      const cover = cards[0].querySelector('.projects__cover img') as HTMLImageElement;
-
-      expect(cards.length).toBe(2);
-      expect(fixture.nativeElement.querySelectorAll('.projects__cover').length).toBe(1);
-      expect(cover.getAttribute('src')).toBe('/img/cover.png');
-      expect(cover.getAttribute('alt')).toBe('With Cover');
-      expect(cards[1].querySelector('.projects__cover')).toBeNull();
     });
 
     it('should not show the empty state while there are projects to display', () => {
