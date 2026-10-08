@@ -453,15 +453,46 @@
     }
   }
 
-  // Case-study figures (editorial strip)
-  &__metrics {
+  // Case-study figures (editorial strip & header)
+  &__metrics-section {
     grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: clamp(2.25rem, 4.5vw, 4rem);
+    padding-top: clamp(1.75rem, 3.5vw, 2.75rem);
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__metrics-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-xs);
+    margin-bottom: clamp(1.5rem, 2.8vw, 2.25rem);
+    animation: luxuryFadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) both 0.55s;
+  }
+
+  &__metrics-title {
+    font-family: var(--font-family-display);
+    font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    margin: 0;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.25));
+  }
+
+  &__metrics {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: clamp(1.5rem, 3vw, 3rem) 0 0;
-    padding: clamp(1.75rem, 3vw, 2.5rem) 0 0;
+    margin: 0;
+    padding: 0;
     list-style: none;
-    border-top: 1px solid var(--border-color);
   }
 
   &__metric {
@@ -470,7 +501,7 @@
     flex-direction: column;
     gap: 0.6rem;
     padding: 0 var(--spacing-lg);
-    animation: heroFadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: luxuryFadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     &:first-child {
       padding-left: 0;
@@ -487,19 +518,19 @@
     }
 
     &:nth-child(1) {
-      animation-delay: 0.65s;
+      animation-delay: 0.7s;
     }
 
     &:nth-child(2) {
-      animation-delay: 0.78s;
+      animation-delay: 0.82s;
     }
 
     &:nth-child(3) {
-      animation-delay: 0.91s;
+      animation-delay: 0.94s;
     }
 
     &:nth-child(4) {
-      animation-delay: 1.04s;
+      animation-delay: 1.06s;
     }
 
     &-value {
@@ -559,6 +590,11 @@
   .home__rule {
     transform-origin: center;
     background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+  }
+
+  .home__metrics-header {
+    align-items: center;
+    text-align: center;
   }
 
   .home__metrics {
@@ -640,6 +676,8 @@
   .home__orbital,
   .home__rule,
   .home__metric,
+  .home__metrics-header,
+  .home__metrics-title,
   .home__title,
   .home__actions,
   .home__visual,

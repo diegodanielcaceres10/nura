@@ -84,13 +84,19 @@
       </div>
     </div>
 
-    <ul class="home__metrics">
-      @for (metric of metrics; track metric.label) {
-        <li class="home__metric">
-          <span class="home__metric-value">{{ metric.value }}</span>
-          <span class="home__metric-label">{{ metric.label | translate }}</span>
-        </li>
-      }
-    </ul>
+    <div class="home__metrics-section">
+      <header class="home__metrics-header">
+        <h2 class="home__metrics-title">{{ 'HOME_METRICS_TITLE' | translate }}</h2>
+      </header>
+
+      <ul class="home__metrics">
+        @for (metric of metrics; track metric.label) {
+          <li class="home__metric">
+            <span class="home__metric-value">{{ metric.value }}</span>
+            <span class="home__metric-label">{{ metric.label | translate }}</span>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
 </section>

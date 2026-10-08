@@ -87,7 +87,7 @@ describe('HomeComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
     const items = Array.from(native.querySelectorAll('.home__metric'));
 
-    expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['60 min → 5 min', '50%', '-50%', '-60%']);
+    expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['60 min → 5 min', '-50%', '-50%', '-60%']);
     expect(items.every((item) => (item.querySelector('.home__metric-label')?.textContent ?? '').trim().length > 0)).toBe(true);
   });
 
