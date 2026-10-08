@@ -410,25 +410,21 @@
     &--top-left {
       top: 6%;
       left: -8%;
-      animation: heroFloat 6.5s ease-in-out infinite;
     }
 
     &--top-right {
       top: 18%;
       right: -10%;
-      animation: heroFloat 7.5s ease-in-out infinite 1s;
     }
 
     &--bottom-left {
       bottom: 22%;
       left: -10%;
-      animation: heroFloat 8s ease-in-out infinite 2s;
     }
 
     &--bottom-right {
       bottom: 5%;
       right: -6%;
-      animation: heroFloat 7s ease-in-out infinite 1.5s;
     }
 
     &-icon {

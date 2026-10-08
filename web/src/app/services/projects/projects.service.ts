@@ -99,7 +99,7 @@ export class ProjectsService {
       type: 'Mobile',
       shortDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_SHORT_DESC',
       techStackPreview: ['Ionic', 'Angular 20', 'Capacitor', 'TypeScript'],
-      status: 'IN_PROGRESS',
+      status: 'COMPLETED',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FULL_DESC',
       techStackFull: [
@@ -158,7 +158,7 @@ export class ProjectsService {
       type: 'Web',
       shortDescription: 'PROJECTS_CARD_NURA_SHORT_DESC',
       techStackPreview: ['Angular 21', 'TypeScript', 'SCSS', 'SSG'],
-      status: 'IN_PROGRESS',
+      status: 'COMPLETED',
       year: 2026,
       fullDescription: 'PROJECTS_CARD_NURA_FULL_DESC',
       techStackFull: [
@@ -241,7 +241,7 @@ export class ProjectsService {
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_SHORT_DESC',
       techStackPreview: ['Angular 13', 'Node.js', 'Express', 'Socket.IO', 'MySQL'],
-      status: 'ARCHIVED',
+      status: 'COMPLETED',
       year: 2023,
       fullDescription: 'PROJECTS_CARD_OCTOAUTODRIVE_FULL_DESC',
       techStackFull: [
