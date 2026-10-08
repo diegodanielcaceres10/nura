@@ -24,11 +24,20 @@
         <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="about">{{ 'MENU_ABOUT_ME' | translate }}</a>
         <a (click)="toogleMenu()" [routerLink]="['/', currentLang()]" fragment="contact">{{ 'MENU_CONTACT' | translate }}</a>
       </nav>
-      <div class="header__langs">
-        @for (lang of langs; track lang.code) {
-          <button class="header__lang" [class.active]="currentLang() === lang.code" [attr.aria-pressed]="currentLang() === lang.code" (click)="changeLang(lang.code)">
-            {{ lang.flag }}
-          </button>
+      <div class="header__langs" [class.header__langs-open]="isLangOpen()">
+        <button type="button" class="header__langs-trigger" aria-haspopup="listbox" aria-label="Language" [attr.aria-expanded]="isLangOpen()" (click)="toggleLang()" (keydown)="onTriggerKeydown($event)">
+          <span class="header__langs-current">{{ currentLangOption().flag }}</span>
+          <i class="fa-solid fa-chevron-down header__langs-chevron" aria-hidden="true"></i>
+        </button>
+        @if (isLangOpen()) {
+          <div class="header__langs-menu" role="listbox" aria-label="Language">
+            @for (lang of langs; track lang.code; let i = $index) {
+              <button type="button" role="option" class="header__lang" [class.active]="currentLang() === lang.code" [attr.aria-selected]="currentLang() === lang.code" [attr.lang]="lang.code" (click)="selectLang(lang.code)" (keydown)="onOptionKeydown($event, i)">
+                <span class="header__lang-code">{{ lang.flag }}</span>
+                <span class="header__lang-name">{{ lang.name }}</span>
+              </button>
+            }
+          </div>
         }
       </div>
     </div>

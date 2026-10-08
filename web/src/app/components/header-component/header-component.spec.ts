@@ -53,11 +53,13 @@ describe('HeaderComponent', () => {
     expect(component.isMenuOpen()).toBe(false);
   });
 
-  it('should have langs array with 3 languages', () => {
-    expect(component.langs.length).toBe(3);
-    expect(component.langs[0].code).toBe('es');
-    expect(component.langs[1].code).toBe('en');
-    expect(component.langs[2].code).toBe('pt');
+  it('should have langs array with 3 languages named in their own language', () => {
+    expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt']);
+    expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português']);
+  });
+
+  it('should keep the language dropdown closed by default', () => {
+    expect(component.isLangOpen()).toBe(false);
   });
 
   it('should toggle menu when toogleMenu is called', () => {
@@ -132,14 +134,122 @@ describe('HeaderComponent', () => {
         expect(component.isMenuOpen()).toBe(!before);
       });
     });
+  });
 
-    it('should change language when a language button is clicked', () => {
-      const buttons = fixture.nativeElement.querySelectorAll('.header__lang') as NodeListOf<HTMLButtonElement>;
-      expect(buttons.length).toBe(3);
-      expect(buttons[2].getAttribute('aria-pressed')).toBe('true');
+  describe('language dropdown', () => {
+    const native = () => fixture.nativeElement as HTMLElement;
+    const trigger = () => native().querySelector('.header__langs-trigger') as HTMLButtonElement;
+    const listbox = () => native().querySelector('.header__langs-menu') as HTMLElement | null;
+    const options = () => Array.from(native().querySelectorAll('.header__lang')) as HTMLButtonElement[];
+    const open = () => {
+      trigger().click();
+      fixture.detectChanges();
+    };
 
-      buttons[1].click();
+    it('should render a collapsed trigger showing the current language', () => {
+      expect(trigger().textContent).toContain('PT');
+      expect(trigger().getAttribute('aria-haspopup')).toBe('listbox');
+      expect(trigger().getAttribute('aria-expanded')).toBe('false');
+      expect(listbox()).toBeNull();
+    });
+
+    it('should open the menu with every language labeled by code and native name', () => {
+      open();
+
+      expect(trigger().getAttribute('aria-expanded')).toBe('true');
+      expect(listbox()?.getAttribute('role')).toBe('listbox');
+      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT']);
+      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português']);
+    });
+
+    it('should mark only the current language as selected', () => {
+      open();
+
+      expect(options().map((option) => option.getAttribute('aria-selected'))).toEqual(['false', 'false', 'true']);
+      expect(options()[2].classList.contains('active')).toBe(true);
+    });
+
+    it('should change language and close the menu when another option is chosen', () => {
+      open();
+      options()[1].click();
+      fixture.detectChanges();
+
       expect(localeService.changeLocale).toHaveBeenCalledWith('en');
+      expect(listbox()).toBeNull();
+    });
+
+    it('should only close the menu when the current language is chosen', () => {
+      open();
+      options()[2].click();
+      fixture.detectChanges();
+
+      expect(localeService.changeLocale).not.toHaveBeenCalled();
+      expect(listbox()).toBeNull();
+    });
+
+    it('should toggle the menu when the trigger is clicked twice', () => {
+      open();
+      open();
+
+      expect(listbox()).toBeNull();
+    });
+
+    it('should close on Escape and return focus to the trigger', () => {
+      open();
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(listbox()).toBeNull();
+      expect(document.activeElement).toBe(trigger());
+    });
+
+    it('should ignore Escape while the menu is closed', () => {
+      document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+      fixture.detectChanges();
+
+      expect(component.isLangOpen()).toBe(false);
+    });
+
+    it('should close when clicking outside the dropdown', () => {
+      open();
+      document.body.click();
+      fixture.detectChanges();
+
+      expect(listbox()).toBeNull();
+    });
+
+    it('should stay open when clicking inside the dropdown container', () => {
+      open();
+      listbox()?.click();
+      fixture.detectChanges();
+
+      expect(listbox()).not.toBeNull();
+    });
+
+    it('should move focus between options with the arrow keys', () => {
+      open();
+      const items = options();
+      items[0].focus();
+
+      items[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      expect(document.activeElement).toBe(items[1]);
+
+      items[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+      expect(document.activeElement).toBe(items[0]);
+
+      items[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+      expect(document.activeElement).toBe(items[2]);
+
+      items[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      expect(document.activeElement).toBe(items[0]);
+    });
+
+    it('should focus the current language when opened from the keyboard', () => {
+      trigger().dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      fixture.detectChanges();
+
+      expect(listbox()).not.toBeNull();
+      expect(document.activeElement).toBe(options()[2]);
     });
   });
 });
