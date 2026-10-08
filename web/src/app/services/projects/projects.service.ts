@@ -6,7 +6,7 @@ export class ProjectsService {
   private readonly projects: ProjectItem[] = [
     {
       id: 'luma',
-      logo: 'assets/projects/luma/logo.png',
+      favicon: 'assets/projects/luma/logo.png',
       title: 'Luma',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_LUMA_SHORT_DESC',
@@ -33,7 +33,6 @@ export class ProjectsService {
     {
       id: 'kora-core',
       favicon: 'assets/projects/kora-core/favicon.png',
-      logo: 'assets/projects/kora-core/logo.png',
       title: 'Kora Core',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_KORA_CORE_SHORT_DESC',
@@ -77,7 +76,7 @@ export class ProjectsService {
     },
     {
       id: 'ionic-plugin-lab',
-      logo: 'assets/projects/ionic-plugin-lab/logo.png',
+      favicon: 'assets/projects/ionic-plugin-lab/logo.png',
       title: 'Ionic Plugin Lab',
       type: 'Mobile',
       shortDescription: 'PROJECTS_CARD_IONIC_PLUGIN_LAB_SHORT_DESC',
