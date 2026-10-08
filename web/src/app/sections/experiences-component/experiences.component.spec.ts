@@ -49,7 +49,7 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([11, 7]);
+    expect(descriptionCounts).toEqual([10, 7]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
   });
 

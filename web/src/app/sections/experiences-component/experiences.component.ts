@@ -51,7 +51,6 @@ export class ExperiencesComponent {
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_8',
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_9',
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_10',
-        'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_11',
       ],
       techStack: ['Angular', 'TypeScript', 'RxJS', 'React', 'Ionic', 'Capacitor', 'Storybook', 'Azure DevOps', 'CI/CD', 'Docker'],
       stats: [

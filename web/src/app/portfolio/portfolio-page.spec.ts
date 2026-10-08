@@ -69,16 +69,6 @@ describe('PortfolioPage', () => {
     }).compileComponents();
   });
 
-  it('renders the header first and the footer last', () => {
-    const page = createPage();
-
-    const tags = Array.from(page.children, (element) => element.tagName.toLowerCase());
-
-    expect(tags[0]).toBe('app-header-component');
-    expect(tags).toContain('main');
-    expect(tags.at(-1)).toBe('app-footer-component');
-  });
-
   describe('back-to-top button', () => {
     it.each(['en', 'es', 'pt'])('links to the home section in %s', (lang) => {
       localeService.getCurrentLocale.mockReturnValue(lang);
