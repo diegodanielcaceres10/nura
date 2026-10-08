@@ -39,14 +39,11 @@
 
   &__body {
     position: relative;
-    display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: clamp(var(--spacing-lg), 3vw, var(--spacing-2xl));
+    display: flex;
     margin-top: clamp(var(--spacing-xl), 4vw, var(--spacing-2xl));
     align-items: start;
 
     @include ds.md {
-      gap: var(--spacing-lg);
       grid-template-columns: 10px 1fr;
     }
   }
@@ -55,11 +52,11 @@
     position: relative;
     display: flex;
     justify-content: center;
-    padding: var(--spacing-md) 0;
+    padding: var(--spacing-sm);
     height: stretch;
 
     @include ds.md {
-      padding: 0;
+      padding: var(--spacing-xs);
     }
   }
 
@@ -94,11 +91,7 @@
       gap: var(--spacing-2xs);
 
       &:not(:first-child) {
-        margin-top: 12rem;
-
-        @include ds.md {
-          margin-top: 15rem;
-        }
+        margin-top: 15rem;
       }
 
       &-expanded {
