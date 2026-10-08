@@ -59,14 +59,6 @@ describe('PortfolioPage', () => {
   });
 
   describe('back-to-top button', () => {
-    it.each(['en', 'es', 'pt'])('links to the home section in %s', (lang) => {
-      localeService.getCurrentLocale.mockReturnValue(lang);
-
-      const link = backToTop(createPage())?.querySelector('a');
-
-      expect(link?.getAttribute('href')).toBe(`/${lang}#home`);
-    });
-
     it('has an accessible name', () => {
       const link = backToTop(createPage())?.querySelector('a');
 

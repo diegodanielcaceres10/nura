@@ -83,17 +83,6 @@ describe('HomeComponent', () => {
     expect(badges.map((badge) => badge.alt)).toEqual(['Angular', 'Ionic', 'Typescript', 'Cloud']);
   });
 
-  it('should render the metrics section with an accessible heading and five metric items', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const section = native.querySelector<HTMLElement>('.stats');
-    const heading = native.querySelector<HTMLElement>('#stats-title');
-    const items = native.querySelectorAll('.stats__item');
-
-    expect(section?.getAttribute('aria-labelledby')).toBe('stats-title');
-    expect(heading?.tagName).toBe('H2');
-    expect(items).toHaveLength(5);
-  });
-
   it('should render the technology categories with text chips and no icons', () => {
     const native = fixture.nativeElement as HTMLElement;
     const categoryLabels = Array.from(native.querySelectorAll('.tech-stack__category-label')).map((label) => label.textContent?.trim());

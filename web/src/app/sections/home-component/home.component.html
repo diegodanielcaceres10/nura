@@ -85,42 +85,6 @@
   </div>
 </section>
 
-<section class="stats" aria-labelledby="stats-title">
-  <!-- Ambient Backdrop Glow -->
-  <div class="stats__ambient" aria-hidden="true">
-    <div class="stats__ambient-glow stats__ambient-glow--cyan"></div>
-    <div class="stats__ambient-glow stats__ambient-glow--accent"></div>
-  </div>
-
-  <div class="stats__container">
-    <div class="stats__heading">
-      <span class="stats__eyebrow" aria-hidden="true">Key Metrics</span>
-      <h2 id="stats-title" class="stats__title">{{ 'HOME_STATS_TITLE' | translate }}</h2>
-      <div class="stats__divider" aria-hidden="true">
-        <span class="stats__divider-line"></span>
-        <span class="stats__divider-diamond"></span>
-        <span class="stats__divider-line"></span>
-      </div>
-    </div>
-
-    <div class="stats__grid">
-      @for (stat of stats; track stat.label; let i = $index) {
-        <div class="stats__item">
-          <div class="stats__item-glow" aria-hidden="true"></div>
-          <div class="stats__icon">
-            <i [class]="stat.icon" aria-hidden="true"></i>
-          </div>
-          <div class="stats__content">
-            <span class="stats__value">{{ stat.value }}</span>
-            <span class="stats__label">{{ stat.label | translate }}</span>
-            <span class="stats__description">{{ stat.description | translate }}</span>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
-</section>
-
 <section class="tech-stack" aria-labelledby="tech-stack-title">
   <!-- Ambient Backdrop Glow -->
   <div class="tech-stack__ambient" aria-hidden="true">
