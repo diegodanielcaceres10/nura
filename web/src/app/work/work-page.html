@@ -23,6 +23,11 @@
         <div class="work__content">
           <div class="work__aside">
             <div class="work__aside-glow" aria-hidden="true"></div>
+            @if (p.logo) {
+              <div class="work__logo">
+                <img [src]="p.logo" width="938" height="157" decoding="async" [alt]="p.title" />
+              </div>
+            }
             <app-project-card-component [project]="p" [fullDescription]="true" />
 
             <div class="work__actions">

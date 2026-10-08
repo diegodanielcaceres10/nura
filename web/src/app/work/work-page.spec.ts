@@ -35,6 +35,7 @@ const fullProject: ProjectItem = {
   ],
   challenges: ['Challenge 1', 'Challenge 2'],
   gallery: ['/img/1.png', '/img/2.png', '/img/3.png'],
+  logo: 'assets/projects/full-project/logo.png',
 };
 
 async function createPage(routeId: string | null, projects: ProjectItem[]): Promise<ComponentFixture<WorkPage>> {
@@ -133,6 +134,10 @@ describe('WorkPage', () => {
       expect(el.querySelector('.work__gallery')).toBeNull();
     });
 
+    it('should not render the logo when the project has none', () => {
+      expect(fixture.nativeElement.querySelector('.work__logo')).toBeNull();
+    });
+
     it('should render only the repo action when the project has just a repo link', async () => {
       const repoOnly: ProjectItem = { ...mockProject, id: 'repo-only', links: { repo: 'https://github.com/acme/repo-only' } };
 
@@ -208,6 +213,15 @@ describe('WorkPage', () => {
     it('should render every key feature and challenge', () => {
       expect(el.querySelectorAll('.work__features li').length).toBe(2);
       expect(el.querySelectorAll('.work__challenges p').length).toBe(2);
+    });
+
+    it('should render the logo above the project card with the project title as alt', () => {
+      const logo = el.querySelector('.work__aside > .work__logo img') as HTMLImageElement;
+      const card = el.querySelector('.work__aside > app-project-card-component') as HTMLElement;
+
+      expect(logo.getAttribute('src')).toBe('assets/projects/full-project/logo.png');
+      expect(logo.getAttribute('alt')).toBe('Full Project');
+      expect(logo.parentElement!.compareDocumentPosition(card) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     });
 
     it('should render gallery images with src and the project title as alt', () => {

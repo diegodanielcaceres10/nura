@@ -187,6 +187,21 @@
     pointer-events: none;
   }
 
+  &__logo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    img {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      max-height: 56px;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
   &__actions {
     display: flex;
     flex-wrap: wrap;
