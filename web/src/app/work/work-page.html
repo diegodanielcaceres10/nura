@@ -30,35 +30,37 @@
             }
             <app-project-card-component [project]="p" [fullDescription]="true" />
 
-            <div class="work__actions">
-              @if (p.links?.repo) {
-                <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github" aria-hidden="true"></i>
-                  Repo
-                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                </a>
-              }
-              @if (p.links?.demo) {
-                <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
-                  Demo
-                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                </a>
-              }
-              @if (p.links?.npm) {
-                <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-npm" aria-hidden="true"></i>
-                  npm
-                  <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                </a>
-              }
-              @if (p.links?.androidAPK) {
-                <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-android" aria-hidden="true"></i>
-                  Android APK
-                  <i class="fa-solid fa-download" aria-hidden="true"></i>
-                </a>
-              }
-            </div>
+            @if (p.links) {
+              <div class="work__actions">
+                @if (p.links.repo) {
+                  <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github" aria-hidden="true"></i>
+                    Repo
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                }
+                @if (p.links.demo) {
+                  <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
+                    Demo
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                }
+                @if (p.links.npm) {
+                  <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-npm" aria-hidden="true"></i>
+                    npm
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                }
+                @if (p.links.androidAPK) {
+                  <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-android" aria-hidden="true"></i>
+                    Android APK
+                    <i class="fa-solid fa-download" aria-hidden="true"></i>
+                  </a>
+                }
+              </div>
+            }
           </div>
 
           <div class="work__sections">

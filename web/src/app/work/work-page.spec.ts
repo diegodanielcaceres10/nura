@@ -134,6 +134,10 @@ describe('WorkPage', () => {
       expect(el.querySelector('.work__gallery')).toBeNull();
     });
 
+    it('should not render the actions container when the project has no links', () => {
+      expect(fixture.nativeElement.querySelector('.work__actions')).toBeNull();
+    });
+
     it('should not render the logo when the project has none', () => {
       expect(fixture.nativeElement.querySelector('.work__logo')).toBeNull();
     });
@@ -193,6 +197,10 @@ describe('WorkPage', () => {
         expect(a.getAttribute('target')).toBe('_blank');
         expect(a.getAttribute('rel')).toBe('noopener');
       });
+    });
+
+    it('should render the actions container when the project has links', () => {
+      expect(el.querySelectorAll('.work__actions').length).toBe(1);
     });
 
     it('should mark only the Android APK link with the android modifier', () => {
