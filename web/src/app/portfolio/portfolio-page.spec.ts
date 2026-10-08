@@ -34,17 +34,6 @@ import { PortfolioPage } from './portfolio-page';
  * - Known gap: the aria-label is a fixed English text and is not translated.
  */
 
-// Tag and id of each section, in the order they must appear.
-const SECTIONS = [
-  ['app-home-component', 'home'],
-  ['app-case-study-component', 'case-study'],
-  ['app-experiences-component', 'experiences'],
-  ['app-projects-component', 'projects'],
-  ['app-recommendations-component', 'recommendations'],
-  ['app-about-component', 'about'],
-  ['app-contact-component', 'contact'],
-];
-
 describe('PortfolioPage', () => {
   const isSticky = signal(false);
   const localeService = { getCurrentLocale: vi.fn(() => 'en') };
