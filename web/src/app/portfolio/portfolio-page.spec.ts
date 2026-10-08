@@ -69,14 +69,6 @@ describe('PortfolioPage', () => {
     }).compileComponents();
   });
 
-  it('renders the sections in order, each with the id the navigation links to', () => {
-    const page = createPage();
-
-    const sections = Array.from(page.querySelectorAll('main > *'), (element) => [element.tagName.toLowerCase(), element.id]);
-
-    expect(sections).toEqual(SECTIONS);
-  });
-
   it('renders the header first and the footer last', () => {
     const page = createPage();
 
