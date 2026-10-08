@@ -24,6 +24,26 @@ export interface ProjectItem {
   gallery?: string[];
   links?: ProjectLinks;
   metrics?: ProjectMetrics;
+  cardTheme?: ProjectCardTheme;
+}
+
+export interface ProjectCardGradient {
+  from: string;
+  to: string;
+  angle?: number;
+}
+
+export interface ProjectCardCover {
+  src: string;
+  position?: string;
+  overlay?: number;
+}
+
+// Optional look of the card in the projects list. Without it the card keeps the default style.
+export interface ProjectCardTheme {
+  accent?: string;
+  gradient?: ProjectCardGradient;
+  cover?: ProjectCardCover;
 }
 
 export interface TechCategory {
@@ -81,6 +101,20 @@ export class ProjectsComponent {
 
   protected setActiveFilter(filter: string): void {
     this.activeFilter.set(filter);
+  }
+
+  // Exposes the theme as CSS custom properties so the SCSS stays the single source of styling.
+  protected cardThemeVars(project: ProjectItem): Record<string, string> {
+    const { accent, gradient, cover } = project.cardTheme ?? {};
+    const vars: Record<string, string | undefined> = {
+      '--card-accent': accent,
+      '--card-from': gradient?.from,
+      '--card-to': gradient?.to,
+      '--card-angle': gradient?.angle === undefined ? undefined : `${gradient.angle}deg`,
+      '--card-overlay': cover?.overlay === undefined ? undefined : String(cover.overlay),
+    };
+
+    return Object.fromEntries(Object.entries(vars).filter((entry): entry is [string, string] => entry[1] !== undefined));
   }
 
   protected navigateToProject(project: ProjectItem): void {

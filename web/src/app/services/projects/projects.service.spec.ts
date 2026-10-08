@@ -21,6 +21,7 @@ import { ProjectsService } from './projects.service';
  *   in MESSAGES and, with a non-empty value, in the es and pt files. The translate pipe
  *   falls back to the raw key, so a missing key would show up on screen as plain text.
  * - Asset paths are relative to the base href (assets/projects/...), never absolute.
+ * - The optional card theme uses valid hex colors, in-range angle and overlay, and a relative cover.
  * - The main tech stack has no versions and is fully covered by the extended stack, and every
  *   link is an https URL.
  * - getAll returns a copy of the list: reordering or emptying the result does not alter the
@@ -37,6 +38,8 @@ import { ProjectsService } from './projects.service';
  */
 
 const catalog = new ProjectsService().getAll();
+
+const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 
 const translationKeys = (project: ProjectItem): string[] => [project.shortDescription, project.fullDescription, ...project.keyFeatures, ...(project.challenges ?? [])];
 
@@ -151,6 +154,40 @@ describe('ProjectsService', () => {
       const invalid = assetPaths(project).filter((path) => !path.startsWith('assets/projects/'));
 
       expect(invalid).toEqual([]);
+    });
+
+    it.each(catalog)('$id: card theme uses valid hex colors and in-range values', (project) => {
+      const theme = project.cardTheme;
+      if (!theme) {
+        return;
+      }
+
+      const colors = [theme.accent, theme.gradient?.from, theme.gradient?.to].filter((color): color is string => !!color);
+      expect(colors.filter((color) => !HEX_COLOR.test(color))).toEqual([]);
+
+      if (theme.gradient?.angle !== undefined) {
+        expect(theme.gradient.angle).toBeGreaterThanOrEqual(0);
+        expect(theme.gradient.angle).toBeLessThanOrEqual(360);
+      }
+      if (theme.cover?.overlay !== undefined) {
+        expect(theme.cover.overlay).toBeGreaterThanOrEqual(0);
+        expect(theme.cover.overlay).toBeLessThanOrEqual(1);
+      }
+    });
+
+    it.each(catalog)('$id: card theme gradient defines both ends and the cover is a relative asset', (project) => {
+      const theme = project.cardTheme;
+      if (!theme) {
+        return;
+      }
+
+      if (theme.gradient) {
+        expect(theme.gradient.from).toBeTruthy();
+        expect(theme.gradient.to).toBeTruthy();
+      }
+      if (theme.cover) {
+        expect(theme.cover.src.startsWith('assets/projects/')).toBe(true);
+      }
     });
 
     it.each(catalog)('$id: every link is an https URL', (project) => {

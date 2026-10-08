@@ -29,6 +29,10 @@ export class ProjectsService {
         repo: 'https://github.com/diegodanielcaceres10/luma',
         demo: 'https://diegodanielcaceres10.github.io/luma/',
       },
+      cardTheme: {
+        accent: '#34d399',
+        gradient: { from: '#10302a', to: '#0b141f', angle: 145 },
+      },
     },
     {
       id: 'kora-core',
@@ -73,6 +77,10 @@ export class ProjectsService {
         repo: 'https://github.com/diegodanielcaceres10/kora-roster',
         demo: 'https://diegodanielcaceres10.github.io/kora-roster/',
       },
+      cardTheme: {
+        accent: '#f5b942',
+        gradient: { from: '#2d2410', to: '#0b141f', angle: 145 },
+      },
     },
     {
       id: 'ionic-plugin-lab',
@@ -96,6 +104,10 @@ export class ProjectsService {
       links: {
         repo: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab',
         androidAPK: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab/releases/latest/download/app-release.apk',
+      },
+      cardTheme: {
+        accent: '#8b7cf6',
+        gradient: { from: '#1f1c46', to: '#0b141f', angle: 145 },
       },
     },
     {
@@ -164,6 +176,10 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_OILGROUP_FEATURE_1', 'PROJECTS_CARD_OILGROUP_FEATURE_2', 'PROJECTS_CARD_OILGROUP_FEATURE_3', 'PROJECTS_CARD_OILGROUP_FEATURE_4', 'PROJECTS_CARD_OILGROUP_FEATURE_5', 'PROJECTS_CARD_OILGROUP_FEATURE_6', 'PROJECTS_CARD_OILGROUP_FEATURE_7'],
       challenges: ['PROJECTS_CARD_OILGROUP_CHALLENGE_1', 'PROJECTS_CARD_OILGROUP_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/oilgroup' },
+      cardTheme: {
+        accent: '#e03a3a',
+        gradient: { from: '#2e1015', to: '#0b141f', angle: 145 },
+      },
     },
     {
       id: 'angularjsonform',
@@ -188,6 +204,10 @@ export class ProjectsService {
         npm: 'https://www.npmjs.com/package/angular-json-form',
       },
       metrics: { npmDownloads: undefined },
+      cardTheme: {
+        accent: '#d9784a',
+        gradient: { from: '#2d1a10', to: '#0b141f', angle: 145 },
+      },
     },
     {
       id: 'octoautodrive',
@@ -210,6 +230,10 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_1', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_2', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_3', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_4', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_5', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_6', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_7', 'PROJECTS_CARD_OCTOAUTODRIVE_FEATURE_8'],
       challenges: ['PROJECTS_CARD_OCTOAUTODRIVE_CHALLENGE_1', 'PROJECTS_CARD_OCTOAUTODRIVE_CHALLENGE_2'],
       links: { repo: 'https://github.com/diegodanielcaceres10/octoautodrive' },
+      cardTheme: {
+        accent: '#3b82c4',
+        gradient: { from: '#0f2742', to: '#0b141f', angle: 145 },
+      },
     },
     {
       id: 'boleto',

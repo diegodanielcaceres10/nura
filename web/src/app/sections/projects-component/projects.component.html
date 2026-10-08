@@ -16,7 +16,12 @@
 
     <div class="projects__grid">
       @for (project of filteredProjects(); track project.id) {
-        <article class="projects__card" role="button" tabindex="0">
+        <article class="projects__card" [class.projects__card--themed]="!!project.cardTheme" [style]="cardThemeVars(project)" role="button" tabindex="0">
+          @if (project.cardTheme?.cover; as cover) {
+            <div class="projects__cover" aria-hidden="true">
+              <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
+            </div>
+          }
           <div class="projects__card-glow" aria-hidden="true"></div>
 
           <div class="projects__content">

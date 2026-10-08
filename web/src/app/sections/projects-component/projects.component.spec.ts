@@ -271,4 +271,79 @@ describe('ProjectsComponent', () => {
       expect(navigate).toHaveBeenCalledWith(['/', 'pt', 'work', 'without-cover']);
     });
   });
+
+  describe('card theme', () => {
+    const base: ProjectItem = {
+      id: 'base',
+      title: 'Base',
+      type: 'Web',
+      shortDescription: 'Short desc',
+      techStackMain: [],
+      status: 'COMPLETED',
+      year: 2026,
+      fullDescription: 'Full desc',
+      keyFeatures: ['Feature 1'],
+    };
+
+    const render = async (projects: ProjectItem[]): Promise<HTMLElement[]> => {
+      await TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [ProjectsComponent],
+        providers: [
+          { provide: Router, useValue: { navigate: vi.fn() } },
+          { provide: ProjectsService, useValue: { getAll: () => projects } },
+          { provide: LocaleService, useValue: { getCurrentLocale: () => 'es' } },
+        ],
+      }).compileComponents();
+      fixture = TestBed.createComponent(ProjectsComponent);
+      fixture.detectChanges();
+
+      return Array.from(fixture.nativeElement.querySelectorAll('.projects__card') as NodeListOf<HTMLElement>);
+    };
+
+    it('should leave the card untouched when the project has no theme', async () => {
+      const [card] = await render([base]);
+
+      expect(card.classList.contains('projects__card--themed')).toBe(false);
+      expect(card.getAttribute('style')).toBeNull();
+      expect(card.querySelector('.projects__cover')).toBeNull();
+    });
+
+    it('should expose the gradient and accent as CSS custom properties', async () => {
+      const [card] = await render([{ ...base, cardTheme: { accent: '#e03a3a', gradient: { from: '#2e1015', to: '#0b141f', angle: 120 } } }]);
+
+      expect(card.classList.contains('projects__card--themed')).toBe(true);
+      expect(card.style.getPropertyValue('--card-accent')).toBe('#e03a3a');
+      expect(card.style.getPropertyValue('--card-from')).toBe('#2e1015');
+      expect(card.style.getPropertyValue('--card-to')).toBe('#0b141f');
+      expect(card.style.getPropertyValue('--card-angle')).toBe('120deg');
+    });
+
+    it('should only set the properties declared in the theme', async () => {
+      const [card] = await render([{ ...base, cardTheme: { accent: '#34d399' } }]);
+
+      expect(card.style.getPropertyValue('--card-accent')).toBe('#34d399');
+      expect(card.style.getPropertyValue('--card-from')).toBe('');
+      expect(card.style.getPropertyValue('--card-angle')).toBe('');
+    });
+
+    it('should render a decorative lazy cover image with position and overlay', async () => {
+      const [card] = await render([{ ...base, cardTheme: { cover: { src: 'assets/projects/base/cover.webp', position: 'top left', overlay: 0.6 } } }]);
+      const cover = card.querySelector('.projects__cover') as HTMLElement;
+      const img = cover.querySelector('img') as HTMLImageElement;
+
+      expect(cover.getAttribute('aria-hidden')).toBe('true');
+      expect(img.getAttribute('src')).toBe('assets/projects/base/cover.webp');
+      expect(img.getAttribute('alt')).toBe('');
+      expect(img.getAttribute('loading')).toBe('lazy');
+      expect(img.style.objectPosition).toBe('top left');
+      expect(card.style.getPropertyValue('--card-overlay')).toBe('0.6');
+    });
+
+    it('should not render a cover when the theme only has a gradient', async () => {
+      const [card] = await render([{ ...base, cardTheme: { gradient: { from: '#000000', to: '#111111' } } }]);
+
+      expect(card.querySelector('.projects__cover')).toBeNull();
+    });
+  });
 });
