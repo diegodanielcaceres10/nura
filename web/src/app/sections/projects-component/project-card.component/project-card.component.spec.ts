@@ -16,7 +16,7 @@ describe('ProjectCardComponent', () => {
       title: 'Test Project',
       type: 'Web',
       shortDescription: 'TEST_DESC',
-      techStackPreview: ['Angular', 'TypeScript'],
+      techStackMain: ['Angular', 'TypeScript'],
       status: 'COMPLETED',
       year: 2026,
       fullDescription: 'TEST_FULL_DESC',

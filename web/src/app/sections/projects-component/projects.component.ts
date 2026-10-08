@@ -13,7 +13,8 @@ export interface ProjectItem {
   title: string;
   type: 'Mobile' | 'Web' | 'Fullstack' | 'Library' | 'Challenge';
   shortDescription: string;
-  techStackPreview: string[];
+  techStackMain: string[];
+  techStackExtended?: string[];
   status: 'COMPLETED' | 'IN_PROGRESS' | 'ARCHIVED';
   year: number;
   fullDescription: string;
@@ -80,11 +81,11 @@ export interface ChallengeDetails {
   topics: string[];
 }
 
-type ProjectFilterValue = 'all' | 'angular' | 'typescript' | 'ionic' | 'capacitor' | 'react' | 'node' | 'docker';
+const ALL_FILTER = 'all';
 
 interface ProjectFilter {
   label: string;
-  value: ProjectFilterValue;
+  value: string;
 }
 
 @Component({
@@ -99,32 +100,23 @@ export class ProjectsComponent {
   private readonly localeService = inject(LocaleService);
   private readonly projectsService = inject(ProjectsService);
 
-  protected readonly projectFilters: ProjectFilter[] = [
-    { label: 'Todos', value: 'all' },
-    { label: 'Angular', value: 'angular' },
-    { label: 'TypeScript', value: 'typescript' },
-    { label: 'Ionic', value: 'ionic' },
-    { label: 'Capacitor', value: 'capacitor' },
-    { label: 'React', value: 'react' },
-    { label: 'Node.js', value: 'node' },
-    { label: 'Docker', value: 'docker' },
-  ];
-
-  protected readonly activeFilter = signal<ProjectFilterValue>('all');
-
   private readonly projects = this.projectsService.getAll();
+
+  protected readonly projectFilters: ProjectFilter[] = [{ label: 'Todos', value: ALL_FILTER }, ...this.buildTechFilters(this.projects)];
+
+  protected readonly activeFilter = signal<string>(ALL_FILTER);
 
   protected readonly filteredProjects = computed(() => {
     const activeFilter = this.activeFilter();
 
-    if (activeFilter === 'all') {
+    if (activeFilter === ALL_FILTER) {
       return this.projects;
     }
 
     return this.projects.filter((project) => this.matchesProjectFilter(project, activeFilter));
   });
 
-  protected setActiveFilter(filter: ProjectFilterValue): void {
+  protected setActiveFilter(filter: string): void {
     this.activeFilter.set(filter);
   }
 
@@ -133,19 +125,39 @@ export class ProjectsComponent {
     this.router.navigate(['/', lang, 'work', project.id]);
   }
 
-  private matchesProjectFilter(project: ProjectItem, filter: Exclude<ProjectFilterValue, 'all'>): boolean {
-    const searchTermByFilter: Record<Exclude<ProjectFilterValue, 'all'>, string> = {
-      angular: 'angular',
-      typescript: 'typescript',
-      ionic: 'ionic',
-      capacitor: 'capacitor',
-      react: 'react',
-      node: 'node',
-      docker: 'docker',
-    };
+  // One filter per distinct techStackMain entry, most repeated across projects first.
+  private buildTechFilters(projects: ProjectItem[]): ProjectFilter[] {
+    const tally = new Map<string, { label: string; count: number }>();
 
-    const searchTerm = searchTermByFilter[filter];
-    const searchPattern = new RegExp(`(^|[^a-z0-9])${searchTerm}(?=$|[^a-z0-9])`, 'i');
+    for (const project of projects) {
+      const countedInProject = new Set<string>();
+
+      for (const tech of project.techStackMain) {
+        const value = this.toFilterValue(tech);
+        if (!value || countedInProject.has(value)) {
+          continue;
+        }
+
+        countedInProject.add(value);
+        const entry = tally.get(value);
+        if (entry) {
+          entry.count++;
+        } else {
+          tally.set(value, { label: tech.trim(), count: 1 });
+        }
+      }
+    }
+
+    return [...tally.entries()].sort(([, a], [, b]) => b.count - a.count || a.label.localeCompare(b.label, 'en')).map(([value, { label }]) => ({ label, value }));
+  }
+
+  private toFilterValue(tech: string): string {
+    return tech.trim().toLowerCase();
+  }
+
+  private matchesProjectFilter(project: ProjectItem, filter: string): boolean {
+    const escaped = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const searchPattern = new RegExp(`(^|[^a-z0-9])${escaped}(?=$|[^a-z0-9])`, 'i');
 
     return this.getProjectSearchTerms(project).some((term) => searchPattern.test(term));
   }
@@ -153,6 +165,6 @@ export class ProjectsComponent {
   private getProjectSearchTerms(project: ProjectItem): string[] {
     const techStackFull = project.techStackFull?.flatMap((category) => [category.category, ...category.items]) ?? [];
 
-    return [...project.techStackPreview, ...techStackFull];
+    return [...project.techStackMain, ...(project.techStackExtended ?? []), ...techStackFull];
   }
 }

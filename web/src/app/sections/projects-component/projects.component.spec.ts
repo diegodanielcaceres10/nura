@@ -48,7 +48,22 @@ describe('ProjectsComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
     const filters = Array.from(native.querySelectorAll<HTMLButtonElement>('.projects__filter')).map((filter) => filter.textContent?.trim());
 
-    expect(filters).toEqual(['Todos', 'Angular', 'TypeScript', 'Ionic', 'Capacitor', 'React', 'Node.js', 'Docker']);
+    expect(filters).toEqual(['Todos', 'Angular', 'TypeScript', 'Express', 'Node.js', 'MySQL', 'Capacitor', 'Docker', 'Flutter', 'Ionic', 'npm', 'PostgreSQL', 'Prisma', 'React', 'RxJS', 'SCSS', 'Socket.IO', 'SSG', 'Supabase', 'Vitest']);
+  });
+
+  it('should expose one filter for every distinct techStackMain entry', () => {
+    const previewTechs = new Set(component['projects'].flatMap((project) => project.techStackMain.map((tech) => tech.toLowerCase())));
+    const filterValues = component['projectFilters'].filter((filter) => filter.value !== 'all').map((filter) => filter.value);
+
+    expect(new Set(filterValues)).toEqual(previewTechs);
+    expect(filterValues).toHaveLength(previewTechs.size);
+  });
+
+  it('should not create filters from techStackExtended entries', () => {
+    const labels = component['projectFilters'].map((filter) => filter.label);
+
+    expect(labels).not.toContain('Angular 21');
+    expect(labels).not.toContain('Ionic 8');
   });
 
   it('should filter project cards by selected technology', () => {
@@ -59,6 +74,14 @@ describe('ProjectsComponent', () => {
 
     expect(component['filteredProjects']().map((project) => project.id)).toEqual(['kora-roster']);
     expect(cards.length).toBe(1);
+  });
+
+  it('should match a general filter against versioned technologies in techStackExtended', () => {
+    component['setActiveFilter']('angular');
+
+    const projectIds = component['filteredProjects']().map((project) => project.id);
+
+    expect(projectIds).toEqual(['luma', 'ionic-plugin-lab', 'riu-frontend-diego-daniel-caceres', 'nura', 'oilgroup', 'angularjsonform', 'octoautodrive']);
   });
 
   it('should match technologies declared only in the full technology stack', () => {
@@ -160,14 +183,14 @@ describe('ProjectsComponent', () => {
       title: 'Base',
       type: 'Web',
       shortDescription: 'Short desc',
-      techStackPreview: [],
+      techStackMain: [],
       status: 'COMPLETED',
       year: 2026,
       fullDescription: 'Full desc',
       keyFeatures: ['Feature 1'],
     };
-    const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', techStackPreview: ['Ionic'] };
-    const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', techStackPreview: ['Angular'] };
+    const withCover: ProjectItem = { ...baseProject, id: 'with-cover', title: 'With Cover', techStackMain: ['Ionic'] };
+    const withoutCover: ProjectItem = { ...baseProject, id: 'without-cover', title: 'Without Cover', techStackMain: ['Angular'] };
     let navigate: ReturnType<typeof vi.fn>;
     let getCurrentLocale: ReturnType<typeof vi.fn>;
 
@@ -199,8 +222,40 @@ describe('ProjectsComponent', () => {
       expect(fixture.nativeElement.querySelector('.projects__empty')).toBeNull();
     });
 
+    it('should order filters by repetition, then alphabetically, counting each project once', async () => {
+      const projects: ProjectItem[] = [
+        { ...baseProject, id: 'a', techStackMain: ['Vue', 'Vue', 'Angular'] },
+        { ...baseProject, id: 'b', techStackMain: ['react', 'Angular'] },
+        { ...baseProject, id: 'c', techStackMain: ['Angular', 'Vue', 'Zod'] },
+      ];
+      await TestBed.resetTestingModule();
+      await TestBed.configureTestingModule({
+        imports: [ProjectsComponent],
+        providers: [
+          { provide: Router, useValue: { navigate } },
+          { provide: ProjectsService, useValue: { getAll: () => projects } },
+          { provide: LocaleService, useValue: { getCurrentLocale } },
+        ],
+      }).compileComponents();
+      fixture = TestBed.createComponent(ProjectsComponent);
+      fixture.detectChanges();
+
+      const labels = Array.from(fixture.nativeElement.querySelectorAll('.projects__filter') as NodeListOf<HTMLButtonElement>).map((b) => b.textContent?.trim());
+
+      expect(labels).toEqual(['Todos', 'Angular', 'Vue', 'react', 'Zod']);
+    });
+
+    it('should show only the projects that use the clicked technology', () => {
+      clickFilter('Ionic');
+
+      const titles = Array.from(fixture.nativeElement.querySelectorAll('.project-card__title') as NodeListOf<HTMLElement>).map((t) => t.textContent?.trim());
+
+      expect(titles).toEqual(['With Cover']);
+    });
+
     it('should show the empty state when no project matches the selected filter', () => {
-      clickFilter('Docker');
+      component['setActiveFilter']('docker');
+      fixture.detectChanges();
 
       expect(fixture.nativeElement.querySelectorAll('.projects__card').length).toBe(0);
       expect(fixture.nativeElement.querySelector('.projects__empty')).not.toBeNull();

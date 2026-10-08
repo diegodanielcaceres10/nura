@@ -118,8 +118,22 @@ describe('ProjectsService', () => {
 
     it.each(catalog)('$id: has a title, a tech stack preview and key features', (project) => {
       expect(project.title.trim()).not.toBe('');
-      expect(project.techStackPreview.length).toBeGreaterThan(0);
+      expect(project.techStackMain.length).toBeGreaterThan(0);
       expect(project.keyFeatures.length).toBeGreaterThan(0);
+    });
+
+    it.each(catalog)('$id: keeps versions out of the tech stack preview', (project) => {
+      for (const tech of project.techStackMain) {
+        expect(tech).not.toMatch(/\d/);
+      }
+    });
+
+    it.each(catalog)('$id: does not repeat a preview technology in the extended stack', (project) => {
+      const preview = project.techStackMain.map((tech) => tech.toLowerCase());
+
+      for (const tech of project.techStackExtended ?? []) {
+        expect(preview).not.toContain(tech.toLowerCase());
+      }
     });
 
     it.each(catalog)('$id: only uses translation keys that exist in MESSAGES', (project) => {

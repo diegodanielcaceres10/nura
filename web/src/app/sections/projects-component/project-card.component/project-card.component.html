@@ -25,7 +25,7 @@
   <p class="project-card__description">{{ (fullDescription() ? project().fullDescription : project().shortDescription) | translate }}</p>
 
   <div class="project-card__techs">
-    @for (tech of project().techStackPreview; track tech) {
+    @for (tech of project().techStackExtended; track tech) {
       <span class="project-card__tech">{{ tech }}</span>
     }
   </div>
