@@ -2,6 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ExperiencesComponent } from './experiences.component';
 
+/**
+ * ExperiencesComponent spec.
+ *
+ * Guarantees:
+ * - The component and its section/title render.
+ * - One card per company (Cesla, Apex) is shown, without a duration label.
+ * - Every responsibility key resolves to real text (no empty or "-" bullets),
+ *   and each card renders the expected number of bullets (Cesla 10, Apex 8).
+ * - The Cesla stats stay aligned with its achievements.
+ * - Each card shows its technology stack, and the Cesla role and period are correct.
+ */
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
   let fixture: ComponentFixture<ExperiencesComponent>;
@@ -49,7 +60,7 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([10, 7]);
+    expect(descriptionCounts).toEqual([10, 8]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
   });
 
