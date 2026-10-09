@@ -59,6 +59,8 @@
 
     @include ds.lg {
       padding: 0 var(--spacing-md);
+      justify-content: flex-end;
+      gap: var(--spacing-md);
     }
   }
 
@@ -68,6 +70,10 @@
     align-items: center;
     gap: var(--spacing-sm);
     flex-shrink: 0;
+
+    @include ds.lg {
+      flex: 1;
+    }
 
     &-icon-wrapper {
       position: relative;
@@ -375,7 +381,7 @@
       // Inside the full-screen mobile menu the list flows inline, centered
       @include ds.lg {
         position: static;
-        margin-top: var(--spacing-sm);
+        margin-top: var(--spacing-3xl);
         min-width: 220px;
       }
     }
