@@ -45,4 +45,19 @@ export class WorkPage implements OnInit {
     const lang = this.localeService.getCurrentLocale();
     this.router.navigate(['/', lang], { fragment: 'projects' });
   }
+
+  // Exposes the theme as CSS custom properties so the SCSS stays the single source of styling.
+  protected cardThemeVars(project: ProjectItem | null): Record<string, string> {
+    if (!project) return {};
+    const { accent, gradient, cover } = project.cardTheme ?? {};
+    const vars: Record<string, string | undefined> = {
+      '--card-accent': accent,
+      '--card-from': gradient?.from,
+      '--card-to': gradient?.to,
+      '--card-angle': gradient?.angle === undefined ? undefined : `${gradient.angle}deg`,
+      '--card-overlay': cover?.overlay === undefined ? undefined : String(cover.overlay),
+    };
+
+    return Object.fromEntries(Object.entries(vars).filter((entry): entry is [string, string] => entry[1] !== undefined));
+  }
 }

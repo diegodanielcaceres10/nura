@@ -45,7 +45,8 @@
       right: -60px;
       width: 380px;
       height: 380px;
-      background: radial-gradient(circle, rgba(10, 141, 171, 0.28) 0%, rgba(33, 46, 62, 0.1) 60%, transparent 80%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 35%, transparent) 0%, rgba(33, 46, 62, 0.1) 60%, transparent 80%);
+      transition: background var(--transition-base);
     }
 
     &--bottom {
@@ -89,10 +90,10 @@
 
     &:hover {
       background: var(--primary-color-rgba);
-      border-color: var(--border-color-accent);
+      border-color: var(--card-accent, var(--border-color-accent));
       color: var(--white-color);
       transform: translateX(-4px);
-      box-shadow: 0 4px 14px rgba(10, 141, 171, 0.25);
+      box-shadow: 0 4px 14px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 25%, transparent);
 
       i {
         transform: translateX(-2px);
@@ -172,6 +173,48 @@
     height: fit-content;
 
     animation: workFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base),
+      background var(--transition-base);
+
+    &:hover {
+      border-color: var(--card-accent, var(--border-color-accent));
+      box-shadow:
+        0 20px 40px -12px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 22%, transparent),
+        0 0 0 1px var(--card-accent, var(--border-color-accent));
+
+      .work__aside-glow {
+        opacity: 0.55;
+        transform: scale(1.2);
+      }
+
+      .work__cover img {
+        transform: scale(1.05);
+        filter: brightness(0.2) saturate(1.2);
+      }
+    }
+
+    &--themed {
+      background: linear-gradient(var(--card-angle, 145deg), var(--card-from, rgba(17, 29, 44, 0.75)) 0%, var(--card-to, rgba(11, 20, 31, 0.95)) 100%);
+      border-color: color-mix(in srgb, var(--card-accent, transparent) 30%, var(--border-color));
+
+      &:hover {
+        border-color: var(--card-accent, var(--border-color-accent));
+        box-shadow:
+          0 20px 40px -12px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 30%, transparent),
+          0 0 0 1px var(--card-accent, var(--border-color-accent));
+      }
+
+      .work__aside-glow {
+        background: radial-gradient(circle, color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 40%, transparent) 0%, transparent 75%);
+      }
+    }
+
+    app-project-card-component {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   &__aside-glow {
@@ -185,6 +228,30 @@
     filter: blur(35px);
     opacity: 0.25;
     pointer-events: none;
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  &__cover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      filter: brightness(0.14) saturate(1.1);
+      transition:
+        transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter var(--transition-base);
+    }
   }
 
   &__logo {
@@ -241,10 +308,10 @@
 
     &:hover {
       background: var(--primary-color-rgba);
-      border-color: var(--border-color-accent);
+      border-color: var(--card-accent, var(--border-color-accent));
       color: var(--white-color);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(10, 141, 171, 0.2);
+      box-shadow: 0 4px 12px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 20%, transparent);
     }
 
     &--android {
@@ -287,10 +354,10 @@
     }
 
     &:hover {
-      border-color: var(--border-color-accent);
+      border-color: var(--card-accent, var(--border-color-accent));
       box-shadow:
-        0 16px 36px -10px rgba(10, 141, 171, 0.18),
-        0 0 0 1px var(--border-color-accent);
+        0 16px 36px -10px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 18%, transparent),
+        0 0 0 1px var(--card-accent, var(--border-color-accent));
     }
   }
 
@@ -311,8 +378,8 @@
       width: 6px;
       height: 6px;
       border-radius: var(--radius-full);
-      background: var(--accent-color);
-      box-shadow: 0 0 8px rgba(246, 113, 22, 0.6);
+      background: var(--card-accent, var(--accent-color));
+      box-shadow: 0 0 8px color-mix(in srgb, var(--card-accent, var(--accent-color)) 60%, transparent);
       flex-shrink: 0;
     }
   }
@@ -335,7 +402,7 @@
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--accent-color);
+    color: var(--card-accent, var(--accent-color));
     margin: 0;
   }
 
@@ -358,7 +425,7 @@
 
       &:hover {
         background: var(--primary-color-rgba);
-        border-color: rgba(10, 141, 171, 0.3);
+        border-color: color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 35%, transparent);
       }
     }
   }
@@ -378,7 +445,7 @@
       line-height: 1.7;
 
       &::marker {
-        color: var(--accent-color);
+        color: var(--card-accent, var(--accent-color));
       }
     }
   }
@@ -420,8 +487,8 @@
 
     &:hover {
       transform: scale(1.02);
-      border-color: var(--border-color-accent);
-      box-shadow: 0 12px 30px -8px rgba(10, 141, 171, 0.25);
+      border-color: var(--card-accent, var(--border-color-accent));
+      box-shadow: 0 12px 30px -8px color-mix(in srgb, var(--card-accent, rgb(10, 141, 171)) 25%, transparent);
     }
 
     & img {
@@ -450,7 +517,8 @@
   .work__section,
   .work__back,
   .work__action,
-  .work__photo {
+  .work__photo,
+  .work__cover img {
     animation: none;
     transition: none;
   }

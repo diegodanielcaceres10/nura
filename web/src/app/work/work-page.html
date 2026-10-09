@@ -2,7 +2,7 @@
 
 <main class="work">
   <section class="work__page">
-    <div class="work__container">
+    <div class="work__container" [style]="cardThemeVars(project())">
       <!-- Atmospheric Ambient Lighting -->
       <div class="work__glow work__glow--top" aria-hidden="true"></div>
       <div class="work__glow work__glow--bottom" aria-hidden="true"></div>
@@ -21,7 +21,12 @@
 
       @if (project(); as p) {
         <div class="work__content">
-          <div class="work__aside">
+          <div class="work__aside" [class.work__aside--themed]="!!p.cardTheme" [style]="cardThemeVars(p)">
+            @if (p.cardTheme?.cover; as cover) {
+              <div class="work__cover" aria-hidden="true">
+                <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
+              </div>
+            }
             <div class="work__aside-glow" aria-hidden="true"></div>
             @if (p.logo) {
               <div class="work__logo">

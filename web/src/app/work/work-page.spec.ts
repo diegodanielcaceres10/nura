@@ -38,6 +38,17 @@ const fullProject: ProjectItem = {
   logo: 'assets/projects/full-project/logo.png',
 };
 
+const themedProject: ProjectItem = {
+  ...mockProject,
+  id: 'themed-project',
+  title: 'Themed Project',
+  cardTheme: {
+    accent: '#34d399',
+    gradient: { from: '#10302a', to: '#0b141f', angle: 145 },
+    cover: { src: '/img/cover.png', position: 'center', overlay: 0.2 },
+  },
+};
+
 async function createPage(routeId: string | null, projects: ProjectItem[]): Promise<ComponentFixture<WorkPage>> {
   await TestBed.resetTestingModule();
   await TestBed.configureTestingModule({
@@ -237,6 +248,33 @@ describe('WorkPage', () => {
 
       expect(images.map((i) => i.getAttribute('src'))).toEqual(['/img/1.png', '/img/2.png', '/img/3.png']);
       images.forEach((i) => expect(i.getAttribute('alt')).toBe('Full Project'));
+    });
+  });
+
+  describe('cardTheme handling', () => {
+    it('should not apply themed class and cover when project has no cardTheme', () => {
+      const aside = fixture.nativeElement.querySelector('.work__aside') as HTMLElement;
+      const cover = fixture.nativeElement.querySelector('.work__cover');
+
+      expect(aside.classList.contains('work__aside--themed')).toBe(false);
+      expect(cover).toBeNull();
+    });
+
+    it('should apply themed class, cover image, and CSS custom properties when project has cardTheme', async () => {
+      const f = await createPage('themed-project', [themedProject]);
+      const aside = f.nativeElement.querySelector('.work__aside') as HTMLElement;
+      const cover = f.nativeElement.querySelector('.work__cover img') as HTMLImageElement;
+      const container = f.nativeElement.querySelector('.work__container') as HTMLElement;
+
+      expect(aside.classList.contains('work__aside--themed')).toBe(true);
+      expect(cover).not.toBeNull();
+      expect(cover.getAttribute('src')).toBe('/img/cover.png');
+      expect(container.style.getPropertyValue('--card-accent')).toBe('#34d399');
+      expect(aside.style.getPropertyValue('--card-accent')).toBe('#34d399');
+    });
+
+    it('should return empty object when project is null', () => {
+      expect(component['cardThemeVars'](null)).toEqual({});
     });
   });
 });
