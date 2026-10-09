@@ -98,5 +98,31 @@
         }
       </ul>
     </div>
+
+    <section class="home__skills-section" aria-labelledby="home-skills-title">
+      <header class="home__skills-header">
+        <span class="home__skills-eyebrow" aria-hidden="true">{{ 'HOME_SKILLS_EYEBROW' | translate }}</span>
+        <h2 id="home-skills-title" class="home__skills-title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
+      </header>
+
+      <div class="home__skills-grid">
+        @for (category of skillCategories; track category.id) {
+          <article class="home__skill-card">
+            <div class="home__skill-card-glow" aria-hidden="true"></div>
+
+            <header class="home__skill-card-header">
+              <span class="home__skill-card-dot" aria-hidden="true"></span>
+              <h3 class="home__skill-card-title">{{ category.labelKey | translate }}</h3>
+            </header>
+
+            <ul class="home__skill-chips">
+              @for (skill of category.skills; track skill) {
+                <li class="home__skill-chip">{{ skill }}</li>
+              }
+            </ul>
+          </article>
+        }
+      </div>
+    </section>
   </div>
 </section>

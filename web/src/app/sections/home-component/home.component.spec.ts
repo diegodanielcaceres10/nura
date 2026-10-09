@@ -97,4 +97,26 @@ describe('HomeComponent', () => {
 
     expect(badges.map((badge) => badge.alt)).toEqual(['Angular', 'Ionic', 'Typescript', 'Cloud']);
   });
+
+  it('should render the technical skills section with eyebrow, title, and all categories', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const title = native.querySelector('h2.home__skills-title');
+    const eyebrow = native.querySelector('.home__skills-eyebrow');
+    const categories = native.querySelectorAll('.home__skill-card');
+    const categoryTitles = Array.from(native.querySelectorAll('.home__skill-card-title')).map((el) => el.textContent?.trim());
+    const chips = Array.from(native.querySelectorAll('.home__skill-chip')).map((chip) => chip.textContent?.trim());
+
+    expect(title).not.toBeNull();
+    expect(eyebrow).not.toBeNull();
+    expect(categories).toHaveLength(8);
+    expect(categoryTitles).toHaveLength(8);
+    expect(chips).toContain('Angular');
+    expect(chips).toContain('Ionic');
+    expect(chips).toContain('Vitest');
+    expect(chips).toContain('Microfrontends');
+    expect(chips).toContain('Node.js');
+    expect(chips).toContain('Git');
+    expect(chips).toContain('Claude Code');
+    expect(chips).toContain('Scrum');
+  });
 });
