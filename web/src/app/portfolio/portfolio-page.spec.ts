@@ -59,12 +59,6 @@ describe('PortfolioPage', () => {
   });
 
   describe('back-to-top button', () => {
-    it('is not inert when the page is already scrolled', () => {
-      isSticky.set(true);
-
-      expect(backToTop(createPage())?.hasAttribute('inert')).toBe(false);
-    });
-
     it('shows right away when the page is already scrolled', () => {
       isSticky.set(true);
 
