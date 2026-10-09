@@ -207,7 +207,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: var(--spacing-2xl);
+      gap: clamp(var(--spacing-md), 4vh, var(--spacing-2xl));
       background: radial-gradient(circle at 50% 25%, rgba(10, 141, 171, 0.16) 0%, transparent 60%), radial-gradient(circle at 80% 75%, rgba(246, 113, 22, 0.09) 0%, transparent 50%), rgba(11, 20, 31, 0.95);
       backdrop-filter: blur(28px);
       -webkit-backdrop-filter: blur(28px);
@@ -233,7 +233,7 @@
 
     @include ds.lg {
       flex-direction: column;
-      gap: var(--spacing-xl);
+      gap: clamp(var(--spacing-xs), 2.5vh, var(--spacing-xl));
     }
 
     a {
@@ -378,10 +378,9 @@
       animation: langMenuIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
       z-index: var(--z-sticky);
 
-      // Inside the full-screen mobile menu the list flows inline, centered
       @include ds.lg {
         position: static;
-        margin-top: var(--spacing-3xl);
+        margin-top: clamp(var(--spacing-md), 5vh, var(--spacing-3xl));
         min-width: 220px;
       }
     }

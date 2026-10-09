@@ -126,13 +126,22 @@ describe('HeaderComponent', () => {
 
     it('should toggle the menu when a navigation link is clicked', () => {
       const links = fixture.nativeElement.querySelectorAll('.header__container a') as NodeListOf<HTMLAnchorElement>;
-      expect(links.length).toBe(5);
+      expect(links.length).toBe(6);
 
       links.forEach((link) => {
         const before = component.isMenuOpen();
         link.click();
         expect(component.isMenuOpen()).toBe(!before);
       });
+    });
+  });
+
+  describe('home link', () => {
+    it('should render the home link first in the primary navigation', () => {
+      const first = fixture.nativeElement.querySelector('#primary-navigation a') as HTMLAnchorElement;
+
+      expect(first.textContent?.trim()).toBe('Home');
+      expect(first.getAttribute('href')).toBe('/pt#home');
     });
   });
 

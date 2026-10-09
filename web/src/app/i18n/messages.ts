@@ -1,4 +1,5 @@
 export const MESSAGES: Record<string, string> = {
+  MENU_HOME: $localize`:@@MENU_HOME:Home`,
   MENU_ABOUT_ME: $localize`:@@MENU_ABOUT_ME:About me`,
   MENU_EXPERIENCE: $localize`:@@MENU_EXPERIENCE:Experience`,
   MENU_RECOMMENDATIONS: $localize`:@@MENU_RECOMMENDATIONS:Recommendations`,
