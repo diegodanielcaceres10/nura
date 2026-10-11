@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CaseStudyComponent } from './case-study.component';
 
@@ -11,6 +12,7 @@ describe('CaseStudyComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [CaseStudyComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CaseStudyComponent);
@@ -96,5 +98,44 @@ describe('CaseStudyComponent', () => {
 
     expect(serialNumbers).toHaveLength(5);
     expect(icons).toHaveLength(5);
+  });
+});
+
+describe('CaseStudyComponent links', () => {
+  const SLUGS = ['legacy-codebase-modernization', 'cicd-pipeline-automation', 'recurring-bugs-reduction', 'legacy-mobile-migration', 'cloud-storage-migration'];
+
+  beforeEach(async () => {
+    vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => (typeof message === 'string' ? message : (message[0] ?? '')));
+    document.documentElement.lang = 'en';
+
+    await TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [CaseStudyComponent],
+      providers: [provideRouter([])],
+    }).compileComponents();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    document.documentElement.lang = '';
+  });
+
+  it('links every card to its case page', () => {
+    const fixture = TestBed.createComponent(CaseStudyComponent);
+    fixture.detectChanges();
+    const links = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('.case-study__footer a.case-study__link'));
+
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(SLUGS.map((slug) => `/en/case-studies/${slug}`));
+  });
+
+  it('shows the read-more label on every link', () => {
+    const fixture = TestBed.createComponent(CaseStudyComponent);
+    fixture.detectChanges();
+    const links = Array.from((fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('a.case-study__link'));
+
+    expect(links).toHaveLength(5);
+    for (const link of links) {
+      expect(link.textContent).toContain('Read the case');
+    }
   });
 });

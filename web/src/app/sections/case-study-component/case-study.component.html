@@ -44,8 +44,12 @@
             }
           </div>
 
-          <!-- Interactive Action Link (Preserves item.link redirection flow) -->
-          <div class="case-study__footer"></div>
+          <div class="case-study__footer">
+            <a class="case-study__link" [routerLink]="['/', locale, 'case-studies', item.slug]">
+              {{ 'CASE_STUDY_READ_MORE' | translate }}
+              <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+            </a>
+          </div>
         </article>
       }
     </div>

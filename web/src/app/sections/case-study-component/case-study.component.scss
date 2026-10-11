@@ -293,6 +293,38 @@
     margin-top: var(--spacing-md);
     padding-top: var(--spacing-sm);
   }
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--accent-color);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+
+    i {
+      transition: transform var(--transition-fast);
+    }
+
+    &:hover {
+      color: var(--white-color);
+
+      i {
+        transform: translateX(4px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+  }
 }
 
 @keyframes caseStudyFadeInUp {

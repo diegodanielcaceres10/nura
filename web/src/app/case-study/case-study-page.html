@@ -1,0 +1,71 @@
+<app-header-component />
+
+<main class="case-page">
+  <section class="case-page__page">
+    <div class="case-page__container">
+      <div class="case-page__glow case-page__glow--top" aria-hidden="true"></div>
+      <div class="case-page__glow case-page__glow--bottom" aria-hidden="true"></div>
+
+      <button class="case-page__back" type="button" (click)="goBack()">
+        <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i>
+        {{ 'WORK_BACK' | translate }}
+      </button>
+
+      @if (notFound()) {
+        <div class="case-page__not-found">
+          <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+          <p>{{ 'CASE_DETAIL_NOT_FOUND' | translate }}</p>
+        </div>
+      }
+
+      @if (caseStudy(); as c) {
+        <article class="case-page__content">
+          <header class="case-page__hero">
+            <div class="case-page__meta">
+              <span class="case-page__tag">{{ c.category }}</span>
+              <span class="case-page__number" aria-hidden="true">{{ c.number }}</span>
+            </div>
+            <h1 class="case-page__title">{{ c.title | translate }}</h1>
+            <p class="case-page__subtitle">{{ c.subtitle }}</p>
+
+            <div class="case-page__metrics">
+              @for (metric of c.metrics; track metric.label) {
+                <div class="case-page__metric">
+                  <div class="case-page__metric-icon" aria-hidden="true">
+                    <i [class]="metric.icon"></i>
+                  </div>
+                  <div class="case-page__metric-text">
+                    <span class="case-page__metric-value">{{ metric.value }}</span>
+                    <span class="case-page__metric-label">{{ metric.label | translate }}</span>
+                  </div>
+                </div>
+              }
+            </div>
+          </header>
+
+          <div class="case-page__sections">
+            @for (section of sections(); track section.key) {
+              <section class="case-page__section" [attr.data-section]="section.key">
+                <h2 class="case-page__section-label">{{ section.label | translate }}</h2>
+                <p class="case-page__text">{{ section.copy | translate }}</p>
+              </section>
+            }
+
+            @if (c.detail.stack.length) {
+              <section class="case-page__section" data-section="stack">
+                <h2 class="case-page__section-label">{{ 'CASE_DETAIL_LABEL_STACK' | translate }}</h2>
+                <div class="case-page__techs">
+                  @for (tech of c.detail.stack; track tech) {
+                    <small>{{ tech }}</small>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </section>
+
+  <app-footer-component />
+</main>

@@ -79,4 +79,60 @@ describe('MESSAGES', () => {
       expect(MESSAGES['PROJECTS_CARD_KORA_ROSTER_SHORT_DESC']).not.toMatch(/backend/i);
     });
   });
+
+  describe('case study figures keep their basis', () => {
+    const CHECKS: [string, Record<string, string[]>][] = [
+      ['CASE_DETAIL_LEGACY_CODEBASE_MODERNIZATION_RESULTS', { en: ['feedback', 'average'], es: ['feedback', 'promedio'], pt: ['feedback', 'média'] }],
+      ['CASE_DETAIL_CICD_PIPELINE_AUTOMATION_RESULTS', { en: ['average', 'Wednesday'], es: ['promedio', 'miércoles'], pt: ['média', 'quarta'] }],
+      ['CASE_DETAIL_RECURRING_BUGS_REDUCTION_RESULTS', { en: ['board'], es: ['tablero'], pt: ['quadro'] }],
+      ['CASE_DETAIL_CLOUD_STORAGE_MIGRATION_RESULTS', { en: ['feedback'], es: ['feedback'], pt: ['feedback'] }],
+    ];
+    const TEXTS: Record<string, Record<string, string>> = { en: MESSAGES, es, pt };
+
+    it.each(CHECKS)('%s keeps its qualifiers in en, es and pt', (key, expected) => {
+      for (const locale of ['en', 'es', 'pt']) {
+        const text = TEXTS[locale][key] ?? '';
+        for (const word of expected[locale]) {
+          expect(text, `${locale}: ${key} should mention "${word}"`).toContain(word);
+        }
+      }
+    });
+  });
+
+  describe('card and home copy matches the case pages', () => {
+    it('does not claim personal validation in the storage card, and attributes the figure', () => {
+      expect(MESSAGES['CASE_STUDY_03_DESCRIPTION']).not.toContain('I checked');
+      expect(MESSAGES['CASE_STUDY_03_DESCRIPTION']).toContain('tech management');
+      expect(es['CASE_STUDY_03_DESCRIPTION']).not.toContain('Verifiqué');
+      expect(pt['CASE_STUDY_03_DESCRIPTION']).not.toContain('Verifiquei');
+    });
+
+    it("attributes the 60% to the lead's feedback", () => {
+      expect(MESSAGES['CASE_STUDY_04_DESCRIPTION']).toContain('lead');
+      expect(es['CASE_STUDY_04_DESCRIPTION']).toContain('líder');
+      expect(pt['CASE_STUDY_04_DESCRIPTION']).toContain('líder');
+    });
+
+    it('states the tech lead role in the Ionic card', () => {
+      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('tech lead');
+    });
+
+    it('scopes the bug figure to recurring bugs and its source, without claiming the tech lead role', () => {
+      expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('recurring');
+      expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('Azure DevOps');
+      expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).not.toContain('Tech Lead');
+      expect(es['CASE_STUDY_05_DESCRIPTION']).not.toContain('Tech Lead');
+      expect(pt['CASE_STUDY_05_DESCRIPTION']).not.toContain('Tech Lead');
+    });
+
+    it('qualifies the CI/CD figures', () => {
+      expect(MESSAGES['CASE_STUDY_02_DESCRIPTION']).toContain('about');
+    });
+
+    it('qualifies the home metrics that are averages or estimates', () => {
+      expect(MESSAGES['HOME_METRIC_01_LABEL']).toContain('Average');
+      expect(MESSAGES['HOME_METRIC_04_LABEL']).toContain('Estimated');
+      expect(MESSAGES['HOME_METRIC_03_LABEL']).toContain('traffic cost');
+    });
+  });
 });
