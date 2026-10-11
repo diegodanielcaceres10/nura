@@ -1,3 +1,10 @@
+/**
+ * CaseStudyComponent spec.
+ *
+ * Guarantees: the section renders the five case studies in importance order, each with its
+ * category, subtitle, title, description and metrics, and every card links to its case page.
+ * Validates: DOM output only (headings, texts, metric values, aria-hidden decorations, hrefs).
+ */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -64,7 +71,7 @@ describe('CaseStudyComponent', () => {
   it('should list the case studies from most to least important', () => {
     const native = fixture.nativeElement as HTMLElement;
     const titles = Array.from(native.querySelectorAll('h3.case-study__title')).map((title) => title.textContent?.trim() ?? '');
-    const expectedOrder = ['Adapting a Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by 50%', 'Migrating a Mobile App to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
+    const expectedOrder = ['Adapting the Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by 50%', 'Migrating a Mobile App to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
 
     expect(titles).toHaveLength(expectedOrder.length);
     expectedOrder.forEach((expectedTitle, index) => {
