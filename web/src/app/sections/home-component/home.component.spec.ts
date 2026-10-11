@@ -9,10 +9,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { LocaleService } from '../../services/locale/locale.service';
+// Static import on purpose: specs run without isolation, so importing the component under the $localize stub
+// would evaluate MESSAGES with raw ICU ids and break every spec that runs after this one.
+import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
-  let component: unknown;
-  let fixture: ComponentFixture<unknown>;
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
   let localeService: { getCurrentLocale: ReturnType<typeof vi.fn> };
 
   beforeEach(async () => {
@@ -21,8 +24,6 @@ describe('HomeComponent', () => {
     localeService = {
       getCurrentLocale: vi.fn(() => 'en'),
     };
-
-    const { HomeComponent } = await import('./home.component');
 
     await TestBed.configureTestingModule({
       imports: [HomeComponent],
