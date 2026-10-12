@@ -3,7 +3,7 @@
  *
  * Guarantees: the hero keeps its heading, localized CTA links, images and tech badges,
  * and shows the headline case-study figures without rendering the case studies themselves.
- * The CI/CD and codebase metrics link to their case pages without altering the metric layout.
+ * The CI/CD, recurring bugs and codebase metrics link to their case pages without altering the metric layout.
  * Validates: DOM output only (headings, hrefs, alt texts, metric values and labels).
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -94,12 +94,12 @@ describe('HomeComponent', () => {
     expect(items.every((item) => (item.querySelector('.home__metric-label')?.textContent ?? '').trim().length > 0)).toBe(true);
   });
 
-  it('should link only the CI/CD and codebase metrics to their localized case pages', () => {
+  it('should link the CI/CD, recurring bugs and codebase metrics to their localized case pages', () => {
     const native = fixture.nativeElement as HTMLElement;
     const items = Array.from(native.querySelectorAll('.home__metric'));
     const hrefs = items.map((item) => item.querySelector<HTMLAnchorElement>('a.home__metric-link')?.getAttribute('href') ?? null);
 
-    expect(hrefs).toEqual(['/en/case-studies/cicd-pipeline-automation', null, null, '/en/case-studies/legacy-codebase-modernization']);
+    expect(hrefs).toEqual(['/en/case-studies/cicd-pipeline-automation', '/en/case-studies/recurring-bugs-reduction', null, '/en/case-studies/legacy-codebase-modernization']);
   });
 
   it('should name each metric link with its figure, its label and the read-case action', () => {
@@ -108,11 +108,12 @@ describe('HomeComponent', () => {
     const names = links.map((link) => link.getAttribute('aria-label') ?? '');
     const arrows = Array.from(native.querySelectorAll('.home__metric-arrow'));
 
-    expect(names).toHaveLength(2);
+    expect(names).toHaveLength(3);
     expect(names[0]).toContain('60 min → 5 min');
-    expect(names[1]).toContain('-60%');
+    expect(names[1]).toContain('-50%');
+    expect(names[2]).toContain('-60%');
     expect(names.every((name) => name.includes('Read the case'))).toBe(true);
-    expect(arrows).toHaveLength(2);
+    expect(arrows).toHaveLength(3);
     expect(arrows.every((arrow) => arrow.getAttribute('aria-hidden') === 'true')).toBe(true);
   });
 
@@ -120,6 +121,7 @@ describe('HomeComponent', () => {
     const cases = TestBed.inject(CaseStudiesService);
 
     expect(cases.getBySlug('cicd-pipeline-automation')).toBeDefined();
+    expect(cases.getBySlug('recurring-bugs-reduction')).toBeDefined();
     expect(cases.getBySlug('legacy-codebase-modernization')).toBeDefined();
   });
 
