@@ -65,7 +65,7 @@ describe('CaseStudyComponent', () => {
     const subtitles = Array.from(native.querySelectorAll('.case-study__subtitle')).map((subtitle) => subtitle.textContent?.trim());
 
     expect(categories).toEqual(['Web / Backend', 'Infrastructure', 'Team / Process', 'Mobile', 'Infrastructure']);
-    expect(subtitles).toEqual(['US workflow → LATAM workflow', '1h → 5m', 'Semester → semester', 'Ionic 3 + Cordova → Ionic 8 + Capacitor', 'Azure Blob Storage → Cloudflare R2']);
+    expect(subtitles).toEqual(['US workflow → LATAM workflow', '1h → 5m', 'Ad hoc delivery → Standardized review', 'Ionic 3 + Cordova → Ionic 8 + Capacitor', 'Azure Blob Storage → Cloudflare R2']);
   });
 
   it('should list the case studies from most to least important', () => {

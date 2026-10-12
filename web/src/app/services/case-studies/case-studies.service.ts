@@ -49,7 +49,7 @@ export class CaseStudiesService {
       category: 'Team / Process',
       icon: 'fa-solid fa-users',
       title: 'CASE_STUDY_05_TITLE',
-      subtitle: 'Semester → semester',
+      subtitle: 'Ad hoc delivery → Standardized review',
       description: 'CASE_STUDY_05_DESCRIPTION',
       metrics: [{ icon: 'fa-solid fa-bug', value: '-50%', label: 'CASE_STUDY_05_METRIC_01_LABEL' }],
       slug: 'recurring-bugs-reduction',
