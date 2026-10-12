@@ -53,7 +53,7 @@ export class HomeComponent {
   ];
 
   protected readonly metrics: HomeMetric[] = [
-    { value: '60 min → 5 min', label: 'HOME_METRIC_01_LABEL' },
+    { value: '60 min → 5 min', label: 'HOME_METRIC_01_LABEL', caseSlug: 'cicd-pipeline-automation' },
     { value: '-50%', label: 'HOME_METRIC_02_LABEL' },
     { value: '-50%', label: 'HOME_METRIC_03_LABEL' },
     { value: '-60%', label: 'HOME_METRIC_04_LABEL', caseSlug: 'legacy-codebase-modernization' },

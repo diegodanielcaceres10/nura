@@ -14,8 +14,8 @@ import { ExperiencesComponent } from './experiences.component';
  *   and each card renders the expected number of bullets (Cesla 10, Apex 8).
  * - The Cesla stats stay aligned with its achievements.
  * - Each card shows its technology stack, and the Cesla role and period are correct.
- * - Only the Cesla codebase modernization bullet links to its case page, inline and without extra markup
- *   around the bullet.
+ * - Only the Cesla CI/CD pipelines and codebase modernization bullets link to their case pages, inline and
+ *   without extra markup around the bullet.
  */
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
@@ -111,27 +111,36 @@ describe('ExperiencesComponent', () => {
     expect(native.querySelectorAll('.experiences__stat-icon[aria-hidden="true"]')).toHaveLength(6);
   });
 
-  it('should link only the codebase modernization bullet to its localized case page', () => {
+  it('should link only the CI/CD pipelines and codebase modernization bullets to their localized case pages', () => {
     const native = fixture.nativeElement as HTMLElement;
     const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
     const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
     const bullets = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []);
 
-    expect(links).toHaveLength(1);
-    expect(links[0]?.getAttribute('href')).toBe('/en/case-studies/legacy-codebase-modernization');
-    expect(bullets[1]?.contains(links[0] ?? null)).toBe(true);
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      '/en/case-studies/cicd-pipeline-automation',
+      '/en/case-studies/legacy-codebase-modernization',
+    ]);
+    expect(bullets[0]?.contains(links[0] ?? null)).toBe(true);
+    expect(bullets[1]?.contains(links[1] ?? null)).toBe(true);
   });
 
-  it('should name the bullet link with the read-case action and hide its arrow from assistive technologies', () => {
+  it('should name each bullet link with the read-case action and hide its arrow from assistive technologies', () => {
     const native = fixture.nativeElement as HTMLElement;
-    const link = native.querySelector<HTMLAnchorElement>('a.experiences__case-link');
+    const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
 
-    expect(link?.textContent).toContain('Read the case');
-    expect(link?.getAttribute('aria-label')).toContain('Read the case');
-    expect(link?.querySelector('i')?.getAttribute('aria-hidden')).toBe('true');
+    expect(links).toHaveLength(2);
+    for (const link of links) {
+      expect(link.textContent).toContain('Read the case');
+      expect(link.getAttribute('aria-label')).toContain('Read the case');
+      expect(link.querySelector('i')?.getAttribute('aria-hidden')).toBe('true');
+    }
   });
 
-  it('should point the bullet link to an existing case study', () => {
-    expect(TestBed.inject(CaseStudiesService).getBySlug('legacy-codebase-modernization')).toBeDefined();
+  it('should point the bullet links to existing case studies', () => {
+    const cases = TestBed.inject(CaseStudiesService);
+
+    expect(cases.getBySlug('cicd-pipeline-automation')).toBeDefined();
+    expect(cases.getBySlug('legacy-codebase-modernization')).toBeDefined();
   });
 });

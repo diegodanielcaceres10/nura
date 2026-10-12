@@ -64,6 +64,7 @@ export class ExperiencesComponent {
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_10',
       ],
       caseLinks: {
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1: { slug: 'cicd-pipeline-automation', titleKey: 'CASE_STUDY_02_TITLE' },
         EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2: { slug: 'legacy-codebase-modernization', titleKey: 'CASE_STUDY_04_TITLE' },
       },
       techStack: ['Angular', 'TypeScript', 'RxJS', 'React', 'Ionic', 'Capacitor', 'Storybook', 'Azure DevOps', 'CI/CD', 'Docker'],
