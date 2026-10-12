@@ -14,6 +14,8 @@ export interface TechBadge {
 export interface HomeMetric {
   value: string;
   label: string;
+  // Optional: slug of the case study that backs the figure.
+  caseSlug?: string;
 }
 
 export interface StatItem {
@@ -54,7 +56,7 @@ export class HomeComponent {
     { value: '60 min → 5 min', label: 'HOME_METRIC_01_LABEL' },
     { value: '-50%', label: 'HOME_METRIC_02_LABEL' },
     { value: '-50%', label: 'HOME_METRIC_03_LABEL' },
-    { value: '-60%', label: 'HOME_METRIC_04_LABEL' },
+    { value: '-60%', label: 'HOME_METRIC_04_LABEL', caseSlug: 'legacy-codebase-modernization' },
   ];
 
   protected readonly skillCategories: readonly TechCategory[] = [

@@ -3,11 +3,13 @@
  *
  * Guarantees: the hero keeps its heading, localized CTA links, images and tech badges,
  * and shows the headline case-study figures without rendering the case studies themselves.
+ * The codebase metric links to its case page without altering the metric layout.
  * Validates: DOM output only (headings, hrefs, alt texts, metric values and labels).
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
 import { LocaleService } from '../../services/locale/locale.service';
 // Static import on purpose: specs run without isolation, so importing the component under the $localize stub
 // would evaluate MESSAGES with raw ICU ids and break every spec that runs after this one.
@@ -90,6 +92,28 @@ describe('HomeComponent', () => {
 
     expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['60 min → 5 min', '-50%', '-50%', '-60%']);
     expect(items.every((item) => (item.querySelector('.home__metric-label')?.textContent ?? '').trim().length > 0)).toBe(true);
+  });
+
+  it('should link only the codebase metric to its localized case page', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const items = Array.from(native.querySelectorAll('.home__metric'));
+    const hrefs = items.map((item) => item.querySelector<HTMLAnchorElement>('a.home__metric-link')?.getAttribute('href') ?? null);
+
+    expect(hrefs).toEqual([null, null, null, '/en/case-studies/legacy-codebase-modernization']);
+  });
+
+  it('should name the metric link with its figure, its label and the read-case action', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const link = native.querySelector<HTMLAnchorElement>('a.home__metric-link');
+    const name = link?.getAttribute('aria-label') ?? '';
+
+    expect(name).toContain('-60%');
+    expect(name).toContain('Read the case');
+    expect(native.querySelector('.home__metric-arrow')?.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('should point the metric link to an existing case study', () => {
+    expect(TestBed.inject(CaseStudiesService).getBySlug('legacy-codebase-modernization')).toBeDefined();
   });
 
   it('should render the technology badges with their accessible names', () => {
