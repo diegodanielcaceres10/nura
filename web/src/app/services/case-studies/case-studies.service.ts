@@ -24,7 +24,7 @@ export class CaseStudiesService {
       category: 'Web / Backend',
       icon: 'fa-solid fa-code',
       title: 'CASE_STUDY_04_TITLE',
-      subtitle: 'US workflow → Brazil workflow',
+      subtitle: 'US workflow → LATAM workflow',
       description: 'CASE_STUDY_04_DESCRIPTION',
       metrics: [{ icon: 'fa-solid fa-arrow-trend-down', value: '-60%', label: 'CASE_STUDY_04_METRIC_01_LABEL' }],
       slug: 'legacy-codebase-modernization',
