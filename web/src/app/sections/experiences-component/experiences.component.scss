@@ -394,6 +394,38 @@
     transition: color var(--transition-fast);
   }
 
+  // Inline link at the end of a bullet: it flows with the text and never adds a row.
+  &__case-link {
+    display: inline-block;
+    margin-left: var(--spacing-xs);
+    color: var(--accent-color);
+    font-weight: var(--font-weight-semibold);
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+
+    i {
+      display: inline-block;
+      margin-left: 0.25em;
+      font-size: 0.8em;
+      transition: transform var(--transition-fast);
+    }
+
+    &:hover {
+      color: var(--white-color);
+
+      i {
+        transform: translateX(3px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary-color);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+  }
+
   &__tech-wrapper {
     display: flex;
     flex-direction: column;

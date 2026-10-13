@@ -91,9 +91,22 @@
 
       <ul class="home__metrics">
         @for (metric of metrics; track metric.label) {
-          <li class="home__metric">
+          <li class="home__metric" [class.home__metric--link]="!!metric.caseSlug">
             <span class="home__metric-value">{{ metric.value }}</span>
-            <span class="home__metric-label">{{ metric.label | translate }}</span>
+            <span class="home__metric-label">
+              {{ metric.label | translate }}
+              @if (metric.caseSlug) {
+                <i class="fa-solid fa-arrow-right home__metric-arrow" aria-hidden="true"></i>
+              }
+            </span>
+            @if (metric.caseSlug) {
+              <!-- Stretched link: covers the metric without changing its layout -->
+              <a
+                class="home__metric-link"
+                [routerLink]="['/', currentLang, 'case-studies', metric.caseSlug]"
+                [attr.aria-label]="metric.value + ' ' + (metric.label | translate) + ': ' + ('CASE_STUDY_READ_MORE' | translate)"
+              ></a>
+            }
           </li>
         }
       </ul>

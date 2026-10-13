@@ -547,6 +547,43 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
+
+    // Linked metric: same layout as the others, with a subtle hover and focus cue.
+    &-arrow {
+      display: inline-block;
+      margin-left: 0.4em;
+      color: var(--accent-color);
+      transition: transform var(--transition-fast);
+    }
+
+    &-link {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: var(--radius-sm);
+
+      &:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 4px;
+      }
+    }
+
+    &--link {
+      .home__metric-value {
+        transition: color var(--transition-fast);
+      }
+
+      &:hover,
+      &:focus-within {
+        .home__metric-value {
+          color: var(--accent-color);
+        }
+
+        .home__metric-arrow {
+          transform: translateX(3px);
+        }
+      }
+    }
   }
 
   // Technical Skills (Editorial Taxonomy Bento Matrix)

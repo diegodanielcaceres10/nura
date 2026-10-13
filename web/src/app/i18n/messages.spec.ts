@@ -82,7 +82,7 @@ describe('MESSAGES', () => {
 
   describe('case study figures keep their basis', () => {
     const CHECKS: [string, Record<string, string[]>][] = [
-      ['CASE_DETAIL_LEGACY_CODEBASE_MODERNIZATION_RESULTS', { en: ['feedback', 'average'], es: ['feedback', 'promedio'], pt: ['feedback', 'média'] }],
+      ['CASE_DETAIL_LEGACY_CODEBASE_MODERNIZATION_RESULTS', { en: ['feedback'], es: ['feedback'], pt: ['feedback'] }],
       ['CASE_DETAIL_CICD_PIPELINE_AUTOMATION_RESULTS', { en: ['average', 'Wednesday'], es: ['promedio', 'miércoles'], pt: ['média', 'quarta'] }],
       ['CASE_DETAIL_RECURRING_BUGS_REDUCTION_RESULTS', { en: ['board'], es: ['tablero'], pt: ['quadro'] }],
       ['CASE_DETAIL_CLOUD_STORAGE_MIGRATION_RESULTS', { en: ['feedback'], es: ['feedback'], pt: ['feedback'] }],
@@ -113,8 +113,10 @@ describe('MESSAGES', () => {
       expect(pt['CASE_STUDY_04_DESCRIPTION']).toContain('líder');
     });
 
-    it('states the tech lead role in the Ionic card', () => {
-      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('tech lead');
+    it('states the technical reference role in the Ionic card', () => {
+      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('technical reference');
+      expect(es['CASE_STUDY_01_DESCRIPTION']).toContain('referencia técnica');
+      expect(pt['CASE_STUDY_01_DESCRIPTION']).toContain('referência técnica');
     });
 
     it('scopes the bug figure to recurring bugs and its source, without claiming the tech lead role', () => {

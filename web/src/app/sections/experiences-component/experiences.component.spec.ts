@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
 import { ExperiencesComponent } from './experiences.component';
 
 /**
@@ -12,6 +14,8 @@ import { ExperiencesComponent } from './experiences.component';
  *   and each card renders the expected number of bullets (Cesla 10, Apex 8).
  * - The Cesla stats stay aligned with its achievements.
  * - Each card shows its technology stack, and the Cesla role and period are correct.
+ * - Only the Cesla CI/CD pipelines, codebase modernization, storage migration, recurring bugs and
+ *   mobile migration bullets link to their case pages, inline and without extra markup around the bullet.
  */
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
@@ -20,8 +24,11 @@ describe('ExperiencesComponent', () => {
   beforeEach(async () => {
     vi.stubGlobal('$localize', (message: string | TemplateStringsArray) => (typeof message === 'string' ? message : (message[0] ?? '')));
 
+    document.documentElement.lang = 'en';
+
     await TestBed.configureTestingModule({
       imports: [ExperiencesComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExperiencesComponent);
@@ -31,6 +38,7 @@ describe('ExperiencesComponent', () => {
 
   afterEach(() => {
     vi.unstubAllGlobals();
+    document.documentElement.lang = '';
   });
 
   it('should be defined', () => {
@@ -101,5 +109,47 @@ describe('ExperiencesComponent', () => {
 
     expect(native.querySelectorAll('.experiences__period i[aria-hidden="true"]')).toHaveLength(2);
     expect(native.querySelectorAll('.experiences__stat-icon[aria-hidden="true"]')).toHaveLength(6);
+  });
+
+  it('should link only the CI/CD pipelines, codebase modernization, storage migration, recurring bugs and mobile migration bullets to their localized case pages', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
+    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
+    const bullets = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []);
+
+    expect(links.map((link) => link.getAttribute('href'))).toEqual([
+      '/en/case-studies/cicd-pipeline-automation',
+      '/en/case-studies/legacy-codebase-modernization',
+      '/en/case-studies/cloud-storage-migration',
+      '/en/case-studies/recurring-bugs-reduction',
+      '/en/case-studies/legacy-mobile-migration',
+    ]);
+    expect(bullets[0]?.contains(links[0] ?? null)).toBe(true);
+    expect(bullets[1]?.contains(links[1] ?? null)).toBe(true);
+    expect(bullets[2]?.contains(links[2] ?? null)).toBe(true);
+    expect(bullets[3]?.contains(links[3] ?? null)).toBe(true);
+    expect(bullets[6]?.contains(links[4] ?? null)).toBe(true);
+  });
+
+  it('should name each bullet link with the read-case action and hide its arrow from assistive technologies', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
+
+    expect(links).toHaveLength(5);
+    for (const link of links) {
+      expect(link.textContent).toContain('Read the case');
+      expect(link.getAttribute('aria-label')).toContain('Read the case');
+      expect(link.querySelector('i')?.getAttribute('aria-hidden')).toBe('true');
+    }
+  });
+
+  it('should point the bullet links to existing case studies', () => {
+    const cases = TestBed.inject(CaseStudiesService);
+
+    expect(cases.getBySlug('cicd-pipeline-automation')).toBeDefined();
+    expect(cases.getBySlug('legacy-codebase-modernization')).toBeDefined();
+    expect(cases.getBySlug('cloud-storage-migration')).toBeDefined();
+    expect(cases.getBySlug('recurring-bugs-reduction')).toBeDefined();
+    expect(cases.getBySlug('legacy-mobile-migration')).toBeDefined();
   });
 });

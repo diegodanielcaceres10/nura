@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 
@@ -10,6 +12,11 @@ export interface ExperienceStat {
   labelKey: string;
 }
 
+export interface ExperienceCaseLink {
+  slug: string;
+  titleKey: string;
+}
+
 export interface ExperienceEntry {
   id: string;
   logoText: string;
@@ -19,6 +26,8 @@ export interface ExperienceEntry {
   startPeriodKey: string;
   endPeriodKey: string;
   descriptionKeys: string[];
+  // Optional: bullets (by description key) that link to the case study that backs them.
+  caseLinks?: Readonly<Record<string, ExperienceCaseLink>>;
   techStack: string[];
   stats: ExperienceStat[];
 }
@@ -26,11 +35,13 @@ export interface ExperienceEntry {
 @Component({
   selector: 'app-experiences-component',
   standalone: true,
-  imports: [TranslateKeyPipe, TitleComponent],
+  imports: [RouterLink, TranslateKeyPipe, TitleComponent],
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.scss',
 })
 export class ExperiencesComponent {
+  protected readonly locale = inject(LocaleService).getCurrentLocale();
+
   protected readonly entries: ExperienceEntry[] = [
     {
       id: 'cesla',
@@ -52,6 +63,13 @@ export class ExperiencesComponent {
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_9',
         'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_10',
       ],
+      caseLinks: {
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1: { slug: 'cicd-pipeline-automation', titleKey: 'CASE_STUDY_02_TITLE' },
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2: { slug: 'legacy-codebase-modernization', titleKey: 'CASE_STUDY_04_TITLE' },
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3: { slug: 'cloud-storage-migration', titleKey: 'CASE_STUDY_03_TITLE' },
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_4: { slug: 'recurring-bugs-reduction', titleKey: 'CASE_STUDY_05_TITLE' },
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_7: { slug: 'legacy-mobile-migration', titleKey: 'CASE_STUDY_01_TITLE' },
+      },
       techStack: ['Angular', 'TypeScript', 'RxJS', 'React', 'Ionic', 'Capacitor', 'Storybook', 'Azure DevOps', 'CI/CD', 'Docker'],
       stats: [
         { icon: 'fa-solid fa-user-tie', value: '40+', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_CLIENTS' },

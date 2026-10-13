@@ -67,7 +67,20 @@
                   @for (descriptionKey of entry.descriptionKeys; track descriptionKey) {
                     <div class="experiences__responsibility">
                       <span class="experiences__responsibility-bullet" aria-hidden="true"></span>
-                      <p class="experiences__description">{{ descriptionKey | translate }}</p>
+                      <p class="experiences__description">
+                        {{ descriptionKey | translate }}
+                        @let caseLink = entry.caseLinks?.[descriptionKey];
+                        @if (caseLink) {
+                          <a
+                            class="experiences__case-link"
+                            [routerLink]="['/', locale, 'case-studies', caseLink.slug]"
+                            [attr.aria-label]="('CASE_STUDY_READ_MORE' | translate) + ': ' + (caseLink.titleKey | translate)"
+                          >
+                            {{ 'CASE_STUDY_READ_MORE' | translate }}
+                            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                          </a>
+                        }
+                      </p>
                     </div>
                   }
                 </div>
