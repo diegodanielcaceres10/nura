@@ -113,8 +113,10 @@ describe('MESSAGES', () => {
       expect(pt['CASE_STUDY_04_DESCRIPTION']).toContain('líder');
     });
 
-    it('states the tech lead role in the Ionic card', () => {
-      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('tech lead');
+    it('states the technical reference role in the Ionic card', () => {
+      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('technical reference');
+      expect(es['CASE_STUDY_01_DESCRIPTION']).toContain('referencia técnica');
+      expect(pt['CASE_STUDY_01_DESCRIPTION']).toContain('referência técnica');
     });
 
     it('scopes the bug figure to recurring bugs and its source, without claiming the tech lead role', () => {

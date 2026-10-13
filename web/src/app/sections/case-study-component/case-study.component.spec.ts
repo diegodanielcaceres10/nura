@@ -71,7 +71,7 @@ describe('CaseStudyComponent', () => {
   it('should list the case studies from most to least important', () => {
     const native = fixture.nativeElement as HTMLElement;
     const titles = Array.from(native.querySelectorAll('h3.case-study__title')).map((title) => title.textContent?.trim() ?? '');
-    const expectedOrder = ['Adapting the Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by 50%', 'Migrating a Mobile App to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
+    const expectedOrder = ['Adapting the Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by 50%', 'Migrating Five Mobile Apps to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
 
     expect(titles).toHaveLength(expectedOrder.length);
     expectedOrder.forEach((expectedTitle, index) => {
