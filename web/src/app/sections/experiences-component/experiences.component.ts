@@ -66,6 +66,7 @@ export class ExperiencesComponent {
       caseLinks: {
         EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1: { slug: 'cicd-pipeline-automation', titleKey: 'CASE_STUDY_02_TITLE' },
         EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2: { slug: 'legacy-codebase-modernization', titleKey: 'CASE_STUDY_04_TITLE' },
+        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3: { slug: 'cloud-storage-migration', titleKey: 'CASE_STUDY_03_TITLE' },
         EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_4: { slug: 'recurring-bugs-reduction', titleKey: 'CASE_STUDY_05_TITLE' },
         EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_7: { slug: 'legacy-mobile-migration', titleKey: 'CASE_STUDY_01_TITLE' },
       },
