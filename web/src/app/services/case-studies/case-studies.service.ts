@@ -67,7 +67,7 @@ export class CaseStudiesService {
         { icon: 'fa-solid fa-arrows-rotate', value: 'Cordova → Capacitor', label: 'CASE_STUDY_01_METRIC_02_LABEL' },
       ],
       slug: 'legacy-mobile-migration',
-      detail: detailFor('legacy-mobile-migration', ['Ionic 3, 4, 5 → Ionic 8', 'Cordova → Capacitor']),
+      detail: detailFor('legacy-mobile-migration', ['Ionic 3', 'Ionic4', 'Ionic 5', 'Ionic 8', 'Cordova', 'Capacitor']),
     },
     {
       number: '05',
