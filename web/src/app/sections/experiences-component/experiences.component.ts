@@ -74,10 +74,8 @@ export class ExperiencesComponent {
       stats: [
         { icon: 'fa-solid fa-user-tie', value: '40+', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_CLIENTS' },
         { icon: 'fa-solid fa-users', value: '+1000', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_USERS' },
-        { icon: 'fa-solid fa-code', value: '60%', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_LESS_CODE' },
         { icon: 'fa-solid fa-mobile-screen-button', value: '5', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_MOBILE_APPS' },
         { icon: 'fa-solid fa-plug', value: '5', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_APIS' },
-        { icon: 'fa-solid fa-arrow-trend-down', value: '50%', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_RECURRING_BUGS' },
       ],
     },
     {

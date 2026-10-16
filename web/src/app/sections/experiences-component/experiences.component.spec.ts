@@ -78,8 +78,8 @@ describe('ExperiencesComponent', () => {
     const values = Array.from(firstCard?.querySelectorAll('.experiences__stat-value') ?? []).map((value) => value.textContent?.trim());
     const labels = Array.from(firstCard?.querySelectorAll('.experiences__stat-label') ?? []).map((label) => label.textContent?.trim());
 
-    expect(values).toEqual(['40+', '+1000', '60%', '5', '5', '50%']);
-    expect(labels).toEqual(['Clients', 'Users', 'Less Code', 'Mobile Apps', 'APIs', 'Fewer Recurring Bugs']);
+    expect(values).toEqual(['40+', '+1000', '5', '5']);
+    expect(labels).toEqual(['Clients', 'Users', 'Mobile Apps', 'APIs']);
   });
 
   it('should render the technology stack for each experience', () => {
@@ -108,7 +108,7 @@ describe('ExperiencesComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
 
     expect(native.querySelectorAll('.experiences__period i[aria-hidden="true"]')).toHaveLength(2);
-    expect(native.querySelectorAll('.experiences__stat-icon[aria-hidden="true"]')).toHaveLength(6);
+    expect(native.querySelectorAll('.experiences__stat-icon[aria-hidden="true"]')).toHaveLength(4);
   });
 
   it('should link only the CI/CD pipelines, codebase modernization, storage migration, recurring bugs and mobile migration bullets to their localized case pages', () => {
