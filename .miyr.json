@@ -1,0 +1,4 @@
+{
+  "shared": { "ci": ".", "license": ".", "gitignore": "." },
+  "projects": [{ "name": "web", "path": "web", "profile": "angular" }]
+}
