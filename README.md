@@ -1,6 +1,6 @@
 # Diego Daniel Cáceres
 
-Senior Frontend Engineer | Angular & TypeScript Specialist
+Senior Frontend Developer | Angular & TypeScript
 
 ## About This Portfolio
 
