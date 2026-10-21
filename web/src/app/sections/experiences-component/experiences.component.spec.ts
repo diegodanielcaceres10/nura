@@ -58,7 +58,7 @@ describe('ExperiencesComponent', () => {
     const companies = cards.map((card) => card.querySelector('.experiences__company')?.textContent?.trim());
 
     expect(cards).toHaveLength(2);
-    expect(companies).toEqual(['WS Solutions · Cesla', 'Apex America']);
+    expect(companies).toEqual(['Cesla', 'Apex America']);
     expect(native.querySelector('.experiences__duration')).toBeNull();
   });
 
@@ -117,13 +117,7 @@ describe('ExperiencesComponent', () => {
     const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
     const bullets = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []);
 
-    expect(links.map((link) => link.getAttribute('href'))).toEqual([
-      '/en/case-studies/cicd-pipeline-automation',
-      '/en/case-studies/legacy-codebase-modernization',
-      '/en/case-studies/cloud-storage-migration',
-      '/en/case-studies/recurring-bugs-reduction',
-      '/en/case-studies/legacy-mobile-migration',
-    ]);
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/en/case-studies/cicd-pipeline-automation', '/en/case-studies/legacy-codebase-modernization', '/en/case-studies/cloud-storage-migration', '/en/case-studies/recurring-bugs-reduction', '/en/case-studies/legacy-mobile-migration']);
     expect(bullets[0]?.contains(links[0] ?? null)).toBe(true);
     expect(bullets[1]?.contains(links[1] ?? null)).toBe(true);
     expect(bullets[2]?.contains(links[2] ?? null)).toBe(true);
