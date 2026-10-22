@@ -1,9 +1,10 @@
-﻿name: Deploy Angular to GitHub Pages
+﻿name: Web Deploy GitHub Pages
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read

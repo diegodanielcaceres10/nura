@@ -1,4 +1,4 @@
 {
   "shared": { "ci": ".", "license": ".", "gitignore": "." },
-  "projects": [{ "name": "web", "path": "web", "profile": "angular" }]
+  "projects": [{ "name": "web", "path": "web", "profile": "angular", "workflows": ["web_deploy_github_pages.yml"] }]
 }
