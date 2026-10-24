@@ -63,7 +63,7 @@ export class HomeComponent {
     {
       id: 'frontend',
       labelKey: 'HOME_SKILLS_FRONTEND',
-      skills: ['Angular', 'TypeScript', 'RxJS', 'NgRx', 'Signals', 'HTML', 'CSS/SCSS', 'Tailwind CSS', 'Bootstrap', 'Angular Material', 'React'],
+      skills: ['Angular', 'TypeScript', 'RxJS', 'Signals', 'HTML', 'CSS/SCSS', 'Tailwind CSS', 'Bootstrap', 'Angular Material', 'React'],
     },
     {
       id: 'mobile',

@@ -63,8 +63,8 @@ describe('HomeComponent', () => {
 
     expect(heading).not.toBeNull();
     expect(heading?.textContent).toContain('Diego Daniel Caceres');
-    expect(heading?.textContent).toContain('Senior Frontend Developer');
-    expect(heading?.textContent).toContain('Angular & TypeScript');
+    expect(heading?.textContent).toContain('Senior Frontend Engineer');
+    expect(heading?.textContent).toContain('Angular Architecture');
   });
 
   it('should link the primary and secondary CTAs to the localized case-study and contact sections', () => {

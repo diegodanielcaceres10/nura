@@ -41,15 +41,15 @@ describe('AboutComponent', () => {
     expect(cards).toHaveLength(4);
   });
 
-  it('should render the three degrees, newest first, with institution and year', () => {
+  it('should render the degree with institution and year', () => {
     const native = fixture.nativeElement as HTMLElement;
     const degrees = Array.from(native.querySelectorAll('.about__education-degree')).map((degree) => degree.textContent?.trim());
     const institutions = Array.from(native.querySelectorAll('.about__education-institution')).map((institution) => institution.textContent?.trim());
     const meta = Array.from(native.querySelectorAll('.about__education-meta')).map((item) => item.textContent?.trim());
 
-    expect(degrees).toEqual(['Computer Systems Analyst', 'Programmer Analyst', 'IT Technician']);
-    expect(institutions).toEqual(['Institución Cervantes', 'Institución Cervantes', 'Institución Cervantes']);
-    expect(meta).toEqual(['Argentina · 2020', 'Argentina · 2016', 'Argentina · 2015']);
+    expect(degrees).toEqual(['Computer Systems Analyst']);
+    expect(institutions).toEqual(['Institución Cervantes']);
+    expect(meta).toEqual(['Argentina · 2020']);
   });
 
   it('should render the signature with alternative text', () => {
@@ -106,6 +106,6 @@ describe('AboutComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
 
     expect(native.querySelectorAll('.about__dot[aria-hidden="true"]')).toHaveLength(4);
-    expect(native.querySelectorAll('.about__icon i[aria-hidden="true"]')).toHaveLength(6);
+    expect(native.querySelectorAll('.about__icon i[aria-hidden="true"]')).toHaveLength(4);
   });
 });

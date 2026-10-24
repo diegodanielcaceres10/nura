@@ -78,7 +78,7 @@ describe('ExperiencesComponent', () => {
     const values = Array.from(firstCard?.querySelectorAll('.experiences__stat-value') ?? []).map((value) => value.textContent?.trim());
     const labels = Array.from(firstCard?.querySelectorAll('.experiences__stat-label') ?? []).map((label) => label.textContent?.trim());
 
-    expect(values).toEqual(['40+', '+1000', '5', '5']);
+    expect(values).toEqual(['~40', '+1000', '5', '5']);
     expect(labels).toEqual(['Clients', 'Users', 'Mobile Apps', 'APIs']);
   });
 
@@ -93,13 +93,13 @@ describe('ExperiencesComponent', () => {
     expect(technologies).toContain('Ionic');
   });
 
-  it('should present the Cesla experience as Frontend Engineer from May 2021 to Feb 2026', () => {
+  it('should present the Cesla experience as Frontend Engineer (Tech Lead since 11/2024) from May 2021 to Feb 2026', () => {
     const native = fixture.nativeElement as HTMLElement;
     const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
     const role = firstCard?.querySelector('.experiences__role')?.textContent?.trim() ?? '';
     const period = firstCard?.querySelector('.experiences__period')?.textContent ?? '';
 
-    expect(role).toBe('Frontend Engineer');
+    expect(role).toBe('Frontend Engineer (Tech Lead since 11/2024)');
     expect(period).toContain('May 2021');
     expect(period).toContain('Feb 2026');
   });

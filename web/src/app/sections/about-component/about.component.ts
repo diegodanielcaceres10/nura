@@ -37,20 +37,6 @@ export class AboutComponent {
       location: 'Argentina',
       year: '2020',
     },
-    {
-      icon: 'fa-solid fa-graduation-cap',
-      degree: 'ABOUT_EDUCATION_PROGRAMMER_ANALYST_DEGREE',
-      institution: 'Institución Cervantes',
-      location: 'Argentina',
-      year: '2016',
-    },
-    {
-      icon: 'fa-solid fa-graduation-cap',
-      degree: 'ABOUT_EDUCATION_IT_TECHNICIAN_DEGREE',
-      institution: 'Institución Cervantes',
-      location: 'Argentina',
-      year: '2015',
-    },
   ];
 
   protected readonly languages: LanguageItem[] = [
