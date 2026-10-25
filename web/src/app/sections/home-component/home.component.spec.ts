@@ -90,7 +90,7 @@ describe('HomeComponent', () => {
     const native = fixture.nativeElement as HTMLElement;
     const items = Array.from(native.querySelectorAll('.home__metric'));
 
-    expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['60 min → 5 min', '-50%', '-50%', '-60%']);
+    expect(items.map((item) => item.querySelector('.home__metric-value')?.textContent?.trim())).toEqual(['~60 → ~5 min', '~50%', '~50%', '-60%']);
     expect(items.every((item) => (item.querySelector('.home__metric-label')?.textContent ?? '').trim().length > 0)).toBe(true);
   });
 
@@ -109,7 +109,7 @@ describe('HomeComponent', () => {
     const arrows = Array.from(native.querySelectorAll('.home__metric-arrow'));
 
     expect(names).toHaveLength(4);
-    expect(names[0]).toContain('60 min → 5 min');
+    expect(names[0]).toContain('~60 → ~5 min');
     expect(names[1]).toContain('recurring bugs');
     expect(names[2]).toContain('file traffic cost');
     expect(names[3]).toContain('-60%');

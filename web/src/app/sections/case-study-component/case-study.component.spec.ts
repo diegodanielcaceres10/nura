@@ -65,13 +65,13 @@ describe('CaseStudyComponent', () => {
     const subtitles = Array.from(native.querySelectorAll('.case-study__subtitle')).map((subtitle) => subtitle.textContent?.trim());
 
     expect(categories).toEqual(['Web / Backend', 'Infrastructure', 'Team / Process', 'Mobile', 'Infrastructure']);
-    expect(subtitles).toEqual(['US workflow → LATAM workflow', '1h → 5m', 'Ad hoc delivery → Standardized review', 'Ionic 3 + Cordova → Ionic 8 + Capacitor', 'Azure Blob Storage → Cloudflare R2']);
+    expect(subtitles).toEqual(['US workflow → LATAM workflow', '~1h → ~5m', 'Ad hoc delivery → Standardized review', 'Ionic 3–5 + Cordova → Ionic 8 + Capacitor', 'Azure Blob Storage → Cloudflare R2']);
   });
 
   it('should list the case studies from most to least important', () => {
     const native = fixture.nativeElement as HTMLElement;
     const titles = Array.from(native.querySelectorAll('h3.case-study__title')).map((title) => title.textContent?.trim() ?? '');
-    const expectedOrder = ['Adapting the Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by 50%', 'Migrating Five Mobile Apps to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
+    const expectedOrder = ['Adapting the Legacy System to a New Market', 'Automating Builds and Deployments with CI/CD', 'Reducing Recurring Bugs by About 50%', 'Migrating Five Mobile Apps to Ionic 8 and Capacitor', 'Moving Production Storage from Azure to Cloudflare R2'];
 
     expect(titles).toHaveLength(expectedOrder.length);
     expectedOrder.forEach((expectedTitle, index) => {
@@ -95,7 +95,7 @@ describe('CaseStudyComponent', () => {
     const metricValues = Array.from(native.querySelectorAll('.case-study__metric-value')).map((value) => value.textContent?.trim());
 
     expect(metrics).toHaveLength(7);
-    expect(metricValues).toEqual(['-60%', '60 min → 5 min', '4–6', '-50%', 'Ionic 3 → 8', 'Cordova → Capacitor', '50%']);
+    expect(metricValues).toEqual(['-60%', '~60 → ~5 min', '~1 → 4–6', '~50%', 'Ionic 3–5 → 8', 'Cordova → Capacitor', '~50%']);
   });
 
   it('should keep decorative elements hidden from assistive technologies', () => {
