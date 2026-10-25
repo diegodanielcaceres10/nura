@@ -31,7 +31,7 @@
   "CASE_STUDY_01_METRIC_01_LABEL": "Versiones de Ionic actualizadas en cinco apps",
   "CASE_STUDY_01_METRIC_02_LABEL": "Runtime nativo reemplazado, con todos los plugins",
   "CASE_STUDY_02_TITLE": "Automatización de Builds y Deploys con CI/CD [Infrastructure]",
-  "CASE_STUDY_02_DESCRIPTION": "El build de las apps se generaba en la máquina local de un desarrollador y, si esa persona no estaba, se perdía el conocimiento del proceso. Como tech lead, diseñé e implementé pipelines de CI/CD que se ejecutan con cada commit y push, con un ambiente separado por rama y aprobaciones antes de producción. Hoy cualquier persona del equipo puede generar el build, un deploy tarda unos 5 minutos en lugar de unos 60 y hacemos un release semanal fijo, entre 4 y 6 por mes, frente a aproximadamente uno antes (cifras estimadas).",
+  "CASE_STUDY_02_DESCRIPTION": "El build de las apps se generaba en la máquina local de un desarrollador y, si esa persona no estaba, se perdía el conocimiento del proceso. Como referencia técnica del equipo, diseñé e implementé pipelines de CI/CD que se ejecutan con cada commit y push, con un ambiente separado por rama y aprobaciones antes de producción. Hoy cualquier persona del equipo puede generar el build, un deploy tarda unos 5 minutos en lugar de unos 60 y hacemos un release semanal fijo, entre 4 y 6 por mes, frente a aproximadamente uno antes (cifras estimadas).",
   "CASE_STUDY_02_METRIC_01_LABEL": "Tiempo de despliegue",
   "CASE_STUDY_02_METRIC_02_LABEL": "Entregas / mes",
   "CASE_STUDY_03_TITLE": "Migración del Storage de Producción de Azure a Cloudflare R2 [Infrastructure]",
