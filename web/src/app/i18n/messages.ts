@@ -189,7 +189,7 @@ export const MESSAGES: Record<string, string> = {
   RECOMMENDATIONS_WORK_YEARS: $localize`:@@RECOMMENDATIONS_WORK_YEARS:years`,
   ABOUT_TITLE: $localize`:@@ABOUT_TITLE:About me`,
   ABOUT_SUBTITLE: $localize`:@@ABOUT_SUBTITLE:More than code`,
-  ABOUT_DESCRIPTION: $localize`:@@ABOUT_DESCRIPTION:I am a Frontend Engineer and I turn complex business processes into scalable, maintainable applications. I gather requirements directly with the client and work closely with product, QA and DevOps, so that what we deliver stays maintainable.`,
+  ABOUT_DESCRIPTION: $localize`:@@ABOUT_DESCRIPTION:I am a Senior Frontend Engineer and I turn complex business processes into scalable, maintainable applications. I gather requirements directly with the client and work closely with product, QA and DevOps, so that what we deliver stays maintainable.`,
   ABOUT_STORY_TITLE: $localize`:@@ABOUT_STORY_TITLE:My story`,
   ABOUT_STORY_PARAGRAPH: $localize`:@@ABOUT_STORY_PARAGRAPH:I started as a Front-End Developer in 2020 and have worked with Angular and TypeScript ever since. At Cesla, an industrial safety platform with ~40 clients and 1,000+ users, I was the team's technical reference (Tech Lead since November 2024): I modernized a legacy module, automated deployments, and migrated mobile apps and production storage. Outside work, I like to travel and learn about other cultures.`,
   ABOUT_EDUCATION_TITLE: $localize`:@@ABOUT_EDUCATION_TITLE:Education`,
