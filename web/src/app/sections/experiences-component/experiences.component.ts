@@ -75,7 +75,7 @@ export class ExperiencesComponent {
       startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
       endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
       descriptionKeys: ['EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_3'],
-      techStack: ['AngularJS', 'JavaScript', 'RxJS', 'HTML5', 'CSS3', 'MongoDB', 'Jira', 'Git', 'AWS'],
+      techStack: ['Angular', 'AngularJS', 'JavaScript', 'RxJS', 'HTML5', 'CSS3', 'MongoDB', 'Jira', 'Git', 'AWS'],
       stats: [],
     },
   ];
