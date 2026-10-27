@@ -88,7 +88,7 @@ describe('ExperiencesComponent', () => {
     const technologyCounts = cards.map((card) => card.querySelectorAll('.experiences__tech-tag').length);
     const technologies = Array.from(native.querySelectorAll('.experiences__tech-tag')).map((tag) => tag.textContent?.trim());
 
-    expect(technologyCounts).toEqual([10, 9]);
+    expect(technologyCounts).toEqual([10, 10]);
     expect(technologies).toContain('Angular');
     expect(technologies).toContain('Ionic');
   });
