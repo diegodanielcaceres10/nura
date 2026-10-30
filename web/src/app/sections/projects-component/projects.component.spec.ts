@@ -37,6 +37,38 @@ describe('ProjectsComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
+  it('should render both subsections: AI-assisted development and repositories', () => {
+    const native = fixture.nativeElement as HTMLElement;
+
+    expect(native.querySelector('.projects__subgroup--ai')).not.toBeNull();
+    expect(native.querySelector('#ai-assisted-heading')).not.toBeNull();
+    expect(native.querySelector('.projects__divider')).not.toBeNull();
+    expect(native.querySelector('.projects__subgroup--repos')).not.toBeNull();
+    expect(native.querySelector('#repositories-heading')).not.toBeNull();
+  });
+
+  it('should render AI-assisted development before repositories', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const subgroups = native.querySelectorAll('.projects__subgroup');
+
+    expect(subgroups.length).toBe(2);
+    expect(subgroups[0].classList.contains('projects__subgroup--ai')).toBe(true);
+    expect(subgroups[1].classList.contains('projects__subgroup--repos')).toBe(true);
+  });
+
+  it('should render AI project cards without being affected by repository tech filters', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const initialProductCards = native.querySelectorAll('app-ai-project-card');
+
+    expect(initialProductCards.length).toBe(component['aiAssistedProjects'].length);
+
+    component['setActiveFilter']('react');
+    fixture.detectChanges();
+
+    const afterFilterProductCards = native.querySelectorAll('app-ai-project-card');
+    expect(afterFilterProductCards.length).toBe(component['aiAssistedProjects'].length);
+  });
+
   it('should render all project cards in the grid', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = native.querySelectorAll('.projects__card');

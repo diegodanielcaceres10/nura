@@ -105,6 +105,23 @@ describe('ProjectsService', () => {
     });
   });
 
+  describe('getAiAssisted', () => {
+    it('returns only projects marked as AI-assisted', () => {
+      const aiProjects = service.getAiAssisted();
+
+      expect(aiProjects.length).toBeGreaterThan(0);
+      for (const project of aiProjects) {
+        expect(project.isAiAssisted).toBe(true);
+      }
+    });
+
+    it('returns luma as an AI-assisted project', () => {
+      const aiProjectIds = service.getAiAssisted().map((p) => p.id);
+
+      expect(aiProjectIds).toContain('luma');
+    });
+  });
+
   describe('catalog integrity', () => {
     it.each(catalog)('$id: the id is a lowercase slug usable in the work route', (project) => {
       expect(project.id).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);

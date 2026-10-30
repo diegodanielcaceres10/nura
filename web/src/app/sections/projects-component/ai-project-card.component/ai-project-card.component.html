@@ -1,0 +1,69 @@
+<article class="ai-project-card" [attr.data-project-id]="product().id">
+  <div class="ai-project-card__glow" aria-hidden="true"></div>
+
+  <div class="ai-project-card__header">
+    <div class="ai-project-card__identity">
+      <div class="ai-project-card__logo">
+        @if (product().favicon) {
+          <img [src]="product().favicon" loading="lazy" width="48" height="48" decoding="async" [alt]="product().title" />
+        } @else if (product().logo) {
+          <img [src]="product().logo" loading="lazy" width="48" height="48" decoding="async" [alt]="product().title" />
+        } @else if (product().icon) {
+          <i [class]="product().icon"></i>
+        }
+      </div>
+
+      <div class="ai-project-card__heading">
+        <h4 class="ai-project-card__title">{{ product().title }}</h4>
+        <span class="ai-project-card__category">{{ product().type }}</span>
+      </div>
+    </div>
+
+    <div class="ai-project-card__badges">
+      @if (product().isAiAssisted) {
+        <span class="ai-project-card__ai-badge" [title]="'AI_ASSISTED_BADGE' | translate">
+          <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+          <span>{{ 'AI_ASSISTED_BADGE' | translate }}</span>
+        </span>
+      }
+      <span class="ai-project-card__status" [class]="'ai-project-card__status--' + product().status.toLowerCase()">
+        <span class="ai-project-card__status-dot" aria-hidden="true"></span>
+        {{ 'PROJECTS_STATUS_' + product().status | translate }}
+      </span>
+    </div>
+  </div>
+
+  <p class="ai-project-card__description">{{ product().shortDescription | translate }}</p>
+
+  @if (product().techStackExtended?.length || product().techStackMain.length) {
+    <div class="ai-project-card__techs" aria-label="Tecnologías principales">
+      @for (tech of product().techStackExtended ?? product().techStackMain; track tech) {
+        <span class="ai-project-card__tech">{{ tech }}</span>
+      }
+    </div>
+  }
+
+  <div class="ai-project-card__footer">
+    <div class="ai-project-card__actions">
+      @if (product().links?.demo) {
+        <a class="ai-project-card__action ai-project-card__action--primary" [href]="product().links!.demo" target="_blank" rel="noopener">
+          <span>{{ 'AI_ASSISTED_ACTION_EXPLORE' | translate }}</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+      }
+      @if (product().links?.repo) {
+        <a class="ai-project-card__action ai-project-card__action--secondary" [href]="product().links!.repo" target="_blank" rel="noopener">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          <span>{{ 'AI_ASSISTED_ACTION_CODE' | translate }}</span>
+        </a>
+      }
+    </div>
+
+    <div class="ai-project-card__actions ai-project-card__actions--detail">
+      <button class="ai-project-card__action ai-project-card__action--more" type="button" (click)="navigateToWork()" (keydown.enter)="navigateToWork()" (keydown.space)="navigateToWork()">
+        <span>{{ 'AI_ASSISTED_ACTION_VIEW_MORE' | translate }}</span>
+        <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</article>

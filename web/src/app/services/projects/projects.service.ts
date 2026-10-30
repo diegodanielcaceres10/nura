@@ -10,6 +10,7 @@ export class ProjectsService {
       title: 'Luma',
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_LUMA_SHORT_DESC',
+      isAiAssisted: true,
       techStackMain: ['Flutter', 'Angular'],
       techStackExtended: ['Flutter', 'Supabase', 'Angular 21', 'TailwindCSS 4', 'Google Gemini API'],
       status: 'COMPLETED',
@@ -255,6 +256,10 @@ export class ProjectsService {
   getAll(): ProjectItem[] {
     // Return a copy so callers cannot reorder or empty the catalog.
     return [...this.projects];
+  }
+
+  getAiAssisted(): ProjectItem[] {
+    return this.projects.filter((p) => p.isAiAssisted);
   }
 
   getById(id: string): ProjectItem | undefined {

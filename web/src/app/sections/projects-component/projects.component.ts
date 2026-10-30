@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
 import { ProjectsService } from '../../services/projects/projects.service';
+import { AiProjectCardComponent } from './ai-project-card.component/ai-project-card.component';
+import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { LocaleService } from '../../services/locale/locale.service';
 
 export interface ProjectItem {
@@ -25,6 +27,7 @@ export interface ProjectItem {
   links?: ProjectLinks;
   metrics?: ProjectMetrics;
   cardTheme?: ProjectCardTheme;
+  isAiAssisted?: boolean;
 }
 
 export interface ProjectCardGradient {
@@ -74,7 +77,7 @@ interface ProjectFilter {
 @Component({
   selector: 'app-projects-component',
   standalone: true,
-  imports: [TitleComponent, ProjectCardComponent],
+  imports: [TitleComponent, ProjectCardComponent, AiProjectCardComponent, TranslateKeyPipe],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })
@@ -83,7 +86,11 @@ export class ProjectsComponent {
   private readonly localeService = inject(LocaleService);
   private readonly projectsService = inject(ProjectsService);
 
+
+
+
   private readonly projects = this.projectsService.getAll();
+  protected readonly aiAssistedProjects = this.projectsService.getAiAssisted?.() ?? this.projects.filter((p) => p.isAiAssisted);
 
   protected readonly projectFilters: ProjectFilter[] = [{ label: 'Todos', value: ALL_FILTER }, ...this.buildTechFilters(this.projects)];
 
