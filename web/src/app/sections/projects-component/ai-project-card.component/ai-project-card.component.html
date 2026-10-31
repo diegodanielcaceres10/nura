@@ -8,7 +8,7 @@
   (keydown.enter)="navigateToWork()"
   (keydown.space)="navigateToWork()"
 >
-  <!-- Background Banner Image & Ambient Lighting -->
+  <!-- Banner Image Container (Top) -->
   <div class="ai-project-card__bg" aria-hidden="true">
     @if (product().bannerImage || product().gallery?.[1] || product().gallery?.[0]) {
       <img
@@ -23,11 +23,9 @@
         <img [src]="product().favicon ?? product().logo" [alt]="product().title" />
       </div>
     }
-    <div class="ai-project-card__scrim" aria-hidden="true"></div>
-    <div class="ai-project-card__glow" aria-hidden="true"></div>
   </div>
 
-  <!-- Bottom Overlay: Usage Metrics & Navigation Action -->
+  <!-- Bottom Bar: Usage Metrics & Navigation Action (Outside the image) -->
   <footer class="ai-project-card__footer">
     @if (product().aiMetrics?.length) {
       <div class="ai-project-card__metrics">
