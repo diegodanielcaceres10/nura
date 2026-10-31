@@ -1,0 +1,57 @@
+<article
+  class="ai-project-card"
+  [attr.data-project-id]="product().id"
+  (click)="navigateToWork()"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="product().title + ' - ' + ('AI_ASSISTED_ACTION_VIEW_MORE' | translate)"
+  (keydown.enter)="navigateToWork()"
+  (keydown.space)="navigateToWork()"
+>
+  <!-- Banner Image Container (Top) -->
+  <div class="ai-project-card__bg" aria-hidden="true">
+    @if (product().bannerImage || product().gallery?.[1] || product().gallery?.[0]) {
+      <img
+        [src]="product().bannerImage ?? product().gallery?.[1] ?? product().gallery?.[0]"
+        [alt]="product().title"
+        loading="lazy"
+        decoding="async"
+        class="ai-project-card__bg-img"
+      />
+    } @else if (product().favicon || product().logo) {
+      <div class="ai-project-card__bg-fallback">
+        <img [src]="product().favicon ?? product().logo" [alt]="product().title" />
+      </div>
+    }
+  </div>
+
+  <!-- Bottom Bar: Usage Metrics & Navigation Action (Outside the image) -->
+  <footer class="ai-project-card__footer">
+    @if (product().aiMetrics?.length) {
+      <div class="ai-project-card__metrics">
+        @for (metric of product().aiMetrics!; track metric.labelKey) {
+          <div class="ai-project-card__metric">
+            <i [class]="metric.icon" aria-hidden="true"></i>
+            <div class="ai-project-card__metric-content">
+              <span class="ai-project-card__metric-value">{{ metric.value }}</span>
+              <span class="ai-project-card__metric-label">{{ metric.labelKey | translate }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="ai-project-card__actions">
+      <button
+        class="ai-project-card__action ai-project-card__action--more"
+        type="button"
+        (click)="navigateToWork()"
+        (keydown.enter)="navigateToWork()"
+        (keydown.space)="navigateToWork()"
+      >
+        <span>{{ 'AI_ASSISTED_ACTION_VIEW_MORE' | translate }}</span>
+        <i class="fa-solid fa-arrow-right-long" aria-hidden="true"></i>
+      </button>
+    </div>
+  </footer>
+</article>

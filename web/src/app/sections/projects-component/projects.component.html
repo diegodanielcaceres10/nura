@@ -6,56 +6,93 @@
 
     <app-title-component id="projects-title" title="PROJECTS_TITLE" subtitle="PROJECTS_SUBTITLE" intro="PROJECTS_DESCRIPTION" />
 
-    <div class="projects__filters" aria-label="Filtros rapidos de proyectos">
-      @for (filter of projectFilters; track filter.value) {
-        <button type="button" class="projects__filter" [class.projects__filter--active]="activeFilter() === filter.value" [attr.aria-pressed]="activeFilter() === filter.value" (click)="setActiveFilter(filter.value)">
-          {{ filter.label }}
-        </button>
-      }
-    </div>
+    <!-- Subsección A: Desarrollo asistido con IA -->
+    <!-- <section class="projects__subgroup projects__subgroup--ai" aria-labelledby="ai-assisted-heading">
+      <header class="projects__subgroup-header">
+        <div class="projects__subgroup-badge" aria-hidden="true">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <span>{{ 'AI_ASSISTED_SECTION_EYEBROW' | translate }}</span>
+        </div>
+        <h3 id="ai-assisted-heading" class="projects__subgroup-title">{{ 'AI_ASSISTED_SECTION_TITLE' | translate }}</h3>
+        <p class="projects__subgroup-subtitle">{{ 'AI_ASSISTED_SECTION_SUBTITLE' | translate }}</p>
+        <p class="projects__subgroup-desc">{{ 'AI_ASSISTED_SECTION_DESCRIPTION' | translate }}</p>
+      </header>
 
-    <div class="projects__grid">
-      @for (project of filteredProjects(); track project.id) {
-        <article class="projects__card" [class.projects__card--themed]="!!project.cardTheme" [style]="cardThemeVars(project)" role="button" tabindex="0">
-          @if (project.cardTheme?.cover; as cover) {
-            <div class="projects__cover" aria-hidden="true">
-              <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
-            </div>
-          }
-          <div class="projects__card-glow" aria-hidden="true"></div>
+      <div class="projects__ai-grid">
+        @for (project of aiAssistedProjects; track project.id) {
+          <app-ai-project-card [product]="project" />
+        } @empty {
+          <p class="projects__ai-empty">{{ 'AI_ASSISTED_EMPTY' | translate }}</p>
+        }
+      </div>
+    </section> -->
 
-          <div class="projects__content">
-            <app-project-card-component [project]="project" />
-          </div>
-          <div class="projects__footer">
-            <div class="projects__links">
-              @if (project.links?.repo) {
-                <a class="projects__action" [href]="project.links!.repo" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-github"></i>
-                  Repo
-                  <i class="fa-solid fa-up-right-from-square"></i>
-                </a>
-              }
-              @if (project.links?.androidAPK) {
-                <a class="projects__action projects__action-android" [href]="project.links!.androidAPK" target="_blank" rel="noopener">
-                  <i class="fa-brands fa-android"></i>
-                  Android APK
-                  <i class="fa-solid fa-download"></i>
-                </a>
-              }
-            </div>
+    <!-- Separación visual clara -->
+    <!-- <hr class="projects__divider" aria-hidden="true" /> -->
 
-            <div class="projects__links">
-              <button class="projects__action" (click)="navigateToProject(project)" (keydown.enter)="navigateToProject(project)" (keydown.space)="navigateToProject(project)">
-                Ver mas
-                <i class="fa-solid fa-arrow-right-long"></i>
-              </button>
+    <!-- Subsección B: Proyectos y repositorios -->
+    <section class="projects__subgroup projects__subgroup--repos" aria-labelledby="repositories-heading">
+      <header class="projects__subgroup-header">
+        <div class="projects__subgroup-badge projects__subgroup-badge--code" aria-hidden="true">
+          <i class="fa-solid fa-code"></i>
+          <span>{{ 'REPOSITORIES_SECTION_EYEBROW' | translate }}</span>
+        </div>
+        <h3 id="repositories-heading" class="projects__subgroup-title">{{ 'REPOSITORIES_SECTION_TITLE' | translate }}</h3>
+        <p class="projects__subgroup-subtitle">{{ 'REPOSITORIES_SECTION_SUBTITLE' | translate }}</p>
+        <p class="projects__subgroup-desc">{{ 'REPOSITORIES_SECTION_DESCRIPTION' | translate }}</p>
+      </header>
+
+      <div class="projects__filters" aria-label="Filtros rapidos de proyectos">
+        @for (filter of projectFilters; track filter.value) {
+          <button type="button" class="projects__filter" [class.projects__filter--active]="activeFilter() === filter.value" [attr.aria-pressed]="activeFilter() === filter.value" (click)="setActiveFilter(filter.value)">
+            {{ filter.label }}
+          </button>
+        }
+      </div>
+
+      <div class="projects__grid">
+        @for (project of filteredProjects(); track project.id) {
+          <article class="projects__card" [class.projects__card--themed]="!!project.cardTheme" [style]="cardThemeVars(project)" role="button" tabindex="0">
+            @if (project.cardTheme?.cover; as cover) {
+              <div class="projects__cover" aria-hidden="true">
+                <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
+              </div>
+            }
+            <div class="projects__card-glow" aria-hidden="true"></div>
+
+            <div class="projects__content">
+              <app-project-card-component [project]="project" />
             </div>
-          </div>
-        </article>
-      } @empty {
-        <p class="projects__empty">No hay proyectos para este filtro.</p>
-      }
-    </div>
+            <div class="projects__footer">
+              <div class="projects__links">
+                @if (project.links?.repo) {
+                  <a class="projects__action" [href]="project.links!.repo" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github"></i>
+                    Repo
+                    <i class="fa-solid fa-up-right-from-square"></i>
+                  </a>
+                }
+                @if (project.links?.androidAPK) {
+                  <a class="projects__action projects__action-android" [href]="project.links!.androidAPK" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-android"></i>
+                    Android APK
+                    <i class="fa-solid fa-download"></i>
+                  </a>
+                }
+              </div>
+
+              <div class="projects__links">
+                <button class="projects__action" (click)="navigateToProject(project)" (keydown.enter)="navigateToProject(project)" (keydown.space)="navigateToProject(project)">
+                  Ver mas
+                  <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+              </div>
+            </div>
+          </article>
+        } @empty {
+          <p class="projects__empty">{{ 'PROJECTS_EMPTY_FILTER' | translate }}</p>
+        }
+      </div>
+    </section>
   </div>
 </section>
