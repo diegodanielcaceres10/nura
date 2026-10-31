@@ -27,6 +27,13 @@ describe('AiProjectCardComponent', () => {
       fullDescription: 'PROJECTS_CARD_LUMA_FULL_DESC',
       keyFeatures: ['Feature 1'],
       favicon: 'assets/projects/luma/logo.png',
+      bannerImage: 'assets/projects/luma/banner.png',
+      gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png'],
+      aiMetrics: [
+        { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
+        { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+        { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
+      ],
       links: {
         demo: 'https://example.com/demo',
         repo: 'https://github.com/example/repo',
@@ -59,99 +66,80 @@ describe('AiProjectCardComponent', () => {
     expect(component.product()).toBe(mockProduct);
   });
 
-  it('should render the product title, type, short description and status', () => {
+  it('should render banner image as background when bannerImage is provided', () => {
     const native = fixture.nativeElement as HTMLElement;
-
-    expect(native.querySelector('.ai-project-card__title')?.textContent?.trim()).toBe('Test App');
-    expect(native.querySelector('.ai-project-card__category')?.textContent?.trim()).toBe('Fullstack');
-    expect(native.querySelector('.ai-project-card__description')?.textContent?.trim()).toBe(MESSAGES['PROJECTS_CARD_LUMA_SHORT_DESC']);
-    expect(native.querySelector('.ai-project-card__status')?.textContent?.trim()).toContain(MESSAGES['PROJECTS_STATUS_COMPLETED']);
-  });
-
-  it('should render AI-assisted badge when isAiAssisted is true', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const badge = native.querySelector('.ai-project-card__ai-badge');
-
-    expect(badge).not.toBeNull();
-    expect(badge?.textContent?.trim()).toContain(MESSAGES['AI_ASSISTED_BADGE']);
-  });
-
-  it('should not render AI-assisted badge when isAiAssisted is false or undefined', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, isAiAssisted: false });
-    fixture.detectChanges();
-
-    const native = fixture.nativeElement as HTMLElement;
-    expect(native.querySelector('.ai-project-card__ai-badge')).toBeNull();
-  });
-
-  it('should render extended technologies when provided', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const techs = Array.from(native.querySelectorAll('.ai-project-card__tech')).map((t) => t.textContent?.trim());
-
-    expect(techs).toEqual(['Flutter', 'Supabase', 'Angular 21', 'Google Gemini API']);
-  });
-
-  it('should fall back to main stack when extended is not provided', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, techStackExtended: undefined });
-    fixture.detectChanges();
-
-    const native = fixture.nativeElement as HTMLElement;
-    const techs = Array.from(native.querySelectorAll('.ai-project-card__tech')).map((t) => t.textContent?.trim());
-
-    expect(techs).toEqual(['Flutter', 'Angular']);
-  });
-
-  it('should render favicon/logo image', () => {
-    const native = fixture.nativeElement as HTMLElement;
-    const img = native.querySelector<HTMLImageElement>('.ai-project-card__logo img');
+    const img = native.querySelector<HTMLImageElement>('.ai-project-card__bg-img');
 
     expect(img).not.toBeNull();
-    expect(img?.src).toContain('assets/projects/luma/logo.png');
+    expect(img?.src).toContain('assets/projects/luma/banner.png');
     expect(img?.alt).toBe('Test App');
   });
 
-  it('should render logo when favicon is not set', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, favicon: undefined, logo: 'assets/projects/luma/logo.png' });
+  it('should fallback to gallery image if bannerImage is not set', () => {
+    fixture.componentRef.setInput('product', { ...mockProduct, bannerImage: undefined });
     fixture.detectChanges();
 
     const native = fixture.nativeElement as HTMLElement;
-    const img = native.querySelector<HTMLImageElement>('.ai-project-card__logo img');
+    const img = native.querySelector<HTMLImageElement>('.ai-project-card__bg-img');
 
     expect(img).not.toBeNull();
-    expect(img?.src).toContain('assets/projects/luma/logo.png');
+    expect(img?.src).toContain('assets/projects/luma/screen-home.png');
   });
 
-  it('should render icon when neither favicon nor logo is set', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, favicon: undefined, logo: undefined, icon: 'fa-solid fa-robot' });
+  it('should fallback to logo/favicon when neither bannerImage nor gallery are present', () => {
+    fixture.componentRef.setInput('product', { ...mockProduct, bannerImage: undefined, gallery: undefined });
     fixture.detectChanges();
 
     const native = fixture.nativeElement as HTMLElement;
-    const icon = native.querySelector<HTMLElement>('.ai-project-card__logo i');
+    const fallbackLogo = native.querySelector<HTMLImageElement>('.ai-project-card__bg-fallback img');
 
-    expect(icon).not.toBeNull();
-    expect(icon?.classList.contains('fa-robot')).toBe(true);
+    expect(fallbackLogo).not.toBeNull();
+    expect(fallbackLogo?.src).toContain('assets/projects/luma/logo.png');
   });
 
-  it('should render primary explore action when demo link is present', () => {
+  it('should navigate to work page when card is clicked or triggered by keyboard', () => {
+    const router = TestBed.inject(Router);
     const native = fixture.nativeElement as HTMLElement;
-    const exploreBtn = native.querySelector<HTMLAnchorElement>('.ai-project-card__action--primary');
+    const card = native.querySelector<HTMLElement>('.ai-project-card');
 
-    expect(exploreBtn).not.toBeNull();
-    expect(exploreBtn?.href).toBe('https://example.com/demo');
-    expect(exploreBtn?.target).toBe('_blank');
-    expect(exploreBtn?.rel).toBe('noopener');
-    expect(exploreBtn?.textContent?.trim()).toContain(MESSAGES['AI_ASSISTED_ACTION_EXPLORE']);
+    card?.click();
+    expect(router.navigate).toHaveBeenCalledWith(['/', 'es', 'work', 'test-app']);
+
+    card?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    expect(router.navigate).toHaveBeenCalledWith(['/', 'es', 'work', 'test-app']);
+
+    card?.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
+    expect(router.navigate).toHaveBeenCalledWith(['/', 'es', 'work', 'test-app']);
   });
 
-  it('should render secondary code action when repo link is present', () => {
+  it('should render usage metrics when aiMetrics are provided', () => {
     const native = fixture.nativeElement as HTMLElement;
-    const codeBtn = native.querySelector<HTMLAnchorElement>('.ai-project-card__action--secondary');
+    const metricItems = native.querySelectorAll('.ai-project-card__metric');
 
-    expect(codeBtn).not.toBeNull();
-    expect(codeBtn?.href).toBe('https://github.com/example/repo');
-    expect(codeBtn?.target).toBe('_blank');
-    expect(codeBtn?.rel).toBe('noopener');
-    expect(codeBtn?.textContent?.trim()).toContain(MESSAGES['AI_ASSISTED_ACTION_CODE']);
+    expect(metricItems.length).toBe(3);
+
+    const values = Array.from(native.querySelectorAll('.ai-project-card__metric-value')).map((el) => el.textContent?.trim());
+    expect(values).toEqual(['3', '1.200+', 'Gemini AI']);
+
+    const labels = Array.from(native.querySelectorAll('.ai-project-card__metric-label')).map((el) => el.textContent?.trim());
+    expect(labels).toEqual([
+      MESSAGES['LUMA_METRIC_CLIENTS'],
+      MESSAGES['LUMA_METRIC_TRANSACTIONS'],
+      MESSAGES['LUMA_METRIC_AI_SCAN'],
+    ]);
+
+    const icons = Array.from(native.querySelectorAll('.ai-project-card__metric i')).map((el) => el.className);
+    expect(icons[0]).toContain('fa-users');
+    expect(icons[1]).toContain('fa-arrow-right-arrow-left');
+    expect(icons[2]).toContain('fa-wand-magic-sparkles');
+  });
+
+  it('should not render metrics container when aiMetrics is empty or undefined', () => {
+    fixture.componentRef.setInput('product', { ...mockProduct, aiMetrics: undefined });
+    fixture.detectChanges();
+
+    const native = fixture.nativeElement as HTMLElement;
+    expect(native.querySelector('.ai-project-card__metrics')).toBeNull();
   });
 
   it('should render view more action and navigate to work page on click', () => {
@@ -166,7 +154,7 @@ describe('AiProjectCardComponent', () => {
     expect(router.navigate).toHaveBeenCalledWith(['/', 'es', 'work', 'test-app']);
   });
 
-  it('should trigger navigation on Enter and Space keydown events', () => {
+  it('should trigger navigation on Enter and Space keydown events on view more button', () => {
     const router = TestBed.inject(Router);
     const native = fixture.nativeElement as HTMLElement;
     const moreBtn = native.querySelector<HTMLButtonElement>('.ai-project-card__action--more');
@@ -176,16 +164,5 @@ describe('AiProjectCardComponent', () => {
 
     moreBtn?.dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
     expect(router.navigate).toHaveBeenCalledWith(['/', 'es', 'work', 'test-app']);
-  });
-
-  it('should still render footer and view more button when product links are undefined', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, links: undefined });
-    fixture.detectChanges();
-
-    const native = fixture.nativeElement as HTMLElement;
-    expect(native.querySelector('.ai-project-card__footer')).not.toBeNull();
-    expect(native.querySelector('.ai-project-card__action--primary')).toBeNull();
-    expect(native.querySelector('.ai-project-card__action--secondary')).toBeNull();
-    expect(native.querySelector('.ai-project-card__action--more')).not.toBeNull();
   });
 });

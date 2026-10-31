@@ -118,16 +118,11 @@
 
   &__ai-grid {
     position: relative;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 520px), 1fr));
-    gap: clamp(var(--spacing-lg), 2.5vw, var(--spacing-xl));
-    margin-bottom: clamp(var(--spacing-lg), 2vw, var(--spacing-xl));
+    display: flex;
+    flex-direction: column;
+    gap: clamp(var(--spacing-xl), 3.5vw, var(--spacing-2xl));
+    margin-bottom: clamp(var(--spacing-xl), 3vw, var(--spacing-2xl));
     z-index: 1;
-
-    @include ds.md {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-md);
-    }
   }
 
   &__filters {

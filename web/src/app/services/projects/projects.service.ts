@@ -11,6 +11,7 @@ export class ProjectsService {
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_LUMA_SHORT_DESC',
       isAiAssisted: true,
+      bannerImage: 'assets/projects/luma/banner.png',
       techStackMain: ['Flutter', 'Angular'],
       techStackExtended: ['Flutter', 'Supabase', 'Angular 21', 'TailwindCSS 4', 'Google Gemini API'],
       status: 'COMPLETED',
@@ -25,6 +26,11 @@ export class ProjectsService {
       ],
       keyFeatures: ['PROJECTS_CARD_LUMA_FEATURE_1', 'PROJECTS_CARD_LUMA_FEATURE_2', 'PROJECTS_CARD_LUMA_FEATURE_3', 'PROJECTS_CARD_LUMA_FEATURE_4', 'PROJECTS_CARD_LUMA_FEATURE_5', 'PROJECTS_CARD_LUMA_FEATURE_6', 'PROJECTS_CARD_LUMA_FEATURE_7'],
       challenges: ['PROJECTS_CARD_LUMA_CHALLENGE_1', 'PROJECTS_CARD_LUMA_CHALLENGE_2', 'PROJECTS_CARD_LUMA_CHALLENGE_3'],
+      aiMetrics: [
+        { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
+        { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+        { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
+      ],
       gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png', 'assets/projects/luma/screen-transactions.png', 'assets/projects/luma/screen-charts.png', 'assets/projects/luma/screen-accounts.png', 'assets/projects/luma/screen-categories.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',

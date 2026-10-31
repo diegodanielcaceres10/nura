@@ -28,6 +28,15 @@ export interface ProjectItem {
   metrics?: ProjectMetrics;
   cardTheme?: ProjectCardTheme;
   isAiAssisted?: boolean;
+  bannerImage?: string;
+  aiMetrics?: AiMetric[];
+}
+
+export interface AiMetric {
+  value: string;
+  labelKey: string;
+  icon: string;
+
 }
 
 export interface ProjectCardGradient {

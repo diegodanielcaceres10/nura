@@ -75,6 +75,9 @@ export const MESSAGES: Record<string, string> = {
   AI_ASSISTED_ACTION_TRY_APP: $localize`:@@AI_ASSISTED_ACTION_TRY_APP:Try app`,
   AI_ASSISTED_ACTION_CODE: $localize`:@@AI_ASSISTED_ACTION_CODE:View code`,
   AI_ASSISTED_ACTION_VIEW_MORE: $localize`:@@AI_ASSISTED_ACTION_VIEW_MORE:View more`,
+  LUMA_METRIC_CLIENTS: $localize`:@@LUMA_METRIC_CLIENTS:Active clients`,
+  LUMA_METRIC_TRANSACTIONS: $localize`:@@LUMA_METRIC_TRANSACTIONS:Transactions tracked`,
+  LUMA_METRIC_AI_SCAN: $localize`:@@LUMA_METRIC_AI_SCAN:AI receipt scanning`,
   AI_ASSISTED_EMPTY: $localize`:@@AI_ASSISTED_EMPTY:No AI-assisted development projects available at the moment.`,
 
   REPOSITORIES_SECTION_TITLE: $localize`:@@REPOSITORIES_SECTION_TITLE:Projects and Repositories`,

@@ -75,6 +75,9 @@
   "AI_ASSISTED_ACTION_TRY_APP": "Experimentar app",
   "AI_ASSISTED_ACTION_CODE": "Ver código",
   "AI_ASSISTED_ACTION_VIEW_MORE": "Ver mais",
+  "LUMA_METRIC_CLIENTS": "Clientes ativos",
+  "LUMA_METRIC_TRANSACTIONS": "Transações registradas",
+  "LUMA_METRIC_AI_SCAN": "Leitura de comprovantes com IA",
   "AI_ASSISTED_EMPTY": "Nenhum projeto com desenvolvimento assistido por IA disponível no momento.",
 
   "REPOSITORIES_SECTION_TITLE": "Projetos e repositórios",
