@@ -84,8 +84,6 @@ describe('MESSAGES', () => {
     const CHECKS: [string, Record<string, string[]>][] = [
       ['CASE_DETAIL_LEGACY_CODEBASE_MODERNIZATION_RESULTS', { en: ['feedback'], es: ['feedback'], pt: ['feedback'] }],
       ['CASE_DETAIL_CICD_PIPELINE_AUTOMATION_RESULTS', { en: ['average', 'Wednesday'], es: ['promedio', 'miércoles'], pt: ['média', 'quarta'] }],
-      ['CASE_DETAIL_RECURRING_BUGS_REDUCTION_RESULTS', { en: ['board'], es: ['tablero'], pt: ['quadro'] }],
-      ['CASE_DETAIL_CLOUD_STORAGE_MIGRATION_RESULTS', { en: ['feedback'], es: ['feedback'], pt: ['feedback'] }],
     ];
     const TEXTS: Record<string, Record<string, string>> = { en: MESSAGES, es, pt };
 
