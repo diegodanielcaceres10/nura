@@ -26,6 +26,7 @@ const fullProject: ProjectItem = {
   links: {
     repo: 'https://github.com/acme/full-project',
     demo: 'https://demo.acme.dev',
+    landing: 'https://landing.acme.dev',
     npm: 'https://www.npmjs.com/package/full-project',
     androidAPK: 'https://acme.dev/full-project.apk',
   },
@@ -165,6 +166,7 @@ describe('WorkPage', () => {
 
     it.each([
       ['demo', 'https://demo.acme.dev'],
+      ['landing', 'https://landing.acme.dev'],
       ['npm', 'https://www.npmjs.com/package/acme'],
       ['androidAPK', 'https://acme.dev/acme.apk'],
     ] as const)('should render the %s action only when that link is present', async (key, url) => {
@@ -203,7 +205,7 @@ describe('WorkPage', () => {
     it('should render every external link with its href', () => {
       const actions = Array.from(el.querySelectorAll('.work__action')) as HTMLAnchorElement[];
 
-      expect(actions.map((a) => a.getAttribute('href'))).toEqual(['https://github.com/acme/full-project', 'https://demo.acme.dev', 'https://www.npmjs.com/package/full-project', 'https://acme.dev/full-project.apk']);
+      expect(actions.map((a) => a.getAttribute('href'))).toEqual(['https://github.com/acme/full-project', 'https://demo.acme.dev', 'https://landing.acme.dev', 'https://www.npmjs.com/package/full-project', 'https://acme.dev/full-project.apk']);
       actions.forEach((a) => {
         expect(a.getAttribute('target')).toBe('_blank');
         expect(a.getAttribute('rel')).toBe('noopener');

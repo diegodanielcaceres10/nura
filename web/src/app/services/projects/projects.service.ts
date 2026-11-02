@@ -18,13 +18,13 @@ export class ProjectsService {
       year: 2026,
       fullDescription: 'PROJECTS_CARD_LUMA_FULL_DESC',
       techStackFull: [
-        { category: 'App', items: ['Flutter', 'Supabase', 'Google Auth', 'PDF Export'] },
-        { category: 'Backend', items: ['Supabase', 'Google Gemini API'] },
+        { category: 'App', items: ['Flutter', 'PWA', 'Supabase', 'Google Auth', 'PDF Export', 'Web Push (FCM)'] },
+        { category: 'Backend', items: ['Supabase', 'Edge Functions', 'Google Gemini API', 'Firebase Cloud Messaging'] },
         { category: 'BD', items: ['PostgreSQL'] },
         { category: 'Landing Page', items: ['Angular 21 (SSR)', 'TailwindCSS 4'] },
-        { category: 'DevOps', items: ['Docker', 'Firebase App Distribution', 'GitHub Actions', 'GitHub Pages'] },
+        { category: 'DevOps', items: ['Docker', 'Firebase App Distribution', 'Firebase Crashlytics', 'GitHub Actions', 'GitHub Pages', 'Cloudflare Pages'] },
       ],
-      keyFeatures: ['PROJECTS_CARD_LUMA_FEATURE_1', 'PROJECTS_CARD_LUMA_FEATURE_2', 'PROJECTS_CARD_LUMA_FEATURE_3', 'PROJECTS_CARD_LUMA_FEATURE_4', 'PROJECTS_CARD_LUMA_FEATURE_5', 'PROJECTS_CARD_LUMA_FEATURE_6', 'PROJECTS_CARD_LUMA_FEATURE_7'],
+      keyFeatures: ['PROJECTS_CARD_LUMA_FEATURE_1', 'PROJECTS_CARD_LUMA_FEATURE_2', 'PROJECTS_CARD_LUMA_FEATURE_3', 'PROJECTS_CARD_LUMA_FEATURE_4', 'PROJECTS_CARD_LUMA_FEATURE_5', 'PROJECTS_CARD_LUMA_FEATURE_6', 'PROJECTS_CARD_LUMA_FEATURE_7', 'PROJECTS_CARD_LUMA_FEATURE_8', 'PROJECTS_CARD_LUMA_FEATURE_9', 'PROJECTS_CARD_LUMA_FEATURE_10'],
       challenges: ['PROJECTS_CARD_LUMA_CHALLENGE_1', 'PROJECTS_CARD_LUMA_CHALLENGE_2', 'PROJECTS_CARD_LUMA_CHALLENGE_3'],
       aiMetrics: [
         { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
@@ -34,7 +34,8 @@ export class ProjectsService {
       gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png', 'assets/projects/luma/screen-transactions.png', 'assets/projects/luma/screen-charts.png', 'assets/projects/luma/screen-accounts.png', 'assets/projects/luma/screen-categories.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',
-        demo: 'https://diegodanielcaceres10.github.io/luma/',
+        demo: 'https://luma.pages.dev',
+        landing: 'https://diegodanielcaceres10.github.io/luma/',
       },
       cardTheme: {
         accent: '#34d399',

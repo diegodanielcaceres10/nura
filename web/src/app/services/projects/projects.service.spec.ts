@@ -120,6 +120,14 @@ describe('ProjectsService', () => {
 
       expect(aiProjectIds).toContain('luma');
     });
+
+    it('keeps the luma app demo and its landing page as separate links', () => {
+      const links = service.getById('luma')?.links;
+
+      expect(links?.demo).toBeTruthy();
+      expect(links?.landing).toBeTruthy();
+      expect(links?.landing).not.toBe(links?.demo);
+    });
   });
 
   describe('catalog integrity', () => {

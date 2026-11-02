@@ -50,6 +50,12 @@
                     <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
                   </a>
                 }
+                @if (p.links.landing) {
+                  <a class="work__action" [href]="p.links!.landing" target="_blank" rel="noopener">
+                    Landing
+                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                  </a>
+                }
                 @if (p.links.npm) {
                   <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
                     <i class="fa-brands fa-npm" aria-hidden="true"></i>

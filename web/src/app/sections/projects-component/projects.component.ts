@@ -66,6 +66,7 @@ export interface TechCategory {
 export interface ProjectLinks {
   repo: string;
   demo?: string;
+  landing?: string;
   npm?: string;
   androidAPK?: string;
 }
