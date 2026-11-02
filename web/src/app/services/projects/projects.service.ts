@@ -31,7 +31,7 @@ export class ProjectsService {
         { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
-      gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png', 'assets/projects/luma/screen-transactions.png', 'assets/projects/luma/screen-charts.png', 'assets/projects/luma/screen-accounts.png', 'assets/projects/luma/screen-categories.png'],
+      gallery: ['assets/projects/luma/screen-login.webp', 'assets/projects/luma/screen-home.webp', 'assets/projects/luma/screen-accounts.webp', 'assets/projects/luma/screen-categories.webp', 'assets/projects/luma/screen-charts.webp', 'assets/projects/luma/screen-comparison.webp'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',
         demo: 'https://luma-e16.pages.dev',
