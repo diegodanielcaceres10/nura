@@ -34,7 +34,7 @@ export class ProjectsService {
       gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png', 'assets/projects/luma/screen-transactions.png', 'assets/projects/luma/screen-charts.png', 'assets/projects/luma/screen-accounts.png', 'assets/projects/luma/screen-categories.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',
-        demo: 'https://luma.pages.dev',
+        demo: 'https://luma-e16.pages.dev',
         landing: 'https://diegodanielcaceres10.github.io/luma/',
       },
       cardTheme: {
