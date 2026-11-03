@@ -9,6 +9,9 @@ import { ProjectsService } from '../services/projects/projects.service';
 import { LocaleService } from '../services/locale/locale.service';
 import { ProjectItem } from '../sections/projects-component/projects.component';
 
+const GALLERY_TABS = ['portrait', 'landscape'] as const;
+type GalleryTab = (typeof GALLERY_TABS)[number];
+
 @Component({
   selector: 'app-work-page',
   standalone: true,
@@ -25,6 +28,7 @@ export class WorkPage implements OnInit {
 
   protected readonly project = signal<ProjectItem | null>(null);
   protected readonly notFound = signal(false);
+  protected readonly galleryTab = signal<GalleryTab>('portrait');
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -39,6 +43,38 @@ export class WorkPage implements OnInit {
     } else {
       this.notFound.set(true);
     }
+  }
+
+  protected selectGalleryTab(tab: GalleryTab): void {
+    this.galleryTab.set(tab);
+  }
+
+  // Arrow keys, Home and End move the selection (WAI-ARIA tabs pattern); the focus follows it.
+  protected onGalleryTabKeydown(event: KeyboardEvent): void {
+    const last = GALLERY_TABS.length - 1;
+    const current = GALLERY_TABS.indexOf(this.galleryTab());
+    let next: number;
+
+    switch (event.key) {
+      case 'ArrowRight':
+        next = current === last ? 0 : current + 1;
+        break;
+      case 'ArrowLeft':
+        next = current === 0 ? last : current - 1;
+        break;
+      case 'Home':
+        next = 0;
+        break;
+      case 'End':
+        next = last;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    this.galleryTab.set(GALLERY_TABS[next]);
+    (event.currentTarget as HTMLElement).closest('[role="tablist"]')?.querySelector<HTMLElement>(`#work-gallery-tab-${GALLERY_TABS[next]}`)?.focus();
   }
 
   protected goBack(): void {

@@ -261,27 +261,64 @@ describe('WorkPage', () => {
     });
   });
 
-  describe('landscape gallery', () => {
-    const photoSources = (root: Element): (string | null)[] => Array.from(root.querySelectorAll('.work__photo img')).map((img) => img.getAttribute('src'));
+  describe('gallery tabs', () => {
+    const portraitSources = ['/img/portrait-1.png', '/img/portrait-2.png'];
+    const landscapeSources = ['/img/landscape-1.png', '/img/landscape-2.png', '/img/landscape-3.png'];
 
-    it('should render the portrait and landscape grids, each with its own label, when both exist', async () => {
+    const photoSources = (root: ParentNode): (string | null)[] => Array.from(root.querySelectorAll('.work__photo img')).map((img) => img.getAttribute('src'));
+    const tabsOf = (el: HTMLElement): HTMLButtonElement[] => Array.from(el.querySelectorAll('[role="tab"]'));
+    const panelOf = (el: HTMLElement): HTMLElement => el.querySelector('.work__gallery-panel') as HTMLElement;
+    const tabById = (el: HTMLElement, name: 'portrait' | 'landscape'): HTMLButtonElement => el.querySelector(`#work-gallery-tab-${name}`) as HTMLButtonElement;
+
+    const pressKey = (f: ComponentFixture<WorkPage>, target: HTMLElement, key: string): KeyboardEvent => {
+      const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+      target.dispatchEvent(event);
+      f.detectChanges();
+      return event;
+    };
+
+    it('should render both tabs with the portrait one selected and only its photos', async () => {
       const f = await createPage('both-galleries', [bothGalleriesProject]);
       const el: HTMLElement = f.nativeElement;
-      const grids = el.querySelectorAll('.work__gallery');
+      const [portraitTab, landscapeTab] = tabsOf(el);
 
-      expect(el.querySelectorAll('.work__gallery-label').length).toBe(2);
-      expect(grids.length).toBe(2);
-      expect(photoSources(grids[0])).toEqual(['/img/portrait-1.png', '/img/portrait-2.png']);
-      expect(grids[0].classList.contains('work__gallery--landscape')).toBe(false);
-      expect(photoSources(grids[1])).toEqual(['/img/landscape-1.png', '/img/landscape-2.png', '/img/landscape-3.png']);
-      expect(grids[1].classList.contains('work__gallery--landscape')).toBe(true);
+      expect(el.querySelectorAll('[role="tablist"]').length).toBe(1);
+      expect(tabsOf(el).length).toBe(2);
+      expect(portraitTab.getAttribute('aria-selected')).toBe('true');
+      expect(portraitTab.getAttribute('tabindex')).toBe('0');
+      expect(landscapeTab.getAttribute('aria-selected')).toBe('false');
+      expect(landscapeTab.getAttribute('tabindex')).toBe('-1');
+      expect(photoSources(panelOf(el))).toEqual(portraitSources);
+      expect(el.querySelector('.work__gallery--landscape')).toBeNull();
     });
 
-    it('should give landscape images their real dimensions and the project title as alt', async () => {
+    it('should link every tab to the tabpanel and label the panel with the selected tab', async () => {
       const f = await createPage('both-galleries', [bothGalleriesProject]);
-      const images = Array.from(f.nativeElement.querySelectorAll('.work__gallery--landscape img')) as HTMLImageElement[];
+      const el: HTMLElement = f.nativeElement;
+      const panel = panelOf(el);
 
-      expect(images.length).toBe(3);
+      expect(panel.getAttribute('role')).toBe('tabpanel');
+      expect(panel.getAttribute('aria-labelledby')).toBe(tabById(el, 'portrait').id);
+      tabsOf(el).forEach((tab) => expect(tab.getAttribute('aria-controls')).toBe(panel.id));
+    });
+
+    it('should show the landscape photos, with their real size, when the landscape tab is clicked', async () => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const el: HTMLElement = f.nativeElement;
+
+      tabById(el, 'landscape').click();
+      f.detectChanges();
+
+      expect(tabById(el, 'landscape').getAttribute('aria-selected')).toBe('true');
+      expect(tabById(el, 'landscape').getAttribute('tabindex')).toBe('0');
+      expect(tabById(el, 'portrait').getAttribute('aria-selected')).toBe('false');
+      expect(tabById(el, 'portrait').getAttribute('tabindex')).toBe('-1');
+      expect(panelOf(el).getAttribute('aria-labelledby')).toBe(tabById(el, 'landscape').id);
+      expect(photoSources(panelOf(el))).toEqual(landscapeSources);
+      expect(el.querySelectorAll('.work__gallery').length).toBe(1);
+
+      const images = Array.from(el.querySelectorAll('.work__gallery--landscape img')) as HTMLImageElement[];
+      expect(images.length).toBe(landscapeSources.length);
       images.forEach((img) => {
         expect(img.getAttribute('width')).toBe('1280');
         expect(img.getAttribute('height')).toBe('740');
@@ -290,22 +327,77 @@ describe('WorkPage', () => {
       });
     });
 
-    it('should not render sub-labels when the project only has the main gallery', async () => {
-      const f = await createPage('full-project', [fullProject]);
+    it('should go back to the portrait photos when the portrait tab is clicked again', async () => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const el: HTMLElement = f.nativeElement;
 
-      expect(f.nativeElement.querySelectorAll('.work__gallery').length).toBe(1);
-      expect(f.nativeElement.querySelector('.work__gallery-label')).toBeNull();
+      tabById(el, 'landscape').click();
+      f.detectChanges();
+      tabById(el, 'portrait').click();
+      f.detectChanges();
+
+      expect(tabById(el, 'portrait').getAttribute('aria-selected')).toBe('true');
+      expect(photoSources(panelOf(el))).toEqual(portraitSources);
+      expect(el.querySelector('.work__gallery--landscape')).toBeNull();
     });
 
-    it('should render only the landscape grid, with its label, when there is no main gallery', async () => {
+    it.each([
+      ['portrait', 'ArrowRight', 'landscape'],
+      ['portrait', 'ArrowLeft', 'landscape'],
+      ['portrait', 'End', 'landscape'],
+      ['portrait', 'Home', 'portrait'],
+      ['landscape', 'ArrowRight', 'portrait'],
+      ['landscape', 'ArrowLeft', 'portrait'],
+      ['landscape', 'Home', 'portrait'],
+      ['landscape', 'End', 'landscape'],
+    ] as const)('from the %s tab, %s should select and focus the %s tab', async (from, key, expected) => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const el: HTMLElement = f.nativeElement;
+      if (from === 'landscape') {
+        tabById(el, 'landscape').click();
+        f.detectChanges();
+      }
+
+      const event = pressKey(f, tabById(el, from), key);
+
+      expect(event.defaultPrevented).toBe(true);
+      expect(tabById(el, expected).getAttribute('aria-selected')).toBe('true');
+      expect(document.activeElement?.id).toBe(`work-gallery-tab-${expected}`);
+      expect(photoSources(panelOf(el))).toEqual(expected === 'portrait' ? portraitSources : landscapeSources);
+    });
+
+    it('should ignore keys that do not move the selection', async () => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const el: HTMLElement = f.nativeElement;
+
+      const event = pressKey(f, tabById(el, 'portrait'), 'a');
+
+      expect(event.defaultPrevented).toBe(false);
+      expect(tabById(el, 'portrait').getAttribute('aria-selected')).toBe('true');
+      expect(photoSources(panelOf(el))).toEqual(portraitSources);
+    });
+
+    it('should not render tabs when the project only has the main gallery', async () => {
+      const f = await createPage('full-project', [fullProject]);
+      const el: HTMLElement = f.nativeElement;
+
+      expect(el.querySelector('[role="tablist"]')).toBeNull();
+      expect(tabsOf(el).length).toBe(0);
+      expect(panelOf(el).getAttribute('role')).toBeNull();
+      expect(panelOf(el).getAttribute('aria-labelledby')).toBeNull();
+      expect(photoSources(panelOf(el))).toEqual(['/img/1.png', '/img/2.png', '/img/3.png']);
+    });
+
+    it('should render only the landscape grid, without tabs, when there is no main gallery', async () => {
       const landscapeOnly: ProjectItem = { ...mockProject, id: 'landscape-only', galleryLandscape: ['/img/landscape-1.png'] };
 
       const f = await createPage('landscape-only', [landscapeOnly]);
       const el: HTMLElement = f.nativeElement;
 
+      expect(tabsOf(el).length).toBe(0);
       expect(el.querySelectorAll('.work__gallery').length).toBe(1);
       expect(el.querySelector('.work__gallery')?.classList.contains('work__gallery--landscape')).toBe(true);
-      expect(el.querySelectorAll('.work__gallery-label').length).toBe(1);
+      expect(photoSources(panelOf(el))).toEqual(['/img/landscape-1.png']);
     });
   });
 

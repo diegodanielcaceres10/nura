@@ -114,30 +114,41 @@
             }
 
             @if (p.gallery?.length || p.galleryLandscape?.length) {
+              @let hasTabs = !!p.gallery?.length && !!p.galleryLandscape?.length;
+              @let showPortrait = !!p.gallery?.length && (!hasTabs || galleryTab() === 'portrait');
+              @let showLandscape = !!p.galleryLandscape?.length && (!hasTabs || galleryTab() === 'landscape');
               <div class="work__section">
                 <span class="work__section-label">{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
-                @if (p.gallery?.length) {
-                  @if (p.galleryLandscape?.length) {
-                    <span class="work__gallery-label">{{ 'PROJECTS_MODAL_GALLERY_PORTRAIT' | translate }}</span>
+                @if (hasTabs) {
+                  <div class="work__tabs" role="tablist" [attr.aria-label]="'PROJECTS_MODAL_GALLERY' | translate">
+                    <button type="button" role="tab" id="work-gallery-tab-portrait" class="work__tab" [class.work__tab--active]="galleryTab() === 'portrait'" [attr.aria-selected]="galleryTab() === 'portrait'" [attr.tabindex]="galleryTab() === 'portrait' ? 0 : -1" aria-controls="work-gallery-panel" (click)="selectGalleryTab('portrait')" (keydown)="onGalleryTabKeydown($event)">
+                      {{ 'PROJECTS_MODAL_GALLERY_PORTRAIT' | translate }}
+                    </button>
+                    <button type="button" role="tab" id="work-gallery-tab-landscape" class="work__tab" [class.work__tab--active]="galleryTab() === 'landscape'" [attr.aria-selected]="galleryTab() === 'landscape'" [attr.tabindex]="galleryTab() === 'landscape' ? 0 : -1" aria-controls="work-gallery-panel" (click)="selectGalleryTab('landscape')" (keydown)="onGalleryTabKeydown($event)">
+                      {{ 'PROJECTS_MODAL_GALLERY_LANDSCAPE' | translate }}
+                    </button>
+                  </div>
+                }
+                <div id="work-gallery-panel" class="work__gallery-panel" [attr.role]="hasTabs ? 'tabpanel' : null" [attr.aria-labelledby]="hasTabs ? 'work-gallery-tab-' + galleryTab() : null" [attr.tabindex]="hasTabs ? 0 : null">
+                  @if (showPortrait) {
+                    <div class="work__gallery">
+                      @for (img of p.gallery; track img) {
+                        <div class="work__photo">
+                          <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
+                        </div>
+                      }
+                    </div>
                   }
-                  <div class="work__gallery">
-                    @for (img of p.gallery; track img) {
-                      <div class="work__photo">
-                        <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
-                      </div>
-                    }
-                  </div>
-                }
-                @if (p.galleryLandscape?.length) {
-                  <span class="work__gallery-label">{{ 'PROJECTS_MODAL_GALLERY_LANDSCAPE' | translate }}</span>
-                  <div class="work__gallery work__gallery--landscape">
-                    @for (img of p.galleryLandscape; track img) {
-                      <div class="work__photo work__photo--landscape">
-                        <img [src]="img" loading="lazy" width="1280" height="740" decoding="async" [alt]="p.title" />
-                      </div>
-                    }
-                  </div>
-                }
+                  @if (showLandscape) {
+                    <div class="work__gallery work__gallery--landscape">
+                      @for (img of p.galleryLandscape; track img) {
+                        <div class="work__photo work__photo--landscape">
+                          <img [src]="img" loading="lazy" width="1280" height="740" decoding="async" [alt]="p.title" />
+                        </div>
+                      }
+                    </div>
+                  }
+                </div>
               </div>
             }
           </div>
