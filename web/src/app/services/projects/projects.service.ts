@@ -32,6 +32,7 @@ export class ProjectsService {
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
       gallery: ['assets/projects/luma/screen-login.webp', 'assets/projects/luma/screen-home.webp', 'assets/projects/luma/screen-accounts.webp', 'assets/projects/luma/screen-categories.webp', 'assets/projects/luma/screen-charts.webp', 'assets/projects/luma/screen-comparison.webp'],
+      galleryLandscape: ['assets/projects/luma/landscape-login.webp', 'assets/projects/luma/landscape-home.webp', 'assets/projects/luma/landscape-accounts.webp', 'assets/projects/luma/landscape-categories.webp', 'assets/projects/luma/landscape-charts.webp', 'assets/projects/luma/landscape-comparison.webp'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',
         demo: 'https://luma-e16.pages.dev',

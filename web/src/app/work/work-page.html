@@ -113,16 +113,31 @@
               </div>
             }
 
-            @if (p.gallery?.length) {
+            @if (p.gallery?.length || p.galleryLandscape?.length) {
               <div class="work__section">
                 <span class="work__section-label">{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
-                <div class="work__gallery">
-                  @for (img of p.gallery; track img) {
-                    <div class="work__photo">
-                      <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
-                    </div>
+                @if (p.gallery?.length) {
+                  @if (p.galleryLandscape?.length) {
+                    <span class="work__gallery-label">{{ 'PROJECTS_MODAL_GALLERY_PORTRAIT' | translate }}</span>
                   }
-                </div>
+                  <div class="work__gallery">
+                    @for (img of p.gallery; track img) {
+                      <div class="work__photo">
+                        <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
+                      </div>
+                    }
+                  </div>
+                }
+                @if (p.galleryLandscape?.length) {
+                  <span class="work__gallery-label">{{ 'PROJECTS_MODAL_GALLERY_LANDSCAPE' | translate }}</span>
+                  <div class="work__gallery work__gallery--landscape">
+                    @for (img of p.galleryLandscape; track img) {
+                      <div class="work__photo work__photo--landscape">
+                        <img [src]="img" loading="lazy" width="1280" height="740" decoding="async" [alt]="p.title" />
+                      </div>
+                    }
+                  </div>
+                }
               </div>
             }
           </div>

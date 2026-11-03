@@ -90,6 +90,8 @@
   "PROJECTS_MODAL_FEATURES_KEY": "Principais recursos",
   "PROJECTS_MODAL_CHALLENGES": "Desafios",
   "PROJECTS_MODAL_GALLERY": "Galeria",
+  "PROJECTS_MODAL_GALLERY_PORTRAIT": "Retrato · Mobile",
+  "PROJECTS_MODAL_GALLERY_LANDSCAPE": "Paisagem · Tablet e web",
   "WORK_BACK": "Voltar",
   "WORK_NOT_FOUND": "Projeto não encontrado",
   "PROJECTS_STATUS_COMPLETED": "Concluído",

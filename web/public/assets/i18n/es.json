@@ -90,6 +90,8 @@
   "PROJECTS_MODAL_FEATURES_KEY": "Características clave",
   "PROJECTS_MODAL_CHALLENGES": "Desafíos",
   "PROJECTS_MODAL_GALLERY": "Galería",
+  "PROJECTS_MODAL_GALLERY_PORTRAIT": "Vertical · Móvil",
+  "PROJECTS_MODAL_GALLERY_LANDSCAPE": "Horizontal · Tablet y web",
   "WORK_BACK": "Volver",
   "WORK_NOT_FOUND": "Proyecto no encontrado",
   "PROJECTS_STATUS_COMPLETED": "Completado",

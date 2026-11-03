@@ -50,6 +50,14 @@ const themedProject: ProjectItem = {
   },
 };
 
+const bothGalleriesProject: ProjectItem = {
+  ...mockProject,
+  id: 'both-galleries',
+  title: 'Both Galleries',
+  gallery: ['/img/portrait-1.png', '/img/portrait-2.png'],
+  galleryLandscape: ['/img/landscape-1.png', '/img/landscape-2.png', '/img/landscape-3.png'],
+};
+
 async function createPage(routeId: string | null, projects: ProjectItem[]): Promise<ComponentFixture<WorkPage>> {
   await TestBed.resetTestingModule();
   await TestBed.configureTestingModule({
@@ -250,6 +258,54 @@ describe('WorkPage', () => {
 
       expect(images.map((i) => i.getAttribute('src'))).toEqual(['/img/1.png', '/img/2.png', '/img/3.png']);
       images.forEach((i) => expect(i.getAttribute('alt')).toBe('Full Project'));
+    });
+  });
+
+  describe('landscape gallery', () => {
+    const photoSources = (root: Element): (string | null)[] => Array.from(root.querySelectorAll('.work__photo img')).map((img) => img.getAttribute('src'));
+
+    it('should render the portrait and landscape grids, each with its own label, when both exist', async () => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const el: HTMLElement = f.nativeElement;
+      const grids = el.querySelectorAll('.work__gallery');
+
+      expect(el.querySelectorAll('.work__gallery-label').length).toBe(2);
+      expect(grids.length).toBe(2);
+      expect(photoSources(grids[0])).toEqual(['/img/portrait-1.png', '/img/portrait-2.png']);
+      expect(grids[0].classList.contains('work__gallery--landscape')).toBe(false);
+      expect(photoSources(grids[1])).toEqual(['/img/landscape-1.png', '/img/landscape-2.png', '/img/landscape-3.png']);
+      expect(grids[1].classList.contains('work__gallery--landscape')).toBe(true);
+    });
+
+    it('should give landscape images their real dimensions and the project title as alt', async () => {
+      const f = await createPage('both-galleries', [bothGalleriesProject]);
+      const images = Array.from(f.nativeElement.querySelectorAll('.work__gallery--landscape img')) as HTMLImageElement[];
+
+      expect(images.length).toBe(3);
+      images.forEach((img) => {
+        expect(img.getAttribute('width')).toBe('1280');
+        expect(img.getAttribute('height')).toBe('740');
+        expect(img.getAttribute('loading')).toBe('lazy');
+        expect(img.getAttribute('alt')).toBe('Both Galleries');
+      });
+    });
+
+    it('should not render sub-labels when the project only has the main gallery', async () => {
+      const f = await createPage('full-project', [fullProject]);
+
+      expect(f.nativeElement.querySelectorAll('.work__gallery').length).toBe(1);
+      expect(f.nativeElement.querySelector('.work__gallery-label')).toBeNull();
+    });
+
+    it('should render only the landscape grid, with its label, when there is no main gallery', async () => {
+      const landscapeOnly: ProjectItem = { ...mockProject, id: 'landscape-only', galleryLandscape: ['/img/landscape-1.png'] };
+
+      const f = await createPage('landscape-only', [landscapeOnly]);
+      const el: HTMLElement = f.nativeElement;
+
+      expect(el.querySelectorAll('.work__gallery').length).toBe(1);
+      expect(el.querySelector('.work__gallery')?.classList.contains('work__gallery--landscape')).toBe(true);
+      expect(el.querySelectorAll('.work__gallery-label').length).toBe(1);
     });
   });
 

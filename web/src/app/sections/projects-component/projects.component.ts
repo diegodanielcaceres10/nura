@@ -24,6 +24,7 @@ export interface ProjectItem {
   keyFeatures: string[];
   challenges?: string[];
   gallery?: string[];
+  galleryLandscape?: string[];
   links?: ProjectLinks;
   metrics?: ProjectMetrics;
   cardTheme?: ProjectCardTheme;

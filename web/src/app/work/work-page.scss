@@ -475,6 +475,20 @@
     }
   }
 
+  &__gallery--landscape {
+    grid-template-columns: 1fr;
+  }
+
+  &__gallery-label {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--light-color);
+    opacity: 0.8;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
   &__photo {
     border-radius: var(--radius-md);
     overflow: hidden;
@@ -498,6 +512,11 @@
       object-fit: cover;
       transition: transform var(--transition-base);
     }
+  }
+
+  &__photo--landscape img {
+    height: auto;
+    aspect-ratio: 1280 / 740;
   }
 }
 
