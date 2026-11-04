@@ -10,9 +10,9 @@
 >
   <!-- Banner Image Container (Top) -->
   <div class="ai-project-card__bg" aria-hidden="true">
-    @if (product().bannerImage || product().gallery?.[1] || product().gallery?.[0]) {
+    @if (product().bannerImage || product().galleryPortrait?.[1] || product().galleryPortrait?.[0]) {
       <img
-        [src]="product().bannerImage ?? product().gallery?.[1] ?? product().gallery?.[0]"
+        [src]="product().bannerImage ?? product().galleryPortrait?.[1] ?? product().galleryPortrait?.[0]"
         [alt]="product().title"
         loading="lazy"
         decoding="async"

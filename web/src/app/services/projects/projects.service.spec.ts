@@ -43,7 +43,7 @@ const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 
 const translationKeys = (project: ProjectItem): string[] => [project.shortDescription, project.fullDescription, ...project.keyFeatures, ...(project.challenges ?? [])];
 
-const assetPaths = (project: ProjectItem): string[] => [project.logo, ...(project.gallery ?? []), ...(project.galleryLandscape ?? [])].filter((path): path is string => !!path);
+const assetPaths = (project: ProjectItem): string[] => [project.logo, ...(project.galleryPortrait ?? []), ...(project.galleryLandscape ?? [])].filter((path): path is string => !!path);
 
 const withoutValue = (source: Record<string, string>, keys: string[]): string[] => keys.filter((key) => !source[key]?.trim());
 
@@ -176,7 +176,7 @@ describe('ProjectsService', () => {
     });
 
     it.each(catalog)('$id: does not list the same image in both galleries', (project) => {
-      const portrait = project.gallery ?? [];
+      const portrait = project.galleryPortrait ?? [];
       const repeated = (project.galleryLandscape ?? []).filter((path) => portrait.includes(path));
 
       expect(repeated).toEqual([]);
@@ -185,8 +185,20 @@ describe('ProjectsService', () => {
     it('luma keeps a landscape gallery next to its portrait gallery', () => {
       const luma = service.getById('luma');
 
-      expect(luma?.gallery?.length).toBeGreaterThan(0);
+      expect(luma?.galleryPortrait?.length).toBeGreaterThan(0);
       expect(luma?.galleryLandscape?.length).toBeGreaterThan(0);
+    });
+
+    it.each([
+      ['ionic-plugin-lab', 'galleryPortrait'],
+      ['kora-roster', 'galleryLandscape'],
+      ['riu-frontend-diego-daniel-caceres', 'galleryLandscape'],
+    ] as const)('%s keeps its screenshots in %s only', (id, key) => {
+      const other = key === 'galleryPortrait' ? 'galleryLandscape' : 'galleryPortrait';
+      const project = service.getById(id);
+
+      expect(project?.[key]?.length).toBeGreaterThan(0);
+      expect(project?.[other]).toBeUndefined();
     });
 
     it.each(catalog)('$id: asset paths are relative to the base href', (project) => {

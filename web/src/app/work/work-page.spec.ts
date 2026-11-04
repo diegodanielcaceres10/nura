@@ -35,7 +35,7 @@ const fullProject: ProjectItem = {
     { category: 'Tooling', items: ['Vitest'] },
   ],
   challenges: ['Challenge 1', 'Challenge 2'],
-  gallery: ['/img/1.png', '/img/2.png', '/img/3.png'],
+  galleryPortrait: ['/img/1.png', '/img/2.png', '/img/3.png'],
   logo: 'assets/projects/full-project/logo.png',
 };
 
@@ -54,7 +54,7 @@ const bothGalleriesProject: ProjectItem = {
   ...mockProject,
   id: 'both-galleries',
   title: 'Both Galleries',
-  gallery: ['/img/portrait-1.png', '/img/portrait-2.png'],
+  galleryPortrait: ['/img/portrait-1.png', '/img/portrait-2.png'],
   galleryLandscape: ['/img/landscape-1.png', '/img/landscape-2.png', '/img/landscape-3.png'],
 };
 
@@ -191,7 +191,7 @@ describe('WorkPage', () => {
     });
 
     it('should not render empty optional sections', async () => {
-      const emptyLists: ProjectItem = { ...mockProject, id: 'empty-lists', techStackFull: [], challenges: [], gallery: [] };
+      const emptyLists: ProjectItem = { ...mockProject, id: 'empty-lists', techStackFull: [], challenges: [], galleryPortrait: [] };
 
       const f = await createPage('empty-lists', [emptyLists]);
       const el: HTMLElement = f.nativeElement;
@@ -377,7 +377,7 @@ describe('WorkPage', () => {
       expect(photoSources(panelOf(el))).toEqual(portraitSources);
     });
 
-    it('should not render tabs when the project only has the main gallery', async () => {
+    it('should not render tabs when the project only has the portrait gallery', async () => {
       const f = await createPage('full-project', [fullProject]);
       const el: HTMLElement = f.nativeElement;
 
@@ -388,7 +388,7 @@ describe('WorkPage', () => {
       expect(photoSources(panelOf(el))).toEqual(['/img/1.png', '/img/2.png', '/img/3.png']);
     });
 
-    it('should render only the landscape grid, without tabs, when there is no main gallery', async () => {
+    it('should render only the landscape grid, without tabs, when there is no portrait gallery', async () => {
       const landscapeOnly: ProjectItem = { ...mockProject, id: 'landscape-only', galleryLandscape: ['/img/landscape-1.png'] };
 
       const f = await createPage('landscape-only', [landscapeOnly]);

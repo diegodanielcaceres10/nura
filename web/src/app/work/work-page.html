@@ -113,9 +113,9 @@
               </div>
             }
 
-            @if (p.gallery?.length || p.galleryLandscape?.length) {
-              @let hasTabs = !!p.gallery?.length && !!p.galleryLandscape?.length;
-              @let showPortrait = !!p.gallery?.length && (!hasTabs || galleryTab() === 'portrait');
+            @if (p.galleryPortrait?.length || p.galleryLandscape?.length) {
+              @let hasTabs = !!p.galleryPortrait?.length && !!p.galleryLandscape?.length;
+              @let showPortrait = !!p.galleryPortrait?.length && (!hasTabs || galleryTab() === 'portrait');
               @let showLandscape = !!p.galleryLandscape?.length && (!hasTabs || galleryTab() === 'landscape');
               <div class="work__section">
                 <span class="work__section-label">{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
@@ -132,7 +132,7 @@
                 <div id="work-gallery-panel" class="work__gallery-panel" [attr.role]="hasTabs ? 'tabpanel' : null" [attr.aria-labelledby]="hasTabs ? 'work-gallery-tab-' + galleryTab() : null" [attr.tabindex]="hasTabs ? 0 : null">
                   @if (showPortrait) {
                     <div class="work__gallery">
-                      @for (img of p.gallery; track img) {
+                      @for (img of p.galleryPortrait; track img) {
                         <div class="work__photo">
                           <img [src]="img" loading="lazy" width="400" height="300" decoding="async" [alt]="p.title" />
                         </div>

@@ -23,7 +23,7 @@ export interface ProjectItem {
   techStackFull?: TechCategory[];
   keyFeatures: string[];
   challenges?: string[];
-  gallery?: string[];
+  galleryPortrait?: string[];
   galleryLandscape?: string[];
   links?: ProjectLinks;
   metrics?: ProjectMetrics;

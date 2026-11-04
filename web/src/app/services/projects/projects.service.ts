@@ -31,7 +31,7 @@ export class ProjectsService {
         { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
-      gallery: ['assets/projects/luma/screen-login.webp', 'assets/projects/luma/screen-home.webp', 'assets/projects/luma/screen-accounts.webp', 'assets/projects/luma/screen-categories.webp', 'assets/projects/luma/screen-charts.webp', 'assets/projects/luma/screen-comparison.webp'],
+      galleryPortrait: ['assets/projects/luma/screen-login.webp', 'assets/projects/luma/screen-home.webp', 'assets/projects/luma/screen-accounts.webp', 'assets/projects/luma/screen-categories.webp', 'assets/projects/luma/screen-charts.webp', 'assets/projects/luma/screen-comparison.webp'],
       galleryLandscape: ['assets/projects/luma/landscape-login.webp', 'assets/projects/luma/landscape-home.webp', 'assets/projects/luma/landscape-accounts.webp', 'assets/projects/luma/landscape-categories.webp', 'assets/projects/luma/landscape-charts.webp', 'assets/projects/luma/landscape-comparison.webp'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/luma',
@@ -81,7 +81,7 @@ export class ProjectsService {
       ],
       keyFeatures: ['PROJECTS_CARD_KORA_ROSTER_FEATURE_1', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_2', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_3', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_4', 'PROJECTS_CARD_KORA_ROSTER_FEATURE_5'],
       challenges: ['PROJECTS_CARD_KORA_ROSTER_CHALLENGE_1', 'PROJECTS_CARD_KORA_ROSTER_CHALLENGE_2'],
-      gallery: ['assets/projects/kora-roster/screen-welcome.png', 'assets/projects/kora-roster/screen-step1.png', 'assets/projects/kora-roster/screen-step2.png', 'assets/projects/kora-roster/screen-step3.png', 'assets/projects/kora-roster/screen-draw.png', 'assets/projects/kora-roster/screen-export.png'],
+      galleryLandscape: ['assets/projects/kora-roster/screen-welcome.png', 'assets/projects/kora-roster/screen-step1.png', 'assets/projects/kora-roster/screen-step2.png', 'assets/projects/kora-roster/screen-step3.png', 'assets/projects/kora-roster/screen-draw.png', 'assets/projects/kora-roster/screen-export.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/kora-roster',
         demo: 'https://diegodanielcaceres10.github.io/kora-roster/',
@@ -109,7 +109,7 @@ export class ProjectsService {
       ],
       keyFeatures: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_2', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_3', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_4', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_5', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_6', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_FEATURE_7'],
       challenges: ['PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_1', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_2', 'PROJECTS_CARD_IONIC_PLUGIN_LAB_CHALLENGE_3'],
-      gallery: ['assets/projects/ionic-plugin-lab/screen-splash.png', 'assets/projects/ionic-plugin-lab/screen-home.png', 'assets/projects/ionic-plugin-lab/screen-camera.png', 'assets/projects/ionic-plugin-lab/screen-biometrics.png', 'assets/projects/ionic-plugin-lab/screen-favorites.png', 'assets/projects/ionic-plugin-lab/screen-logs.png'],
+      galleryPortrait: ['assets/projects/ionic-plugin-lab/screen-splash.png', 'assets/projects/ionic-plugin-lab/screen-home.png', 'assets/projects/ionic-plugin-lab/screen-camera.png', 'assets/projects/ionic-plugin-lab/screen-biometrics.png', 'assets/projects/ionic-plugin-lab/screen-favorites.png', 'assets/projects/ionic-plugin-lab/screen-logs.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab',
         androidAPK: 'https://github.com/diegodanielcaceres10/ionic-plugin-lab/releases/latest/download/app-release.apk',
@@ -137,7 +137,7 @@ export class ProjectsService {
       ],
       keyFeatures: ['PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_1', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_2', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_3', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_4', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_5', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_FEATURE_6'],
       challenges: ['PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_1', 'PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_2'],
-      gallery: ['assets/projects/riu-frontend/screen-home.png', 'assets/projects/riu-frontend/screen-list.png', 'assets/projects/riu-frontend/screen-form.png'],
+      galleryLandscape: ['assets/projects/riu-frontend/screen-home.png', 'assets/projects/riu-frontend/screen-list.png', 'assets/projects/riu-frontend/screen-form.png'],
       links: {
         repo: 'https://github.com/diegodanielcaceres10/RIU-Frontend-diego-daniel-caceres',
         demo: 'https://diegodanielcaceres10.github.io/RIU-Frontend-diego-daniel-caceres/',

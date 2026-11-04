@@ -28,7 +28,7 @@ describe('AiProjectCardComponent', () => {
       keyFeatures: ['Feature 1'],
       favicon: 'assets/projects/luma/logo.png',
       bannerImage: 'assets/projects/luma/banner.png',
-      gallery: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png'],
+      galleryPortrait: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png'],
       aiMetrics: [
         { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
         { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
@@ -75,7 +75,7 @@ describe('AiProjectCardComponent', () => {
     expect(img?.alt).toBe('Test App');
   });
 
-  it('should fallback to gallery image if bannerImage is not set', () => {
+  it('should fallback to portrait gallery image if bannerImage is not set', () => {
     fixture.componentRef.setInput('product', { ...mockProduct, bannerImage: undefined });
     fixture.detectChanges();
 
@@ -86,8 +86,8 @@ describe('AiProjectCardComponent', () => {
     expect(img?.src).toContain('assets/projects/luma/screen-home.png');
   });
 
-  it('should fallback to logo/favicon when neither bannerImage nor gallery are present', () => {
-    fixture.componentRef.setInput('product', { ...mockProduct, bannerImage: undefined, gallery: undefined });
+  it('should fallback to logo/favicon when neither bannerImage nor portrait gallery are present', () => {
+    fixture.componentRef.setInput('product', { ...mockProduct, bannerImage: undefined, galleryPortrait: undefined });
     fixture.detectChanges();
 
     const native = fixture.nativeElement as HTMLElement;
