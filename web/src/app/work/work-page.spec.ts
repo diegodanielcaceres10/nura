@@ -414,6 +414,15 @@ describe('WorkPage', () => {
       expect(img?.getAttribute('alt')).toBe('Banner Project');
     });
 
+    it('should declare the intrinsic size of the banner to avoid layout shift', async () => {
+      const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
+
+      const f = await createPage('with-banner', [withBanner]);
+      const img = bannerOf(f.nativeElement);
+
+      expect([img?.getAttribute('width'), img?.getAttribute('height')]).toEqual(['1902', '827']);
+    });
+
     it('should not render a banner when the project has none', async () => {
       const f = await createPage('full-project', [fullProject]);
 
