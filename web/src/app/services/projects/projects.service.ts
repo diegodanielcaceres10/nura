@@ -27,10 +27,13 @@ export class ProjectsService {
       keyFeatures: ['PROJECTS_CARD_LUMA_FEATURE_1', 'PROJECTS_CARD_LUMA_FEATURE_2', 'PROJECTS_CARD_LUMA_FEATURE_3', 'PROJECTS_CARD_LUMA_FEATURE_4', 'PROJECTS_CARD_LUMA_FEATURE_5', 'PROJECTS_CARD_LUMA_FEATURE_6', 'PROJECTS_CARD_LUMA_FEATURE_7', 'PROJECTS_CARD_LUMA_FEATURE_8', 'PROJECTS_CARD_LUMA_FEATURE_9', 'PROJECTS_CARD_LUMA_FEATURE_10'],
       challenges: ['PROJECTS_CARD_LUMA_CHALLENGE_1', 'PROJECTS_CARD_LUMA_CHALLENGE_2', 'PROJECTS_CARD_LUMA_CHALLENGE_3'],
       aiMetrics: [
-        { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
-        { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+        { value: '3', labelKey: 'LUMA_METRIC_USERS', icon: 'fa-solid fa-users' },
+        { value: '228', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+        { value: '13', labelKey: 'LUMA_METRIC_PAID_INVOICES', icon: 'fa-solid fa-file-invoice-dollar' },
+        { value: '43', labelKey: 'LUMA_METRIC_DAYS_IN_USE', icon: 'fa-solid fa-calendar-days' },
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
+      metricsAsOf: '2026-11-04',
       aiDetail: {
         tools: ['Claude Code', 'Google Gemini API'],
         workflow: ['LUMA_AI_WORKFLOW_1', 'LUMA_AI_WORKFLOW_2', 'LUMA_AI_WORKFLOW_3', 'LUMA_AI_WORKFLOW_4'],

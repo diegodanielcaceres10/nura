@@ -30,8 +30,8 @@ describe('AiProjectCardComponent', () => {
       bannerImage: 'assets/projects/luma/banner.webp',
       galleryPortrait: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png'],
       aiMetrics: [
-        { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
-        { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+        { value: '3', labelKey: 'LUMA_METRIC_USERS', icon: 'fa-solid fa-users' },
+        { value: '228', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
       links: {
@@ -119,11 +119,11 @@ describe('AiProjectCardComponent', () => {
     expect(metricItems.length).toBe(3);
 
     const values = Array.from(native.querySelectorAll('.ai-project-card__metric-value')).map((el) => el.textContent?.trim());
-    expect(values).toEqual(['3', '1.200+', 'Gemini AI']);
+    expect(values).toEqual(['3', '228', 'Gemini AI']);
 
     const labels = Array.from(native.querySelectorAll('.ai-project-card__metric-label')).map((el) => el.textContent?.trim());
     expect(labels).toEqual([
-      MESSAGES['LUMA_METRIC_CLIENTS'],
+      MESSAGES['LUMA_METRIC_USERS'],
       MESSAGES['LUMA_METRIC_TRANSACTIONS'],
       MESSAGES['LUMA_METRIC_AI_SCAN'],
     ]);

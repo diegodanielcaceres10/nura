@@ -49,6 +49,7 @@ const translationKeys = (project: ProjectItem): string[] => [
   ...(project.aiDetail?.workflow ?? []),
   ...(project.aiDetail?.productFeatures ?? []),
   ...(project.aiDetail?.quality ?? []),
+  ...(project.aiMetrics ?? []).map((metric) => metric.labelKey),
 ];
 
 const assetPaths = (project: ProjectItem): string[] => [project.logo, ...(project.galleryPortrait ?? []), ...(project.galleryLandscape ?? [])].filter((path): path is string => !!path);
@@ -224,6 +225,13 @@ describe('ProjectsService', () => {
       expect(detail?.workflow?.length).toBeGreaterThan(0);
       expect(detail?.productFeatures?.length).toBeGreaterThan(0);
       expect(detail?.quality?.length).toBeGreaterThan(0);
+    });
+
+    it('luma shows its usage figures together with the date they were taken', () => {
+      const luma = service.getById('luma');
+
+      expect(luma?.aiMetrics?.length).toBeGreaterThan(0);
+      expect(luma?.metricsAsOf).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     });
 
     it.each(catalog)('$id: asset paths are relative to the base href', (project) => {

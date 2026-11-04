@@ -77,6 +77,13 @@ export class WorkPage implements OnInit {
     (event.currentTarget as HTMLElement).closest('[role="tablist"]')?.querySelector<HTMLElement>(`#work-gallery-tab-${GALLERY_TABS[next]}`)?.focus();
   }
 
+  protected metricsDate(project: ProjectItem): string {
+    const date = project.metricsAsOf ? new Date(project.metricsAsOf) : null;
+    if (!date || Number.isNaN(date.getTime())) return '';
+
+    return new Intl.DateTimeFormat(this.localeService.getCurrentLocale(), { dateStyle: 'long', timeZone: 'UTC' }).format(date);
+  }
+
   protected goBack(): void {
     const lang = this.localeService.getCurrentLocale();
     this.router.navigate(['/', lang], { fragment: 'projects' });

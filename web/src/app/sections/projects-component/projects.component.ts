@@ -31,6 +31,8 @@ export interface ProjectItem {
   isAiAssisted?: boolean;
   bannerImage?: string;
   aiMetrics?: AiMetric[];
+  // ISO date (YYYY-MM-DD) the aiMetrics figures were taken on.
+  metricsAsOf?: string;
   aiDetail?: AiDetail;
 }
 

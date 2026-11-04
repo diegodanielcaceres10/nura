@@ -491,6 +491,54 @@ describe('WorkPage', () => {
     });
   });
 
+  describe('usage metrics', () => {
+    const metricsProject: ProjectItem = {
+      ...mockProject,
+      id: 'metrics-project',
+      aiMetrics: [
+        { value: '3', labelKey: 'METRIC_USERS', icon: 'fa-solid fa-users' },
+        { value: '228', labelKey: 'METRIC_MOVEMENTS', icon: 'fa-solid fa-arrow-right-arrow-left' },
+      ],
+      metricsAsOf: '2026-11-04',
+    };
+    const section = (el: HTMLElement): HTMLElement | null => el.querySelector('[data-section="metrics"]');
+
+    it('should render one tile per metric with its value and label', async () => {
+      const f = await createPage('metrics-project', [metricsProject]);
+      const tiles = Array.from(section(f.nativeElement)?.querySelectorAll('.work__metric') ?? []).map((tile) => [tile.querySelector('.work__metric-value')?.textContent?.trim(), tile.querySelector('.work__metric-label')?.textContent?.trim()]);
+
+      expect(tiles).toEqual([
+        ['3', 'METRIC_USERS'],
+        ['228', 'METRIC_MOVEMENTS'],
+      ]);
+    });
+
+    it('should show the date the figures were taken', async () => {
+      const f = await createPage('metrics-project', [metricsProject]);
+
+      expect(section(f.nativeElement)?.querySelector('.work__metrics-date')?.textContent).toContain('2026');
+    });
+
+    it('should not show a date when the project has none', async () => {
+      const f = await createPage('metrics-project', [{ ...metricsProject, metricsAsOf: undefined }]);
+
+      expect(section(f.nativeElement)?.querySelector('.work__metrics-date')).toBeNull();
+    });
+
+    it('should be the first section of the content column', async () => {
+      const f = await createPage('metrics-project', [{ ...metricsProject, techStackFull: [{ category: 'Frontend', items: ['Angular'] }] }]);
+      const first = (f.nativeElement as HTMLElement).querySelector('.work__sections > :first-child');
+
+      expect(first?.getAttribute('data-section')).toBe('metrics');
+    });
+
+    it.each([undefined, []])('should not render the section when aiMetrics is %j', async (aiMetrics) => {
+      const f = await createPage('metrics-project', [{ ...metricsProject, aiMetrics }]);
+
+      expect(section(f.nativeElement)).toBeNull();
+    });
+  });
+
   describe('cardTheme handling', () => {
     it('should not apply themed class and cover when project has no cardTheme', () => {
       const aside = fixture.nativeElement.querySelector('.work__aside') as HTMLElement;

@@ -87,6 +87,24 @@
           </div>
 
           <div class="work__sections">
+            @if (p.aiMetrics?.length) {
+              <div class="work__section" data-section="metrics">
+                <span class="work__section-label">{{ 'WORK_METRICS_TITLE' | translate }}</span>
+                <div class="work__metrics">
+                  @for (metric of p.aiMetrics; track metric.labelKey) {
+                    <div class="work__metric">
+                      <i [class]="metric.icon" aria-hidden="true"></i>
+                      <span class="work__metric-value">{{ metric.value }}</span>
+                      <span class="work__metric-label">{{ metric.labelKey | translate }}</span>
+                    </div>
+                  }
+                </div>
+                @if (metricsDate(p); as date) {
+                  <small class="work__metrics-date">{{ 'WORK_METRICS_AS_OF' | translate }} {{ date }}</small>
+                }
+              </div>
+            }
+
             @if (p.techStackFull?.length) {
               <div class="work__section">
                 <span class="work__section-label">{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
