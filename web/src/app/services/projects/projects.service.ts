@@ -31,6 +31,12 @@ export class ProjectsService {
         { value: '1.200+', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
         { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
+      aiDetail: {
+        tools: ['Claude Code', 'Google Gemini API'],
+        workflow: ['LUMA_AI_WORKFLOW_1', 'LUMA_AI_WORKFLOW_2', 'LUMA_AI_WORKFLOW_3', 'LUMA_AI_WORKFLOW_4'],
+        productFeatures: ['LUMA_AI_PRODUCT_1', 'LUMA_AI_PRODUCT_2', 'LUMA_AI_PRODUCT_3', 'LUMA_AI_PRODUCT_4'],
+        quality: ['LUMA_AI_QUALITY_1', 'LUMA_AI_QUALITY_2', 'LUMA_AI_QUALITY_3', 'LUMA_AI_QUALITY_4'],
+      },
       galleryPortrait: ['assets/projects/luma/screen-login.webp', 'assets/projects/luma/screen-home.webp', 'assets/projects/luma/screen-accounts.webp', 'assets/projects/luma/screen-categories.webp', 'assets/projects/luma/screen-charts.webp', 'assets/projects/luma/screen-comparison.webp'],
       galleryLandscape: ['assets/projects/luma/landscape-login.webp', 'assets/projects/luma/landscape-home.webp', 'assets/projects/luma/landscape-accounts.webp', 'assets/projects/luma/landscape-categories.webp', 'assets/projects/luma/landscape-charts.webp', 'assets/projects/luma/landscape-comparison.webp'],
       links: {

@@ -39,6 +39,12 @@
                 <img [src]="p.logo" width="938" height="157" decoding="async" [alt]="p.title" />
               </div>
             }
+            @if (p.isAiAssisted) {
+              <span class="work__ai-badge">
+                <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                {{ 'AI_ASSISTED_BADGE' | translate }}
+              </span>
+            }
             <app-project-card-component [project]="p" [fullDescription]="true" />
 
             @if (p.links) {
@@ -117,6 +123,48 @@
                   }
                 </div>
               </div>
+            }
+
+            @if (p.aiDetail; as ai) {
+              @if (ai.tools?.length || ai.workflow?.length) {
+                <div class="work__section" data-ai-section="workflow">
+                  <span class="work__section-label">{{ 'AI_DETAIL_WORKFLOW_LABEL' | translate }}</span>
+                  @if (ai.tools?.length) {
+                    <div class="work__techs">
+                      @for (tool of ai.tools; track tool) {
+                        <small>{{ tool }}</small>
+                      }
+                    </div>
+                  }
+                  @if (ai.workflow?.length) {
+                    <ul class="work__features">
+                      @for (item of ai.workflow; track item) {
+                        <li>{{ item | translate }}</li>
+                      }
+                    </ul>
+                  }
+                </div>
+              }
+              @if (ai.productFeatures?.length) {
+                <div class="work__section" data-ai-section="product">
+                  <span class="work__section-label">{{ 'AI_DETAIL_PRODUCT_LABEL' | translate }}</span>
+                  <ul class="work__features">
+                    @for (item of ai.productFeatures; track item) {
+                      <li>{{ item | translate }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+              @if (ai.quality?.length) {
+                <div class="work__section" data-ai-section="quality">
+                  <span class="work__section-label">{{ 'AI_DETAIL_QUALITY_LABEL' | translate }}</span>
+                  <ul class="work__features">
+                    @for (item of ai.quality; track item) {
+                      <li>{{ item | translate }}</li>
+                    }
+                  </ul>
+                </div>
+              }
             }
 
             @if (p.galleryPortrait?.length || p.galleryLandscape?.length) {

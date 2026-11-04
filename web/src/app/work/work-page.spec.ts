@@ -432,6 +432,65 @@ describe('WorkPage', () => {
     });
   });
 
+  describe('AI details', () => {
+    const aiProject: ProjectItem = {
+      ...mockProject,
+      id: 'ai-project',
+      isAiAssisted: true,
+      aiDetail: {
+        tools: ['Tool A', 'Tool B'],
+        workflow: ['AI_WORKFLOW_1', 'AI_WORKFLOW_2'],
+        productFeatures: ['AI_PRODUCT_1'],
+        quality: ['AI_QUALITY_1', 'AI_QUALITY_2', 'AI_QUALITY_3'],
+      },
+    };
+    const sectionOf = (el: HTMLElement, name: string): HTMLElement | null => el.querySelector(`[data-ai-section="${name}"]`);
+
+    it('should render the AI-assisted badge when the project is AI-assisted', async () => {
+      const f = await createPage('ai-project', [aiProject]);
+
+      expect(f.nativeElement.querySelector('.work__ai-badge')).not.toBeNull();
+    });
+
+    it('should render the tools and the list of every AI section', async () => {
+      const f = await createPage('ai-project', [aiProject]);
+      const el: HTMLElement = f.nativeElement;
+
+      expect(Array.from(sectionOf(el, 'workflow')?.querySelectorAll('.work__techs small') ?? []).map((tool) => tool.textContent?.trim())).toEqual(['Tool A', 'Tool B']);
+      expect(sectionOf(el, 'workflow')?.querySelectorAll('li').length).toBe(2);
+      expect(sectionOf(el, 'product')?.querySelectorAll('li').length).toBe(1);
+      expect(sectionOf(el, 'quality')?.querySelectorAll('li').length).toBe(3);
+    });
+
+    it('should render the AI sections before the gallery', async () => {
+      const f = await createPage('ai-project', [{ ...aiProject, galleryPortrait: ['/img/1.png'] }]);
+      const el: HTMLElement = f.nativeElement;
+      const quality = sectionOf(el, 'quality') as HTMLElement;
+      const gallery = el.querySelector('.work__gallery-panel') as HTMLElement;
+
+      expect(quality.compareDocumentPosition(gallery) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+
+    it('should skip the sections that have no content', async () => {
+      const partial: ProjectItem = { ...aiProject, aiDetail: { productFeatures: ['AI_PRODUCT_1'], quality: [] } };
+
+      const f = await createPage('ai-project', [partial]);
+      const el: HTMLElement = f.nativeElement;
+
+      expect(sectionOf(el, 'workflow')).toBeNull();
+      expect(sectionOf(el, 'quality')).toBeNull();
+      expect(sectionOf(el, 'product')).not.toBeNull();
+    });
+
+    it('should not render the badge or any AI section for a regular project', async () => {
+      const f = await createPage('full-project', [fullProject]);
+      const el: HTMLElement = f.nativeElement;
+
+      expect(el.querySelector('.work__ai-badge')).toBeNull();
+      expect(el.querySelector('[data-ai-section]')).toBeNull();
+    });
+  });
+
   describe('cardTheme handling', () => {
     it('should not apply themed class and cover when project has no cardTheme', () => {
       const aside = fixture.nativeElement.querySelector('.work__aside') as HTMLElement;

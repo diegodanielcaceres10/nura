@@ -41,7 +41,15 @@ const catalog = new ProjectsService().getAll();
 
 const HEX_COLOR = /^#[0-9a-f]{6}$/i;
 
-const translationKeys = (project: ProjectItem): string[] => [project.shortDescription, project.fullDescription, ...project.keyFeatures, ...(project.challenges ?? [])];
+const translationKeys = (project: ProjectItem): string[] => [
+  project.shortDescription,
+  project.fullDescription,
+  ...project.keyFeatures,
+  ...(project.challenges ?? []),
+  ...(project.aiDetail?.workflow ?? []),
+  ...(project.aiDetail?.productFeatures ?? []),
+  ...(project.aiDetail?.quality ?? []),
+];
 
 const assetPaths = (project: ProjectItem): string[] => [project.logo, ...(project.galleryPortrait ?? []), ...(project.galleryLandscape ?? [])].filter((path): path is string => !!path);
 
@@ -207,6 +215,15 @@ describe('ProjectsService', () => {
 
       expect(project?.[key]?.length).toBeGreaterThan(0);
       expect(project?.[other]).toBeUndefined();
+    });
+
+    it('luma describes how AI was used, what it does in the product and how the result is verified', () => {
+      const detail = service.getById('luma')?.aiDetail;
+
+      expect(detail?.tools?.length).toBeGreaterThan(0);
+      expect(detail?.workflow?.length).toBeGreaterThan(0);
+      expect(detail?.productFeatures?.length).toBeGreaterThan(0);
+      expect(detail?.quality?.length).toBeGreaterThan(0);
     });
 
     it.each(catalog)('$id: asset paths are relative to the base href', (project) => {

@@ -31,6 +31,15 @@ export interface ProjectItem {
   isAiAssisted?: boolean;
   bannerImage?: string;
   aiMetrics?: AiMetric[];
+  aiDetail?: AiDetail;
+}
+
+// Lists hold i18n keys; tools are plain names. Each block is optional.
+export interface AiDetail {
+  tools?: string[];
+  workflow?: string[];
+  productFeatures?: string[];
+  quality?: string[];
 }
 
 export interface AiMetric {

@@ -268,6 +268,29 @@
     }
   }
 
+  &__ai-badge {
+    position: relative;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2xs);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-2xs);
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(10, 141, 171, 0.12);
+    border: 1px solid rgba(44, 171, 179, 0.35);
+    color: var(--light-color);
+
+    i {
+      color: #2cabb3;
+      font-size: 11px;
+    }
+  }
+
   &__logo {
     position: relative;
     display: flex;
