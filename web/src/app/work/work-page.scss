@@ -139,6 +139,20 @@
     }
   }
 
+  &__banner {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-brand);
+    overflow: hidden;
+    animation: workFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
   &__content {
     display: grid;
     grid-template-columns: 38% 1fr;
@@ -569,6 +583,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .work__aside,
+  .work__banner,
   .work__section,
   .work__back,
   .work__action,

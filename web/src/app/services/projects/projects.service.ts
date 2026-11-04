@@ -11,7 +11,7 @@ export class ProjectsService {
       type: 'Fullstack',
       shortDescription: 'PROJECTS_CARD_LUMA_SHORT_DESC',
       isAiAssisted: true,
-      bannerImage: 'assets/projects/luma/banner.png',
+      bannerImage: 'assets/projects/luma/banner.webp',
       techStackMain: ['Flutter', 'Angular'],
       techStackExtended: ['Flutter', 'Supabase', 'Angular 21', 'TailwindCSS 4', 'Google Gemini API'],
       status: 'COMPLETED',

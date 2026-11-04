@@ -27,7 +27,7 @@ describe('AiProjectCardComponent', () => {
       fullDescription: 'PROJECTS_CARD_LUMA_FULL_DESC',
       keyFeatures: ['Feature 1'],
       favicon: 'assets/projects/luma/logo.png',
-      bannerImage: 'assets/projects/luma/banner.png',
+      bannerImage: 'assets/projects/luma/banner.webp',
       galleryPortrait: ['assets/projects/luma/screen-login.png', 'assets/projects/luma/screen-home.png'],
       aiMetrics: [
         { value: '3', labelKey: 'LUMA_METRIC_CLIENTS', icon: 'fa-solid fa-users' },
@@ -71,7 +71,7 @@ describe('AiProjectCardComponent', () => {
     const img = native.querySelector<HTMLImageElement>('.ai-project-card__bg-img');
 
     expect(img).not.toBeNull();
-    expect(img?.src).toContain('assets/projects/luma/banner.png');
+    expect(img?.src).toContain('assets/projects/luma/banner.webp');
     expect(img?.alt).toBe('Test App');
   });
 

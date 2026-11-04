@@ -401,6 +401,37 @@ describe('WorkPage', () => {
     });
   });
 
+  describe('banner', () => {
+    const bannerOf = (el: HTMLElement): HTMLImageElement | null => el.querySelector('.work__banner img');
+
+    it('should render the banner with the project title as alt when the project has one', async () => {
+      const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', title: 'Banner Project', bannerImage: 'assets/projects/with-banner/banner.webp' };
+
+      const f = await createPage('with-banner', [withBanner]);
+      const img = bannerOf(f.nativeElement);
+
+      expect(img?.getAttribute('src')).toBe('assets/projects/with-banner/banner.webp');
+      expect(img?.getAttribute('alt')).toBe('Banner Project');
+    });
+
+    it('should not render a banner when the project has none', async () => {
+      const f = await createPage('full-project', [fullProject]);
+
+      expect(f.nativeElement.querySelector('.work__banner')).toBeNull();
+    });
+
+    it('should place the banner before the main content', async () => {
+      const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
+
+      const f = await createPage('with-banner', [withBanner]);
+      const el: HTMLElement = f.nativeElement;
+      const banner = el.querySelector('.work__banner') as HTMLElement;
+      const content = el.querySelector('.work__content') as HTMLElement;
+
+      expect(banner.compareDocumentPosition(content) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    });
+  });
+
   describe('cardTheme handling', () => {
     it('should not apply themed class and cover when project has no cardTheme', () => {
       const aside = fixture.nativeElement.querySelector('.work__aside') as HTMLElement;
