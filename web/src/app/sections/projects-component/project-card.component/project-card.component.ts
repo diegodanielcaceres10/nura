@@ -11,4 +11,12 @@ import { ProjectItem } from '../projects.component';
 export class ProjectCardComponent {
   readonly project = input.required<ProjectItem>();
   readonly fullDescription = input<boolean>(false);
+
+  // Translations separate paragraphs with a blank line.
+  protected splitParagraphs(text: string): string[] {
+    return text
+      .split(/\n\s*\n/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean);
+  }
 }

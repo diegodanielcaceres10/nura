@@ -78,6 +78,33 @@ describe('ProjectCardComponent', () => {
     expect(native.querySelector('.project-card__description')?.textContent?.trim()).toBe('TEST_FULL_DESC');
   });
 
+  describe('description paragraphs', () => {
+    const paragraphsOf = (): string[] =>
+      Array.from((fixture.nativeElement as HTMLElement).querySelectorAll('.project-card__description p')).map((p) => p.textContent?.trim() ?? '');
+
+    const showFullDescription = (text: string): void => {
+      fixture.componentRef.setInput('project', { ...mockProject, fullDescription: text });
+      fixture.componentRef.setInput('fullDescription', true);
+      fixture.detectChanges();
+    };
+
+    it('should render a single paragraph when the text has no blank line', () => {
+      expect(paragraphsOf()).toEqual(['TEST_DESC']);
+    });
+
+    it('should render one paragraph per blank-line separated block', () => {
+      showFullDescription('First block.\n\nSecond block.\n\nThird block.');
+
+      expect(paragraphsOf()).toEqual(['First block.', 'Second block.', 'Third block.']);
+    });
+
+    it('should ignore empty blocks and surrounding whitespace', () => {
+      showFullDescription('  First block.  \n\n\n\n  \n\n Second block. \n\n');
+
+      expect(paragraphsOf()).toEqual(['First block.', 'Second block.']);
+    });
+  });
+
   it('should render every technology of the extended stack', () => {
     const native = fixture.nativeElement as HTMLElement;
     const techItems = Array.from(native.querySelectorAll('.project-card__tech')).map((tech) => tech.textContent?.trim());

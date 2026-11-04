@@ -22,7 +22,12 @@
     </div>
   </div>
 
-  <p class="project-card__description">{{ (fullDescription() ? project().fullDescription : project().shortDescription) | translate }}</p>
+  <div class="project-card__description">
+    @let text = (fullDescription() ? project().fullDescription : project().shortDescription) | translate;
+    @for (paragraph of splitParagraphs(text); track $index) {
+      <p>{{ paragraph }}</p>
+    }
+  </div>
 
   <div class="project-card__techs">
     @for (tech of project().techStackExtended ?? project().techStackMain; track tech) {

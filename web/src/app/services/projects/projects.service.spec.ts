@@ -175,6 +175,14 @@ describe('ProjectsService', () => {
       expect(withoutValue(translations, keys)).toEqual([]);
     });
 
+    it.each(catalog)('$id: the full description has the same number of paragraphs in every language', (project) => {
+      const count = (text: string): number => text.split(/\n\s*\n/).filter((block) => block.trim()).length;
+      const key = project.fullDescription;
+      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key]].map(count);
+
+      expect(new Set(counts).size).toBe(1);
+    });
+
     it.each(catalog)('$id: does not list the same image in both galleries', (project) => {
       const portrait = project.galleryPortrait ?? [];
       const repeated = (project.galleryLandscape ?? []).filter((path) => portrait.includes(path));
