@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import es from '../../../../public/assets/i18n/es.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
+import { splitParagraphs } from '../translate/split-paragraphs';
 import { CaseStudiesService } from './case-studies.service';
 
 const SLUGS = ['legacy-codebase-modernization', 'cicd-pipeline-automation', 'recurring-bugs-reduction', 'legacy-mobile-migration', 'cloud-storage-migration'];
@@ -56,5 +57,13 @@ describe('CaseStudiesService', () => {
       missingEs: keys.filter((key) => !esKeys[key]?.trim()),
       missingPt: keys.filter((key) => !ptKeys[key]?.trim()),
     }).toEqual({ missingEn: [], missingEs: [], missingPt: [] });
+  });
+
+  it('has the same number of paragraphs in every language for each section', () => {
+    const keys = service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]));
+    const count = (text: string | undefined): number => splitParagraphs(text ?? '').length;
+    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key])]).size !== 1);
+
+    expect(mismatched).toEqual([]);
   });
 });

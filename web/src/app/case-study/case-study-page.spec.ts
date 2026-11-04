@@ -66,6 +66,21 @@ describe('CaseStudyPage', () => {
     expect(root(fixture).querySelector('.case-page__title')).toBeNull();
   });
 
+  it('renders one paragraph per blank-line separated block of a section', async () => {
+    const withParagraphs: CaseStudyItem = { ...fullCase, detail: { ...fullCase.detail, decisions: 'First block.\n\nSecond block.\n\nThird block.' } };
+
+    const fixture = await createPage('cicd-pipeline-automation', [withParagraphs]);
+    const paragraphs = Array.from(root(fixture).querySelectorAll('[data-section="decisions"] .case-page__text')).map((element) => element.textContent?.trim());
+
+    expect(paragraphs).toEqual(['First block.', 'Second block.', 'Third block.']);
+  });
+
+  it('renders a single paragraph for a section without blank lines', async () => {
+    const fixture = await createPage('cicd-pipeline-automation');
+
+    expect(root(fixture).querySelectorAll('[data-section="context"] .case-page__text').length).toBe(1);
+  });
+
   it('renders the sections in order: context, challenge, role, decisions, execution, results, learnings, stack', async () => {
     const fixture = await createPage('cicd-pipeline-automation');
     const sections = Array.from(root(fixture).querySelectorAll<HTMLElement>('[data-section]')).map((element) => element.dataset['section']);

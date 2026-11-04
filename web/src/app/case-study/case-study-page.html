@@ -47,7 +47,9 @@
             @for (section of sections(); track section.key) {
               <section class="case-page__section" [attr.data-section]="section.key">
                 <h2 class="case-page__section-label">{{ section.label | translate }}</h2>
-                <p class="case-page__text">{{ section.copy | translate }}</p>
+                @for (paragraph of splitParagraphs(section.copy | translate); track $index) {
+                  <p class="case-page__text">{{ paragraph }}</p>
+                }
               </section>
             }
 

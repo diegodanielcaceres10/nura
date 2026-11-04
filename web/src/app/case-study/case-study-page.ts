@@ -5,6 +5,7 @@ import { FooterComponent } from '../components/footer-component/footer-component
 import { CaseStudyDetail, CaseStudyItem } from '../sections/case-study-component/case-study.component';
 import { CaseStudiesService } from '../services/case-studies/case-studies.service';
 import { LocaleService } from '../services/locale/locale.service';
+import { splitParagraphs } from '../services/translate/split-paragraphs';
 import { TranslateKeyPipe } from '../services/translate/translate-key.pipe';
 
 type CopySection = Exclude<keyof CaseStudyDetail, 'stack'>;
@@ -34,6 +35,7 @@ export class CaseStudyPage implements OnInit {
 
   protected readonly caseStudy = signal<CaseStudyItem | null>(null);
   protected readonly notFound = signal(false);
+  protected readonly splitParagraphs = splitParagraphs;
 
   // Only sections that have copy are rendered, in the fixed order above.
   protected readonly sections = computed(() => {
