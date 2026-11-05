@@ -28,11 +28,7 @@ export class ProjectsService {
       challenges: ['PROJECTS_CARD_LUMA_CHALLENGE_1', 'PROJECTS_CARD_LUMA_CHALLENGE_2', 'PROJECTS_CARD_LUMA_CHALLENGE_3'],
       aiMetrics: [
         { value: '3', labelKey: 'LUMA_METRIC_USERS', icon: 'fa-solid fa-users' },
-        { value: '228', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
-        { value: '13', labelKey: 'LUMA_METRIC_PAID_INVOICES', icon: 'fa-solid fa-file-invoice-dollar' },
-        { value: '43', labelKey: 'LUMA_METRIC_DAYS_IN_USE', icon: 'fa-solid fa-calendar-days' },
       ],
-      metricsAsOf: '2026-11-04',
       aiDetail: {
         tools: ['Claude Code', 'Google Gemini API'],
         workflow: ['LUMA_AI_WORKFLOW_1', 'LUMA_AI_WORKFLOW_2', 'LUMA_AI_WORKFLOW_3', 'LUMA_AI_WORKFLOW_4'],

@@ -227,12 +227,10 @@ describe('ProjectsService', () => {
       expect(detail?.quality?.length).toBeGreaterThan(0);
     });
 
-    it('luma shows its usage figures together with the date they were taken', () => {
+    it('luma keeps only its registered users figure for the AI card', () => {
       const luma = service.getById('luma');
 
-      expect(luma?.aiMetrics?.every((metric) => /^\d+$/.test(metric.value))).toBe(true);
-      expect(luma?.aiMetrics?.length).toBeGreaterThan(0);
-      expect(luma?.metricsAsOf).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(luma?.aiMetrics?.map((metric) => metric.labelKey)).toEqual(['LUMA_METRIC_USERS']);
     });
 
     it.each(catalog)('$id: asset paths are relative to the base href', (project) => {
