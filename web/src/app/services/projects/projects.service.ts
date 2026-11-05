@@ -31,7 +31,6 @@ export class ProjectsService {
         { value: '228', labelKey: 'LUMA_METRIC_TRANSACTIONS', icon: 'fa-solid fa-arrow-right-arrow-left' },
         { value: '13', labelKey: 'LUMA_METRIC_PAID_INVOICES', icon: 'fa-solid fa-file-invoice-dollar' },
         { value: '43', labelKey: 'LUMA_METRIC_DAYS_IN_USE', icon: 'fa-solid fa-calendar-days' },
-        { value: 'Gemini AI', labelKey: 'LUMA_METRIC_AI_SCAN', icon: 'fa-solid fa-wand-magic-sparkles' },
       ],
       metricsAsOf: '2026-11-04',
       aiDetail: {

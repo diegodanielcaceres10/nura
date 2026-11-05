@@ -429,15 +429,25 @@ describe('WorkPage', () => {
       expect(f.nativeElement.querySelector('.work__banner')).toBeNull();
     });
 
-    it('should place the banner before the main content', async () => {
+    it('should place the banner first, before the aside and the sections, inside the content grid', async () => {
       const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
 
       const f = await createPage('with-banner', [withBanner]);
       const el: HTMLElement = f.nativeElement;
-      const banner = el.querySelector('.work__banner') as HTMLElement;
       const content = el.querySelector('.work__content') as HTMLElement;
+      const children = Array.from(content.children).map((child) => child.className.split(' ')[0]);
 
-      expect(banner.compareDocumentPosition(content) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+      expect(children).toEqual(['work__banner', 'work__aside', 'work__sections']);
+    });
+
+    it('should flag the content grid only when there is a banner', async () => {
+      const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
+
+      const withIt = await createPage('with-banner', [withBanner]);
+      const without = await createPage('full-project', [fullProject]);
+
+      expect((withIt.nativeElement as HTMLElement).querySelector('.work__content')?.classList.contains('work__content--banner')).toBe(true);
+      expect((without.nativeElement as HTMLElement).querySelector('.work__content')?.classList.contains('work__content--banner')).toBe(false);
     });
   });
 

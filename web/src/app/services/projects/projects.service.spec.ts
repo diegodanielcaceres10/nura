@@ -230,6 +230,7 @@ describe('ProjectsService', () => {
     it('luma shows its usage figures together with the date they were taken', () => {
       const luma = service.getById('luma');
 
+      expect(luma?.aiMetrics?.every((metric) => /^\d+$/.test(metric.value))).toBe(true);
       expect(luma?.aiMetrics?.length).toBeGreaterThan(0);
       expect(luma?.metricsAsOf).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     });

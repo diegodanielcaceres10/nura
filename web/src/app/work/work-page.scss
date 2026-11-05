@@ -169,6 +169,27 @@
       flex-direction: column;
       min-height: auto;
     }
+
+    // With a banner the right column stacks the banner over the sections while the aside spans both rows.
+    // The banner comes first in the DOM, so on small screens it is also shown before the aside.
+    &--banner {
+      grid-template-rows: auto 1fr;
+
+      > .work__banner {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      > .work__aside {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+      }
+
+      > .work__sections {
+        grid-column: 2;
+        grid-row: 2;
+      }
+    }
   }
 
   &__aside {
