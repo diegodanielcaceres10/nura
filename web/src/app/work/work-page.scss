@@ -140,6 +140,10 @@
   }
 
   &__banner {
+    @include ds.md {
+      order: 0;
+    }
+
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow-brand);
@@ -169,30 +173,32 @@
       flex-direction: column;
       min-height: auto;
     }
+  }
 
-    // With a banner the right column stacks the banner over the sections while the aside spans both rows.
-    // The banner comes first in the DOM, so on small screens it is also shown before the aside.
-    &--banner {
-      grid-template-rows: auto 1fr;
+  // Each column flows independently so the side column (aside + gallery) is not coupled to the main one.
+  &__column {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    min-width: 0;
 
-      > .work__banner {
-        grid-column: 2;
-        grid-row: 1;
-      }
+    // On small screens the columns dissolve and items are reordered: banner, aside, sections, gallery.
+    @include ds.md {
+      display: contents;
+    }
+  }
 
-      > .work__aside {
-        grid-column: 1;
-        grid-row: 1 / span 2;
-      }
-
-      > .work__sections {
-        grid-column: 2;
-        grid-row: 2;
-      }
+  &__gallery-card {
+    @include ds.md {
+      order: 3;
     }
   }
 
   &__aside {
+    @include ds.md {
+      order: 1;
+    }
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -380,6 +386,10 @@
   }
 
   &__sections {
+    @include ds.md {
+      order: 2;
+    }
+
     display: flex;
     flex-direction: column;
     gap: var(--spacing-lg);
@@ -528,13 +538,28 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--spacing-md);
 
+    // Horizontal snap strip on phones keeps the gallery short instead of a very tall stack.
     @include ds.sm {
-      grid-template-columns: 1fr;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding-bottom: var(--spacing-xs);
+
+      > .work__photo {
+        flex: 0 0 75%;
+        scroll-snap-align: start;
+      }
     }
   }
 
   &__gallery--landscape {
     grid-template-columns: 1fr;
+
+    @include ds.sm {
+      > .work__photo {
+        flex-basis: 88%;
+      }
+    }
   }
 
   &__tabs {

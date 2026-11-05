@@ -429,25 +429,13 @@ describe('WorkPage', () => {
       expect(f.nativeElement.querySelector('.work__banner')).toBeNull();
     });
 
-    it('should place the banner first, before the aside and the sections, inside the content grid', async () => {
+    it('should place the banner at the top of the main column, before the sections', async () => {
       const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
 
       const f = await createPage('with-banner', [withBanner]);
-      const el: HTMLElement = f.nativeElement;
-      const content = el.querySelector('.work__content') as HTMLElement;
-      const children = Array.from(content.children).map((child) => child.className.split(' ')[0]);
+      const main = (f.nativeElement as HTMLElement).querySelector('.work__column--main') as HTMLElement;
 
-      expect(children).toEqual(['work__banner', 'work__aside', 'work__sections']);
-    });
-
-    it('should flag the content grid only when there is a banner', async () => {
-      const withBanner: ProjectItem = { ...mockProject, id: 'with-banner', bannerImage: 'assets/projects/with-banner/banner.webp' };
-
-      const withIt = await createPage('with-banner', [withBanner]);
-      const without = await createPage('full-project', [fullProject]);
-
-      expect((withIt.nativeElement as HTMLElement).querySelector('.work__content')?.classList.contains('work__content--banner')).toBe(true);
-      expect((without.nativeElement as HTMLElement).querySelector('.work__content')?.classList.contains('work__content--banner')).toBe(false);
+      expect(Array.from(main.children).map((child) => child.className.split(' ')[0])).toEqual(['work__banner', 'work__sections']);
     });
   });
 
@@ -481,15 +469,6 @@ describe('WorkPage', () => {
       expect(sectionOf(el, 'quality')?.querySelectorAll('li').length).toBe(3);
     });
 
-    it('should render the AI sections before the gallery', async () => {
-      const f = await createPage('ai-project', [{ ...aiProject, galleryPortrait: ['/img/1.png'] }]);
-      const el: HTMLElement = f.nativeElement;
-      const quality = sectionOf(el, 'quality') as HTMLElement;
-      const gallery = el.querySelector('.work__gallery-panel') as HTMLElement;
-
-      expect(quality.compareDocumentPosition(gallery) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    });
-
     it('should skip the sections that have no content', async () => {
       const partial: ProjectItem = { ...aiProject, aiDetail: { productFeatures: ['AI_PRODUCT_1'], quality: [] } };
 
@@ -507,6 +486,31 @@ describe('WorkPage', () => {
 
       expect(el.querySelector('.work__ai-badge')).toBeNull();
       expect(el.querySelector('[data-ai-section]')).toBeNull();
+    });
+  });
+
+  describe('columns', () => {
+    const columns = (el: HTMLElement): { side: string[]; main: string[] } => {
+      const names = (selector: string): string[] => Array.from(el.querySelector(selector)?.children ?? []).map((child) => child.className.split(' ')[0] ?? '');
+      return { side: names('.work__column--side'), main: names('.work__column--main') };
+    };
+
+    it('should keep the card and the gallery in the side column and the sections in the main column', async () => {
+      const f = await createPage('full-project', [fullProject]);
+
+      expect(columns(f.nativeElement)).toEqual({ side: ['work__aside', 'work__gallery-card'], main: ['work__sections'] });
+    });
+
+    it('should not render the gallery card when the project has no gallery', async () => {
+      const f = await createPage('full-project', [{ ...fullProject, galleryPortrait: [], galleryLandscape: [] }]);
+
+      expect(columns(f.nativeElement).side).toEqual(['work__aside']);
+    });
+
+    it('should not nest the gallery inside the sections column', async () => {
+      const f = await createPage('full-project', [fullProject]);
+
+      expect((f.nativeElement as HTMLElement).querySelector('.work__sections .work__gallery-panel')).toBeNull();
     });
   });
 

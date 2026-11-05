@@ -20,158 +20,72 @@
       }
 
       @if (project(); as p) {
-        <div class="work__content" [class.work__content--banner]="!!p.bannerImage">
-          @if (p.bannerImage) {
-            <div class="work__banner">
-              <img [src]="p.bannerImage" width="1902" height="827" fetchpriority="high" decoding="async" [alt]="p.title" />
+        <div class="work__content">
+          <div class="work__column work__column--side">
+            <div class="work__aside" [class.work__aside--themed]="!!p.cardTheme" [style]="cardThemeVars(p)">
+              @if (p.cardTheme?.cover; as cover) {
+                <div class="work__cover" aria-hidden="true">
+                  <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
+                </div>
+              }
+              <div class="work__aside-glow" aria-hidden="true"></div>
+              @if (p.logo) {
+                <div class="work__logo">
+                  <img [src]="p.logo" width="938" height="157" decoding="async" [alt]="p.title" />
+                </div>
+              }
+              @if (p.isAiAssisted) {
+                <span class="work__ai-badge">
+                  <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
+                  {{ 'AI_ASSISTED_BADGE' | translate }}
+                </span>
+              }
+              <app-project-card-component [project]="p" [fullDescription]="true" />
+
+              @if (p.links) {
+                <div class="work__actions">
+                  @if (p.links.repo) {
+                    <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
+                      <i class="fa-brands fa-github" aria-hidden="true"></i>
+                      Repo
+                      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  }
+                  @if (p.links.demo) {
+                    <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
+                      Demo
+                      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  }
+                  @if (p.links.landing) {
+                    <a class="work__action" [href]="p.links!.landing" target="_blank" rel="noopener">
+                      Landing
+                      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  }
+                  @if (p.links.npm) {
+                    <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
+                      <i class="fa-brands fa-npm" aria-hidden="true"></i>
+                      npm
+                      <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                  }
+                  @if (p.links.androidAPK) {
+                    <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
+                      <i class="fa-brands fa-android" aria-hidden="true"></i>
+                      Android APK
+                      <i class="fa-solid fa-download" aria-hidden="true"></i>
+                    </a>
+                  }
+                </div>
+              }
             </div>
-          }
-
-          <div class="work__aside" [class.work__aside--themed]="!!p.cardTheme" [style]="cardThemeVars(p)">
-            @if (p.cardTheme?.cover; as cover) {
-              <div class="work__cover" aria-hidden="true">
-                <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />
-              </div>
-            }
-            <div class="work__aside-glow" aria-hidden="true"></div>
-            @if (p.logo) {
-              <div class="work__logo">
-                <img [src]="p.logo" width="938" height="157" decoding="async" [alt]="p.title" />
-              </div>
-            }
-            @if (p.isAiAssisted) {
-              <span class="work__ai-badge">
-                <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i>
-                {{ 'AI_ASSISTED_BADGE' | translate }}
-              </span>
-            }
-            <app-project-card-component [project]="p" [fullDescription]="true" />
-
-            @if (p.links) {
-              <div class="work__actions">
-                @if (p.links.repo) {
-                  <a class="work__action" [href]="p.links!.repo" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-github" aria-hidden="true"></i>
-                    Repo
-                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  </a>
-                }
-                @if (p.links.demo) {
-                  <a class="work__action" [href]="p.links!.demo" target="_blank" rel="noopener">
-                    Demo
-                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  </a>
-                }
-                @if (p.links.landing) {
-                  <a class="work__action" [href]="p.links!.landing" target="_blank" rel="noopener">
-                    Landing
-                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  </a>
-                }
-                @if (p.links.npm) {
-                  <a class="work__action" [href]="p.links!.npm" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-npm" aria-hidden="true"></i>
-                    npm
-                    <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i>
-                  </a>
-                }
-                @if (p.links.androidAPK) {
-                  <a class="work__action work__action--android" [href]="p.links!.androidAPK" target="_blank" rel="noopener">
-                    <i class="fa-brands fa-android" aria-hidden="true"></i>
-                    Android APK
-                    <i class="fa-solid fa-download" aria-hidden="true"></i>
-                  </a>
-                }
-              </div>
-            }
-          </div>
-
-          <div class="work__sections">
-            @if (p.techStackFull?.length) {
-              <div class="work__section">
-                <span class="work__section-label">{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
-                <div class="work__stacks">
-                  @for (tech of p.techStackFull; track tech.category) {
-                    <div class="work__stack-group">
-                      <h3 class="work__stack-category">{{ tech.category }}</h3>
-                      <div class="work__techs">
-                        @for (item of tech.items; track item) {
-                          <small>{{ item }}</small>
-                        }
-                      </div>
-                    </div>
-                  }
-                </div>
-              </div>
-            }
-
-            <div class="work__section">
-              <span class="work__section-label">{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
-              <ul class="work__features">
-                @for (feature of p.keyFeatures; track feature) {
-                  <li>{{ feature | translate }}</li>
-                }
-              </ul>
-            </div>
-
-            @if (p.challenges?.length) {
-              <div class="work__section">
-                <span class="work__section-label">{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
-                <div class="work__challenges">
-                  @for (challenge of p.challenges; track challenge) {
-                    <p>{{ challenge | translate }}</p>
-                  }
-                </div>
-              </div>
-            }
-
-            @if (p.aiDetail; as ai) {
-              @if (ai.tools?.length || ai.workflow?.length) {
-                <div class="work__section" data-ai-section="workflow">
-                  <span class="work__section-label">{{ 'AI_DETAIL_WORKFLOW_LABEL' | translate }}</span>
-                  @if (ai.tools?.length) {
-                    <div class="work__techs">
-                      @for (tool of ai.tools; track tool) {
-                        <small>{{ tool }}</small>
-                      }
-                    </div>
-                  }
-                  @if (ai.workflow?.length) {
-                    <ul class="work__features">
-                      @for (item of ai.workflow; track item) {
-                        <li>{{ item | translate }}</li>
-                      }
-                    </ul>
-                  }
-                </div>
-              }
-              @if (ai.productFeatures?.length) {
-                <div class="work__section" data-ai-section="product">
-                  <span class="work__section-label">{{ 'AI_DETAIL_PRODUCT_LABEL' | translate }}</span>
-                  <ul class="work__features">
-                    @for (item of ai.productFeatures; track item) {
-                      <li>{{ item | translate }}</li>
-                    }
-                  </ul>
-                </div>
-              }
-              @if (ai.quality?.length) {
-                <div class="work__section" data-ai-section="quality">
-                  <span class="work__section-label">{{ 'AI_DETAIL_QUALITY_LABEL' | translate }}</span>
-                  <ul class="work__features">
-                    @for (item of ai.quality; track item) {
-                      <li>{{ item | translate }}</li>
-                    }
-                  </ul>
-                </div>
-              }
-            }
 
             @if (p.galleryPortrait?.length || p.galleryLandscape?.length) {
               @let hasTabs = !!p.galleryPortrait?.length && !!p.galleryLandscape?.length;
               @let showPortrait = !!p.galleryPortrait?.length && (!hasTabs || galleryTab() === 'portrait');
               @let showLandscape = !!p.galleryLandscape?.length && (!hasTabs || galleryTab() === 'landscape');
-              <div class="work__section">
+              <div class="work__gallery-card work__section">
                 <span class="work__section-label">{{ 'PROJECTS_MODAL_GALLERY' | translate }}</span>
                 @if (hasTabs) {
                   <div class="work__tabs" role="tablist" [attr.aria-label]="'PROJECTS_MODAL_GALLERY' | translate">
@@ -205,6 +119,96 @@
                 </div>
               </div>
             }
+          </div>
+
+          <div class="work__column work__column--main">
+            @if (p.bannerImage) {
+              <div class="work__banner">
+                <img [src]="p.bannerImage" width="1902" height="827" fetchpriority="high" decoding="async" [alt]="p.title" />
+              </div>
+            }
+
+            <div class="work__sections">
+              @if (p.techStackFull?.length) {
+                <div class="work__section">
+                  <span class="work__section-label">{{ 'PROJECTS_MODAL_STACK' | translate }}</span>
+                  <div class="work__stacks">
+                    @for (tech of p.techStackFull; track tech.category) {
+                      <div class="work__stack-group">
+                        <h3 class="work__stack-category">{{ tech.category }}</h3>
+                        <div class="work__techs">
+                          @for (item of tech.items; track item) {
+                            <small>{{ item }}</small>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
+              <div class="work__section">
+                <span class="work__section-label">{{ 'PROJECTS_MODAL_FEATURES_KEY' | translate }}</span>
+                <ul class="work__features">
+                  @for (feature of p.keyFeatures; track feature) {
+                    <li>{{ feature | translate }}</li>
+                  }
+                </ul>
+              </div>
+
+              @if (p.challenges?.length) {
+                <div class="work__section">
+                  <span class="work__section-label">{{ 'PROJECTS_MODAL_CHALLENGES' | translate }}</span>
+                  <div class="work__challenges">
+                    @for (challenge of p.challenges; track challenge) {
+                      <p>{{ challenge | translate }}</p>
+                    }
+                  </div>
+                </div>
+              }
+
+              @if (p.aiDetail; as ai) {
+                @if (ai.tools?.length || ai.workflow?.length) {
+                  <div class="work__section" data-ai-section="workflow">
+                    <span class="work__section-label">{{ 'AI_DETAIL_WORKFLOW_LABEL' | translate }}</span>
+                    @if (ai.tools?.length) {
+                      <div class="work__techs">
+                        @for (tool of ai.tools; track tool) {
+                          <small>{{ tool }}</small>
+                        }
+                      </div>
+                    }
+                    @if (ai.workflow?.length) {
+                      <ul class="work__features">
+                        @for (item of ai.workflow; track item) {
+                          <li>{{ item | translate }}</li>
+                        }
+                      </ul>
+                    }
+                  </div>
+                }
+                @if (ai.productFeatures?.length) {
+                  <div class="work__section" data-ai-section="product">
+                    <span class="work__section-label">{{ 'AI_DETAIL_PRODUCT_LABEL' | translate }}</span>
+                    <ul class="work__features">
+                      @for (item of ai.productFeatures; track item) {
+                        <li>{{ item | translate }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+                @if (ai.quality?.length) {
+                  <div class="work__section" data-ai-section="quality">
+                    <span class="work__section-label">{{ 'AI_DETAIL_QUALITY_LABEL' | translate }}</span>
+                    <ul class="work__features">
+                      @for (item of ai.quality; track item) {
+                        <li>{{ item | translate }}</li>
+                      }
+                    </ul>
+                  </div>
+                }
+              }
+            </div>
           </div>
         </div>
       }
