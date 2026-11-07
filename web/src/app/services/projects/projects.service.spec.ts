@@ -2,10 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import es from '../../../../public/assets/i18n/es.json';
 import deJson from '../../../../public/assets/i18n/de.json';
-<<<<<<< HEAD
 import frJson from '../../../../public/assets/i18n/fr.json';
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 import itJson from '../../../../public/assets/i18n/it.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
@@ -186,10 +183,7 @@ describe('ProjectsService', () => {
       ['pt', pt],
       ['it', itJson],
       ['de', deJson],
-<<<<<<< HEAD
       ['fr', frJson],
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
     ] as const)('every translation key of every project exists in %s.json', (_locale, translations) => {
       const keys = catalog.flatMap(translationKeys);
 
@@ -199,11 +193,7 @@ describe('ProjectsService', () => {
     it.each(catalog)('$id: the full description has the same number of paragraphs in every language', (project) => {
       const count = (text: string): number => text.split(/\n\s*\n/).filter((block) => block.trim()).length;
       const key = project.fullDescription;
-<<<<<<< HEAD
       const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key], (frJson as Record<string, string>)[key]].map(count);
-=======
-      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key]].map(count);
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 
       expect(new Set(counts).size).toBe(1);
     });

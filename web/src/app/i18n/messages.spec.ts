@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import es from '../../../public/assets/i18n/es.json';
 import deJson from '../../../public/assets/i18n/de.json';
-<<<<<<< HEAD
 import frJson from '../../../public/assets/i18n/fr.json';
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 import itJson from '../../../public/assets/i18n/it.json';
 import pt from '../../../public/assets/i18n/pt.json';
 import { SUPPORTED_LOCALES } from '../services/locale/locale.service';
@@ -13,11 +10,7 @@ import { MESSAGES } from './messages';
 /**
  * MESSAGES spec.
  *
-<<<<<<< HEAD
  * In short: it guarantees that the English messages and the translation files (es, pt, it, de, fr)
-=======
- * In short: it guarantees that the English messages and the translation files (es, pt, it, de)
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
  * stay in sync, and that copy and paste mistakes in the English texts are caught.
  *
  * Guarantees
@@ -43,10 +36,7 @@ const TRANSLATIONS = [
   ['pt', pt],
   ['it', itJson],
   ['de', deJson],
-<<<<<<< HEAD
   ['fr', frJson],
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 ] as const;
 
 const messageKeys = Object.keys(MESSAGES);

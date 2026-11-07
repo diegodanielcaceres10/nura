@@ -1,11 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Injectable, inject } from '@angular/core';
 
-<<<<<<< HEAD
 export const SUPPORTED_LOCALES = ['en', 'es', 'pt', 'it', 'de', 'fr'] as const;
-=======
-export const SUPPORTED_LOCALES = ['en', 'es', 'pt', 'it', 'de'] as const;
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 export type AppLocale = (typeof SUPPORTED_LOCALES)[number];
 const DEFAULT_LOCALE: AppLocale = 'es';
 const LOCALE_PARAM = 'lang';

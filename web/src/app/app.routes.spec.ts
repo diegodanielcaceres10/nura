@@ -92,11 +92,7 @@ describe('routes', () => {
   });
 
   describe('supportedLangRoute', () => {
-<<<<<<< HEAD
     it.each(['es', 'en', 'pt', 'it', 'de', 'fr'])('should match the supported language "%s"', (lang) => {
-=======
-    it.each(['es', 'en', 'pt', 'it', 'de'])('should match the supported language "%s"', (lang) => {
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       expect(canMatch(lang)).toBe(true);
     });
 

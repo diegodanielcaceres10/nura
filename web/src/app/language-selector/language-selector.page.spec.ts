@@ -13,11 +13,7 @@ import { LanguageSelectorPage } from './language-selector.page';
  * Guarantees
  * - With a detected language (any supported one) the page calls changeLocale with that language
  *   after 1500 ms, not before, and meanwhile shows the loading view without the options.
-<<<<<<< HEAD
  * - When no language is detected it shows the options ES, EN, PT, IT, DE and FR in that order, hides the
-=======
- * - When no language is detected it shows the options ES, EN, PT, IT and DE in that order, hides the
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
  *   loading view and does not redirect on its own.
  * - Clicking an option, or releasing Enter on it, changes to its language.
  * - The channel links (LinkedIn, GitHub, npm) point to the right sites and open in a new tab
@@ -66,11 +62,7 @@ describe('LanguageSelectorPage', () => {
   });
 
   describe('when a language is detected', () => {
-<<<<<<< HEAD
     it.each(['es', 'en', 'pt', 'it', 'de', 'fr'])('redirects to %s after the delay and not before', (locale) => {
-=======
-    it.each(['es', 'en', 'pt', 'it', 'de'])('redirects to %s after the delay and not before', (locale) => {
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       createPage(locale);
 
       vi.advanceTimersByTime(REDIRECT_DELAY_MS - 1);
@@ -91,11 +83,7 @@ describe('LanguageSelectorPage', () => {
   });
 
   describe('when no language is detected', () => {
-<<<<<<< HEAD
     it('shows the options ES, EN, PT, IT, DE and FR in that order', () => {
-=======
-    it('shows the options ES, EN, PT, IT and DE in that order', () => {
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       const page = createPage('');
 
       const options = optionButtons(page).map((button) => [button.querySelector('strong')?.textContent, button.querySelector('span')?.textContent]);
@@ -106,10 +94,7 @@ describe('LanguageSelectorPage', () => {
         ['PT', 'Português'],
         ['IT', 'Italiano'],
         ['DE', 'Deutsch'],
-<<<<<<< HEAD
         ['FR', 'Français'],
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       ]);
     });
 
@@ -129,10 +114,7 @@ describe('LanguageSelectorPage', () => {
       [2, 'pt'],
       [3, 'it'],
       [4, 'de'],
-<<<<<<< HEAD
       [5, 'fr'],
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
     ])('changes the language when option %s is clicked', (index, locale) => {
       const page = createPage('');
 
@@ -148,10 +130,7 @@ describe('LanguageSelectorPage', () => {
       [2, 'pt'],
       [3, 'it'],
       [4, 'de'],
-<<<<<<< HEAD
       [5, 'fr'],
-=======
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
     ])('changes the language when Enter is released on option %s', (index, locale) => {
       const page = createPage('');
 

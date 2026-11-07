@@ -170,17 +170,10 @@
   "PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_1": "Combinare Signals (stato reattivo di sola lettura) e RxJS (operazioni asincrone) nello stesso flusso senza duplicare l'unica fonte di verità",
   "PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_2": "Progettare un'astrazione HTTP generica per consentire i test con dati mock e collegarsi poi a un backend reale senza alterare l'API pubblica del servizio",
   "PROJECTS_CARD_NURA_SHORT_DESC": "Portfolio personale sviluppato con Angular, con un sistema di traduzione personalizzato, CI/CD automatizzata e audit di prestazioni e accessibilità",
-<<<<<<< HEAD
   "PROJECTS_CARD_NURA_FULL_DESC": "Questo stesso portfolio: un sito personale sviluppato con Angular, che presenta progetti mobile, web, fullstack, librerie npm e sfide tecniche attraverso uno schema standardizzato di card e modale.\n\nInclude un sistema i18n personalizzato (EN, ES, PT, IT, DE, FR), test automatizzati e una pipeline CI/CD completa con deploy su GitHub Pages.",
   "PROJECTS_CARD_NURA_FEATURE_1": "Layout a pagina singola suddiviso in sezioni: home, chi sono, esperienza, progetti, referenze e contatti",
   "PROJECTS_CARD_NURA_FEATURE_2": "Schema standardizzato di card e modale per i progetti, riutilizzato per ogni tipo di progetto del portfolio",
   "PROJECTS_CARD_NURA_FEATURE_3": "Servizio di traduzione personalizzato (TranslateKeyPipe) con selettore della lingua per inglese, spagnolo, portoghese, italiano, tedesco e francese",
-=======
-  "PROJECTS_CARD_NURA_FULL_DESC": "Questo stesso portfolio: un sito personale sviluppato con Angular, che presenta progetti mobile, web, fullstack, librerie npm e sfide tecniche attraverso uno schema standardizzato di card e modale.\n\nInclude un sistema i18n personalizzato (EN, ES, PT), test automatizzati e una pipeline CI/CD completa con deploy su GitHub Pages.",
-  "PROJECTS_CARD_NURA_FEATURE_1": "Layout a pagina singola suddiviso in sezioni: home, chi sono, esperienza, progetti, referenze e contatti",
-  "PROJECTS_CARD_NURA_FEATURE_2": "Schema standardizzato di card e modale per i progetti, riutilizzato per ogni tipo di progetto del portfolio",
-  "PROJECTS_CARD_NURA_FEATURE_3": "Servizio di traduzione personalizzato (TranslateKeyPipe) con selettore della lingua per inglese, spagnolo e portoghese",
->>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   "PROJECTS_CARD_NURA_FEATURE_4": "Pipeline CI/CD con GitHub Actions: lint, test e build a ogni push, con deploy automatico su GitHub Pages",
   "PROJECTS_CARD_NURA_FEATURE_5": "Audit automatizzati di prestazioni e accessibilità con Lighthouse CI, sia per desktop sia per mobile",
   "PROJECTS_CARD_NURA_CHALLENGE_1": "Migrare da ngx-translate a un servizio di traduzione sviluppato internamente senza perdere la copertura multilingua",
