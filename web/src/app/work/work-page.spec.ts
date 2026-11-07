@@ -420,7 +420,7 @@ describe('WorkPage', () => {
       const f = await createPage('with-banner', [withBanner]);
       const img = bannerOf(f.nativeElement);
 
-      expect([img?.getAttribute('width'), img?.getAttribute('height')]).toEqual(['1902', '827']);
+      expect([img?.getAttribute('width'), img?.getAttribute('height')]).toEqual(['2400', '800']);
     });
 
     it('should not render a banner when the project has none', async () => {
