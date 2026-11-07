@@ -79,8 +79,8 @@ describe('HeaderComponent', () => {
   });
 
   it('should have langs array with every supported language named in its own language', () => {
-    expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt', 'it', 'de', 'fr']);
-    expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
+    expect(component.langs.map((lang) => lang.code)).toEqual(['de', 'en', 'es', 'fr', 'it', 'pt']);
+    expect(component.langs.map((lang) => lang.name)).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Português']);
   });
 
   it('should keep the language dropdown closed by default', () => {
@@ -192,8 +192,8 @@ describe('HeaderComponent', () => {
 
       expect(trigger().getAttribute('aria-expanded')).toBe('true');
       expect(listbox()?.getAttribute('role')).toBe('listbox');
-      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT', 'IT', 'DE', 'FR']);
-      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
+      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['DE', 'EN', 'ES', 'FR', 'IT', 'PT']);
+      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Português']);
     });
 
     it('should mark only the current language as selected', () => {
@@ -217,7 +217,7 @@ describe('HeaderComponent', () => {
 
     it('should only close the menu when the current language is chosen', () => {
       open();
-      options()[2].click();
+      options()[5].click();
       fixture.detectChanges();
 
       expect(localeService.changeLocale).not.toHaveBeenCalled();
@@ -288,7 +288,7 @@ describe('HeaderComponent', () => {
       fixture.detectChanges();
 
       expect(listbox()).not.toBeNull();
-      expect(document.activeElement).toBe(options()[2]);
+      expect(document.activeElement).toBe(options()[5]);
     });
   });
 });

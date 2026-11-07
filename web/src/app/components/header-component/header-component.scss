@@ -295,7 +295,6 @@
 
     @include ds.lg {
       margin-left: 0;
-      align-items: center;
     }
 
     &-trigger {
@@ -377,12 +376,6 @@
         0 0 20px -5px rgba(10, 141, 171, 0.15);
       animation: langMenuIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
       z-index: var(--z-sticky);
-
-      @include ds.lg {
-        position: static;
-        margin-top: clamp(var(--spacing-md), 5vh, var(--spacing-3xl));
-        min-width: 220px;
-      }
     }
   }
 

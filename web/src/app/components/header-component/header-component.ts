@@ -26,14 +26,14 @@ export class HeaderComponent {
   isLangOpen = signal(false);
   currentLang = signal<string>('en');
 
-  // Names are written in their own language on purpose.
+  // Names are written in their own language on purpose. Sorted alphabetically.
   langs = [
-    { code: 'es', flag: 'ES', name: 'Español' },
-    { code: 'en', flag: 'EN', name: 'English' },
-    { code: 'pt', flag: 'PT', name: 'Português' },
-    { code: 'it', flag: 'IT', name: 'Italiano' },
     { code: 'de', flag: 'DE', name: 'Deutsch' },
+    { code: 'en', flag: 'EN', name: 'English' },
+    { code: 'es', flag: 'ES', name: 'Español' },
     { code: 'fr', flag: 'FR', name: 'Français' },
+    { code: 'it', flag: 'IT', name: 'Italiano' },
+    { code: 'pt', flag: 'PT', name: 'Português' },
   ];
 
   currentLangOption = computed(() => this.langs.find((lang) => lang.code === this.currentLang()) ?? this.langs[0]);
