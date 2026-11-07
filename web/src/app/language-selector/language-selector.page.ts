@@ -47,6 +47,12 @@ export class LanguageSelectorPage implements OnInit {
       name: 'Português',
       description: 'Ver portfólio em português',
     },
+    { code: 'IT', locale: 'it', name: 'Italiano', description: 'Visualizza il portfolio in italiano' },
+    { code: 'DE', locale: 'de', name: 'Deutsch', description: 'Portfolio auf Deutsch ansehen' },
+<<<<<<< HEAD
+    { code: 'FR', locale: 'fr', name: 'Français', description: 'Voir le portfolio en français' },
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   ];
 
   protected readonly channels: QuickLink[] = [

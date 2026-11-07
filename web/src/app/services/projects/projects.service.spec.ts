@@ -1,6 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { beforeEach, describe, expect, it } from 'vitest';
 import es from '../../../../public/assets/i18n/es.json';
+import deJson from '../../../../public/assets/i18n/de.json';
+<<<<<<< HEAD
+import frJson from '../../../../public/assets/i18n/fr.json';
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
+import itJson from '../../../../public/assets/i18n/it.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
 import type { ProjectItem } from '../../sections/projects-component/projects.component';
@@ -18,7 +24,7 @@ import { ProjectsService } from './projects.service';
  * - Every id is a lowercase slug, safe to use in the /:lang/work/:id route.
  * - Every project has a title, a main tech stack, key features and an avatar or icon.
  * - Every translation key used by a project (descriptions, key features, challenges) exists
- *   in MESSAGES and, with a non-empty value, in the es and pt files. The translate pipe
+ *   in MESSAGES and, with a non-empty value, in every translation file. The translate pipe
  *   falls back to the raw key, so a missing key would show up on screen as plain text.
  * - Asset paths are relative to the base href (assets/projects/...), never absolute.
  * - The optional card theme uses valid hex colors, in-range angle and overlay, and a relative cover.
@@ -31,7 +37,7 @@ import { ProjectsService } from './projects.service';
  * Not covered
  * - That the asset files exist on disk: specs cannot read the file system, so only the path
  *   format is checked.
- * - The quality of the es and pt texts, or the catalog size and content (adding or removing
+ * - The quality of the translated texts, or the catalog size and content (adding or removing
  *   a project does not break this spec on purpose).
  * - The copy is shallow: the project objects themselves are shared, so editing one of them
  *   would still change the catalog.
@@ -178,6 +184,12 @@ describe('ProjectsService', () => {
     it.each([
       ['es', es],
       ['pt', pt],
+      ['it', itJson],
+      ['de', deJson],
+<<<<<<< HEAD
+      ['fr', frJson],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
     ] as const)('every translation key of every project exists in %s.json', (_locale, translations) => {
       const keys = catalog.flatMap(translationKeys);
 
@@ -187,7 +199,11 @@ describe('ProjectsService', () => {
     it.each(catalog)('$id: the full description has the same number of paragraphs in every language', (project) => {
       const count = (text: string): number => text.split(/\n\s*\n/).filter((block) => block.trim()).length;
       const key = project.fullDescription;
-      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key]].map(count);
+<<<<<<< HEAD
+      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key], (frJson as Record<string, string>)[key]].map(count);
+=======
+      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key]].map(count);
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 
       expect(new Set(counts).size).toBe(1);
     });

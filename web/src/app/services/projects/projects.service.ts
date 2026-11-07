@@ -160,7 +160,7 @@ export class ProjectsService {
       year: 2026,
       fullDescription: 'PROJECTS_CARD_NURA_FULL_DESC',
       techStackFull: [
-        { category: 'Frontend', items: ['Angular 21', 'TypeScript', 'SCSS', 'Angular Router', 'i18n (EN, ES, PT)'] },
+        { category: 'Frontend', items: ['Angular 21', 'TypeScript', 'SCSS', 'Angular Router', 'i18n (EN, ES, PT, IT, DE, FR)'] },
         { category: 'Testing', items: ['Vitest', 'Cypress'] },
         { category: 'DevOps', items: ['Docker', 'Lighthouse CI (desktop + mobile)', 'GitHub Actions', 'GitHub Pages'] },
       ],
