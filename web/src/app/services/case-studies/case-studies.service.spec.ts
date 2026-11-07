@@ -1,10 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import es from '../../../../public/assets/i18n/es.json';
+import deJson from '../../../../public/assets/i18n/de.json';
+import frJson from '../../../../public/assets/i18n/fr.json';
+import itJson from '../../../../public/assets/i18n/it.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
 import { splitParagraphs } from '../translate/split-paragraphs';
 import { CaseStudiesService } from './case-studies.service';
+
+/**
+ * CaseStudiesService spec.
+ *
+ * In short: it guarantees that the case studies catalog is consistent, so the portfolio never
+ * shows a raw translation key or a broken route in any language.
+ *
+ * Guarantees
+ * - The five cases come in display order, with the agreed unique slugs.
+ * - getBySlug finds each case, is case-sensitive and returns undefined for unknown slugs.
+ * - Every case has the seven detail keys, named after its slug, and a non-empty stack.
+ * - Every detail key and shared key has text in MESSAGES and in every translation file.
+ * - Each section has the same number of paragraphs in every language.
+ *
+ * Not covered
+ * - The quality of the translated texts.
+ * - Which text is shown at runtime: in specs $localize returns the English source text.
+ */
 
 const SLUGS = ['legacy-codebase-modernization', 'cicd-pipeline-automation', 'recurring-bugs-reduction', 'legacy-mobile-migration', 'cloud-storage-migration'];
 const SHARED_KEYS = ['CASE_DETAIL_LABEL_CONTEXT', 'CASE_DETAIL_LABEL_CHALLENGE', 'CASE_DETAIL_LABEL_ROLE', 'CASE_DETAIL_LABEL_DECISIONS', 'CASE_DETAIL_LABEL_EXECUTION', 'CASE_DETAIL_LABEL_RESULTS', 'CASE_DETAIL_LABEL_LEARNINGS', 'CASE_DETAIL_LABEL_STACK', 'CASE_DETAIL_NOT_FOUND', 'CASE_STUDY_READ_MORE'];
@@ -47,22 +68,28 @@ describe('CaseStudiesService', () => {
     }
   });
 
-  it('has every detail key and shared key in MESSAGES, es.json and pt.json', () => {
+  it('has every detail key and shared key in MESSAGES and in every translation file', () => {
     const keys = [...SHARED_KEYS, ...service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]))];
     const esKeys = es as Record<string, string>;
     const ptKeys = pt as Record<string, string>;
+    const itKeys = itJson as Record<string, string>;
+    const deKeys = deJson as Record<string, string>;
+    const frKeys = frJson as Record<string, string>;
 
     expect({
       missingEn: keys.filter((key) => !MESSAGES[key]?.trim()),
       missingEs: keys.filter((key) => !esKeys[key]?.trim()),
       missingPt: keys.filter((key) => !ptKeys[key]?.trim()),
-    }).toEqual({ missingEn: [], missingEs: [], missingPt: [] });
+      missingIt: keys.filter((key) => !itKeys[key]?.trim()),
+      missingDe: keys.filter((key) => !deKeys[key]?.trim()),
+      missingFr: keys.filter((key) => !frKeys[key]?.trim()),
+    }).toEqual({ missingEn: [], missingEs: [], missingPt: [], missingIt: [], missingDe: [], missingFr: [] });
   });
 
   it('has the same number of paragraphs in every language for each section', () => {
     const keys = service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]));
     const count = (text: string | undefined): number => splitParagraphs(text ?? '').length;
-    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key])]).size !== 1);
+    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key]), count((itJson as Record<string, string>)[key]), count((deJson as Record<string, string>)[key]), count((frJson as Record<string, string>)[key])]).size !== 1);
 
     expect(mismatched).toEqual([]);
   });

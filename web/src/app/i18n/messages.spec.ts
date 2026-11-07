@@ -1,18 +1,24 @@
 import { describe, expect, it } from 'vitest';
 import es from '../../../public/assets/i18n/es.json';
+import deJson from '../../../public/assets/i18n/de.json';
+import frJson from '../../../public/assets/i18n/fr.json';
+import itJson from '../../../public/assets/i18n/it.json';
 import pt from '../../../public/assets/i18n/pt.json';
+import { SUPPORTED_LOCALES } from '../services/locale/locale.service';
 import { MESSAGES } from './messages';
 
 /**
  * MESSAGES spec.
  *
- * In short: it guarantees that the English messages and the es and pt translation files stay
- * in sync, and that copy and paste mistakes in the English texts are caught.
+ * In short: it guarantees that the English messages and the translation files (es, pt, it, de, fr)
+ * stay in sync, and that copy and paste mistakes in the English texts are caught.
  *
  * Guarantees
  * - Every English message has text.
- * - The es and pt files have exactly the keys of MESSAGES: none missing, none left over.
+ * - Every translation file has exactly the keys of MESSAGES: none missing, none left over.
  * - Every translation has text.
+ * - The Nura project card names every supported language, in English and in every translation
+ *   file, so the list never goes stale when a language is added.
  * - If two keys share the same English text, their translations are also the same. This
  *   catches an English text pasted over another one while the translations stay correct.
  * - Regression: the Kora Core card describes the backend and the Kora Roster card describes
@@ -21,13 +27,16 @@ import { MESSAGES } from './messages';
  * Not covered
  * - That an English text is correct in general: only the cases above are checked. A wrong text
  *   that is not a duplicate and is not pinned below would still pass.
- * - The quality of the es and pt texts.
+ * - The quality of the translated texts.
  * - Which text is shown at runtime: in specs $localize returns the English source text.
  */
 
 const TRANSLATIONS = [
   ['es', es],
   ['pt', pt],
+  ['it', itJson],
+  ['de', deJson],
+  ['fr', frJson],
 ] as const;
 
 const messageKeys = Object.keys(MESSAGES);
@@ -65,6 +74,16 @@ describe('MESSAGES', () => {
       const inconsistent = [...keysByEnglish.entries()].filter(([, keys]) => new Set(keys.map((key) => translations[key]?.trim())).size > 1).map(([english, keys]) => ({ english, keys }));
 
       expect(inconsistent).toEqual([]);
+    });
+  });
+
+  describe('Nura project card', () => {
+    const codes = SUPPORTED_LOCALES.map((locale) => locale.toUpperCase());
+
+    it.each([['en', MESSAGES], ...TRANSLATIONS] as [string, Record<string, string>][])('lists every supported language in the %s description', (_locale, texts) => {
+      const text = texts['PROJECTS_CARD_NURA_FULL_DESC'];
+
+      expect(codes.filter((code) => !text.includes(code))).toEqual([]);
     });
   });
 

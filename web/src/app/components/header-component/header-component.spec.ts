@@ -7,6 +7,31 @@ import { signal } from '@angular/core';
 import { LocaleService } from '../../services/locale/locale.service';
 import { ScrollService } from '../../services/scroll/scroll.service';
 
+/**
+ * HeaderComponent spec.
+ *
+ * In short: it guarantees that the header shows the navigation and the language dropdown
+ * correctly, and that choosing a language goes through LocaleService.
+ *
+ * Guarantees
+ * - The component starts with the current language read from LocaleService, the menu closed
+ *   and the language dropdown closed.
+ * - The language list has every supported language, named in its own language.
+ * - The primary navigation, the logo and the home link are rendered with their labels and
+ *   links, and the menu toggles from its button, the logo and each navigation link.
+ * - The language dropdown opens and closes (trigger, Escape, click outside), marks only the
+ *   current language, changes the language when another option is chosen and does nothing
+ *   when the current one is chosen.
+ * - The arrow keys move the focus between options, wrapping at both ends, and opening the
+ *   dropdown from the keyboard focuses the current language.
+ * - The sticky class follows the scroll service.
+ *
+ * Not covered
+ * - Real navigation: the router and LocaleService are replaced so jsdom does not navigate.
+ * - The look of the header (CSS).
+ * - The translated texts: in specs $localize returns the English source text.
+ */
+
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
@@ -53,9 +78,9 @@ describe('HeaderComponent', () => {
     expect(component.isMenuOpen()).toBe(false);
   });
 
-  it('should have langs array with 3 languages named in their own language', () => {
-    expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt']);
-    expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português']);
+  it('should have langs array with every supported language named in its own language', () => {
+    expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt', 'it', 'de', 'fr']);
+    expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
   });
 
   it('should keep the language dropdown closed by default', () => {
@@ -167,15 +192,18 @@ describe('HeaderComponent', () => {
 
       expect(trigger().getAttribute('aria-expanded')).toBe('true');
       expect(listbox()?.getAttribute('role')).toBe('listbox');
-      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT']);
-      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português']);
+      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT', 'IT', 'DE', 'FR']);
+      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
     });
 
     it('should mark only the current language as selected', () => {
       open();
 
-      expect(options().map((option) => option.getAttribute('aria-selected'))).toEqual(['false', 'false', 'true']);
-      expect(options()[2].classList.contains('active')).toBe(true);
+      const selected = options().filter((option) => option.getAttribute('aria-selected') === 'true');
+
+      expect(selected.map((option) => option.getAttribute('lang'))).toEqual(['pt']);
+      expect(selected[0].classList.contains('active')).toBe(true);
+      expect(options().filter((option) => option.classList.contains('active'))).toHaveLength(1);
     });
 
     it('should change language and close the menu when another option is chosen', () => {
@@ -246,10 +274,12 @@ describe('HeaderComponent', () => {
       items[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
       expect(document.activeElement).toBe(items[0]);
 
+      // The focus wraps around at both ends of the list.
+      const last = items[items.length - 1];
       items[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
-      expect(document.activeElement).toBe(items[2]);
+      expect(document.activeElement).toBe(last);
 
-      items[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      last.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
       expect(document.activeElement).toBe(items[0]);
     });
 

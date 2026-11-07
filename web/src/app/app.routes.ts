@@ -3,9 +3,9 @@ import { LanguageSelectorPage } from './language-selector/language-selector.page
 import { PortfolioPage } from './portfolio/portfolio-page';
 import { WorkPage } from './work/work-page';
 import { CaseStudyPage } from './case-study/case-study-page';
-import { LocaleService } from './services/locale/locale.service';
+import { LocaleService, SUPPORTED_LOCALES } from './services/locale/locale.service';
 
-const supportedLangs = new Set(['es', 'en', 'pt']);
+const supportedLangs = new Set<string>(SUPPORTED_LOCALES);
 
 const supportedLangRoute: CanMatchFn = (_, segments) => {
   const lang = segments[0]?.path?.toLowerCase();

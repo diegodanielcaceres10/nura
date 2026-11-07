@@ -31,6 +31,9 @@ export class HeaderComponent {
     { code: 'es', flag: 'ES', name: 'Español' },
     { code: 'en', flag: 'EN', name: 'English' },
     { code: 'pt', flag: 'PT', name: 'Português' },
+    { code: 'it', flag: 'IT', name: 'Italiano' },
+    { code: 'de', flag: 'DE', name: 'Deutsch' },
+    { code: 'fr', flag: 'FR', name: 'Français' },
   ];
 
   currentLangOption = computed(() => this.langs.find((lang) => lang.code === this.currentLang()) ?? this.langs[0]);

@@ -71,6 +71,9 @@ describe('LocaleService', () => {
   describe('resolveStartupLocale', () => {
     it.each<[string, string]>([
       ['/pt', 'pt'],
+      ['/it', 'it'],
+      ['/de', 'de'],
+      ['/fr', 'fr'],
       ['/en/', 'en'],
       ['/en/work/3', 'en'],
     ])('reads the locale from the first path segment (%s)', (url, expected) => {
@@ -95,6 +98,9 @@ describe('LocaleService', () => {
 
     it.each<[string, string]>([
       ['pt-BR', 'pt'],
+      ['it-IT', 'it'],
+      ['de-AT', 'de'],
+      ['fr-CA', 'fr'],
       ['EN', 'en'],
     ])('normalizes the query param value %s', (value, expected) => {
       setUrl(`/?lang=${value}`);
@@ -103,15 +109,15 @@ describe('LocaleService', () => {
     });
 
     it('skips an unsupported query param and uses the browser language', () => {
-      setUrl('/?lang=fr');
+      setUrl('/?lang=ja');
       setBrowserLanguages(['pt-BR']);
 
       expect(LocaleService.resolveStartupLocale()).toBe('pt');
     });
 
     it('falls back to the default when the query param and the browser language are both unsupported', () => {
-      setUrl('/?lang=fr');
-      setBrowserLanguages(['de-DE']);
+      setUrl('/?lang=ja');
+      setBrowserLanguages(['ja-JP']);
 
       expect(LocaleService.resolveStartupLocale()).toBe('es');
     });
@@ -126,7 +132,10 @@ describe('LocaleService', () => {
     describe('browser language', () => {
       it.each<[string[], string]>([
         [['pt-BR', 'pt'], 'pt'],
-        [['de-DE', 'pt-BR'], 'pt'],
+        [['it-IT', 'en-US'], 'it'],
+        [['de-DE', 'pt-BR'], 'de'],
+        [['fr-FR', 'en-US'], 'fr'],
+        [['ja-JP', 'pt-BR'], 'pt'],
         [['en-US', 'pt-BR'], 'en'],
         [['PT-br'], 'pt'],
       ])('picks the first supported language of %j', (languages, expected) => {
@@ -142,7 +151,7 @@ describe('LocaleService', () => {
       });
 
       it('falls back to the default when no browser language is supported', () => {
-        setBrowserLanguages(['de-DE']);
+        setBrowserLanguages(['ja-JP']);
 
         expect(LocaleService.resolveStartupLocale()).toBe('es');
       });
@@ -156,9 +165,12 @@ describe('LocaleService', () => {
   describe('getCurrentLocale', () => {
     it.each<[string, string]>([
       ['pt-BR', 'pt'],
+      ['it-IT', 'it'],
+      ['de-CH', 'de'],
+      ['fr-BE', 'fr'],
       ['EN', 'en'],
       ['  pt ', 'pt'],
-      ['de-DE', 'es'],
+      ['ja-JP', 'es'],
       ['', 'es'],
     ])('maps <html lang="%s"> to %s', (lang, expected) => {
       document.documentElement.lang = lang;
@@ -178,7 +190,10 @@ describe('LocaleService', () => {
       ['/pt/about', 'en', '/en/about'],
       ['/pt', 'en', '/en/'],
       ['/', 'pt-BR', '/pt/'],
-      ['/', 'fr-FR', '/es/'],
+      ['/', 'it-IT', '/it/'],
+      ['/', 'de-DE', '/de/'],
+      ['/', 'fr-FR', '/fr/'],
+      ['/', 'ja-JP', '/es/'],
     ])('from %s to %s redirects to %s', (from, locale, expectedPath) => {
       setUrl(from);
       const assign = stubNavigation();
@@ -241,7 +256,7 @@ describe('LocaleService', () => {
     it('falls back to the default locale for an unsupported value', () => {
       setUrl('/about');
 
-      LocaleService.syncLocalePath('fr' as AppLocale);
+      LocaleService.syncLocalePath('ja' as AppLocale);
 
       expect(window.location.pathname).toBe('/es/about');
     });
