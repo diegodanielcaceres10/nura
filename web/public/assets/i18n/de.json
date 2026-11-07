@@ -170,10 +170,17 @@
   "PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_1": "Signals (schreibgeschützter reaktiver Zustand) und RxJS (asynchrone Operationen) im selben Stream kombinieren, ohne die einzige Quelle der Wahrheit zu duplizieren",
   "PROJECTS_CARD_RIU_FRONTEND_DIEGO_DANIEL_CACERES_CHALLENGE_2": "Eine generische HTTP-Abstraktion entwerfen, die Tests mit Mock-Daten erlaubt und später die Anbindung an ein echtes Backend ermöglicht, ohne die öffentliche API des Dienstes zu ändern",
   "PROJECTS_CARD_NURA_SHORT_DESC": "Persönliches Portfolio, entwickelt mit Angular, mit eigenem Übersetzungssystem, automatisiertem CI/CD sowie Performance- und Barrierefreiheits-Audits",
+<<<<<<< HEAD
   "PROJECTS_CARD_NURA_FULL_DESC": "Dieses Portfolio selbst: eine persönliche Website, entwickelt mit Angular, die Projekte aus den Bereichen Mobile, Web, Fullstack, npm-Bibliotheken und technische Challenges über ein einheitliches Karten- und Modal-Muster präsentiert.\n\nEnthält ein eigenes i18n-System (EN, ES, PT, IT, DE, FR), automatisierte Tests und eine vollständige CI/CD-Pipeline mit Deployment auf GitHub Pages.",
   "PROJECTS_CARD_NURA_FEATURE_1": "Einseitiges Layout mit Abschnitten: Home, Über mich, Erfahrung, Projekte, Empfehlungen und Kontakt",
   "PROJECTS_CARD_NURA_FEATURE_2": "Einheitliches Muster aus Projektkarte und Modal, das für jeden Projekttyp im Portfolio wiederverwendet wird",
   "PROJECTS_CARD_NURA_FEATURE_3": "Eigener Übersetzungsdienst (TranslateKeyPipe) mit Sprachauswahl für Englisch, Spanisch, Portugiesisch, Italienisch, Deutsch und Französisch",
+=======
+  "PROJECTS_CARD_NURA_FULL_DESC": "Dieses Portfolio selbst: eine persönliche Website, entwickelt mit Angular, die Projekte aus den Bereichen Mobile, Web, Fullstack, npm-Bibliotheken und technische Challenges über ein einheitliches Karten- und Modal-Muster präsentiert.\n\nEnthält ein eigenes i18n-System (EN, ES, PT), automatisierte Tests und eine vollständige CI/CD-Pipeline mit Deployment auf GitHub Pages.",
+  "PROJECTS_CARD_NURA_FEATURE_1": "Einseitiges Layout mit Abschnitten: Home, Über mich, Erfahrung, Projekte, Empfehlungen und Kontakt",
+  "PROJECTS_CARD_NURA_FEATURE_2": "Einheitliches Muster aus Projektkarte und Modal, das für jeden Projekttyp im Portfolio wiederverwendet wird",
+  "PROJECTS_CARD_NURA_FEATURE_3": "Eigener Übersetzungsdienst (TranslateKeyPipe) mit Sprachauswahl für Englisch, Spanisch und Portugiesisch",
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   "PROJECTS_CARD_NURA_FEATURE_4": "CI/CD-Pipeline über GitHub Actions: Lint, Tests und Build bei jedem Push, mit automatischem Deployment auf GitHub Pages",
   "PROJECTS_CARD_NURA_FEATURE_5": "Automatisierte Performance- und Barrierefreiheits-Audits mit Lighthouse CI, für Desktop und Mobile",
   "PROJECTS_CARD_NURA_CHALLENGE_1": "Von ngx-translate auf einen selbst entwickelten Übersetzungsdienst migrieren, ohne die mehrsprachige Abdeckung zu verlieren",

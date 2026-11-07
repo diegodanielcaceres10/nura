@@ -79,8 +79,13 @@ describe('HeaderComponent', () => {
   });
 
   it('should have langs array with every supported language named in its own language', () => {
+<<<<<<< HEAD
     expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt', 'it', 'de', 'fr']);
     expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
+=======
+    expect(component.langs.map((lang) => lang.code)).toEqual(['es', 'en', 'pt', 'it', 'de']);
+    expect(component.langs.map((lang) => lang.name)).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch']);
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   });
 
   it('should keep the language dropdown closed by default', () => {
@@ -192,8 +197,13 @@ describe('HeaderComponent', () => {
 
       expect(trigger().getAttribute('aria-expanded')).toBe('true');
       expect(listbox()?.getAttribute('role')).toBe('listbox');
+<<<<<<< HEAD
       expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT', 'IT', 'DE', 'FR']);
       expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch', 'Français']);
+=======
+      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['ES', 'EN', 'PT', 'IT', 'DE']);
+      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Español', 'English', 'Português', 'Italiano', 'Deutsch']);
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
     });
 
     it('should mark only the current language as selected', () => {

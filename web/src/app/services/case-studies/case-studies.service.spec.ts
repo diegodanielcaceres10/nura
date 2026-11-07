@@ -2,7 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { describe, expect, it } from 'vitest';
 import es from '../../../../public/assets/i18n/es.json';
 import deJson from '../../../../public/assets/i18n/de.json';
+<<<<<<< HEAD
 import frJson from '../../../../public/assets/i18n/fr.json';
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 import itJson from '../../../../public/assets/i18n/it.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
@@ -74,7 +77,10 @@ describe('CaseStudiesService', () => {
     const ptKeys = pt as Record<string, string>;
     const itKeys = itJson as Record<string, string>;
     const deKeys = deJson as Record<string, string>;
+<<<<<<< HEAD
     const frKeys = frJson as Record<string, string>;
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 
     expect({
       missingEn: keys.filter((key) => !MESSAGES[key]?.trim()),
@@ -82,14 +88,22 @@ describe('CaseStudiesService', () => {
       missingPt: keys.filter((key) => !ptKeys[key]?.trim()),
       missingIt: keys.filter((key) => !itKeys[key]?.trim()),
       missingDe: keys.filter((key) => !deKeys[key]?.trim()),
+<<<<<<< HEAD
       missingFr: keys.filter((key) => !frKeys[key]?.trim()),
     }).toEqual({ missingEn: [], missingEs: [], missingPt: [], missingIt: [], missingDe: [], missingFr: [] });
+=======
+    }).toEqual({ missingEn: [], missingEs: [], missingPt: [], missingIt: [], missingDe: [] });
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   });
 
   it('has the same number of paragraphs in every language for each section', () => {
     const keys = service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]));
     const count = (text: string | undefined): number => splitParagraphs(text ?? '').length;
+<<<<<<< HEAD
     const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key]), count((itJson as Record<string, string>)[key]), count((deJson as Record<string, string>)[key]), count((frJson as Record<string, string>)[key])]).size !== 1);
+=======
+    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key]), count((itJson as Record<string, string>)[key]), count((deJson as Record<string, string>)[key])]).size !== 1);
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
 
     expect(mismatched).toEqual([]);
   });

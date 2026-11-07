@@ -73,7 +73,10 @@ describe('LocaleService', () => {
       ['/pt', 'pt'],
       ['/it', 'it'],
       ['/de', 'de'],
+<<<<<<< HEAD
       ['/fr', 'fr'],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       ['/en/', 'en'],
       ['/en/work/3', 'en'],
     ])('reads the locale from the first path segment (%s)', (url, expected) => {
@@ -100,7 +103,10 @@ describe('LocaleService', () => {
       ['pt-BR', 'pt'],
       ['it-IT', 'it'],
       ['de-AT', 'de'],
+<<<<<<< HEAD
       ['fr-CA', 'fr'],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       ['EN', 'en'],
     ])('normalizes the query param value %s', (value, expected) => {
       setUrl(`/?lang=${value}`);
@@ -134,7 +140,10 @@ describe('LocaleService', () => {
         [['pt-BR', 'pt'], 'pt'],
         [['it-IT', 'en-US'], 'it'],
         [['de-DE', 'pt-BR'], 'de'],
+<<<<<<< HEAD
         [['fr-FR', 'en-US'], 'fr'],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
         [['ja-JP', 'pt-BR'], 'pt'],
         [['en-US', 'pt-BR'], 'en'],
         [['PT-br'], 'pt'],
@@ -167,7 +176,10 @@ describe('LocaleService', () => {
       ['pt-BR', 'pt'],
       ['it-IT', 'it'],
       ['de-CH', 'de'],
+<<<<<<< HEAD
       ['fr-BE', 'fr'],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       ['EN', 'en'],
       ['  pt ', 'pt'],
       ['ja-JP', 'es'],
@@ -192,7 +204,10 @@ describe('LocaleService', () => {
       ['/', 'pt-BR', '/pt/'],
       ['/', 'it-IT', '/it/'],
       ['/', 'de-DE', '/de/'],
+<<<<<<< HEAD
       ['/', 'fr-FR', '/fr/'],
+=======
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
       ['/', 'ja-JP', '/es/'],
     ])('from %s to %s redirects to %s', (from, locale, expectedPath) => {
       setUrl(from);

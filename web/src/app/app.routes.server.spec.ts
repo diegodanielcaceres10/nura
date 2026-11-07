@@ -22,6 +22,10 @@ describe('serverRoutes', () => {
 
     const params = (await getPrerenderParams?.()) ?? [];
 
+<<<<<<< HEAD
     expect(params.map((param) => param['lang']).sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'pt']);
+=======
+    expect(params.map((param) => param['lang']).sort()).toEqual(['de', 'en', 'es', 'it', 'pt']);
+>>>>>>> ed8a57e97ec49096077d07ed9372f4412eab5c6a
   });
 });
