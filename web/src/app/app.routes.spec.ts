@@ -8,6 +8,28 @@ import { WorkPage } from './work/work-page';
 import { CaseStudyPage } from './case-study/case-study-page';
 import { LocaleService } from './services/locale/locale.service';
 
+/**
+ * Routes spec.
+ *
+ * In short: it guarantees that the route table, the supported-language check and the
+ * wildcard redirect send every URL to the right page and language.
+ *
+ * Guarantees
+ * - The routes are declared in the expected order, each one with its page component, and
+ *   the case-studies route comes before the language route.
+ * - Every language route is guarded by the same supported-language check, which accepts each
+ *   supported language in any casing, only looks at the first segment, and rejects
+ *   unsupported languages, regional codes, other words and empty paths.
+ * - The wildcard redirects through the startup locale, keeping every segment of the path in
+ *   order, and resolves the locale again on each redirect.
+ * - Real URLs resolve to the expected route and expose the lang, id and slug params.
+ *
+ * Not covered
+ * - The content of each page (they have their own specs).
+ * - The prerendered languages, which are checked in the server routes spec.
+ * - The redirect of an unmatched URL through the router: only matching URLs are navigated.
+ */
+
 const langRoutes = routes.filter((route) => route.path?.startsWith(':lang'));
 const wildcardRoute = routes.find((route) => route.path === '**') as Route;
 
@@ -70,7 +92,7 @@ describe('routes', () => {
   });
 
   describe('supportedLangRoute', () => {
-    it.each(['es', 'en', 'pt'])('should match the supported language "%s"', (lang) => {
+    it.each(['es', 'en', 'pt', 'it', 'de'])('should match the supported language "%s"', (lang) => {
       expect(canMatch(lang)).toBe(true);
     });
 
@@ -84,7 +106,7 @@ describe('routes', () => {
       expect(canMatch('work', 'en')).toBe(false);
     });
 
-    it.each(['fr', 'de', 'es-ES', 'work', '123'])('should not match the unsupported language "%s"', (lang) => {
+    it.each(['ja', 'ko', 'es-ES', 'work', '123'])('should not match the unsupported language "%s"', (lang) => {
       expect(canMatch(lang)).toBe(false);
     });
 
