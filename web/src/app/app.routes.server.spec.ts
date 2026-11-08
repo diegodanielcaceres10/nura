@@ -22,6 +22,6 @@ describe('serverRoutes', () => {
 
     const params = (await getPrerenderParams?.()) ?? [];
 
-    expect(params.map((param) => param['lang']).sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'pt']);
+    expect(params.map((param) => param['lang']).sort()).toEqual(['de', 'en', 'es', 'fr', 'it', 'nl', 'pt']);
   });
 });

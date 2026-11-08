@@ -13,7 +13,7 @@ import { LanguageSelectorPage } from './language-selector.page';
  * Guarantees
  * - With a detected language (any supported one) the page calls changeLocale with that language
  *   after 1500 ms, not before, and meanwhile shows the loading view without the options.
- * - When no language is detected it shows the options ES, EN, PT, IT, DE and FR in that order, hides the
+ * - When no language is detected it shows the options ES, EN, PT, IT, DE, FR and NL in that order, hides the
  *   loading view and does not redirect on its own.
  * - Clicking an option, or releasing Enter on it, changes to its language.
  * - The channel links (LinkedIn, GitHub, npm) point to the right sites and open in a new tab
@@ -62,7 +62,7 @@ describe('LanguageSelectorPage', () => {
   });
 
   describe('when a language is detected', () => {
-    it.each(['es', 'en', 'pt', 'it', 'de', 'fr'])('redirects to %s after the delay and not before', (locale) => {
+    it.each(['es', 'en', 'pt', 'it', 'de', 'fr', 'nl'])('redirects to %s after the delay and not before', (locale) => {
       createPage(locale);
 
       vi.advanceTimersByTime(REDIRECT_DELAY_MS - 1);
@@ -83,7 +83,7 @@ describe('LanguageSelectorPage', () => {
   });
 
   describe('when no language is detected', () => {
-    it('shows the options ES, EN, PT, IT, DE and FR in that order', () => {
+    it('shows the options ES, EN, PT, IT, DE, FR and NL in that order', () => {
       const page = createPage('');
 
       const options = optionButtons(page).map((button) => [button.querySelector('strong')?.textContent, button.querySelector('span')?.textContent]);
@@ -95,6 +95,7 @@ describe('LanguageSelectorPage', () => {
         ['IT', 'Italiano'],
         ['DE', 'Deutsch'],
         ['FR', 'Français'],
+        ['NL', 'Nederlands'],
       ]);
     });
 
@@ -115,6 +116,7 @@ describe('LanguageSelectorPage', () => {
       [3, 'it'],
       [4, 'de'],
       [5, 'fr'],
+      [6, 'nl'],
     ])('changes the language when option %s is clicked', (index, locale) => {
       const page = createPage('');
 
@@ -131,6 +133,7 @@ describe('LanguageSelectorPage', () => {
       [3, 'it'],
       [4, 'de'],
       [5, 'fr'],
+      [6, 'nl'],
     ])('changes the language when Enter is released on option %s', (index, locale) => {
       const page = createPage('');
 

@@ -3,6 +3,7 @@ import es from '../../../public/assets/i18n/es.json';
 import deJson from '../../../public/assets/i18n/de.json';
 import frJson from '../../../public/assets/i18n/fr.json';
 import itJson from '../../../public/assets/i18n/it.json';
+import nlJson from '../../../public/assets/i18n/nl.json';
 import pt from '../../../public/assets/i18n/pt.json';
 import { SUPPORTED_LOCALES } from '../services/locale/locale.service';
 import { MESSAGES } from './messages';
@@ -10,7 +11,7 @@ import { MESSAGES } from './messages';
 /**
  * MESSAGES spec.
  *
- * In short: it guarantees that the English messages and the translation files (es, pt, it, de, fr)
+ * In short: it guarantees that the English messages and the translation files (es, pt, it, de, fr, nl)
  * stay in sync, and that copy and paste mistakes in the English texts are caught.
  *
  * Guarantees
@@ -37,6 +38,7 @@ const TRANSLATIONS = [
   ['it', itJson],
   ['de', deJson],
   ['fr', frJson],
+  ['nl', nlJson],
 ] as const;
 
 const messageKeys = Object.keys(MESSAGES);

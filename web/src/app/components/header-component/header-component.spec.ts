@@ -79,8 +79,8 @@ describe('HeaderComponent', () => {
   });
 
   it('should have langs array with every supported language named in its own language', () => {
-    expect(component.langs.map((lang) => lang.code)).toEqual(['de', 'en', 'es', 'fr', 'it', 'pt']);
-    expect(component.langs.map((lang) => lang.name)).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Português']);
+    expect(component.langs.map((lang) => lang.code)).toEqual(['de', 'en', 'es', 'fr', 'it', 'nl', 'pt']);
+    expect(component.langs.map((lang) => lang.name)).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Nederlands', 'Português']);
   });
 
   it('should keep the language dropdown closed by default', () => {
@@ -192,8 +192,8 @@ describe('HeaderComponent', () => {
 
       expect(trigger().getAttribute('aria-expanded')).toBe('true');
       expect(listbox()?.getAttribute('role')).toBe('listbox');
-      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['DE', 'EN', 'ES', 'FR', 'IT', 'PT']);
-      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Português']);
+      expect(options().map((option) => option.querySelector('.header__lang-code')?.textContent?.trim())).toEqual(['DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'PT']);
+      expect(options().map((option) => option.querySelector('.header__lang-name')?.textContent?.trim())).toEqual(['Deutsch', 'English', 'Español', 'Français', 'Italiano', 'Nederlands', 'Português']);
     });
 
     it('should mark only the current language as selected', () => {
@@ -217,7 +217,7 @@ describe('HeaderComponent', () => {
 
     it('should only close the menu when the current language is chosen', () => {
       open();
-      options()[5].click();
+      options()[6].click();
       fixture.detectChanges();
 
       expect(localeService.changeLocale).not.toHaveBeenCalled();
@@ -288,7 +288,7 @@ describe('HeaderComponent', () => {
       fixture.detectChanges();
 
       expect(listbox()).not.toBeNull();
-      expect(document.activeElement).toBe(options()[5]);
+      expect(document.activeElement).toBe(options()[6]);
     });
   });
 });

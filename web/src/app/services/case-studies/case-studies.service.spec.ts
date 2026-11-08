@@ -4,6 +4,7 @@ import es from '../../../../public/assets/i18n/es.json';
 import deJson from '../../../../public/assets/i18n/de.json';
 import frJson from '../../../../public/assets/i18n/fr.json';
 import itJson from '../../../../public/assets/i18n/it.json';
+import nlJson from '../../../../public/assets/i18n/nl.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
 import { splitParagraphs } from '../translate/split-paragraphs';
@@ -75,6 +76,7 @@ describe('CaseStudiesService', () => {
     const itKeys = itJson as Record<string, string>;
     const deKeys = deJson as Record<string, string>;
     const frKeys = frJson as Record<string, string>;
+    const nlKeys = nlJson as Record<string, string>;
 
     expect({
       missingEn: keys.filter((key) => !MESSAGES[key]?.trim()),
@@ -83,13 +85,14 @@ describe('CaseStudiesService', () => {
       missingIt: keys.filter((key) => !itKeys[key]?.trim()),
       missingDe: keys.filter((key) => !deKeys[key]?.trim()),
       missingFr: keys.filter((key) => !frKeys[key]?.trim()),
-    }).toEqual({ missingEn: [], missingEs: [], missingPt: [], missingIt: [], missingDe: [], missingFr: [] });
+      missingNl: keys.filter((key) => !nlKeys[key]?.trim()),
+    }).toEqual({ missingEn: [], missingEs: [], missingPt: [], missingIt: [], missingDe: [], missingFr: [], missingNl: [] });
   });
 
   it('has the same number of paragraphs in every language for each section', () => {
     const keys = service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]));
     const count = (text: string | undefined): number => splitParagraphs(text ?? '').length;
-    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key]), count((itJson as Record<string, string>)[key]), count((deJson as Record<string, string>)[key]), count((frJson as Record<string, string>)[key])]).size !== 1);
+    const mismatched = keys.filter((key) => new Set([count(MESSAGES[key]), count((es as Record<string, string>)[key]), count((pt as Record<string, string>)[key]), count((itJson as Record<string, string>)[key]), count((deJson as Record<string, string>)[key]), count((frJson as Record<string, string>)[key]), count((nlJson as Record<string, string>)[key])]).size !== 1);
 
     expect(mismatched).toEqual([]);
   });

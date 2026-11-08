@@ -33,6 +33,7 @@ export class HeaderComponent {
     { code: 'es', flag: 'ES', name: 'Español' },
     { code: 'fr', flag: 'FR', name: 'Français' },
     { code: 'it', flag: 'IT', name: 'Italiano' },
+    { code: 'nl', flag: 'NL', name: 'Nederlands' },
     { code: 'pt', flag: 'PT', name: 'Português' },
   ];
 
