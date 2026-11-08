@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 export type ExperienceLogoVariant = 'apex' | 'cesla';
 
@@ -35,7 +36,7 @@ export interface ExperienceEntry {
 @Component({
   selector: 'app-experiences-component',
   standalone: true,
-  imports: [RouterLink, TranslateKeyPipe, TitleComponent],
+  imports: [RouterLink, TranslateKeyPipe, TitleComponent, ScrollRevealDirective],
   templateUrl: './experiences.component.html',
   styleUrl: './experiences.component.scss',
 })

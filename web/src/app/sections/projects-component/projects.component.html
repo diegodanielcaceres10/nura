@@ -8,7 +8,7 @@
 
     <!-- Subsección A: Desarrollo asistido con IA -->
     <!-- <section class="projects__subgroup projects__subgroup--ai" aria-labelledby="ai-assisted-heading">
-      <header class="projects__subgroup-header">
+      <header class="projects__subgroup-header" appScrollReveal>
         <div class="projects__subgroup-badge" aria-hidden="true">
           <i class="fa-solid fa-wand-magic-sparkles"></i>
           <span>{{ 'AI_ASSISTED_SECTION_EYEBROW' | translate }}</span>
@@ -32,7 +32,7 @@
 
     <!-- Subsección B: Proyectos y repositorios -->
     <section class="projects__subgroup projects__subgroup--repos" aria-labelledby="repositories-heading">
-      <header class="projects__subgroup-header">
+      <header class="projects__subgroup-header" appScrollReveal>
         <div class="projects__subgroup-badge projects__subgroup-badge--code" aria-hidden="true">
           <i class="fa-solid fa-code"></i>
           <span>{{ 'REPOSITORIES_SECTION_EYEBROW' | translate }}</span>
@@ -42,7 +42,7 @@
         <p class="projects__subgroup-desc">{{ 'REPOSITORIES_SECTION_DESCRIPTION' | translate }}</p>
       </header>
 
-      <div class="projects__filters" aria-label="Filtros rapidos de proyectos">
+      <div class="projects__filters" aria-label="Filtros rapidos de proyectos" appScrollReveal [revealDelay]="80">
         @for (filter of projectFilters; track filter.value) {
           <button type="button" class="projects__filter" [class.projects__filter--active]="activeFilter() === filter.value" [attr.aria-pressed]="activeFilter() === filter.value" (click)="setActiveFilter(filter.value)">
             {{ filter.label }}
@@ -51,8 +51,8 @@
       </div>
 
       <div class="projects__grid">
-        @for (project of filteredProjects(); track project.id) {
-          <article class="projects__card" [class.projects__card--themed]="!!project.cardTheme" [style]="cardThemeVars(project)" role="button" tabindex="0">
+        @for (project of filteredProjects(); track project.id; let i = $index) {
+          <article class="projects__card" [class.projects__card--themed]="!!project.cardTheme" [style]="cardThemeVars(project)" role="button" tabindex="0" appScrollReveal [revealDelay]="i * 75">
             @if (project.cardTheme?.cover; as cover) {
               <div class="projects__cover" aria-hidden="true">
                 <img [src]="cover.src" [style.object-position]="cover.position" alt="" loading="lazy" decoding="async" />

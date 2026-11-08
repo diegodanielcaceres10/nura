@@ -6,7 +6,7 @@
     <app-title-component title="EXPERIENCE_TITLE" subtitle="EXPERIENCE_SUBTITLE" intro="EXPERIENCE_INTRO" />
 
     <div class="experiences__body">
-      <aside class="experiences__timeline-wrapper" aria-hidden="true">
+      <aside class="experiences__timeline-wrapper" aria-hidden="true" appScrollReveal [revealType]="'fade-in'">
         <span class="experiences__line"></span>
         <ol class="experiences__timeline">
           <li class="experiences__timeline-item">
@@ -38,8 +38,8 @@
       </aside>
 
       <div class="experiences__entries">
-        @for (entry of entries; track entry.id) {
-          <article class="experiences__card" [class]="'experiences__card--' + entry.id">
+        @for (entry of entries; track entry.id; let i = $index) {
+          <article class="experiences__card" [class]="'experiences__card--' + entry.id" appScrollReveal [revealDelay]="i * 120">
             <div class="experiences__card-glow" aria-hidden="true"></div>
 
             <div class="experiences__card-content">

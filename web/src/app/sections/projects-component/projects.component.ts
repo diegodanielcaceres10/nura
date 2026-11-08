@@ -6,6 +6,7 @@ import { ProjectsService } from '../../services/projects/projects.service';
 import { AiProjectCardComponent } from './ai-project-card.component/ai-project-card.component';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { LocaleService } from '../../services/locale/locale.service';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 export interface ProjectItem {
   id: string;
@@ -97,7 +98,7 @@ interface ProjectFilter {
 @Component({
   selector: 'app-projects-component',
   standalone: true,
-  imports: [TitleComponent, ProjectCardComponent, AiProjectCardComponent, TranslateKeyPipe],
+  imports: [TitleComponent, ProjectCardComponent, AiProjectCardComponent, TranslateKeyPipe, ScrollRevealDirective],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })

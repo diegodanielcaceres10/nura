@@ -37,7 +37,7 @@
     // Modern baseline transforms: establish identity to avoid stacking context shifts
     translate: 0 0;
     scale: 1;
-    animation: caseStudyFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
     transition:
       translate var(--transition-base),
       border-color var(--transition-base),

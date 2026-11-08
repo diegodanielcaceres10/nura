@@ -85,13 +85,13 @@
     </div>
 
     <div class="home__metrics-section">
-      <header class="home__metrics-header">
+      <header class="home__metrics-header" appScrollReveal>
         <h2 class="home__metrics-title">{{ 'HOME_METRICS_TITLE' | translate }}</h2>
       </header>
 
       <ul class="home__metrics">
-        @for (metric of metrics; track metric.label) {
-          <li class="home__metric" [class.home__metric--link]="!!metric.caseSlug">
+        @for (metric of metrics; track metric.label; let i = $index) {
+          <li class="home__metric" [class.home__metric--link]="!!metric.caseSlug" appScrollReveal [revealDelay]="i * 80">
             <span class="home__metric-value">{{ metric.value }}</span>
             <span class="home__metric-label">
               {{ metric.label | translate }}
@@ -113,14 +113,14 @@
     </div>
 
     <section class="home__skills-section" aria-labelledby="home-skills-title">
-      <header class="home__skills-header">
+      <header class="home__skills-header" appScrollReveal>
         <span class="home__skills-eyebrow" aria-hidden="true">{{ 'HOME_SKILLS_EYEBROW' | translate }}</span>
         <h2 id="home-skills-title" class="home__skills-title">{{ 'HOME_TECH_STACK_TITLE' | translate }}</h2>
       </header>
 
       <div class="home__skills-grid">
-        @for (category of skillCategories; track category.id) {
-          <article class="home__skill-card">
+        @for (category of skillCategories; track category.id; let i = $index) {
+          <article class="home__skill-card" appScrollReveal [revealDelay]="i * 70">
             <div class="home__skill-card-glow" aria-hidden="true"></div>
 
             <header class="home__skill-card-header">

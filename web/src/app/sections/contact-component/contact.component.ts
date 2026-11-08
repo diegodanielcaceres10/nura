@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 export interface ContactChannel {
   icon: string;
@@ -20,7 +21,7 @@ export interface AvailabilityMeta {
 @Component({
   selector: 'app-contact-component',
   standalone: true,
-  imports: [TranslateKeyPipe, TitleComponent],
+  imports: [TranslateKeyPipe, TitleComponent, ScrollRevealDirective],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })

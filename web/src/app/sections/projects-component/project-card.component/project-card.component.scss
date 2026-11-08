@@ -141,11 +141,13 @@
     color: var(--primary-color);
     transition:
       background var(--transition-fast),
-      border-color var(--transition-fast);
+      border-color var(--transition-fast),
+      transform var(--transition-fast);
 
     &:hover {
       background: var(--primary-color-rgba);
       border-color: rgba(10, 141, 171, 0.3);
+      transform: translateY(-1px);
     }
   }
 }

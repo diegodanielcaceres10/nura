@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocaleService } from '../../services/locale/locale.service';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 export type TechBadgePosition = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
@@ -34,7 +35,7 @@ export interface TechCategory {
 @Component({
   selector: 'app-home-component',
   standalone: true,
-  imports: [RouterLink, TranslateKeyPipe],
+  imports: [RouterLink, TranslateKeyPipe, ScrollRevealDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

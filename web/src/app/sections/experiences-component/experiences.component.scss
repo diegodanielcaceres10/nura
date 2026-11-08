@@ -169,7 +169,7 @@
     padding: clamp(var(--spacing-lg), 3.2vw, var(--spacing-xl));
     overflow: hidden;
     translate: 0 0;
-    animation: experiencesFadeInUp 650ms cubic-bezier(0.16, 1, 0.3, 1) both;
+
     transition:
       translate var(--transition-base),
       border-color var(--transition-base),

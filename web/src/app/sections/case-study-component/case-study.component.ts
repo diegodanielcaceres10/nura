@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
 import { LocaleService } from '../../services/locale/locale.service';
 
@@ -37,7 +38,7 @@ export interface CaseStudyItem {
 @Component({
   selector: 'app-case-study-component',
   standalone: true,
-  imports: [TranslateKeyPipe, TitleComponent, RouterLink],
+  imports: [TranslateKeyPipe, TitleComponent, RouterLink, ScrollRevealDirective],
   templateUrl: './case-study.component.html',
   styleUrl: './case-study.component.scss',
 })

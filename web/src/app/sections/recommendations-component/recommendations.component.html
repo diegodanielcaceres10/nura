@@ -7,8 +7,8 @@
     <app-title-component id="recommendations-title" title="RECOMMENDATIONS_TITLE" subtitle="RECOMMENDATIONS_SUBTITLE" intro="RECOMMENDATIONS_DESCRIPTION" />
 
     <div class="recommendations__grid">
-      @for (testimonial of testimonials; track testimonial.name) {
-        <article class="recommendations__card">
+      @for (testimonial of testimonials; track testimonial.name; let i = $index) {
+        <article class="recommendations__card" appScrollReveal [revealDelay]="i * 90">
           <div class="recommendations__card-glow" aria-hidden="true"></div>
 
           <header class="recommendations__header">

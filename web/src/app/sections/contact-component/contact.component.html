@@ -7,8 +7,8 @@
     <app-title-component id="contact-title" title="CONTACT_TITLE" subtitle="CONTACT_SUBTITLE" intro="CONTACT_DESCRIPTION" />
 
     <div class="contact__channels">
-      @for (channel of channels(); track channel.label) {
-        <div class="contact__channel">
+      @for (channel of channels(); track channel.label; let i = $index) {
+        <div class="contact__channel" appScrollReveal [revealDelay]="i * 80">
           <div class="contact__channel-glow" aria-hidden="true"></div>
           <span class="contact__channel-icon">
             <i [class]="channel.icon" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
       }
     </div>
 
-    <div class="contact__availability">
+    <div class="contact__availability" appScrollReveal [revealDelay]="240">
       <div class="contact__availability-glow" aria-hidden="true"></div>
       <div class="contact__availability-info">
         <span class="contact__availability-icon">

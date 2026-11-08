@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
+import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 export interface Testimonial {
   avatar: string;
@@ -16,7 +17,7 @@ export interface Testimonial {
 @Component({
   selector: 'app-recommendations-component',
   standalone: true,
-  imports: [TranslateKeyPipe, TitleComponent],
+  imports: [TranslateKeyPipe, TitleComponent, ScrollRevealDirective],
   templateUrl: './recommendations.component.html',
   styleUrl: './recommendations.component.scss',
 })

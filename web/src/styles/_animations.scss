@@ -1,0 +1,145 @@
+// =============================================================================
+// SCROLL ANIMATIONS & MICROINTERACTIONS DESIGN SYSTEM
+// =============================================================================
+// Modern editorial animation system designed for precision, fluidity, and
+// high performance. Uses hardware-accelerated properties (opacity, transform)
+// and respects user accessibility preferences (prefers-reduced-motion).
+
+:root {
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --reveal-duration-base: 650ms;
+  --reveal-distance-base: 20px;
+  --reveal-distance-mobile: 12px;
+}
+
+// -----------------------------------------------------------------------------
+// Base Scroll Reveal Classes
+// -----------------------------------------------------------------------------
+// When JavaScript initialises an element with the scroll reveal directive,
+// it applies .reveal-init and the animation variant. If JS fails or during SSR,
+// .reveal-init is never added and content remains normally visible (opacity: 1).
+.reveal-init {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition-property: opacity, transform;
+  transition-duration: var(--reveal-duration, var(--reveal-duration-base));
+  transition-timing-function: var(--reveal-ease, var(--ease-editorial));
+  transition-delay: var(--reveal-delay, 0ms);
+
+  // Variant: Fade Up (Default editorial slide-up)
+  &.reveal-fade-up {
+    transform: translateY(var(--reveal-distance, var(--reveal-distance-base)));
+
+    @media (max-width: 768px) {
+      transform: translateY(var(--reveal-distance-mobile));
+    }
+  }
+
+  // Variant: Fade Down
+  &.reveal-fade-down {
+    transform: translateY(calc(var(--reveal-distance, var(--reveal-distance-base)) * -1));
+
+    @media (max-width: 768px) {
+      transform: translateY(calc(var(--reveal-distance-mobile) * -1));
+    }
+  }
+
+  // Variant: Fade Left (slides in from left)
+  &.reveal-fade-left {
+    transform: translateX(calc(var(--reveal-distance, var(--reveal-distance-base)) * -1));
+
+    @media (max-width: 768px) {
+      transform: translateX(calc(var(--reveal-distance-mobile) * -1));
+    }
+  }
+
+  // Variant: Fade Right (slides in from right)
+  &.reveal-fade-right {
+    transform: translateX(var(--reveal-distance, var(--reveal-distance-base)));
+
+    @media (max-width: 768px) {
+      transform: translateX(var(--reveal-distance-mobile));
+    }
+  }
+
+  // Variant: Pure Fade In (no displacement)
+  &.reveal-fade-in {
+    transform: none;
+  }
+
+  // Variant: Subtle Scale Up
+  &.reveal-scale-up {
+    transform: scale(0.96) translateY(var(--reveal-distance, 16px));
+
+    @media (max-width: 768px) {
+      transform: scale(0.98) translateY(var(--reveal-distance-mobile));
+    }
+  }
+
+  // Activated state when entering viewport
+  &.revealed {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Interactive Microinteraction Helpers
+// -----------------------------------------------------------------------------
+.interactive-hover-lift {
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-3px);
+    }
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+}
+
+.interactive-hover-scale {
+  transition: transform var(--transition-fast);
+
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Accessibility: Respect prefers-reduced-motion
+// -----------------------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .reveal-init,
+  .reveal-init.reveal-fade-up,
+  .reveal-init.reveal-fade-down,
+  .reveal-init.reveal-fade-left,
+  .reveal-init.reveal-fade-right,
+  .reveal-init.reveal-fade-in,
+  .reveal-init.reveal-scale-up,
+  .reveal-init.revealed {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+    will-change: auto !important;
+  }
+
+  .interactive-hover-lift,
+  .interactive-hover-scale {
+    transform: none !important;
+    transition: none !important;
+  }
+}
