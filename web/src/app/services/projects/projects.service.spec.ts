@@ -5,6 +5,7 @@ import deJson from '../../../../public/assets/i18n/de.json';
 import frJson from '../../../../public/assets/i18n/fr.json';
 import itJson from '../../../../public/assets/i18n/it.json';
 import nlJson from '../../../../public/assets/i18n/nl.json';
+import plJson from '../../../../public/assets/i18n/pl.json';
 import pt from '../../../../public/assets/i18n/pt.json';
 import { MESSAGES } from '../../i18n/messages';
 import type { ProjectItem } from '../../sections/projects-component/projects.component';
@@ -186,6 +187,7 @@ describe('ProjectsService', () => {
       ['de', deJson],
       ['fr', frJson],
       ['nl', nlJson],
+      ['pl', plJson],
     ] as const)('every translation key of every project exists in %s.json', (_locale, translations) => {
       const keys = catalog.flatMap(translationKeys);
 
@@ -195,7 +197,7 @@ describe('ProjectsService', () => {
     it.each(catalog)('$id: the full description has the same number of paragraphs in every language', (project) => {
       const count = (text: string): number => text.split(/\n\s*\n/).filter((block) => block.trim()).length;
       const key = project.fullDescription;
-      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key], (frJson as Record<string, string>)[key], (nlJson as Record<string, string>)[key]].map(count);
+      const counts = [MESSAGES[key], (es as Record<string, string>)[key], (pt as Record<string, string>)[key], (itJson as Record<string, string>)[key], (deJson as Record<string, string>)[key], (frJson as Record<string, string>)[key], (nlJson as Record<string, string>)[key], (plJson as Record<string, string>)[key]].map(count);
 
       expect(new Set(counts).size).toBe(1);
     });

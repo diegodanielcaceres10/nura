@@ -75,6 +75,7 @@ describe('LocaleService', () => {
       ['/de', 'de'],
       ['/fr', 'fr'],
       ['/nl', 'nl'],
+      ['/pl', 'pl'],
       ['/en/', 'en'],
       ['/en/work/3', 'en'],
     ])('reads the locale from the first path segment (%s)', (url, expected) => {
@@ -103,6 +104,7 @@ describe('LocaleService', () => {
       ['de-AT', 'de'],
       ['fr-CA', 'fr'],
       ['nl-BE', 'nl'],
+      ['pl-PL', 'pl'],
       ['EN', 'en'],
     ])('normalizes the query param value %s', (value, expected) => {
       setUrl(`/?lang=${value}`);
@@ -138,6 +140,7 @@ describe('LocaleService', () => {
         [['de-DE', 'pt-BR'], 'de'],
         [['fr-FR', 'en-US'], 'fr'],
         [['nl-NL', 'en-US'], 'nl'],
+        [['pl-PL', 'en-US'], 'pl'],
         [['ja-JP', 'pt-BR'], 'pt'],
         [['en-US', 'pt-BR'], 'en'],
         [['PT-br'], 'pt'],
@@ -172,6 +175,7 @@ describe('LocaleService', () => {
       ['de-CH', 'de'],
       ['fr-BE', 'fr'],
       ['nl-NL', 'nl'],
+      ['pl-PL', 'pl'],
       ['EN', 'en'],
       ['  pt ', 'pt'],
       ['ja-JP', 'es'],
@@ -198,6 +202,7 @@ describe('LocaleService', () => {
       ['/', 'de-DE', '/de/'],
       ['/', 'fr-FR', '/fr/'],
       ['/', 'nl-NL', '/nl/'],
+      ['/', 'pl-PL', '/pl/'],
       ['/', 'ja-JP', '/es/'],
     ])('from %s to %s redirects to %s', (from, locale, expectedPath) => {
       setUrl(from);

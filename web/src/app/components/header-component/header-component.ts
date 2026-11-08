@@ -34,6 +34,7 @@ export class HeaderComponent {
     { code: 'fr', flag: 'FR', name: 'Français' },
     { code: 'it', flag: 'IT', name: 'Italiano' },
     { code: 'nl', flag: 'NL', name: 'Nederlands' },
+    { code: 'pl', flag: 'PL', name: 'Polski' },
     { code: 'pt', flag: 'PT', name: 'Português' },
   ];
 
