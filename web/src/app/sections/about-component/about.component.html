@@ -22,7 +22,7 @@
       </article>
 
       <!-- Education Card (Credentials) -->
-      <article class="about__card about__card-education" appScrollReveal [revealDelay]="90">
+      <article class="about__card about__card-education" appScrollReveal [revealDelay]="80">
         <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
@@ -45,8 +45,28 @@
         </div>
       </article>
 
+      <!-- Languages Card (Proficiency Showcase) -->
+      <article class="about__card about__card-languages" appScrollReveal [revealDelay]="160">
+        <div class="about__card-glow" aria-hidden="true"></div>
+        <h3 class="about__title">
+          <span class="about__dot" aria-hidden="true"></span>
+          {{ 'ABOUT_LANGUAGES_TITLE' | translate }}
+        </h3>
+
+        <div class="about__languages">
+          @for (language of languages; track language.name) {
+            <div class="about__language">
+              <span class="about__language-name">
+                {{ language.name | translate }}
+              </span>
+              <small class="about__language-level">{{ language.level | translate }}</small>
+            </div>
+          }
+        </div>
+      </article>
+
       <!-- Beyond Work Card (Passions & Lifestyle) -->
-      <article class="about__card about__card-beyond" appScrollReveal [revealDelay]="180">
+      <article class="about__card about__card-beyond" appScrollReveal [revealDelay]="240">
         <div class="about__card-glow" aria-hidden="true"></div>
         <h3 class="about__title">
           <span class="about__dot" aria-hidden="true"></span>
@@ -63,29 +83,6 @@
                 <span class="about__beyond-title">{{ item.title | translate }}</span>
                 <p class="about__beyond-description">{{ item.description | translate }}</p>
               </div>
-            </div>
-          }
-        </div>
-      </article>
-
-      <!-- Languages Card (Proficiency Showcase) -->
-      <article class="about__card about__card-languages" appScrollReveal [revealDelay]="270">
-        <div class="about__card-glow" aria-hidden="true"></div>
-        <h3 class="about__title">
-          <span class="about__dot" aria-hidden="true"></span>
-          {{ 'ABOUT_LANGUAGES_TITLE' | translate }}
-        </h3>
-
-        <div class="about__languages">
-          @for (language of languages; track language.name) {
-            <div class="about__language">
-              <span class="about__language-name">
-                {{ language.name | translate }}
-              </span>
-              <div class="about__language-bar" aria-hidden="true">
-                <span class="about__language-progress"></span>
-              </div>
-              <small class="about__language-level">{{ language.level | translate }}</small>
             </div>
           }
         </div>
