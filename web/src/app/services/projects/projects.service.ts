@@ -20,7 +20,7 @@ export class ProjectsService {
       techStackFull: [
         { category: 'App', items: ['Flutter', 'PWA', 'Supabase', 'Google Auth', 'PDF Export', 'Web Push (FCM)'] },
         { category: 'Backend', items: ['Supabase', 'Edge Functions', 'Google Gemini API', 'Firebase Cloud Messaging'] },
-        { category: 'BD', items: ['PostgreSQL'] },
+        { category: 'DB', items: ['PostgreSQL'] },
         { category: 'Landing Page', items: ['Angular 21 (SSR)', 'TailwindCSS 4'] },
         { category: 'DevOps', items: ['Docker', 'Firebase App Distribution', 'Firebase Crashlytics', 'GitHub Actions', 'GitHub Pages', 'Cloudflare Pages'] },
       ],
