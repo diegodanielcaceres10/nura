@@ -38,7 +38,7 @@ export class ContactComponent {
       icon: 'fa-brands fa-linkedin-in',
       label: 'LinkedIn',
       actionLabel: 'CONTACT_LINKEDIN_NOTE',
-      href: 'https://www.linkedin.com/in/diego-daniel-caceres-1328991aa',
+      href: 'https://www.linkedin.com/in/diego-daniel-caceres',
     },
     {
       icon: 'fa-brands fa-github',

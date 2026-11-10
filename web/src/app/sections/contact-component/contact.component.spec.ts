@@ -54,11 +54,7 @@ describe('ContactComponent', () => {
 
     expect(links).toHaveLength(3);
     expect(links.every((link) => link.target === '_blank' && link.rel === 'noopener')).toBe(true);
-    expect(links.map((link) => link.href)).toEqual([
-      'https://www.linkedin.com/in/diego-daniel-caceres-1328991aa',
-      'https://github.com/diegodanielcaceres10',
-      'https://npmjs.com/~diegodanielcaceres10',
-    ]);
+    expect(links.map((link) => link.href)).toEqual(['https://www.linkedin.com/in/diego-daniel-caceres', 'https://github.com/diegodanielcaceres10', 'https://npmjs.com/~diegodanielcaceres10']);
   });
 
   it('should render the availability metadata items', () => {
