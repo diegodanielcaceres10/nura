@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-title-component',
   imports: [TranslateKeyPipe, ScrollRevealDirective],
   templateUrl: './title.component.html',

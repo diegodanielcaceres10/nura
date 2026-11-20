@@ -1,10 +1,11 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProjectItem } from '../projects.component';
 import { TranslateKeyPipe } from '../../../services/translate/translate-key.pipe';
 import { LocaleService } from '../../../services/locale/locale.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-ai-project-card',
   standalone: true,
   imports: [TranslateKeyPipe],

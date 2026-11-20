@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { HomeComponent } from '../sections/home-component/home.component';
@@ -13,6 +13,7 @@ import { LocaleService } from '../services/locale/locale.service';
 import { ScrollService } from '../services/scroll/scroll.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-portfolio-page',
   imports: [RouterLink, HeaderComponent, HomeComponent, CaseStudyComponent, ExperiencesComponent, ProjectsComponent, RecommendationsComponent, AboutComponent, ContactComponent, FooterComponent],
   templateUrl: './portfolio-page.html',

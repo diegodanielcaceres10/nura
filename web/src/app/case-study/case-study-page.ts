@@ -1,4 +1,4 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { FooterComponent } from '../components/footer-component/footer-component';
@@ -21,6 +21,7 @@ const SECTIONS: { key: CopySection; label: string }[] = [
 ];
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-case-study-page',
   standalone: true,
   imports: [HeaderComponent, FooterComponent, TranslateKeyPipe],

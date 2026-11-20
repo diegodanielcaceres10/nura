@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
@@ -23,6 +23,7 @@ export interface BeyondWorkItem {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-about-component',
   standalone: true,
   imports: [TranslateKeyPipe, TitleComponent, ScrollRevealDirective],

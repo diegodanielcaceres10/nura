@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { LocaleService } from '../services/locale/locale.service';
 import { LoadingPage } from '../loading/loading.page';
 
@@ -18,6 +18,7 @@ export interface QuickLink {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-language-selector-page',
   standalone: true,
   imports: [LoadingPage],

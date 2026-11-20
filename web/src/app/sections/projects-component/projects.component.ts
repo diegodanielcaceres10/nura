@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
@@ -96,6 +96,7 @@ interface ProjectFilter {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-projects-component',
   standalone: true,
   imports: [TitleComponent, ProjectCardComponent, AiProjectCardComponent, TranslateKeyPipe, ScrollRevealDirective],

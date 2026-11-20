@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { FooterComponent } from '../components/footer-component/footer-component';
@@ -13,6 +13,7 @@ const GALLERY_TABS = ['portrait', 'landscape'] as const;
 type GalleryTab = (typeof GALLERY_TABS)[number];
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-work-page',
   standalone: true,
   imports: [HeaderComponent, FooterComponent, ProjectCardComponent, TranslateKeyPipe],
