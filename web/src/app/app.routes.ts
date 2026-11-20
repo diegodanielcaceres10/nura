@@ -15,9 +15,9 @@ const redirectWithLocale: RedirectFunction = ({ url }) => {
 };
 
 export const routes: Routes = [
-  { path: '', loadComponent: () => import('./language-selector/language-selector.page').then((m) => m.LanguageSelectorPage), pathMatch: 'full' },
-  { path: ':lang/work/:id', loadComponent: () => import('./work/work-page').then((m) => m.WorkPage), canMatch: [supportedLangRoute] },
-  { path: ':lang/case-studies/:slug', loadComponent: () => import('./case-study/case-study-page').then((m) => m.CaseStudyPage), canMatch: [supportedLangRoute] },
+  { path: '', loadComponent: () => import('./features/language-selector/language-selector.page').then((m) => m.LanguageSelectorPage), pathMatch: 'full' },
+  { path: ':lang/work/:id', loadComponent: () => import('./features/work/work-page').then((m) => m.WorkPage), canMatch: [supportedLangRoute] },
+  { path: ':lang/case-studies/:slug', loadComponent: () => import('./features/case-study/case-study-page').then((m) => m.CaseStudyPage), canMatch: [supportedLangRoute] },
   { path: ':lang', loadComponent: () => import('./features/portfolio/portfolio-page').then((m) => m.PortfolioPage), canMatch: [supportedLangRoute] },
   { path: '**', redirectTo: redirectWithLocale },
 ];

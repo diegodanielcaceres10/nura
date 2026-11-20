@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { CanMatchFn, RedirectFunction, Route, Router, UrlSegment, provideRouter } from '@angular/router';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { routes } from './app.routes';
-import { LanguageSelectorPage } from './language-selector/language-selector.page';
+import { LanguageSelectorPage } from './features/language-selector/language-selector.page';
 import { PortfolioPage } from './features/portfolio/portfolio-page';
-import { WorkPage } from './work/work-page';
-import { CaseStudyPage } from './case-study/case-study-page';
+import { WorkPage } from './features/work/work-page';
+import { CaseStudyPage } from './features/case-study/case-study-page';
 import { LocaleService } from './core/services/locale/locale.service';
 
 /**
