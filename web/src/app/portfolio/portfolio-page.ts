@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HeaderComponent } from '../components/header-component/header-component';
+import { HeaderComponent } from '../shared/components/header-component/header-component';
 import { HomeComponent } from '../sections/home-component/home.component';
 import { CaseStudyComponent } from '../sections/case-study-component/case-study.component';
 import { ExperiencesComponent } from '../sections/experiences-component/experiences.component';
@@ -8,7 +8,7 @@ import { ProjectsComponent } from '../sections/projects-component/projects.compo
 import { RecommendationsComponent } from '../sections/recommendations-component/recommendations.component';
 import { AboutComponent } from '../sections/about-component/about.component';
 import { ContactComponent } from '../sections/contact-component/contact.component';
-import { FooterComponent } from '../components/footer-component/footer-component';
+import { FooterComponent } from '../shared/components/footer-component/footer-component';
 import { LocaleService } from '../core/services/locale/locale.service';
 import { ScrollService } from '../core/services/scroll/scroll.service';
 

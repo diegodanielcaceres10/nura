@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
-import { TitleComponent } from '../../components/title/title.component';
-import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
+import { TitleComponent } from '../../shared/components/title/title.component';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal/scroll-reveal.directive';
 import { CaseStudiesService } from '../../core/services/case-studies/case-studies.service';
 import { LocaleService } from '../../core/services/locale/locale.service';
 import { CaseStudyItem } from '../../core/models/case-study.model';

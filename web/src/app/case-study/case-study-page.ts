@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HeaderComponent } from '../components/header-component/header-component';
-import { FooterComponent } from '../components/footer-component/footer-component';
+import { HeaderComponent } from '../shared/components/header-component/header-component';
+import { FooterComponent } from '../shared/components/footer-component/footer-component';
 import { CaseStudyDetail, CaseStudyItem } from '../core/models/case-study.model';
 import { CaseStudiesService } from '../core/services/case-studies/case-studies.service';
 import { LocaleService } from '../core/services/locale/locale.service';

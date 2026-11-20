@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Injector, afterNextRender, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocaleService } from '../../core/services/locale/locale.service';
-import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
-import { ScrollService } from '../../core/services/scroll/scroll.service';
+import { LocaleService } from '../../../core/services/locale/locale.service';
+import { TranslateKeyPipe } from '../../../core/services/translate/translate-key.pipe';
+import { ScrollService } from '../../../core/services/scroll/scroll.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

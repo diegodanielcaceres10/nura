@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HeaderComponent } from '../components/header-component/header-component';
-import { FooterComponent } from '../components/footer-component/footer-component';
+import { HeaderComponent } from '../shared/components/header-component/header-component';
+import { FooterComponent } from '../shared/components/footer-component/footer-component';
 import { ProjectCardComponent } from '../sections/projects-component/project-card.component/project-card.component';
 import { TranslateKeyPipe } from '../core/services/translate/translate-key.pipe';
 import { ProjectsService } from '../core/services/projects/projects.service';

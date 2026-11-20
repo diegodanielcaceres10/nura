@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ScrollRevealDirective } from './scroll-reveal.directive';
-import { ScrollAnimateService } from '../../core/services/scroll/scroll-animate.service';
+import { ScrollAnimateService } from '../../../core/services/scroll/scroll-animate.service';
 
 @Component({
   imports: [ScrollRevealDirective],

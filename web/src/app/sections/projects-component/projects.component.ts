@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { TitleComponent } from '../../components/title/title.component';
+import { TitleComponent } from '../../shared/components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
 import { ProjectsService } from '../../core/services/projects/projects.service';
 import { AiProjectCardComponent } from './ai-project-card.component/ai-project-card.component';
 import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
 import { LocaleService } from '../../core/services/locale/locale.service';
-import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal/scroll-reveal.directive';
 import { ProjectItem } from '../../core/models/project.model';
 
 export type { AiDetail, AiMetric, ProjectCardCover, ProjectCardGradient, ProjectCardTheme, ProjectItem, ProjectLinks, ProjectMetrics, TechCategory } from '../../core/models/project.model';
