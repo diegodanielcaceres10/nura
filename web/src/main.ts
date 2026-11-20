@@ -1,7 +1,7 @@
 import { LOCALE_ID } from '@angular/core';
 import { loadTranslations } from '@angular/localize';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { LocaleService } from './app/services/locale/locale.service';
+import { LocaleService } from './app/core/services/locale/locale.service';
 
 const isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';
 
