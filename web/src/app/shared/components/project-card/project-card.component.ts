@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { splitParagraphs } from '../../../../../core/services/translate/split-paragraphs';
-import { TranslateKeyPipe } from '../../../../../core/services/translate/translate-key.pipe';
-import { ProjectItem } from '../../../../../core/models/project.model';
+import { splitParagraphs } from '../../../core/services/translate/split-paragraphs';
+import { TranslateKeyPipe } from '../../../core/services/translate/translate-key.pipe';
+import { ProjectItem } from '../../../core/models/project.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

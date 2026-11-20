@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TitleComponent } from '../../../../shared/components/title/title.component';
-import { ProjectCardComponent } from './project-card.component/project-card.component';
+import { ProjectCardComponent } from '../../../../shared/components/project-card/project-card.component';
 import { ProjectsService } from '../../../../core/services/projects/projects.service';
 import { AiProjectCardComponent } from './ai-project-card.component/ai-project-card.component';
 import { TranslateKeyPipe } from '../../../../core/services/translate/translate-key.pipe';

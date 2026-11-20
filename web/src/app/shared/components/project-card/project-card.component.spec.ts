@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectCardComponent } from './project-card.component';
-import { ProjectItem } from '../projects.component';
+import { ProjectItem } from '../../../core/models/project.model';
 
 describe('ProjectCardComponent', () => {
   let component: ProjectCardComponent;

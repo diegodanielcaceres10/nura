@@ -40,5 +40,23 @@ module.exports = defineConfig([
       angular.configs.templateAccessibility,
     ],
     rules: {},
+  },
+  {
+    files: ["src/app/core/**/*.ts"],
+    rules: {
+      "no-restricted-imports": ["error", { patterns: ["**/shared/**", "**/features/**"] }],
+    },
+  },
+  {
+    files: ["src/app/shared/**/*.ts"],
+    rules: {
+      "no-restricted-imports": ["error", { patterns: ["**/features/**"] }],
+    },
+  },
+  {
+    files: ["src/app/features/**/*.ts"],
+    rules: {
+      "no-restricted-imports": ["error", { patterns: ["../portfolio/**", "../work/**", "../case-study/**", "../language-selector/**"] }],
+    },
   }
 ]);
