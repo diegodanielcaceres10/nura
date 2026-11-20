@@ -27,10 +27,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: "npm"
@@ -61,21 +61,21 @@ jobs:
 
       - name: Publish Cypress test results
         uses: dorny/test-reporter@v3
-        if: always()
+        if: always() && hashFiles('web/cypress/results/*.xml') != ''
         with:
           name: Cypress E2E Results
           path: web/cypress/results/*.xml
           reporter: java-junit
 
       - name: Upload coverage artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: vitest-coverage
           path: web/vitest/coverage
 
       - name: Upload Cypress artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: always()
         with:
           name: cypress-artifacts
@@ -83,7 +83,7 @@ jobs:
             web/cypress/results/*.xml
             web/cypress/screenshots/**
             web/cypress/videos/**
-          if-no-files-found: warn
+          if-no-files-found: ignore
 
       - name: Normalize coverage report path
         if: always()
@@ -132,7 +132,7 @@ jobs:
 
       - name: Publish coverage check
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
@@ -231,10 +231,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: 20
           cache: "npm"
@@ -264,7 +264,7 @@ jobs:
 
       - name: Publish Lighthouse check
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           LHCI_D_LINKS: ${{ steps.lhci-d.outputs.links }}
           LHCI_D_MANIFEST: ${{ steps.lhci-d.outputs.manifest }}
