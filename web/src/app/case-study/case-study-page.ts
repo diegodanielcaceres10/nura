@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, computed, inject, signal } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { FooterComponent } from '../components/footer-component/footer-component';
-import { CaseStudyDetail, CaseStudyItem } from '../sections/case-study-component/case-study.component';
+import { CaseStudyDetail, CaseStudyItem } from '../models/case-study.model';
 import { CaseStudiesService } from '../services/case-studies/case-studies.service';
 import { LocaleService } from '../services/locale/locale.service';
 import { splitParagraphs } from '../services/translate/split-paragraphs';

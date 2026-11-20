@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { splitParagraphs } from '../../../services/translate/split-paragraphs';
 import { TranslateKeyPipe } from '../../../services/translate/translate-key.pipe';
-import { ProjectItem } from '../projects.component';
+import { ProjectItem } from '../../../models/project.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectItem } from '../projects.component';
+import { ProjectItem } from '../../../models/project.model';
 import { TranslateKeyPipe } from '../../../services/translate/translate-key.pipe';
 import { LocaleService } from '../../../services/locale/locale.service';
 

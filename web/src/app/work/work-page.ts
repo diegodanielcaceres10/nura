@@ -7,7 +7,7 @@ import { ProjectCardComponent } from '../sections/projects-component/project-car
 import { TranslateKeyPipe } from '../services/translate/translate-key.pipe';
 import { ProjectsService } from '../services/projects/projects.service';
 import { LocaleService } from '../services/locale/locale.service';
-import { ProjectItem } from '../sections/projects-component/projects.component';
+import { ProjectItem } from '../models/project.model';
 
 const GALLERY_TABS = ['portrait', 'landscape'] as const;
 type GalleryTab = (typeof GALLERY_TABS)[number];

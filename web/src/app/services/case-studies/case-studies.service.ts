@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CaseStudyDetail, CaseStudyItem } from '../../sections/case-study-component/case-study.component';
+import { CaseStudyDetail, CaseStudyItem } from '../../models/case-study.model';
 
 // Detail keys follow CASE_DETAIL_<SLUG>_<SECTION>; they are named after the slug, not the card number.
 function detailFor(slug: string, stack: string[]): CaseStudyDetail {

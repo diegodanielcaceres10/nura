@@ -5,35 +5,9 @@ import { TitleComponent } from '../../components/title/title.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
 import { LocaleService } from '../../services/locale/locale.service';
+import { CaseStudyItem } from '../../models/case-study.model';
 
-export interface CaseStudyMetric {
-  icon: string;
-  value: string;
-  label: string;
-}
-
-export interface CaseStudyDetail {
-  context: string;
-  challenge: string;
-  role: string;
-  decisions: string;
-  execution: string;
-  results: string;
-  learnings: string;
-  stack: string[];
-}
-
-export interface CaseStudyItem {
-  number: string;
-  category: string;
-  icon: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  metrics: CaseStudyMetric[];
-  slug: string;
-  detail: CaseStudyDetail;
-}
+export type { CaseStudyDetail, CaseStudyItem, CaseStudyMetric } from '../../models/case-study.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
