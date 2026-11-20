@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { MESSAGES } from '../../core/i18n/messages';
+import { MESSAGES } from '../../../../core/i18n/messages';
 import { AboutComponent } from './about.component';
 
 describe('AboutComponent', () => {

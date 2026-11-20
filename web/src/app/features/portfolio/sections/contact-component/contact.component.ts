@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
-import { TitleComponent } from '../../shared/components/title/title.component';
-import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal/scroll-reveal.directive';
+import { TranslateKeyPipe } from '../../../../core/services/translate/translate-key.pipe';
+import { TitleComponent } from '../../../../shared/components/title/title.component';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal/scroll-reveal.directive';
 
 export interface ContactChannel {
   icon: string;

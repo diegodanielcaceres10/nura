@@ -3,8 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Router } from '@angular/router';
 import { AiProjectCardComponent } from './ai-project-card.component';
 import { ProjectItem } from '../projects.component';
-import { MESSAGES } from '../../../core/i18n/messages';
-import { LocaleService } from '../../../core/services/locale/locale.service';
+import { MESSAGES } from '../../../../../core/i18n/messages';
+import { LocaleService } from '../../../../../core/services/locale/locale.service';
 
 describe('AiProjectCardComponent', () => {
   let component: AiProjectCardComponent;

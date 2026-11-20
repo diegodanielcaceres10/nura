@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectsService } from '../core/services/projects/projects.service';
-import { ProjectItem } from '../sections/projects-component/projects.component';
+import { ProjectItem } from '../features/portfolio/sections/projects-component/projects.component';
 
 const mockProject: ProjectItem = {
   id: 'ionic-plugin-lab',

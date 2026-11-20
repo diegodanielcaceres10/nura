@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocaleService } from '../../core/services/locale/locale.service';
-import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
-import { TitleComponent } from '../../shared/components/title/title.component';
-import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal/scroll-reveal.directive';
+import { LocaleService } from '../../../../core/services/locale/locale.service';
+import { TranslateKeyPipe } from '../../../../core/services/translate/translate-key.pipe';
+import { TitleComponent } from '../../../../shared/components/title/title.component';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal/scroll-reveal.directive';
 
 export type ExperienceLogoVariant = 'apex' | 'cesla';
 
