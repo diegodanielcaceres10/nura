@@ -15,7 +15,7 @@ import { LocaleService } from './services/locale/locale.service';
  * wildcard redirect send every URL to the right page and language.
  *
  * Guarantees
- * - The routes are declared in the expected order, each one with its page component, and
+ * - The routes are declared in the expected order, each one lazily loads its page component, and
  *   the case-studies route comes before the language route.
  * - Every language route is guarded by the same supported-language check, which accepts each
  *   supported language in any casing, only looks at the first segment, and rejects
@@ -64,13 +64,16 @@ describe('routes', () => {
       expect(routes.map((route) => route.path)).toEqual(['', ':lang/work/:id', ':lang/case-studies/:slug', ':lang', '**']);
     });
 
-    it('maps each path to its page component', () => {
-      const componentByPath = Object.fromEntries(routes.map((route) => [route.path, route.component]));
+    it('lazily loads each path page component', async () => {
+      const rootRoute = routes.find((route) => route.path === '');
+      const workRoute = routes.find((route) => route.path === ':lang/work/:id');
+      const caseStudiesRoute = routes.find((route) => route.path === ':lang/case-studies/:slug');
+      const portfolioRoute = routes.find((route) => route.path === ':lang');
 
-      expect(componentByPath['']).toBe(LanguageSelectorPage);
-      expect(componentByPath[':lang/work/:id']).toBe(WorkPage);
-      expect(componentByPath[':lang/case-studies/:slug']).toBe(CaseStudyPage);
-      expect(componentByPath[':lang']).toBe(PortfolioPage);
+      expect(await rootRoute?.loadComponent?.()).toBe(LanguageSelectorPage);
+      expect(await workRoute?.loadComponent?.()).toBe(WorkPage);
+      expect(await caseStudiesRoute?.loadComponent?.()).toBe(CaseStudyPage);
+      expect(await portfolioRoute?.loadComponent?.()).toBe(PortfolioPage);
     });
 
     it('matches the root path only when it is exactly empty', () => {

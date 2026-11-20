@@ -1,8 +1,4 @@
 import { CanMatchFn, RedirectFunction, Routes, UrlSegment } from '@angular/router';
-import { LanguageSelectorPage } from './language-selector/language-selector.page';
-import { PortfolioPage } from './portfolio/portfolio-page';
-import { WorkPage } from './work/work-page';
-import { CaseStudyPage } from './case-study/case-study-page';
 import { LocaleService, SUPPORTED_LOCALES } from './services/locale/locale.service';
 
 const supportedLangs = new Set<string>(SUPPORTED_LOCALES);
@@ -19,9 +15,9 @@ const redirectWithLocale: RedirectFunction = ({ url }) => {
 };
 
 export const routes: Routes = [
-  { path: '', component: LanguageSelectorPage, pathMatch: 'full' },
-  { path: ':lang/work/:id', component: WorkPage, canMatch: [supportedLangRoute] },
-  { path: ':lang/case-studies/:slug', component: CaseStudyPage, canMatch: [supportedLangRoute] },
-  { path: ':lang', component: PortfolioPage, canMatch: [supportedLangRoute] },
+  { path: '', loadComponent: () => import('./language-selector/language-selector.page').then((m) => m.LanguageSelectorPage), pathMatch: 'full' },
+  { path: ':lang/work/:id', loadComponent: () => import('./work/work-page').then((m) => m.WorkPage), canMatch: [supportedLangRoute] },
+  { path: ':lang/case-studies/:slug', loadComponent: () => import('./case-study/case-study-page').then((m) => m.CaseStudyPage), canMatch: [supportedLangRoute] },
+  { path: ':lang', loadComponent: () => import('./portfolio/portfolio-page').then((m) => m.PortfolioPage), canMatch: [supportedLangRoute] },
   { path: '**', redirectTo: redirectWithLocale },
 ];
