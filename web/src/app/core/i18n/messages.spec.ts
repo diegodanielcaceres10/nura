@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import es from '../../../public/assets/i18n/es.json';
-import deJson from '../../../public/assets/i18n/de.json';
-import frJson from '../../../public/assets/i18n/fr.json';
-import itJson from '../../../public/assets/i18n/it.json';
-import nlJson from '../../../public/assets/i18n/nl.json';
-import plJson from '../../../public/assets/i18n/pl.json';
-import pt from '../../../public/assets/i18n/pt.json';
+import es from '../../../../public/assets/i18n/es.json';
+import deJson from '../../../../public/assets/i18n/de.json';
+import frJson from '../../../../public/assets/i18n/fr.json';
+import itJson from '../../../../public/assets/i18n/it.json';
+import nlJson from '../../../../public/assets/i18n/nl.json';
+import plJson from '../../../../public/assets/i18n/pl.json';
+import pt from '../../../../public/assets/i18n/pt.json';
 import { SUPPORTED_LOCALES } from '../services/locale/locale.service';
 import { MESSAGES } from './messages';
 

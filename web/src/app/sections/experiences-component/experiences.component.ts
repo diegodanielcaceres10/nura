@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocaleService } from '../../services/locale/locale.service';
-import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { LocaleService } from '../../core/services/locale/locale.service';
+import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { PortfolioPage } from './portfolio-page';
-import { LocaleService } from '../services/locale/locale.service';
-import { ScrollService } from '../services/scroll/scroll.service';
+import { LocaleService } from '../core/services/locale/locale.service';
+import { ScrollService } from '../core/services/scroll/scroll.service';
 
 const SECTION_IDS = ['home', 'case-study', 'experiences', 'projects', 'recommendations', 'about', 'contact'];
 

@@ -6,7 +6,7 @@ import { LanguageSelectorPage } from './language-selector/language-selector.page
 import { PortfolioPage } from './portfolio/portfolio-page';
 import { WorkPage } from './work/work-page';
 import { CaseStudyPage } from './case-study/case-study-page';
-import { LocaleService } from './services/locale/locale.service';
+import { LocaleService } from './core/services/locale/locale.service';
 
 /**
  * Routes spec.

@@ -9,8 +9,8 @@ import { RecommendationsComponent } from '../sections/recommendations-component/
 import { AboutComponent } from '../sections/about-component/about.component';
 import { ContactComponent } from '../sections/contact-component/contact.component';
 import { FooterComponent } from '../components/footer-component/footer-component';
-import { LocaleService } from '../services/locale/locale.service';
-import { ScrollService } from '../services/scroll/scroll.service';
+import { LocaleService } from '../core/services/locale/locale.service';
+import { ScrollService } from '../core/services/scroll/scroll.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

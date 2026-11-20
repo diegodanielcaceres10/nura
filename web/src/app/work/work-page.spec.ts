@@ -3,7 +3,7 @@ import { WorkPage } from './work-page';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { ProjectsService } from '../services/projects/projects.service';
+import { ProjectsService } from '../core/services/projects/projects.service';
 import { ProjectItem } from '../sections/projects-component/projects.component';
 
 const mockProject: ProjectItem = {

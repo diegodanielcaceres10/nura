@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectItem } from '../../../models/project.model';
-import { TranslateKeyPipe } from '../../../services/translate/translate-key.pipe';
-import { LocaleService } from '../../../services/locale/locale.service';
+import { ProjectItem } from '../../../core/models/project.model';
+import { TranslateKeyPipe } from '../../../core/services/translate/translate-key.pipe';
+import { LocaleService } from '../../../core/services/locale/locale.service';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

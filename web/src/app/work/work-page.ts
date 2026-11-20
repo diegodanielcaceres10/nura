@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderComponent } from '../components/header-component/header-component';
 import { FooterComponent } from '../components/footer-component/footer-component';
 import { ProjectCardComponent } from '../sections/projects-component/project-card.component/project-card.component';
-import { TranslateKeyPipe } from '../services/translate/translate-key.pipe';
-import { ProjectsService } from '../services/projects/projects.service';
-import { LocaleService } from '../services/locale/locale.service';
-import { ProjectItem } from '../models/project.model';
+import { TranslateKeyPipe } from '../core/services/translate/translate-key.pipe';
+import { ProjectsService } from '../core/services/projects/projects.service';
+import { LocaleService } from '../core/services/locale/locale.service';
+import { ProjectItem } from '../core/models/project.model';
 
 const GALLERY_TABS = ['portrait', 'landscape'] as const;
 type GalleryTab = (typeof GALLERY_TABS)[number];

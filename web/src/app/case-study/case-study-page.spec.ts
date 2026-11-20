@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute, Router, provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { CaseStudyItem } from '../sections/case-study-component/case-study.component';
-import { CaseStudiesService } from '../services/case-studies/case-studies.service';
+import { CaseStudiesService } from '../core/services/case-studies/case-studies.service';
 import { CaseStudyPage } from './case-study-page';
 
 const fullCase: CaseStudyItem = {

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { AppLocale, LocaleService } from '../services/locale/locale.service';
+import { AppLocale, LocaleService } from '../core/services/locale/locale.service';
 import { LanguageSelectorPage } from './language-selector.page';
 
 /**

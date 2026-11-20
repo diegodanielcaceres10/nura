@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
 import { TitleComponent } from '../../components/title/title.component';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
-import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
-import { LocaleService } from '../../services/locale/locale.service';
-import { CaseStudyItem } from '../../models/case-study.model';
+import { CaseStudiesService } from '../../core/services/case-studies/case-studies.service';
+import { LocaleService } from '../../core/services/locale/locale.service';
+import { CaseStudyItem } from '../../core/models/case-study.model';
 
-export type { CaseStudyDetail, CaseStudyItem, CaseStudyMetric } from '../../models/case-study.model';
+export type { CaseStudyDetail, CaseStudyItem, CaseStudyMetric } from '../../core/models/case-study.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

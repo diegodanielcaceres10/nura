@@ -2,14 +2,14 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import { Router } from '@angular/router';
 import { TitleComponent } from '../../components/title/title.component';
 import { ProjectCardComponent } from './project-card.component/project-card.component';
-import { ProjectsService } from '../../services/projects/projects.service';
+import { ProjectsService } from '../../core/services/projects/projects.service';
 import { AiProjectCardComponent } from './ai-project-card.component/ai-project-card.component';
-import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
-import { LocaleService } from '../../services/locale/locale.service';
+import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
+import { LocaleService } from '../../core/services/locale/locale.service';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
-import { ProjectItem } from '../../models/project.model';
+import { ProjectItem } from '../../core/models/project.model';
 
-export type { AiDetail, AiMetric, ProjectCardCover, ProjectCardGradient, ProjectCardTheme, ProjectItem, ProjectLinks, ProjectMetrics, TechCategory } from '../../models/project.model';
+export type { AiDetail, AiMetric, ProjectCardCover, ProjectCardGradient, ProjectCardTheme, ProjectItem, ProjectLinks, ProjectMetrics, TechCategory } from '../../core/models/project.model';
 
 const ALL_FILTER = 'all';
 

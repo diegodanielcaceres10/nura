@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
-import { LocaleService } from '../services/locale/locale.service';
+import { LocaleService } from '../core/services/locale/locale.service';
 import { LoadingPage } from '../loading/loading.page';
 
 const REDIRECT_DELAY_MS = 1500;

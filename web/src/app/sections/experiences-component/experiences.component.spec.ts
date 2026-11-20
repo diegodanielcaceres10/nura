@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { CaseStudiesService } from '../../services/case-studies/case-studies.service';
+import { CaseStudiesService } from '../../core/services/case-studies/case-studies.service';
 import { ExperiencesComponent } from './experiences.component';
 
 /**

@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, inject } from '@angular/core';
-import { ScrollAnimateService } from '../../services/scroll/scroll-animate.service';
+import { ScrollAnimateService } from '../../core/services/scroll/scroll-animate.service';
 
 export type RevealType = 'fade-up' | 'fade-down' | 'fade-in' | 'fade-left' | 'fade-right' | 'scale-up';
 

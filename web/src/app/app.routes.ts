@@ -1,5 +1,5 @@
 import { CanMatchFn, RedirectFunction, Routes, UrlSegment } from '@angular/router';
-import { LocaleService, SUPPORTED_LOCALES } from './services/locale/locale.service';
+import { LocaleService, SUPPORTED_LOCALES } from './core/services/locale/locale.service';
 
 const supportedLangs = new Set<string>(SUPPORTED_LOCALES);
 

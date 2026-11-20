@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ProjectItem, ProjectsComponent } from './projects.component';
 import { Router } from '@angular/router';
-import { ProjectsService } from '../../services/projects/projects.service';
-import { LocaleService } from '../../services/locale/locale.service';
+import { ProjectsService } from '../../core/services/projects/projects.service';
+import { LocaleService } from '../../core/services/locale/locale.service';
 
 describe('ProjectsComponent', () => {
   let component: ProjectsComponent;

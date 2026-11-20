@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { TranslateKeyPipe } from '../../services/translate/translate-key.pipe';
+import { TranslateKeyPipe } from '../../core/services/translate/translate-key.pipe';
 import { ScrollRevealDirective } from '../../directives/scroll-reveal/scroll-reveal.directive';
 
 @Component({

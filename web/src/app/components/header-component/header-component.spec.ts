@@ -4,8 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 import { signal } from '@angular/core';
-import { LocaleService } from '../../services/locale/locale.service';
-import { ScrollService } from '../../services/scroll/scroll.service';
+import { LocaleService } from '../../core/services/locale/locale.service';
+import { ScrollService } from '../../core/services/scroll/scroll.service';
 
 /**
  * HeaderComponent spec.

@@ -1,5 +1,5 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
-import { SUPPORTED_LOCALES } from './services/locale/locale.service';
+import { SUPPORTED_LOCALES } from './core/services/locale/locale.service';
 
 export const serverRoutes: ServerRoute[] = [
   { path: '', renderMode: RenderMode.Prerender },
