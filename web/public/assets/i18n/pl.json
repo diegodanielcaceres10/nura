@@ -5,7 +5,7 @@
   "MENU_RECOMMENDATIONS": "Rekomendacje",
   "MENU_ABOUT_ME": "O mnie",
   "MENU_CONTACT": "Kontakt",
-  "HOME_DESCRIPTION": "Jestem Senior Frontend Engineerem z ponad 6-letnim doświadczeniem w Angularze i TypeScripcie. Specjalizuję się w modernizacji produktów B2B, które już działają produkcyjnie. W jednym z nich zmniejszyłem ilość kodu o 60%, a w czasie, gdy za niego odpowiadałem, liczba aktywnych klientów wzrosła z 2–3 do 10. Pracowałem z Angularem od wersji 11 do 21.",
+  "HOME_DESCRIPTION": "Jestem Senior Frontend Engineerem z ponad 6-letnim doświadczeniem w Angularze i TypeScripcie. Specjalizuję się w modernizacji produktów B2B, które już działają produkcyjnie, bez spowalniania dostaw. W Cesla (~40 klientów i ponad 1000 użytkowników) zmigrowałem 5 aplikacji z Cordovy na Capacitor bez ich przepisywania, skróciłem czas wdrożenia z ~60 do ~5 minut i zmniejszyłem liczbę powtarzających się błędów o około 50%. Pracowałem z Angularem od wersji 11 do 21.",
   "HOME_MY_WORK": "Zobacz moje prace",
   "HOME_CONTACT_ME": "Skontaktuj się ze mną",
   "HOME_TECH_STACK_TITLE": "Mój stos technologiczny",

@@ -5,7 +5,7 @@ export const MESSAGES: Record<string, string> = {
   MENU_RECOMMENDATIONS: $localize`:@@MENU_RECOMMENDATIONS:Recommendations`,
   MENU_PROJECTS: $localize`:@@MENU_PROJECTS:Projects`,
   MENU_CONTACT: $localize`:@@MENU_CONTACT:Contact`,
-  HOME_DESCRIPTION: $localize`:@@HOME_DESCRIPTION:I am a Senior Frontend Engineer with 6+ years in Angular and TypeScript, and I specialize in modernizing B2B products that are already in production. In one of them I cut the code by 60%, and during my time in charge the active client base grew from 2–3 to 10. I have worked with Angular from version 11 to 21.`,
+  HOME_DESCRIPTION: $localize`:@@HOME_DESCRIPTION:I am a Senior Frontend Engineer with 6+ years in Angular and TypeScript, and I specialize in modernizing B2B products that are already in production, without slowing down delivery. At Cesla (~40 clients, 1,000+ users) I migrated 5 apps from Cordova to Capacitor without rewriting them, cut deployment time from ~60 to ~5 minutes, and reduced recurring bugs by about 50%. I have worked with Angular from version 11 to 21.`,
   HOME_MY_WORK: $localize`:@@HOME_MY_WORK:View My Work`,
   HOME_CONTACT_ME: $localize`:@@HOME_CONTACT_ME:Get In Touch`,
   HOME_TECH_STACK_TITLE: $localize`:@@HOME_TECH_STACK_TITLE:My Tech Stack`,

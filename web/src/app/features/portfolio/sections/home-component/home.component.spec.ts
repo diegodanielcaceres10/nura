@@ -4,6 +4,8 @@
  * Guarantees: the hero keeps its heading, localized CTA links, images and tech badges,
  * and shows the headline case-study figures without rendering the case studies themselves.
  * The CI/CD, recurring bugs, file traffic cost and codebase metrics link to their case pages without altering the metric layout.
+ * The hero description leads with the CV highlights (Capacitor migration without rewriting, deployment time, recurring bugs),
+ * and the skills section lists the CV skills (NgRx, Standalone Components, BEM, Clean Code, SOLID) in their categories.
  * Validates: DOM output only (headings, hrefs, alt texts, metric values and labels).
  */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -65,6 +67,18 @@ describe('HomeComponent', () => {
     expect(heading?.textContent).toContain('Diego Daniel Caceres');
     expect(heading?.textContent).toContain('Senior Frontend Engineer');
     expect(heading?.textContent).toContain('Angular Architecture');
+  });
+
+  it('should describe the CV highlights in the hero description', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const description = native.querySelector('.home__description')?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+
+    expect(description).toContain('Senior Frontend Engineer with 6+ years in Angular and TypeScript');
+    expect(description).toContain('without slowing down delivery');
+    expect(description).toContain('migrated 5 apps from Cordova to Capacitor without rewriting them');
+    expect(description).toContain('from ~60 to ~5 minutes');
+    expect(description).toContain('recurring bugs by about 50%');
+    expect(description).toContain('Angular from version 11 to 21');
   });
 
   it('should link the primary and secondary CTAs to the localized case-study and contact sections', () => {
@@ -154,5 +168,15 @@ describe('HomeComponent', () => {
     expect(chips).toContain('Git');
     expect(chips).toContain('Claude Code');
     expect(chips).toContain('Scrum');
+  });
+
+  it('should list the CV skills in their categories', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const chipsByCategory = new Map(
+      Array.from(native.querySelectorAll('.home__skill-card')).map((card) => [card.querySelector('.home__skill-card-title')?.textContent?.trim() ?? '', Array.from(card.querySelectorAll('.home__skill-chip')).map((chip) => chip.textContent?.trim())]),
+    );
+
+    expect(chipsByCategory.get('Frontend Engineering')).toEqual(expect.arrayContaining(['NgRx', 'Standalone Components', 'BEM']));
+    expect(chipsByCategory.get('Architecture')).toEqual(expect.arrayContaining(['Microfrontends', 'Clean Code', 'SOLID']));
   });
 });

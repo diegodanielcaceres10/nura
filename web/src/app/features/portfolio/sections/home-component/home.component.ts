@@ -65,7 +65,7 @@ export class HomeComponent {
     {
       id: 'frontend',
       labelKey: 'HOME_SKILLS_FRONTEND',
-      skills: ['Angular', 'TypeScript', 'RxJS', 'Signals', 'HTML', 'CSS/SCSS', 'Tailwind CSS', 'Bootstrap', 'Angular Material', 'React'],
+      skills: ['Angular', 'TypeScript', 'RxJS', 'NgRx', 'Signals', 'Standalone Components', 'HTML', 'CSS/SCSS', 'BEM', 'Tailwind CSS', 'Bootstrap', 'Angular Material', 'React'],
     },
     {
       id: 'mobile',
@@ -80,7 +80,7 @@ export class HomeComponent {
     {
       id: 'architecture',
       labelKey: 'HOME_SKILLS_ARCHITECTURE',
-      skills: ['Microfrontends'],
+      skills: ['Microfrontends', 'Clean Code', 'SOLID'],
     },
     {
       id: 'backend',

@@ -5,7 +5,7 @@
   "MENU_RECOMMENDATIONS": "Recomendaciones",
   "MENU_ABOUT_ME": "Sobre mí",
   "MENU_CONTACT": "Contacto",
-  "HOME_DESCRIPTION": "Soy Senior Frontend Engineer con +6 años en Angular y TypeScript, y me dedico a modernizar productos B2B que ya están en producción. En uno de ellos reduje un 60% el código y durante mi gestión la cartera de clientes activos pasó de 2–3 a 10. Trabajé con Angular desde la versión 11 hasta la 21.",
+  "HOME_DESCRIPTION": "Soy Senior Frontend Engineer con +6 años en Angular y TypeScript, y me dedico a modernizar productos B2B que ya están en producción sin frenar su evolución. En Cesla (~40 clientes y +1.000 usuarios) migré 5 apps de Cordova a Capacitor sin reescribirlas, reduje los tiempos de despliegue de ~60 a ~5 minutos y los bugs recurrentes cerca de un 50%. Trabajé con Angular desde la versión 11 hasta la 21.",
   "HOME_MY_WORK": "Ver mi trabajo",
   "HOME_CONTACT_ME": "Contactarme",
   "HOME_TECH_STACK_TITLE": "Mi stack tecnológico",
