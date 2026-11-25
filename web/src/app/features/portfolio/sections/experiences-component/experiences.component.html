@@ -21,13 +21,14 @@
             </span>
             <span class="experiences__timeline-year">2026</span>
           </li>
-          <li class="experiences__timeline-item experiences__timeline-item-expanded"></li>
+          <li class="experiences__timeline-item"></li>
           <li class="experiences__timeline-item">
             <span class="experiences__timeline-marker">
               <i class="fa-regular fa-circle-dot"></i>
             </span>
             <span class="experiences__timeline-year">2024</span>
           </li>
+          <li class="experiences__timeline-item"></li>
           <li class="experiences__timeline-item">
             <span class="experiences__timeline-marker">
               <i class="fa-regular fa-circle-dot"></i>
@@ -79,11 +80,7 @@
                         {{ descriptionKey | translate }}
                         @let caseLink = entry.caseLinks?.[descriptionKey];
                         @if (caseLink) {
-                          <a
-                            class="experiences__case-link"
-                            [routerLink]="['/', locale, 'case-studies', caseLink.slug]"
-                            [attr.aria-label]="('CASE_STUDY_READ_MORE' | translate) + ': ' + (caseLink.titleKey | translate)"
-                          >
+                          <a class="experiences__case-link" [routerLink]="['/', locale, 'case-studies', caseLink.slug]" [attr.aria-label]="('CASE_STUDY_READ_MORE' | translate) + ': ' + (caseLink.titleKey | translate)">
                             {{ 'CASE_STUDY_READ_MORE' | translate }}
                             <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                           </a>

@@ -90,15 +90,15 @@
       align-items: center;
       gap: var(--spacing-2xs);
 
-      &:not(:first-child) {
-        margin-top: 10rem;
-      }
+      // &:not(:first-child) {
+      //   margin-top: 10rem;
+      // }
 
-      &-expanded {
-        flex: 1;
-        min-height: var(--spacing-3xl);
-        margin-top: 0;
-      }
+      // &-expanded {
+      //   flex: 1;
+      //   min-height: var(--spacing-3xl);
+      //   margin-top: 0;
+      // }
 
       &--active {
         .experiences__timeline-marker {
