@@ -34,6 +34,27 @@ describe('AboutComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
+  it('should present the CV team work in the intro: technical decisions with product and the PO, incremental deliveries, QA and DevOps', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const intro = native.querySelector('.title__intro')?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+
+    expect(intro).toContain('requirements directly with the client');
+    expect(intro).toContain('technical decisions together with product and the PO');
+    expect(intro).toContain('incremental deliveries in coordination with QA and DevOps');
+  });
+
+  it('should tell the story with the CV role names, the junior support and the Capacitor migration without rewriting', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const story = native.querySelector('.about__paragraph')?.textContent?.replace(/\s+/g, ' ').trim() ?? '';
+
+    expect(story).toContain('Frontend Developer in 2020');
+    expect(story).not.toContain('Front-End');
+    expect(story).toContain('Tech Lead since November 2024');
+    expect(story).toContain('technical decisions together with product and the PO');
+    expect(story).toContain('supported two junior developers while still coding');
+    expect(story).toContain('moved the mobile apps to Capacitor without rewriting them');
+  });
+
   it('should render the four content cards', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = native.querySelectorAll('article.about__card');
