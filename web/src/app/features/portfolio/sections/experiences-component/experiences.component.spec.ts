@@ -9,13 +9,14 @@ import { ExperiencesComponent } from './experiences.component';
  *
  * Guarantees:
  * - The component and its section/title render.
- * - One card per company (Cesla, Apex) is shown, without a duration label.
- * - Every responsibility key resolves to real text (no empty or "-" bullets),
- *   and each card renders the expected number of bullets (Cesla 10, Apex 8).
- * - The Cesla stats stay aligned with its achievements.
- * - Each card shows its technology stack, and the Cesla role and period are correct.
- * - Only the Cesla CI/CD pipelines, codebase modernization, storage migration, recurring bugs and
- *   mobile migration bullets link to their case pages, inline and without extra markup around the bullet.
+ * - One card per role is shown (Cesla Tech Lead, Cesla Frontend Engineer, Apex), without a duration label.
+ * - Each card has a summary, and every responsibility key resolves to real text (no empty or "-" bullets),
+ *   with the expected number of bullets (Tech Lead 4, Frontend Engineer 4, Apex 3).
+ * - The Cesla stats are shown once, on the most recent Cesla card, and stay aligned with its achievements.
+ * - Each card shows its technology stack, and the roles and periods follow the CV (no gap or overlap).
+ * - The timeline marks 2026, 2024, 2021 and 2020, so the Cesla promotion is visible.
+ * - Only the mobile migration, recurring bugs and codebase modernization bullets link to their case pages,
+ *   inline and without extra markup around the bullet.
  */
 describe('ExperiencesComponent', () => {
   let component: ExperiencesComponent;
@@ -52,13 +53,13 @@ describe('ExperiencesComponent', () => {
     expect(native.querySelector('app-title-component')).not.toBeNull();
   });
 
-  it('should render the two experience cards with their companies and no duration label', () => {
+  it('should render one card per role with its company and no duration label', () => {
     const native = fixture.nativeElement as HTMLElement;
     const cards = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
     const companies = cards.map((card) => card.querySelector('.experiences__company')?.textContent?.trim());
 
-    expect(cards).toHaveLength(2);
-    expect(companies).toEqual(['Cesla', 'Apex America']);
+    expect(cards).toHaveLength(3);
+    expect(companies).toEqual(['Cesla', 'Cesla', 'Apex America']);
     expect(native.querySelector('.experiences__duration')).toBeNull();
   });
 
@@ -68,8 +69,19 @@ describe('ExperiencesComponent', () => {
     const descriptionCounts = cards.map((card) => card.querySelectorAll('.experiences__description').length);
     const descriptions = Array.from(native.querySelectorAll('.experiences__description')).map((description) => description.textContent?.trim());
 
-    expect(descriptionCounts).toEqual([4, 3]);
+    expect(descriptionCounts).toEqual([4, 4, 3]);
     expect(descriptions.every((description) => description && description !== '-')).toBe(true);
+  });
+
+  it('should render a summary for every experience card', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const cards = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
+    const summaries = cards.map((card) => card.querySelector('.experiences__summary')?.textContent?.trim() ?? '');
+
+    expect(summaries.every((summary) => summary.length > 0)).toBe(true);
+    expect(summaries[0]).toContain('Technical reference of the team');
+    expect(summaries[1]).toContain('Developed mobile apps and web modules');
+    expect(summaries[2]).toContain('multi-tenant bot');
   });
 
   it('should show the Cesla stats aligned with the achievements', () => {
@@ -80,6 +92,7 @@ describe('ExperiencesComponent', () => {
 
     expect(values).toEqual(['~40', '+1000', '5', '5']);
     expect(labels).toEqual(['Clients', 'Users', 'Mobile Apps', 'APIs']);
+    expect(native.querySelectorAll('.experiences__stats-panel')).toHaveLength(1);
   });
 
   it('should render the technology stack for each experience', () => {
@@ -88,47 +101,53 @@ describe('ExperiencesComponent', () => {
     const technologyCounts = cards.map((card) => card.querySelectorAll('.experiences__tech-tag').length);
     const technologies = Array.from(native.querySelectorAll('.experiences__tech-tag')).map((tag) => tag.textContent?.trim());
 
-    expect(technologyCounts).toEqual([10, 10]);
+    expect(technologyCounts).toEqual([11, 6, 10]);
     expect(technologies).toContain('Angular');
     expect(technologies).toContain('Ionic');
   });
 
-  it('should present the Cesla experience as Frontend Engineer (Tech Lead since 11/2024) from May 2021 to Feb 2026', () => {
+  it('should present the roles and periods of the CV: Cesla Tech Lead, Cesla Frontend Engineer and Apex Frontend Developer', () => {
     const native = fixture.nativeElement as HTMLElement;
-    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
-    const role = firstCard?.querySelector('.experiences__role')?.textContent?.trim() ?? '';
-    const period = firstCard?.querySelector('.experiences__period')?.textContent ?? '';
+    const cards = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
+    const roles = cards.map((card) => card.querySelector('.experiences__role')?.textContent?.trim());
+    const periods = cards.map((card) => (card.querySelector('.experiences__period')?.textContent ?? '').replace(/\s+/g, ' ').trim());
 
-    expect(role).toBe('Frontend Engineer (Tech Lead since 11/2024)');
-    expect(period).toContain('May 2021');
-    expect(period).toContain('Feb 2026');
+    expect(roles).toEqual(['Tech Lead', 'Frontend Engineer', 'Frontend Developer']);
+    expect(periods).toEqual(['Nov 2024 – Feb 2026', 'May 2021 – Oct 2024', 'Jan 2020 – Mar 2021']);
+  });
+
+  it('should mark 2026, 2024, 2021 and 2020 on the timeline', () => {
+    const native = fixture.nativeElement as HTMLElement;
+    const years = Array.from(native.querySelectorAll('.experiences__timeline-year')).map((year) => year.textContent?.trim());
+
+    expect(years).toEqual(['', '2026', '2024', '2021', '2020']);
   });
 
   it('should hide decorative timeline and metric icons from assistive technologies', () => {
     const native = fixture.nativeElement as HTMLElement;
 
-    expect(native.querySelectorAll('.experiences__period i[aria-hidden="true"]')).toHaveLength(2);
+    expect(native.querySelectorAll('.experiences__period i[aria-hidden="true"]')).toHaveLength(3);
     expect(native.querySelectorAll('.experiences__stat-icon[aria-hidden="true"]')).toHaveLength(4);
   });
 
-  it('should link only the CI/CD pipelines, codebase modernization, storage migration, recurring bugs and mobile migration bullets to their localized case pages', () => {
+  it('should link only the mobile migration, recurring bugs and codebase modernization bullets to their localized case pages', () => {
     const native = fixture.nativeElement as HTMLElement;
     const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
-    const firstCard = native.querySelector<HTMLElement>('article.experiences__card');
-    const bullets = Array.from(firstCard?.querySelectorAll('.experiences__description') ?? []);
+    const [techLeadCard, frontendCard] = Array.from(native.querySelectorAll<HTMLElement>('article.experiences__card'));
+    const techLeadBullets = Array.from(techLeadCard?.querySelectorAll('.experiences__description') ?? []);
+    const frontendBullets = Array.from(frontendCard?.querySelectorAll('.experiences__description') ?? []);
 
-    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/en/case-studies/cicd-pipeline-automation', '/en/case-studies/legacy-codebase-modernization', '/en/case-studies/cloud-storage-migration', '/en/case-studies/legacy-mobile-migration']);
-    expect(bullets[0]?.contains(links[0] ?? null)).toBe(true);
-    expect(bullets[1]?.contains(links[1] ?? null)).toBe(true);
-    expect(bullets[2]?.contains(links[2] ?? null)).toBe(true);
-    expect(bullets[3]?.contains(links[3] ?? null)).toBe(true);
+    expect(links.map((link) => link.getAttribute('href'))).toEqual(['/en/case-studies/legacy-mobile-migration', '/en/case-studies/recurring-bugs-reduction', '/en/case-studies/legacy-codebase-modernization']);
+    expect(techLeadBullets[0]?.contains(links[0] ?? null)).toBe(true);
+    expect(techLeadBullets[2]?.contains(links[1] ?? null)).toBe(true);
+    expect(frontendBullets[0]?.contains(links[2] ?? null)).toBe(true);
   });
 
   it('should name each bullet link with the read-case action and hide its arrow from assistive technologies', () => {
     const native = fixture.nativeElement as HTMLElement;
     const links = Array.from(native.querySelectorAll<HTMLAnchorElement>('a.experiences__case-link'));
 
-    expect(links).toHaveLength(4);
+    expect(links).toHaveLength(3);
     for (const link of links) {
       expect(link.textContent).toContain('Read the case');
       expect(link.getAttribute('aria-label')).toContain('Read the case');

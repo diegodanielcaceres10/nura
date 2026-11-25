@@ -343,6 +343,14 @@
     }
   }
 
+  &__summary {
+    margin: var(--spacing-xs) 0 0;
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+    line-height: 1.68;
+  }
+
   &__responsibilities {
     display: flex;
     flex-direction: column;

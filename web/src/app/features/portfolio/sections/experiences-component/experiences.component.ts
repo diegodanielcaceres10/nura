@@ -26,6 +26,7 @@ export interface ExperienceEntry {
   roleKey: string;
   startPeriodKey: string;
   endPeriodKey: string;
+  summaryKey: string;
   descriptionKeys: string[];
   // Optional: bullets (by description key) that link to the case study that backs them.
   caseLinks?: Readonly<Record<string, ExperienceCaseLink>>;
@@ -46,27 +47,43 @@ export class ExperiencesComponent {
 
   protected readonly entries: ExperienceEntry[] = [
     {
-      id: 'cesla',
+      id: 'cesla-tech-lead',
       logoText: 'CESLA',
       logoVariant: 'cesla',
       company: 'Cesla',
-      roleKey: 'EXPERIENCE_CESLA_FULLSTACK_ROLE',
-      startPeriodKey: 'EXPERIENCE_CESLA_FULLSTACK_START_PERIOD',
-      endPeriodKey: 'EXPERIENCE_CESLA_FULLSTACK_END_PERIOD',
-      descriptionKeys: ['EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1', 'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2', 'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3', 'EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_4'],
+      roleKey: 'EXPERIENCE_CESLA_TECH_LEAD_ROLE',
+      startPeriodKey: 'EXPERIENCE_CESLA_TECH_LEAD_START_PERIOD',
+      endPeriodKey: 'EXPERIENCE_CESLA_TECH_LEAD_END_PERIOD',
+      summaryKey: 'EXPERIENCE_CESLA_TECH_LEAD_SUMMARY',
+      descriptionKeys: ['EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_1', 'EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_2', 'EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_3', 'EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_4'],
       caseLinks: {
-        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_1: { slug: 'cicd-pipeline-automation', titleKey: 'CASE_STUDY_02_TITLE' },
-        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_2: { slug: 'legacy-codebase-modernization', titleKey: 'CASE_STUDY_04_TITLE' },
-        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_3: { slug: 'cloud-storage-migration', titleKey: 'CASE_STUDY_03_TITLE' },
-        EXPERIENCE_CESLA_FULLSTACK_RESPONSIBILITY_4: { slug: 'legacy-mobile-migration', titleKey: 'CASE_STUDY_01_TITLE' },
+        EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_1: { slug: 'legacy-mobile-migration', titleKey: 'CASE_STUDY_01_TITLE' },
+        EXPERIENCE_CESLA_TECH_LEAD_RESPONSIBILITY_3: { slug: 'recurring-bugs-reduction', titleKey: 'CASE_STUDY_05_TITLE' },
       },
-      techStack: ['Angular', 'TypeScript', 'RxJS', 'React', 'Ionic', 'Capacitor', 'Storybook', 'Azure DevOps', 'CI/CD', 'Docker'],
+      techStack: ['Angular', 'TypeScript', 'Ionic', 'Capacitor', 'React', 'Node.js', 'Express', 'Azure DevOps', 'CI/CD', 'Docker', 'Cypress'],
+      // The Cesla figures cover the whole stay, so they are shown once, on the most recent card.
       stats: [
         { icon: 'fa-solid fa-user-tie', value: '~40', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_CLIENTS' },
         { icon: 'fa-solid fa-users', value: '+1000', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_USERS' },
         { icon: 'fa-solid fa-mobile-screen-button', value: '5', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_MOBILE_APPS' },
         { icon: 'fa-solid fa-plug', value: '5', labelKey: 'EXPERIENCE_CESLA_FULLSTACK_STATS_APIS' },
       ],
+    },
+    {
+      id: 'cesla-frontend',
+      logoText: 'CESLA',
+      logoVariant: 'cesla',
+      company: 'Cesla',
+      roleKey: 'EXPERIENCE_CESLA_FRONTEND_ROLE',
+      startPeriodKey: 'EXPERIENCE_CESLA_FRONTEND_START_PERIOD',
+      endPeriodKey: 'EXPERIENCE_CESLA_FRONTEND_END_PERIOD',
+      summaryKey: 'EXPERIENCE_CESLA_FRONTEND_SUMMARY',
+      descriptionKeys: ['EXPERIENCE_CESLA_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_CESLA_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_CESLA_FRONTEND_RESPONSIBILITY_3', 'EXPERIENCE_CESLA_FRONTEND_RESPONSIBILITY_4'],
+      caseLinks: {
+        EXPERIENCE_CESLA_FRONTEND_RESPONSIBILITY_1: { slug: 'legacy-codebase-modernization', titleKey: 'CASE_STUDY_04_TITLE' },
+      },
+      techStack: ['Angular', 'TypeScript', 'RxJS', 'Ionic', 'Storybook', 'Azure DevOps'],
+      stats: [],
     },
     {
       id: 'apex',
@@ -76,6 +93,7 @@ export class ExperiencesComponent {
       roleKey: 'EXPERIENCE_APEX_FRONTEND_ROLE',
       startPeriodKey: 'EXPERIENCE_APEX_FRONTEND_START_PERIOD',
       endPeriodKey: 'EXPERIENCE_APEX_FRONTEND_END_PERIOD',
+      summaryKey: 'EXPERIENCE_APEX_FRONTEND_SUMMARY',
       descriptionKeys: ['EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_1', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_2', 'EXPERIENCE_APEX_FRONTEND_RESPONSIBILITY_3'],
       techStack: ['Angular', 'AngularJS', 'JavaScript', 'RxJS', 'HTML5', 'CSS3', 'MongoDB', 'Jira', 'Git', 'AWS'],
       stats: [],

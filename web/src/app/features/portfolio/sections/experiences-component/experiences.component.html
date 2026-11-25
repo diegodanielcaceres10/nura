@@ -26,6 +26,12 @@
             <span class="experiences__timeline-marker">
               <i class="fa-regular fa-circle-dot"></i>
             </span>
+            <span class="experiences__timeline-year">2024</span>
+          </li>
+          <li class="experiences__timeline-item">
+            <span class="experiences__timeline-marker">
+              <i class="fa-regular fa-circle-dot"></i>
+            </span>
             <span class="experiences__timeline-year">2021</span>
           </li>
           <li class="experiences__timeline-item">
@@ -62,6 +68,8 @@
                     </div>
                   </div>
                 </header>
+
+                <p class="experiences__summary">{{ entry.summaryKey | translate }}</p>
 
                 <div class="experiences__responsibilities">
                   @for (descriptionKey of entry.descriptionKeys; track descriptionKey) {
