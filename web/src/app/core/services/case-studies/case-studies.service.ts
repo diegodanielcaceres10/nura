@@ -53,7 +53,7 @@ export class CaseStudiesService {
       description: 'CASE_STUDY_05_DESCRIPTION',
       metrics: [{ icon: 'fa-solid fa-bug', value: '~50%', label: 'CASE_STUDY_05_METRIC_01_LABEL' }],
       slug: 'recurring-bugs-reduction',
-      detail: detailFor('recurring-bugs-reduction', ['React 18', 'Ionic', 'Angular 8–18', 'Azure DevOps']),
+      detail: detailFor('recurring-bugs-reduction', ['React 18', 'Ionic', 'Angular 8–18', 'Azure DevOps', 'Cypress']),
     },
     {
       number: '04',

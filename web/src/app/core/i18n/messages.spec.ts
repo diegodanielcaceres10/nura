@@ -140,6 +140,27 @@ describe('MESSAGES', () => {
       expect(pt['CASE_STUDY_01_DESCRIPTION']).toContain('referência técnica');
     });
 
+    it('states that the mobile apps were migrated without rewriting them', () => {
+      expect(MESSAGES['CASE_STUDY_01_DESCRIPTION']).toContain('without rewriting');
+      expect(MESSAGES['CASE_DETAIL_LEGACY_MOBILE_MIGRATION_DECISIONS']).toContain('instead of rewriting');
+      expect(es['CASE_STUDY_01_DESCRIPTION']).toContain('sin reescribir');
+      expect(es['CASE_DETAIL_LEGACY_MOBILE_MIGRATION_DECISIONS']).toContain('en lugar de reescribir');
+      expect(pt['CASE_STUDY_01_DESCRIPTION']).toContain('reescrever');
+      expect(pt['CASE_DETAIL_LEGACY_MOBILE_MIGRATION_DECISIONS']).toContain('reescrever');
+    });
+
+    it('names the acceptance criteria and the Cypress e2e tests in the recurring bugs case', () => {
+      expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('acceptance criteria');
+      expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('e2e tests with Cypress');
+      expect(MESSAGES['CASE_DETAIL_RECURRING_BUGS_REDUCTION_DECISIONS']).toContain('e2e tests with Cypress');
+      expect(es['CASE_STUDY_05_DESCRIPTION']).toContain('criterios de aceptación');
+      expect(pt['CASE_STUDY_05_DESCRIPTION']).toContain('critérios de aceitação');
+      for (const texts of [es, pt]) {
+        expect(texts['CASE_STUDY_05_DESCRIPTION']).toContain('Cypress');
+        expect(texts['CASE_DETAIL_RECURRING_BUGS_REDUCTION_DECISIONS']).toContain('Cypress');
+      }
+    });
+
     it('scopes the bug figure to recurring bugs and its source, without claiming the tech lead role', () => {
       expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('recurring');
       expect(MESSAGES['CASE_STUDY_05_DESCRIPTION']).toContain('Azure DevOps');

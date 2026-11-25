@@ -70,6 +70,10 @@ describe('CaseStudiesService', () => {
     }
   });
 
+  it('lists Cypress in the stack of the recurring bugs case', () => {
+    expect(service.getBySlug('recurring-bugs-reduction')?.detail.stack).toContain('Cypress');
+  });
+
   it('has every detail key and shared key in MESSAGES and in every translation file', () => {
     const keys = [...SHARED_KEYS, ...service.getAll().flatMap((item) => SECTIONS.map((section) => item.detail[section]))];
     const esKeys = es as Record<string, string>;
