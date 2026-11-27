@@ -36,6 +36,12 @@ jobs:
           cache: "npm"
           cache-dependency-path: web/package-lock.json
 
+      - name: Setup npm
+        run: |
+          NPM_VERSION=$(node -p "require('./package.json').packageManager.split('@').pop()")
+          npm install --global "npm@$NPM_VERSION"
+          npm --version
+
       - name: Install dependencies
         run: npm ci
 
@@ -239,6 +245,13 @@ jobs:
           node-version: 20
           cache: "npm"
           cache-dependency-path: web/package-lock.json
+
+      - name: Setup npm
+        working-directory: web
+        run: |
+          NPM_VERSION=$(node -p "require('./package.json').packageManager.split('@').pop()")
+          npm install --global "npm@$NPM_VERSION"
+          npm --version
 
       - name: Install dependencies
         working-directory: web
