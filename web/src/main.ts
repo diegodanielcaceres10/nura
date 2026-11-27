@@ -56,9 +56,9 @@ const bootstrap = async (): Promise<void> => {
 
   await loadLocaleTranslations(locale);
   const { appConfig } = await import('./app/app.config');
-  const { App } = await import('./app/app');
+  const { AppShellComponent } = await import('./app/core/shell/app-shell.component');
   const providers = [...(appConfig.providers ?? []), { provide: LOCALE_ID, useValue: locale }];
-  await bootstrapApplication(App, { ...appConfig, providers });
+  await bootstrapApplication(AppShellComponent, { ...appConfig, providers });
 };
 
 bootstrap().catch((err) => console.error(err));

@@ -33,7 +33,7 @@ import { LocaleService } from './core/services/locale/locale.service';
 const langRoutes = routes.filter((route) => route.path?.startsWith(':lang'));
 const wildcardRoute = routes.find((route) => route.path === '**') as Route;
 
-// Both helpers are private to app.routes.ts, so they are exercised through the route config
+// The route config composes the locale handlers, so they are exercised through the routes.
 const supportedLangRoute = langRoutes[0].canMatch?.[0] as CanMatchFn;
 const redirectWithLocale = wildcardRoute.redirectTo as RedirectFunction;
 
